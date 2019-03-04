@@ -58,8 +58,6 @@ public:
     wxFilePickerCtrl *Path_LangX1FileLocation;
     AGE_PairedCheckBox *CheckBox_LangX1P1FileLocation;
     wxFilePickerCtrl *Path_LangX1P1FileLocation;
-    AGE_PairedCheckBox *CheckBox_LangIniFileLocation;
-    wxFilePickerCtrl *Path_LangIniFileLocation;
     wxCheckBox *CheckBox_LangWrite;
     wxButton *ButtonOK;
     wxButton *ButtonCancel;

@@ -77,7 +77,6 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
                 RecentOpen->Read(entry + "/PathDRS", &temp, wxEmptyString); OpenBox.RecentValues[i].Add(temp);
                 RecentOpen->Read(entry + "/PathDRS2", &temp, wxEmptyString); OpenBox.RecentValues[i].Add(temp);
                 RecentOpen->Read(entry + "/PathDRS3", &temp, wxEmptyString); OpenBox.RecentValues[i].Add(temp);
-                RecentOpen->Read(entry + "/LangIni", &temp, wxEmptyString); OpenBox.RecentValues[i].Add(temp);
             }
         }
         if(OpenBox.RecentValues.size())
@@ -118,11 +117,9 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         OpenBox.CheckBox_LangFileLocation->SetValue(LangsUsed & 1);
         OpenBox.CheckBox_LangX1FileLocation->SetValue(LangsUsed & 2);
         OpenBox.CheckBox_LangX1P1FileLocation->SetValue(LangsUsed & 4);
-        OpenBox.CheckBox_LangIniFileLocation->SetValue(LangsUsed & 8);
         OpenBox.Path_LangFileLocation->SetPath(LangFileName);
         OpenBox.Path_LangX1FileLocation->SetPath(LangX1FileName);
         OpenBox.Path_LangX1P1FileLocation->SetPath(LangX1P1FileName);
-        OpenBox.Path_LangIniFileLocation->SetPath(LangIniFileName);
         OpenBox.CheckBox_LangWrite->SetValue(WriteLangs);
         OpenBox.CheckBox_LangWriteToLatest->SetValue(LangWriteToLatest);
 
@@ -140,12 +137,10 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         LangsUsed = OpenBox.CheckBox_LangFileLocation->IsChecked() ? LangsUsed | 1 : LangsUsed & ~1;
         LangsUsed = OpenBox.CheckBox_LangX1FileLocation->IsChecked() ? LangsUsed | 2 : LangsUsed & ~2;
         LangsUsed = OpenBox.CheckBox_LangX1P1FileLocation->IsChecked() ? LangsUsed | 4 : LangsUsed & ~4;
-        LangsUsed = OpenBox.CheckBox_LangIniFileLocation->IsChecked() ? LangsUsed | 8 : LangsUsed & ~8;
 
         LangFileName = OpenBox.Path_LangFileLocation->GetPath();
         LangX1FileName = OpenBox.Path_LangX1FileLocation->GetPath();
         LangX1P1FileName = OpenBox.Path_LangX1P1FileLocation->GetPath();
-        LangIniFileName = OpenBox.Path_LangIniFileLocation->GetPath();
         FolderDRS = OpenBox.Path_DRS->GetPath();
         FolderDRS2 = OpenBox.Path_DRS2->GetPath();
         Path1stDRS = OpenBox.Path_DRS3->GetPath();
@@ -185,16 +180,14 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         Config->Write("DefaultFiles/LangFilename", LangFileName);
         Config->Write("DefaultFiles/LangX1Filename", LangX1FileName);
         Config->Write("DefaultFiles/LangX1P1Filename", LangX1P1FileName);
-        Config->Write("DefaultFiles/LangIniFilename", LangIniFileName);
         Config->Write("Misc/CustomTerrains", CustomTerrains);
 
         if(!OpenBox.CheckBox_LangFileLocation->IsChecked()) LangFileName = "";
         if(!OpenBox.CheckBox_LangX1FileLocation->IsChecked()) LangX1FileName = "";
         if(!OpenBox.CheckBox_LangX1P1FileLocation->IsChecked()) LangX1P1FileName = "";
-        if(!OpenBox.CheckBox_LangIniFileLocation->IsChecked()) LangIniFileName = "";
 
         wxArrayString latest;
-        latest.Alloc(9);
+        latest.Alloc(8);
         latest.Add(std::to_string(GameVersion));
         latest.Add(DatFileName);
         latest.Add(LangFileName);
@@ -203,7 +196,6 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         latest.Add(FolderDRS);
         latest.Add(FolderDRS2);
         latest.Add(Path1stDRS);
-        latest.Add(LangIniFileName);
         int items = produceRecentValues(latest, OpenBox.RecentValues);
         ConfigPtr RecentOpen = getConfig("AGE2\\RecentOpen");
         RecentOpen->Write("Recent/Items", items);
@@ -218,7 +210,6 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             RecentOpen->Write(entry + "/PathDRS", OpenBox.RecentValues[i][5]);
             RecentOpen->Write(entry + "/PathDRS2", OpenBox.RecentValues[i][6]);
             RecentOpen->Write(entry + "/PathDRS3", OpenBox.RecentValues[i][7]);
-            RecentOpen->Write(entry + "/LangIni", OpenBox.RecentValues[i][8]);
         }
     }
 
@@ -270,6 +261,10 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         LoadTXT(LangX1FileName);
         if(LangX1P1FileName.size() && 't' == LangX1P1FileName[LangX1P1FileName.size() - 1])
         LoadTXT(LangX1P1FileName);
+    }
+    else if(LangFileName.size() && 'i' == LangFileName[LangFileName.size() - 1])
+    {
+        LoadIni(LangFileName);
     }
     else
     {
@@ -353,11 +348,6 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             }
             else LanguageDLL[2] = LoadLibrary(LangX1P1FileName.c_str());
         }
-    }
-
-    if(LangIniFileName.size() && LangsUsed & 8)
-    {
-        LoadIni(LangIniFileName);
     }
 
     GetToolBar()->ToggleTool(eDRS, false);
@@ -2202,7 +2192,6 @@ void AGE_Frame::OnSyncSaveWithOpen(wxCommandEvent &event)
         SaveDialog->Path_LangFileLocation->SetPath(LangFileName);
         SaveDialog->Path_LangX1FileLocation->SetPath(LangX1FileName);
         SaveDialog->Path_LangX1P1FileLocation->SetPath(LangX1P1FileName);
-        SaveDialog->Path_LangIniFileLocation->SetPath(LangIniFileName);
     }
 }
 
@@ -2226,7 +2215,6 @@ void AGE_Frame::OnSave(wxCommandEvent&)
             RecentSave->Read(entry + "/Lang", &temp, wxEmptyString); SaveBox.RecentValues[i].Add(temp);
             RecentSave->Read(entry + "/LangX1", &temp, wxEmptyString); SaveBox.RecentValues[i].Add(temp);
             RecentSave->Read(entry + "/LangX1P1", &temp, wxEmptyString); SaveBox.RecentValues[i].Add(temp);
-            RecentSave->Read(entry + "/LangIni", &temp, wxEmptyString); SaveBox.RecentValues[i].Add(temp);
         }
     }
     if(SaveBox.RecentValues.size())
@@ -2258,7 +2246,6 @@ void AGE_Frame::OnSave(wxCommandEvent&)
     SaveBox.CheckBox_LangFileLocation->SetValue(LangsUsed & 1);
     SaveBox.CheckBox_LangX1FileLocation->SetValue(LangsUsed & 2);
     SaveBox.CheckBox_LangX1P1FileLocation->SetValue(LangsUsed & 4);
-    SaveBox.CheckBox_LangIniFileLocation->SetValue(LangsUsed & 8);
     if(SyncSaveWithOpen)
     {
         SaveBox.SyncWithReadPaths->SetValue(true); // I wish this call was enough.
@@ -2272,7 +2259,6 @@ void AGE_Frame::OnSave(wxCommandEvent&)
         SaveBox.Path_LangFileLocation->SetPath(SaveLangFileName);
         SaveBox.Path_LangX1FileLocation->SetPath(SaveLangX1FileName);
         SaveBox.Path_LangX1P1FileLocation->SetPath(SaveLangX1P1FileName);
-        SaveBox.Path_LangIniFileLocation->SetPath(SaveLangIniFileName);
     }
 
     bool save = SaveBox.ShowModal() == wxID_OK;
@@ -2283,8 +2269,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
     SaveLangFileName = SaveBox.Path_LangFileLocation->GetPath();
     SaveLangX1FileName = SaveBox.Path_LangX1FileLocation->GetPath();
     SaveLangX1P1FileName = SaveBox.Path_LangX1P1FileLocation->GetPath();
-    SaveLangIniFileName = SaveBox.Path_LangIniFileLocation->GetPath();
-    SyncSaveWithOpen = DatFileName == SaveDatFileName && LangFileName == SaveLangFileName && LangX1FileName == SaveLangX1FileName && LangX1P1FileName == SaveLangX1P1FileName && LangIniFileName == SaveLangIniFileName;
+    SyncSaveWithOpen = DatFileName == SaveDatFileName && LangFileName == SaveLangFileName && LangX1FileName == SaveLangX1FileName && LangX1P1FileName == SaveLangX1P1FileName;
 
     if(!save) return;
     {
@@ -2296,14 +2281,12 @@ void AGE_Frame::OnSave(wxCommandEvent&)
         Config->Write("DefaultFiles/SaveLangFilename", SaveLangFileName);
         Config->Write("DefaultFiles/SaveLangX1Filename", SaveLangX1FileName);
         Config->Write("DefaultFiles/SaveLangX1P1Filename", SaveLangX1P1FileName);
-        Config->Write("DefaultFiles/SaveLangIniFilename", SaveLangIniFileName);
         Config->Write("DefaultFiles/SaveDat", SaveDat);
         Config->Write("Misc/CustomTerrains", CustomTerrains);
 
         if(!SaveBox.CheckBox_LangFileLocation->IsChecked()) SaveLangFileName = "";
         if(!SaveBox.CheckBox_LangX1FileLocation->IsChecked()) SaveLangX1FileName = "";
         if(!SaveBox.CheckBox_LangX1P1FileLocation->IsChecked()) SaveLangX1P1FileName = "";
-        if(!SaveBox.CheckBox_LangIniFileLocation->IsChecked()) SaveLangIniFileName = "";
 
         wxArrayString latest;
         latest.Alloc(5);
@@ -2312,7 +2295,6 @@ void AGE_Frame::OnSave(wxCommandEvent&)
         latest.Add(SaveLangFileName);
         latest.Add(SaveLangX1FileName);
         latest.Add(SaveLangX1P1FileName);
-        latest.Add(SaveLangIniFileName);
         int RecentItems = produceRecentValues(latest, SaveBox.RecentValues);
         ConfigPtr RecentSave = getConfig("AGE2\\RecentSave");
         RecentSave->Write("Recent/Items", RecentItems);
@@ -2324,7 +2306,6 @@ void AGE_Frame::OnSave(wxCommandEvent&)
             RecentSave->Write(entry + "/Lang", SaveBox.RecentValues[i][2]);
             RecentSave->Write(entry + "/LangX1", SaveBox.RecentValues[i][3]);
             RecentSave->Write(entry + "/LangX1P1", SaveBox.RecentValues[i][4]);
-            RecentSave->Write(entry + "/LangIni", SaveBox.RecentValues[i][5]);
         }
     }
 
@@ -2390,11 +2371,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
         wxBusyCursor WaitCursor;
         if(LangWriteToLatest)
         {
-            if(LangsUsed & 8)
-            {
-              if (!SaveLangIni()) return;
-            }
-            else if(LangsUsed & 4)
+            if(LangsUsed & 4)
             {
                 if(!SaveLangX1P1()) return;
             }
@@ -2420,10 +2397,6 @@ void AGE_Frame::OnSave(wxCommandEvent&)
             if(LangsUsed & 4)
             {
                 if(!SaveLangX1P1()) return;
-            }
-            if(LangsUsed & 8)
-            {
-                if(!SaveLangIni()) return;
             }
         }
     }

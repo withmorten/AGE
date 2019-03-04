@@ -1063,8 +1063,8 @@ private:
     wxString DatFileName, SaveDatFileName, FolderDRS, FolderDRS2, Path1stDRS, PathSLP;
     int LangsUsed; // 0x01 Lang.dll, 0x02, LangX1.dll, 0x04 LangX1P1.dll
     wxString LangCharset, AlexZoom;
-    wxString LangFileName, LangX1FileName, LangX1P1FileName, LangIniFileName;
-    wxString SaveLangFileName, SaveLangX1FileName, SaveLangX1P1FileName, SaveLangIniFileName;
+    wxString LangFileName, LangX1FileName, LangX1P1FileName;
+    wxString SaveLangFileName, SaveLangX1FileName, SaveLangX1P1FileName;
 
     genie::GameVersion version(int);
     map<size_t, string> LangTxt;

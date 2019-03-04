@@ -78,7 +78,6 @@ AGE_OpenSave::AGE_OpenSave(wxWindow *parent, const wxString &title, wxDialog *sl
     CheckBox_LangFileLocation = new AGE_PairedCheckBox(slave, "Language file location:", (wxWindow**)&Path_LangFileLocation);
     CheckBox_LangX1FileLocation = new AGE_PairedCheckBox(slave, "Language x1 file location:", (wxWindow**)&Path_LangX1FileLocation);
     CheckBox_LangX1P1FileLocation = new AGE_PairedCheckBox(slave, "Language p1 file location:", (wxWindow**)&Path_LangX1P1FileLocation);
-    CheckBox_LangIniFileLocation = new AGE_PairedCheckBox(slave, "Language ini file location:", (wxWindow**)&Path_LangIniFileLocation);
 
     Layout->Add(RecentText, 1, wxEXPAND);
     Layout->Add(CheckBox_Recent, 1, wxEXPAND);
@@ -154,7 +153,6 @@ void AGE_OpenSave::OnDefaultAoE(wxCommandEvent &event)
     Path_LangFileLocation->SetPath(game_path + "\\language.dll");
     Path_LangX1FileLocation->SetPath(wxEmptyString);
     Path_LangX1P1FileLocation->SetPath(wxEmptyString);
-    Path_LangIniFileLocation->SetPath(wxEmptyString);
     Radio_DatFileLocation->SetValue(true);
     CheckBox_LangFileLocation->SetValue(true);
     CheckBox_LangX1FileLocation->SetValue(false);
@@ -171,7 +169,6 @@ void AGE_OpenSave::OnDefaultRoR(wxCommandEvent &event)
     Path_LangFileLocation->SetPath(game_path + "\\language.dll");
     Path_LangX1FileLocation->SetPath(game_path + "\\languagex.dll");
     Path_LangX1P1FileLocation->SetPath(wxEmptyString);
-    Path_LangIniFileLocation->SetPath(wxEmptyString);
     Radio_DatFileLocation->SetValue(true);
     CheckBox_LangFileLocation->SetValue(true);
     CheckBox_LangX1FileLocation->SetValue(true);
@@ -188,7 +185,6 @@ void AGE_OpenSave::OnDefaultAoK(wxCommandEvent &event)
     Path_LangFileLocation->SetPath(game_path + "\\language.dll");
     Path_LangX1FileLocation->SetPath(wxEmptyString);
     Path_LangX1P1FileLocation->SetPath(wxEmptyString);
-    Path_LangIniFileLocation->SetPath(wxEmptyString);
     Radio_DatFileLocation->SetValue(true);
     CheckBox_LangFileLocation->SetValue(true);
     CheckBox_LangX1FileLocation->SetValue(false);
@@ -205,7 +201,6 @@ void AGE_OpenSave::OnDefaultTC(wxCommandEvent &event)
     Path_LangFileLocation->SetPath(game_path + "\\language.dll");
     Path_LangX1FileLocation->SetPath(game_path + "\\language_x1.dll");
     Path_LangX1P1FileLocation->SetPath(game_path + "\\language_x1_p1.dll");
-    Path_LangIniFileLocation->SetPath(wxEmptyString);
     Radio_DatFileLocation->SetValue(true);
     CheckBox_LangFileLocation->SetValue(true);
     CheckBox_LangX1FileLocation->SetValue(true);
@@ -224,7 +219,6 @@ void AGE_OpenSave::OnDefaultAoKHD(wxCommandEvent &event)
     Path_LangFileLocation->SetPath(game_path + "\\resources\\"+locale+"\\strings\\key-value\\key-value-strings-utf8.txt");
     Path_LangX1FileLocation->SetPath(game_path + "\\resources\\"+locale+"\\strings\\key-value\\key-value-modded-strings-utf8.txt");
     Path_LangX1P1FileLocation->SetPath(wxEmptyString);
-    Path_LangIniFileLocation->SetPath(wxEmptyString);
     Radio_DatFileLocation->SetValue(true);
     CheckBox_LangX1P1FileLocation->SetValue(false);
 }
@@ -240,7 +234,6 @@ void AGE_OpenSave::OnDefaultAoP(wxCommandEvent &event)
     Path_LangFileLocation->SetPath(game_path + "\\resources\\"+locale+"\\strings\\key-value\\key-value-strings-utf8.txt");
     Path_LangX1FileLocation->SetPath(game_path + "\\resources\\"+locale+"\\strings\\key-value\\key-value-modded-strings-utf8.txt");
     Path_LangX1P1FileLocation->SetPath(wxEmptyString);
-    Path_LangIniFileLocation->SetPath(wxEmptyString);
     Radio_DatFileLocation->SetValue(true);
     CheckBox_LangX1P1FileLocation->SetValue(false);
 }
@@ -254,7 +247,6 @@ void AGE_OpenSave::OnDefaultSWGB(wxCommandEvent &event)
     Path_LangFileLocation->SetPath(game_path + "\\language.dll");
     Path_LangX1FileLocation->SetPath(wxEmptyString);
     Path_LangX1P1FileLocation->SetPath(wxEmptyString);
-    Path_LangIniFileLocation->SetPath(wxEmptyString);
     Radio_DatFileLocation->SetValue(true);
     CheckBox_LangFileLocation->SetValue(true);
     CheckBox_LangX1FileLocation->SetValue(false);
@@ -282,7 +274,6 @@ void AGE_OpenSave::OnDefaultCC(wxCommandEvent &event)
     }
     Path_LangFileLocation->SetPath(game_path + "\\language.dll");
     Path_LangX1FileLocation->SetPath(game_path + "\\language_x1.dll");
-    Path_LangIniFileLocation->SetPath(wxEmptyString);
     Radio_DatFileLocation->SetValue(true);
     CheckBox_LangFileLocation->SetValue(true);
     CheckBox_LangX1FileLocation->SetValue(true);
