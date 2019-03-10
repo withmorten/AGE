@@ -284,6 +284,10 @@ void AGE_Frame::OnTerrainSelect(wxCommandEvent &event)
         if(DrawTerrain && slp_window)
         {
             wxString folder = FolderDRS;
+            if(TerrainPointer->TerrainToDraw < dataset->TerrainBlock.Terrains.size())
+            {
+                TerrainPointer = &dataset->TerrainBlock.Terrains[TerrainPointer->TerrainToDraw];
+            }
             if(LooseHD)
             {
                 wxString resname;
@@ -313,10 +317,6 @@ void AGE_Frame::OnTerrainSelect(wxCommandEvent &event)
             }
             else // Build the image from tile frames
             {
-                if(TerrainPointer->TerrainToDraw < dataset->TerrainBlock.Terrains.size())
-                {
-                    TerrainPointer = &dataset->TerrainBlock.Terrains[TerrainPointer->TerrainToDraw];
-                }
                 LoadTerrainFromSLPs(TerrainPointer);
             }
         }
