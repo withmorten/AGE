@@ -1065,11 +1065,13 @@ private:
 
     genie::GameVersion version(int);
     map<size_t, string> LangTxt;
+    map<size_t, string> LangIni;
     HINSTANCE LanguageDLL[3];
     wxString TranslatedText(int ID, int Letters = 0);
     //void WriteTranslatedText(int ID, wxString Name);
     bool exportFrame = false;
     void LoadTXT(const wxString &filename);
+    void LoadIni(const wxString &filename);
     bool LoadSLP(AGE_SLP*);
     void FrameToBitmap(AGE_SLP*, bool = false);
     void BitmapToSLP(AGE_SLP*);

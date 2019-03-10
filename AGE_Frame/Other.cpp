@@ -248,6 +248,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
 
     // txt language file
     LangTxt.clear();
+    LangIni.clear();
     if(LangFileName.size() && 't' == LangFileName[LangFileName.size() - 1])
     {
         UseTXT = true;
@@ -261,6 +262,10 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         LoadTXT(LangX1FileName);
         if(LangX1P1FileName.size() && 't' == LangX1P1FileName[LangX1P1FileName.size() - 1])
         LoadTXT(LangX1P1FileName);
+    }
+    else if(LangFileName.size() && 'i' == LangFileName[LangFileName.size() - 1])
+    {
+        LoadIni(LangFileName);
     }
     else
     {
@@ -3429,6 +3434,25 @@ void AGE_Frame::LoadTXT(const wxString &filename)
     }
 }
 
+void AGE_Frame::LoadIni(const wxString &filename) {
+    ifstream infile(filename);
+    string line;
+    while(getline(infile, line))
+    {
+        if(line[0] == ';')
+        {
+            continue;
+        }
+        size_t split = line.find('=');
+        if(split == std::string::npos)
+        {
+            continue;
+        }
+        unsigned long ID = stoul(line.substr(0, split));
+        LangIni[ID] = line.substr(split + 1);
+    }
+}
+
 wxString AGE_Frame::TranslatedText(int ID, int letters)
 {
     if(ID < 0) return "";
@@ -3442,7 +3466,13 @@ wxString AGE_Frame::TranslatedText(int ID, int letters)
     }
     else
     {
-        if(sizeof(size_t) > 4 || WriteLangs)
+        if(LangIni.find(ID) != LangIni.end())
+        {
+          result = LangIni[ID];
+          result.Replace("\\r", "\r");
+          result.Replace("\\n", "\n");
+        }
+        else if(sizeof(size_t) > 4 || WriteLangs)
         {
             if(LangsUsed & 4 && !(result = LangXP->getString(ID)).empty()){}
             else if(LangsUsed & 2 && !(result = LangX->getString(ID)).empty()){}
