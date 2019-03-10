@@ -426,7 +426,7 @@ bool AGE_Frame::initArt(AGE_SLP &art, unsigned graphicID)
     art.angles = graphic.AngleCount;
     art.fpa = graphic.FrameCount;
     art.mirror = graphic.MirroringMode;
-    bool valid = art.angles * art.fpa;
+    bool valid = art.angles && art.fpa;
     art.filename = valid ? graphic.FileName : "";
     art.slpID = valid ? graphic.SLP : -1;
 
