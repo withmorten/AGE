@@ -55,7 +55,7 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
         Config.Read("Interaction/RotateAngles", &RotateAngles, true);
         Config.Read("Interaction/DrawTerrain", &DrawTerrain, true);
         Config.Read("Interaction/FilterAllSubs", &FilterAllSubs, true);
-        Config.Read("Interaction/PlaySounds", &PlaySounds, true);
+        Config.Read("Interaction/PlaySounds", &PlaySounds, false);
         Config.Read("Interface/ShowUnknowns", &ShowUnknowns, true);
         Config.Read("Interface/ResizeTerrains", &ResizeTerrains, false);
         Config.Read("Interface/StayOnTop", &StayOnTop, false);
@@ -80,8 +80,8 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
         Config.Read("DefaultFiles/DriveLetter", &DriveLetter, "C");
         Config.Read("DefaultFiles/CustomFolder", &CustomFolder, wxEmptyString);
         Config.Read("DefaultFiles/SyncSaveWithOpen", &SyncSaveWithOpen, true);
-        Config.Read("DefaultFiles/Version", &GameVersion, genie::GV_TC);
-        Config.Read("DefaultFiles/SaveVersion", &SaveGameVersion, genie::GV_TC);
+        Config.Read("DefaultFiles/Version", &GameVersion, EV_TC);
+        Config.Read("DefaultFiles/SaveVersion", &SaveGameVersion, EV_TC);
         Config.Read("DefaultFiles/DatUsed", &DatUsed, 0);
         Config.Read("DefaultFiles/DatFilename", &DatFileName, wxEmptyString);
         Config.Read("DefaultFiles/SaveDatFilename", &SaveDatFileName, wxEmptyString);
@@ -172,9 +172,7 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
     SubMenu_SLP->Append(eSlpPCPal, "Set &player color palette");
     SubMenu_SLP->Append(eCacheDepth, "Set &cache depth");
     SubMenu_SLP->Append(eSlpZoom, "Set &zoom level");
-#ifndef NDEBUG
     SubMenu_SLP->Append(eCompileList, "Compile SLP &list");
-#endif
 
     SubMenu_Help = new wxMenu();
     SubMenu_Help->Append(eTips, "&Tips");
