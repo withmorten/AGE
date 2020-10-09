@@ -56,6 +56,7 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
         Config.Read("Interaction/DrawTerrain", &DrawTerrain, true);
         Config.Read("Interaction/FilterAllSubs", &FilterAllSubs, true);
         Config.Read("Interaction/PlaySounds", &PlaySounds, false);
+        Config.Read("Interaction/NeverHideAttributes", &NeverHideAttributes, false);
         Config.Read("Interface/ShowUnknowns", &ShowUnknowns, true);
         Config.Read("Interface/ResizeTerrains", &ResizeTerrains, false);
         Config.Read("Interface/StayOnTop", &StayOnTop, false);
@@ -160,9 +161,11 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
     SubMenu_Options->AppendCheckItem(eStayOnTop, "&Stay on top");
     SubMenu_Options->Check(eStayOnTop, StayOnTop);
     SubMenu_Options->Append(eBoxWidth, "Set &width of the boxes");
+    SubMenu_Options->AppendCheckItem(eNeverHide, "Never hide &attributes");
+    SubMenu_Options->Check(eNeverHide, NeverHideAttributes);
 
     SubMenu_SLP = new wxMenu();
-    SubMenu_SLP->AppendCheckItem(eShowSLP, "Show &graphics");
+    SubMenu_SLP->AppendCheckItem(eShowSLP, "Show &sprites");
     SubMenu_SLP->Check(eShowSLP, ShowSLP);
     SubMenu_SLP->AppendCheckItem(eShowIcons, "Show &icons");
     SubMenu_SLP->Check(eShowIcons, ShowIcons);
@@ -246,7 +249,7 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
     TabBar_Main->AddPage(Tab_Civs, "Civilizations");
     TabBar_Main->AddPage(Tab_Units, "Units");
     TabBar_Main->AddPage(Tab_UnitLine, "Unitlines");
-    TabBar_Main->AddPage(Tab_Graphics, "Graphics");
+    TabBar_Main->AddPage(Tab_Graphics, "Sprites");
     TabBar_Main->AddPage(Tab_General, "Map");
     TabBar_Main->AddPage(Tab_Terrains, "Terrains");
     TabBar_Main->AddPage(Tab_TerrainBorders, "Borders");
@@ -324,6 +327,10 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
 
     event.SetId(eButtons);
     event.SetInt(ResizeTerrains);
+    OnMenuOption(event);
+
+    event.SetId(eNeverHide);
+    event.SetInt(NeverHideAttributes);
     OnMenuOption(event);
 
     if(StayOnTop)

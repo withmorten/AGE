@@ -1006,7 +1006,7 @@ private:
 
     float EditorVersion, slp_zoom = 1, boxWidthMultiplier;
     wxString EditorVersionString, slp_extra_info;
-    bool PromptForFilesOnOpen, AutoCopy, CopyGraphics, AllCivs, AutoBackups, StayOnTop, KeepViewOnTop, useDynamicName;
+    bool PromptForFilesOnOpen, AutoCopy, CopyGraphics, AllCivs, AutoBackups, StayOnTop, KeepViewOnTop, useDynamicName, NeverHideAttributes;
     vector<short> SelectedCivs;
     bool SearchAnd = false, ExcludeAnd = false, ShowUnknowns, ResizeTerrains, SkipOpenDialog, Paste11, Reselection;
     bool ShowSLP, AnimSLP, ShowShadows, ShowOutline, ShowDeltas, ShowStack, ShowAnnexes, ShowIcons, DrawHot = false;
@@ -1090,7 +1090,7 @@ public:
     {
         // menus and tool bar
         ePrompt = wxID_HIGHEST + 1, eVasili,
-        eButtons, eShowSLP, eShowIcons, eTips, eStayOnTop, eStayOnTopSLP, eAbout, eSlpPals, eSlpPCPal, eCacheDepth, eSlpZoom,
+        eButtons, eNeverHide, eShowSLP, eShowIcons, eTips, eStayOnTop, eStayOnTopSLP, eAbout, eSlpPals, eSlpPCPal, eCacheDepth, eSlpZoom,
         eBackup, eUnknown, eHelp, eDRS, eHex, eFloat, ePaste, eReselection, eAddWindow, eCompileList, eBoxWidth,
 
         // open and save
@@ -1131,7 +1131,7 @@ private:
 
     //  Miscellaneous combo box strings
         task_names, unit_type_names, graphicset_names, specialcopy_names,
-        unit_filter_options, civ_names_only, mode_names;
+        unit_filter_options, civ_names_only, mode_names, modify_research_names;
 
     wxMenuBar *MenuBar_Main;
     wxMenu *SubMenu_Options, *SubMenu_Help, *SubMenu_SLP;
@@ -1692,6 +1692,10 @@ private:
     SolidText *Research_ButtonID_Text;
     AGETextCtrl *Research_ButtonID;
 
+    wxBoxSizer *Techs_Repeatable_Holder;
+    SolidText *Techs_Repeatable_Text;
+    AGETextCtrl *Techs_Repeatable;
+
     wxBoxSizer *Research_LanguageDLLHelp_Holder;
     SolidText *Research_LanguageDLLHelp_Text;
     AGETextCtrl *Research_LanguageDLLHelp;
@@ -2005,8 +2009,8 @@ private:
     ComboBox_Plus1 *Units_DefaultTaskID_ComboBox;
     AGETextCtrl *Units_SearchRadius;
     AGETextCtrl *Units_WorkRate;
-    AGETextCtrl *Units_DropSite[2];
-    ComboBox_Plus1 *Units_DropSite_ComboBox[2];
+    AGETextCtrl *Units_DropSite[3];
+    ComboBox_Plus1 *Units_DropSite_ComboBox[3];
     AGETextCtrl *Units_TaskSwapGroup;
     AGETextCtrl *Units_AttackSound;
     AGETextCtrl *Units_WwiseAttackSound;

@@ -204,6 +204,10 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
     wxString Name;
     switch(dataset->Effects[tech].EffectCommands[effect].Type)
     {
+        case 30:
+            Name = "Neutral ";
+        case 20:
+            Name = "Enemy ";
         case 10:
             Name = "Team ";
         case 0:
@@ -212,6 +216,10 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             Name += "Set " + Tester(dataset->Effects[tech].EffectCommands[effect], " to ");
             break;
         }
+        case 31:
+            Name = "Neutral ";
+        case 21:
+            Name = "Enemy ";
         case 11:
             Name = "Team ";
         case 1:
@@ -227,6 +235,10 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
                 +" by "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
             }
             break;
+        case 32:
+            Name = "Neutral ";
+        case 22:
+            Name = "Enemy ";
         case 12:
             Name = "Team ";
         case 2:
@@ -236,12 +248,20 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
                 Name += "Enable";
             Name += " unit "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A);
             break;
+        case 33:
+            Name = "Neutral ";
+        case 23:
+            Name = "Enemy ";
         case 13:
             Name = "Team ";
         case 3:
             Name += "Upgrade unit "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
             +" to "+FormatInt(dataset->Effects[tech].EffectCommands[effect].B);
             break;
+        case 34:
+            Name = "Neutral ";
+        case 24:
+            Name = "Enemy ";
         case 14:
             Name = "Team ";
         case 4:
@@ -250,6 +270,10 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             Name += "Change " + Tester(dataset->Effects[tech].EffectCommands[effect], " by ");
             break;
         }
+        case 35:
+            Name = "Neutral ";
+        case 25:
+            Name = "Enemy ";
         case 15:
             Name = "Team ";
         case 5:
@@ -258,6 +282,10 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             Name += "Multiply " + Tester(dataset->Effects[tech].EffectCommands[effect], " by ");
             break;
         }
+        case 36:
+            Name = "Neutral ";
+        case 26:
+            Name = "Enemy ";
         case 16:
             Name = "Team ";
         case 6:
@@ -265,35 +293,102 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             Name += "Multiply resource "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
             +" by "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
             break;
+        case 37:
+            Name = "Neutral ";
+        case 27:
+            Name = "Enemy ";
+        case 17:
+            Name = "Team ";
+        case 7:
+            if(dataset->Effects[tech].EffectCommands[effect].B == 1)
+            {
+                Name += "Enable tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+            }
+            else if(dataset->Effects[tech].EffectCommands[effect].B == 2)
+            {
+                Name += "Force multi-use tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+            }
+            else
+            {
+                Name += "Disable tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+            }
+            break;
+        case 38:
+            Name = "Neutral ";
+        case 28:
+            Name = "Enemy ";
+        case 18:
+            Name = "Team ";
+        case 8:
+            {
+                if(dataset->Effects[tech].EffectCommands[effect].B == -2)
+                {
+                    Name += "Modify tech "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
+                    +" research time"
+                    +" by "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+                }
+                else if(dataset->Effects[tech].EffectCommands[effect].B >= 0 && dataset->Effects[tech].EffectCommands[effect].B <= 3)
+                {
+                    Name += "Modify tech "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
+                    +" cost type "+FormatInt(dataset->Effects[tech].EffectCommands[effect].B)
+                    +" to "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+                }
+                else if(dataset->Effects[tech].EffectCommands[effect].B >= 16384 && dataset->Effects[tech].EffectCommands[effect].B <= 16387)
+                {
+                    Name += "Modify tech "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
+                    +" cost type "+FormatInt(dataset->Effects[tech].EffectCommands[effect].B - 16384)
+                    +" by "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+                }
+                else
+                {
+                    Name += "Modify tech "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
+                    +" research time"
+                    +" to "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+                }
+            }
+            break;
+        case 39:
+            Name = "Neutral ";
+        case 29:
+            Name = "Enemy ";
+        case 19:
+            Name = "Team ";
+        case 9:
+            Name += "Set player civ name to lang id "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+            break;
         case 101:
             //Name = "Tech Cost Modifier (Set/+/-)";
             if(dataset->Effects[tech].EffectCommands[effect].C == 0)
             {
                 Name = "Set tech "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
                 +" cost type "+FormatInt(dataset->Effects[tech].EffectCommands[effect].B)
-                +" to "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+                +" to "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D)
+                +" at gamestart";
             }
             else
             {
                 Name = "Change tech "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
                 +" cost type "+FormatInt(dataset->Effects[tech].EffectCommands[effect].B)
-                +" by "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+                +" by "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D)
+                +" at gamestart";
             }
             break;
         case 102:
-            Name = "Disable tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+            Name = "Disable tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D)+" at gamestart";
             break;
         case 103:
             //Name = "Tech Time Modifier (Set/+/-)";
             if(dataset->Effects[tech].EffectCommands[effect].C == 0)
             {
                 Name = "Set tech "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
-                +" time to "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+                +" time to "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D)
+                +" at gamestart";
             }
             else
             {
                 Name = "Change tech "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
-                +" time by "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
+                +" time by "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D)
+                +" at gamestart";
             }
             break;
         default:
@@ -342,6 +437,11 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
     bool enableD = true;
     if(selections > 0)
     {
+        Effects_A->UnsetToolTip();
+        Effects_B->UnsetToolTip();
+        Effects_C->UnsetToolTip();
+        Effects_D->UnsetToolTip();
+        Effects_B_ComboBox->SetIsModifyTechComboBox(false);
         getSelectedItems(selections, Techs_Effects_ListV, EffectIDs);
         Effects_Type_Holder->Show(true);
 
@@ -361,6 +461,8 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
         {
             case 0:
             case 10:
+            case 20:
+            case 30:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);    // for effects 0, 2, 3, 4, 5
@@ -407,6 +509,8 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
             break;
             case 1:
             case 11:
+            case 21:
+            case 31:
             {
                 Effects_A_ComboBox->SwapList(&resource_names);
                 Effects_A_ComboBox->Show(true);    // for effects 1, 6
@@ -442,6 +546,8 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
             break;
             case 2:
             case 12:
+            case 22:
+            case 32:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);    // for effects 0, 2, 3, 4, 5
@@ -470,6 +576,8 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
             break;
             case 3:
             case 13:
+            case 23:
+            case 33:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);    // for effects 0, 2, 3, 4, 5
@@ -499,6 +607,8 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
             break;
             case 4:
             case 14:
+            case 24:
+            case 34:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);    // for effects 0, 2, 3, 4, 5
@@ -546,6 +656,8 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
             break;
             case 5:
             case 15:
+            case 25:
+            case 35:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);    // for effects 0, 2, 3, 4, 5
@@ -593,6 +705,8 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
             break;
             case 6:
             case 16:
+            case 26:
+            case 36:
             {
                 Effects_A_ComboBox->SwapList(&resource_names);
                 Effects_A_ComboBox->Show(true);    // for effects 1, 6
@@ -614,6 +728,107 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_C_Text->SetLabel("Unused ");
                 Effects_D_Text->SetLabel("Amount [*] ");
                 Effects_89_Type_Text->SetLabel("");
+
+                Effects_Info_B->SetLabel("");
+                Effects_Info_C->SetLabel("");
+            }
+            break;
+            case 7:
+            case 17:
+            case 27:
+            case 37:
+            {
+                Effects_A_ComboBox->Show(false);   // for effects 0 - 6, 101, 103
+                Effects_B_CheckBox->Show(false);    // for effects 1, 2
+                Effects_B_ComboBox->Show(false);   // for effects 0, 3, 4, 5, 101
+                Effects_C_CheckBox->Show(false);    // for effects 101, 103
+                Effects_C_ComboBox->Show(false);  // for effects 0, 4, 5
+                Effects_D_ComboBox->Show(true);    // for effect 102
+                Effects_89_Type_CB1->Show(false); // only for attributes 8, 9
+                Effects_A->Show(NeverHide); // not for effect 102
+                Effects_B->Show(true); // not for effects 6, 102, 103
+                Effects_B->SetToolTip("0 Disable\n1 Enable\n2 Force Enable");
+                Effects_C->Show(NeverHide); // not for effects 1, 2, 3, 6, 102
+                Effects_D->Show(true);  // not for effects 2, 3
+                Effects_89_Amount->Show(false); // only for attributes 8, 9
+                Effects_89_Type->Show(false); // only for attributes 8, 9
+
+                Effects_A_Text->SetLabel("Unused ");
+                Effects_B_Text->SetLabel("Action * ");
+                Effects_C_Text->SetLabel("Unused ");
+                Effects_D_Text->SetLabel("Tech ");  /* add combo box */
+                Effects_89_Type_Text->SetLabel("");
+
+                Effects_Info_B->SetLabel("");
+                Effects_Info_C->SetLabel("");
+            }
+            break;
+            case 8:
+            case 18:
+            case 28:
+            case 38:
+            {
+                Effects_A_ComboBox->SwapList(&research_names);
+                Effects_A_ComboBox->Show(true);    // for effects 0, 2, 3, 4, 5
+                Effects_B_CheckBox->Show(false);    // for effects 1, 2
+                Effects_B_ComboBox->SwapList(&modify_research_names);
+                Effects_B_ComboBox->Show(true);    // for effects 0, 4, 5
+                Effects_B_ComboBox->SetIsModifyTechComboBox(true);
+                Effects_C_CheckBox->Show(false);    // for effects 101, 103
+                Effects_C_ComboBox->Show(false);   // for effects 0, 4, 5
+                Effects_D_ComboBox->Show(false);   // for effect 102
+                Effects_A->Show(true);  // not for effect 102
+                Effects_B->Show(true);  // not for effects 6, 102, 103
+                Effects_B->SetToolTip("0-3 and 16384-16387 only work if the Tech has the corresponding Cost/Storage set");
+                Effects_C->Show(false);  // not for effects 1, 2, 3, 6, 102
+
+                Effects_A_Text->SetLabel("Tech ");  /* add combo box */
+                Effects_B_Text->SetLabel("Action * "); /* add combo box */
+                Effects_C_Text->SetLabel("Unused "); /* add combo box */
+
+                Effects_Info_B->SetLabel("");
+                Effects_Info_C->SetLabel("");
+
+				Effects_D->Show(true);
+				Effects_89_Amount->Show(false);
+				Effects_89_Type->Show(false);
+				Effects_89_Type_CB1->Show(false);
+				Effects_D_Text->SetLabel("Amount ");
+				Effects_89_Type_Text->SetLabel("");
+            }
+            break;
+            case 9:
+            case 19:
+            case 29:
+            case 39:
+            {
+                Effects_A_ComboBox->Show(false);   // for effects 0 - 6, 101, 103
+                Effects_B_CheckBox->Show(false);    // for effects 1, 2
+                Effects_B_ComboBox->Show(false);   // for effects 0, 3, 4, 5, 101
+                Effects_C_CheckBox->Show(false);    // for effects 101, 103
+                Effects_C_ComboBox->Show(false);  // for effects 0, 4, 5
+                Effects_D_ComboBox->Show(false);    // for effect 102
+                Effects_89_Type_CB1->Show(false); // only for attributes 8, 9
+                Effects_A->Show(true); // not for effect 102
+                Effects_A->SetToolTip("Needs to be 0, do not touch");
+                Effects_B->Show(true); // not for effects 6, 102, 103
+                Effects_B->SetToolTip("Needs to be 0, do not touch");
+                Effects_C->Show(NeverHide); // not for effects 1, 2, 3, 6, 102
+                Effects_D->Show(true);  // not for effects 2, 3
+                Effects_D->SetToolTip("An ID from the language file");
+                Effects_89_Amount->Show(false); // only for attributes 8, 9
+                Effects_89_Type->Show(false); // only for attributes 8, 9
+
+                Effects_A_Text->SetLabel("Data * ");
+                Effects_B_Text->SetLabel("Action * ");
+                Effects_C_Text->SetLabel("Unused ");
+                Effects_D_Text->SetLabel("Lang ID * ");  /* add combo box */
+                Effects_89_Type_Text->SetLabel("");
+
+                Effects_A->SetValue("0");
+                Effects_A->SaveEdits();
+                Effects_B->SetValue("0");
+                Effects_B->SaveEdits();
 
                 Effects_Info_B->SetLabel("");
                 Effects_Info_C->SetLabel("");
@@ -930,10 +1145,11 @@ void AGE_Frame::CreateTechControls()
     Effects_Type2_Holder = new wxBoxSizer(wxHORIZONTAL);
     Effects_Type_Text = new SolidText(Tab_Techs, " Command Type *");
     Effects_Type = AGETextCtrl::init(CByte, &uiGroupTechEffect, this, &popUp, Tab_Techs);
-    Effects_Type->SetToolTip("101 and 103 are only for\ntech tree and team bonus");
+    Effects_Type->SetToolTip("101 and 103 are only for\ntech tree and team bonus\n101-103 only work at gamestart\n7-39 are only available with UserPatch 1.5\n10-16 are also available with AoK HD");
     Effects_Type_ComboBox = new ComboBox_EffectType(Tab_Techs, Effects_Type, &effect_type_names);
     Effects_Data_Holder = new wxStaticBoxSizer(wxVERTICAL, Tab_Techs, "Effect Attributes");
     Effects_NeverHide = new wxCheckBox(Tab_Techs, wxID_ANY, "Never hide attributes", wxDefaultPosition, wxDefaultSize);
+    Effects_NeverHide->SetValue(NeverHideAttributes);
     Effects_DataA_Holder = new wxBoxSizer(wxHORIZONTAL);
     Effects_DataB_Holder = new wxBoxSizer(wxHORIZONTAL);
     Effects_DataC_Holder = new wxBoxSizer(wxHORIZONTAL);

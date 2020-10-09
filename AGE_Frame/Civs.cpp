@@ -201,9 +201,15 @@ void AGE_Frame::OnCivCountChange()
     for(size_t loop = 0; loop < CivCount; ++loop)
     {
         if(GenieVersion < genie::GV_SWGB)
-        Units_CivBoxes[loop]->SetLabel(dataset->Civs[loop].Name.substr(0, 2));
+        {
+            Units_CivBoxes[loop]->SetLabel(dataset->Civs[loop].Name.substr(0, 2));
+            Units_CivBoxes[loop]->SetToolTip(dataset->Civs[loop].Name);
+        }
         else
-        Units_CivBoxes[loop]->SetLabel(dataset->Civs[loop].Name2.substr(0, 2));
+        {
+            Units_CivBoxes[loop]->SetLabel(dataset->Civs[loop].Name2.substr(0, 2));
+            Units_CivBoxes[loop]->SetToolTip(dataset->Civs[loop].Name2);
+        }
     }
     ListCivs();
     Units_DataArea->Layout();
@@ -404,7 +410,7 @@ void AGE_Frame::CreateCivControls()
     Civs_GraphicSet_Holder = new wxBoxSizer(wxVERTICAL);
     Civs_GraphicSet_Text = new SolidText(Tab_Civs, " Icon Set *");
     Civs_GraphicSet = AGETextCtrl::init(CByte, &uiGroupCiv, this, &popUp, Tab_Civs);
-    Civs_GraphicSet->SetToolTip("Building icon set (and trade cart graphics?)\nThis is actually an offset used to look up SLPs inside the DRS file\nAoE 1: also determines the interface graphics used\nStar Wars: also determines unit and tech icons");
+    Civs_GraphicSet->SetToolTip("Building icon set (and trade cart sprite?)\nThis is actually an offset used to look up SLPs inside the DRS file\nAoE 1: also determines the interface culture used\nStar Wars: also determines unit and tech icons");
     Civs_TechTree_Holder = new wxBoxSizer(wxVERTICAL);
     Civs_TechTree_Text = new SolidText(Tab_Civs, " Technology Tree");
     Civs_TechTree = AGETextCtrl::init(CShort, &uiGroupCiv, this, &popUp, Tab_Civs);

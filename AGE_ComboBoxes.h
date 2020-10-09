@@ -27,6 +27,9 @@ private:
 
 class ComboBox_Plus1: public AGEComboBox, public AGELinkedBox
 {
+private:
+    bool isModifyTechComboBox;
+
 public:
     ComboBox_Plus1(wxWindow *parent, AGETextCtrl *ptr, wxArrayString *choices, int width = AGETextCtrl::LARGE):
     AGEComboBox(parent, choices, width)
@@ -34,8 +37,12 @@ public:
         TextBox = ptr;
         TextBox->LinkedBoxes.push_back(this);
         Bind(wxEVT_COMBOBOX, &ComboBox_Plus1::OnChoose, this);
+
+        isModifyTechComboBox = false;
     }
     void OnChoose(wxCommandEvent&);
+    bool GetIsModifyTechComboBox() { return isModifyTechComboBox; }
+    void SetIsModifyTechComboBox(bool b) { isModifyTechComboBox = b; }
 
 private:
     void SetChoice(int);

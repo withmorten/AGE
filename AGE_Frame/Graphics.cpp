@@ -1,7 +1,7 @@
 #include "../AGE_Frame.h"
 
 const wxString AGE_Frame::MirrorHelp = "Angle count clockwise from east after mirroring starts.\n"
-    "Angles before south are mirrored too.\nFrom the graphics scanner, if the graphic mirror is > 0,\n"
+    "Angles before south are mirrored too.\nFrom the sprite scanner, if the sprite mirror is > 0,\n"
     "mirror = (angle_count >> 1) + (angle_count >> 2)";
 
 string AGE_Frame::GetGraphicName(int index, bool Filter)
@@ -113,7 +113,7 @@ InternalName:
     {
         return Name + dataset->Graphics[index].FileName;
     }
-    return Name + "New Graphic";
+    return Name + "New Sprite";
 }
 
 void AGE_Frame::OnGraphicsSearch(wxCommandEvent &event)
@@ -211,7 +211,7 @@ void AGE_Frame::OnGraphicSelect(wxCommandEvent &event)
             if(GenieVersion >= genie::GV_AoKB)
             Graphics_EditorFlag->prepend(&GraphicPointer->EditorFlag);
         }
-        SetStatusText("Selections: "+lexical_cast<string>(GraphicIDs.size())+"    Selected graphic: "+lexical_cast<string>(GraphicIDs.front()), 0);
+        SetStatusText("Selections: "+lexical_cast<string>(GraphicIDs.size())+"    Selected sprite: "+lexical_cast<string>(GraphicIDs.front()), 0);
 
         selections = GenieVersion < genie::GV_AoE ? 1 : dataset->GraphicPointers[GraphicIDs.front()];
 
@@ -356,7 +356,7 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
         }
         if(UnitIDs.size() == 0 || museum.datID >= dataset->Graphics.size())
         {
-            dc.DrawLabel("!Graphic " + FormatInt(museum.datID), wxRect(text_pos, text_pos, 100, 40));
+            dc.DrawLabel("!Sprite " + FormatInt(museum.datID), wxRect(text_pos, text_pos, 100, 40));
             return;
         }
         if(museum.slpID != dataset->Graphics[museum.datID].SLP) // SLP changed
@@ -1134,7 +1134,7 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_PasteInsert = new wxButton(Tab_Graphics, wxID_ANY, "Ins Copies", wxDefaultPosition, wxSize(10, -1));
     Graphics_NoMirror = new wxButton(Tab_Graphics, wxID_ANY, "Shatter *", wxDefaultPosition, wxSize(10, -1));
     Graphics_NoMirror->SetToolTip("Export SLP file with mirrored angles saved in it.\n"
-        "Remember to set mirroring mode to 0 on the graphic.");
+        "Remember to set mirroring mode to 0 on the sprite.");
     Graphics_Enable = new wxButton(Tab_Graphics, wxID_ANY, "Exist", wxDefaultPosition, wxSize(10, -1));
     Graphics_Disable = new wxButton(Tab_Graphics, wxID_ANY, "Wipe Out", wxDefaultPosition, wxSize(10, -1));
     Graphics_CopyToEnd = new wxButton(Tab_Graphics, wxID_ANY, "Double *", wxDefaultPosition, wxSize(10, -1));
@@ -1202,16 +1202,16 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_PlayerColor_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_PlayerColor_Text = new SolidText(Graphics_Scroller, " Forced Player Color *");
     Graphics_PlayerColor = AGETextCtrl::init(CByte, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
-    Graphics_PlayerColor->SetToolTip("The player color to be forced on the graphic");
+    Graphics_PlayerColor->SetToolTip("The player color to be forced on the sprite");
     Graphics_PlayerColor_ComboBox = new ComboBox_Plus1(Graphics_Scroller, Graphics_PlayerColor, &color_names);
     Graphics_Rainbow_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_Rainbow_Text = new SolidText(Graphics_Scroller, " Rainbow *");
     Graphics_Rainbow = AGETextCtrl::init(CByte, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
-    Graphics_Rainbow->SetToolTip("Makes the graphic change its player color according to nearby units");
+    Graphics_Rainbow->SetToolTip("Makes the sprite change its player color according to nearby units");
     Graphics_SpeedMultiplier_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_SpeedMultiplier_Text = new SolidText(Graphics_Scroller, " Unit Speed Multiplier *");
     Graphics_SpeedMultiplier = AGETextCtrl::init(CFloat, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
-    Graphics_SpeedMultiplier->SetToolTip("Multiplies the speed of the unit this graphic is applied to");
+    Graphics_SpeedMultiplier->SetToolTip("Multiplies the speed of the unit this sprite is applied to");
 
     Graphics_Coordinates_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_CoordinateGrid_Holder = new wxBoxSizer(wxHORIZONTAL);
@@ -1249,9 +1249,9 @@ void AGE_Frame::CreateGraphicsControls()
     Deltas_Copy = new wxButton(Graphics_Scroller, wxID_ANY, "Copy", wxDefaultPosition, wxSize(10, -1));
     Deltas_Paste = new wxButton(Graphics_Scroller, wxID_ANY, "Paste", wxDefaultPosition, wxSize(10, -1));
     Deltas_PasteInsert = new wxButton(Graphics_Scroller, wxID_ANY, "Ins Copies", wxDefaultPosition, wxSize(10, -1));
-    Deltas_CopyToGraphics = new wxButton(Graphics_Scroller, wxID_ANY, "Copy all to selected graphics", wxDefaultPosition, wxSize(10, -1));
+    Deltas_CopyToGraphics = new wxButton(Graphics_Scroller, wxID_ANY, "Copy all to selected sprites", wxDefaultPosition, wxSize(10, -1));
     GraphicDeltas_GraphicID_Holder = new wxBoxSizer(wxVERTICAL);
-    GraphicDeltas_GraphicID_Text = new SolidText(Graphics_Scroller, " Graphic");
+    GraphicDeltas_GraphicID_Text = new SolidText(Graphics_Scroller, " Sprite");
     GraphicDeltas_GraphicID = AGETextCtrl::init(CShort, &uiGroupGraphicDelta, this, &popUp, Graphics_Scroller);
     GraphicDeltas_GraphicID_ComboBox = new ComboBox_Plus1(Graphics_Scroller, GraphicDeltas_GraphicID, &graphic_names);
     GraphicComboBoxList.push_back(GraphicDeltas_GraphicID_ComboBox);
@@ -1268,7 +1268,7 @@ void AGE_Frame::CreateGraphicsControls()
     GraphicDeltas_DisplayAngle_Text = new SolidText(Graphics_Scroller, " Display Angle *");
     GraphicDeltas_DisplayAngle = AGETextCtrl::init(CShort, &uiGroupGraphicDelta, this, &popUp, Graphics_Scroller);
     GraphicDeltas_DisplayAngle->SetToolTip("The angle where this delta will be displayed.\n"
-        "Angle 0 is always east. Angles increase clocwise.\nIn a graphic with 8 angles would be,\n"
+        "Angle 0 is always east. Angles increase clocwise.\nIn a sprite with 8 angles would be,\n"
         "0 east, 1 south-east, 2 south, 3 south-west,\n4 west, 5 north-west, 6 north, 7 north-east.");
     GraphicDeltas_SpritePtr_Holder = new wxBoxSizer(wxVERTICAL);
     GraphicDeltas_SpritePtr_Text = new SolidText(Graphics_Scroller, " Sprite Pointer *");
@@ -1301,7 +1301,7 @@ void AGE_Frame::CreateGraphicsControls()
     wxBoxSizer *AngleSounds_CopySizer = new wxBoxSizer(wxHORIZONTAL);
     AngleSounds_AutoCopy = new wxCheckBox(Graphics_Scroller, wxID_ANY, "Automatically");
     AngleSounds_Copy = new wxButton(Graphics_Scroller, wxID_ANY, "Copy to all", wxDefaultPosition, wxSize(10, -1));
-    AngleSounds_CopyToGraphics = new wxButton(Graphics_Scroller, wxID_ANY, "Copy all to selected graphics", wxDefaultPosition, wxSize(10, -1));
+    AngleSounds_CopyToGraphics = new wxButton(Graphics_Scroller, wxID_ANY, "Copy all to selected sprites", wxDefaultPosition, wxSize(10, -1));
     Graphics_AngleSounds_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_AngleSounds_Text = new SolidText(Graphics_Scroller, " Sound");
     Graphics_AngleFrameNums_Holder = new wxBoxSizer(wxVERTICAL);
@@ -1726,7 +1726,7 @@ void AGE_Frame::CreateGraphicsControls()
             while(getline(infile, line))
             {
                 wxArrayString pieces(wxStringTokenize(line, "\t"));
-                for(size_t loop = 1, spriteID = -1, deltaID = static_cast<size_t>(-1); loop < pieces.GetCount(); ++loop)
+                for(size_t loop = 1, spriteID = static_cast<size_t>(-1), deltaID = static_cast<size_t>(-1); loop < pieces.GetCount(); ++loop)
                 {
                     switch(loop)
                     {

@@ -701,7 +701,7 @@ void AGE_Frame::CreateTerrainControls()
     }
     Terrains_ElevationGraphics_Holder = new wxBoxSizer(wxVERTICAL);
     Terrain_TileGraphics_Sizer = new wxBoxSizer(wxVERTICAL);
-    Terrains_ElevationGraphics_Text = new SolidText(Terrains_Scroller, " Tile Graphics: flat, 2 x 8 elevation, 2 x 1:1\n Frame Count, Animations, Frame Index");
+    Terrains_ElevationGraphics_Text = new SolidText(Terrains_Scroller, " Tile Sprite: flat, 2 x 8 elevation, 2 x 1:1\n Frame Count, Animations, Frame Index");
     for(auto &sizer: Terrain_TileGraphics_Sizers)
     sizer = new wxBoxSizer(wxHORIZONTAL);
     for(auto &box: Terrains_ElevationGraphics)
