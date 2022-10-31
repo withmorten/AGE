@@ -79,8 +79,8 @@ string AGE_Frame::GetGraphicName(int index, bool Filter)
                 case 16: // Speed
                     Name += "SM "+FormatFloat(dataset->Graphics[index].SpeedMultiplier);
                     break;
-                case 17: // Animation Duration
-                    Name += "AD "+FormatFloat(dataset->Graphics[index].AnimationDuration);
+                case 17: // Frame Duration
+                    Name += "AD "+FormatFloat(dataset->Graphics[index].FrameDuration);
                     break;
                 case 18: // Replay Delay
                     Name += "RD "+FormatFloat(dataset->Graphics[index].ReplayDelay);
@@ -200,7 +200,7 @@ void AGE_Frame::OnGraphicSelect(wxCommandEvent &event)
             Graphics_FrameCount->prepend(&GraphicPointer->FrameCount);
             Graphics_AngleCount->prepend(&GraphicPointer->AngleCount);
             Graphics_SpeedMultiplier->prepend(&GraphicPointer->SpeedMultiplier);
-            Graphics_FrameDuration->prepend(&GraphicPointer->AnimationDuration);
+            Graphics_FrameDuration->prepend(&GraphicPointer->FrameDuration);
             Graphics_ReplayDelay->prepend(&GraphicPointer->ReplayDelay);
             Graphics_SequenceType->prepend(&GraphicPointer->SequenceType);
             Graphics_ID->prepend(&GraphicPointer->ID);
@@ -715,10 +715,12 @@ void AGE_Frame::HandleLastFrame(const uint16_t angles, bool framesleft, unsigned
 
 int AGE_Frame::ShouldAnimate(AGE_SLP &graphic, bool &framesleft)
 {
-    int fpms = graphic.fpa ? dataset->Graphics[graphic.datID].AnimationDuration / graphic.fpa * 1000 : 0;
+    int fpms = graphic.fpa ? dataset->Graphics[graphic.datID].FrameDuration * 1000 : 0;
     if((graphic.frames > 1 && fpms == 0) || graphic.fpa == 1) fpms = 700;
     if(fpms) ChooseNextFrame(graphic, framesleft);
     return fpms;
+
+    return 0;
 }
 
 void AGE_Frame::Listen(AGE_SLP &art)
@@ -1175,9 +1177,9 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_FrameCount_Text = new SolidText(Graphics_Scroller, " Frames per Angle");
     Graphics_FrameCount = AGETextCtrl::init(CUShort, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
     Graphics_FrameDuration_Holder = new wxBoxSizer(wxVERTICAL);
-    Graphics_FrameDuration_Text = new SolidText(Graphics_Scroller, " Anim Duration *");
+    Graphics_FrameDuration_Text = new SolidText(Graphics_Scroller, " Frame Duration *");
     Graphics_FrameDuration = AGETextCtrl::init(CFloat, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
-    Graphics_FrameDuration->SetToolTip("How long the frames are displayed in seconds");
+    Graphics_FrameDuration->SetToolTip("How long the frame is displayed in seconds");
     Graphics_SequenceType_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_SequenceType_Text = new SolidText(Graphics_Scroller, " Sequence Type *");
     Graphics_SequenceType = AGETextCtrl::init(CByte, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
