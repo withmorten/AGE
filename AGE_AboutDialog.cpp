@@ -1,7 +1,7 @@
 #include "AGE_AboutDialog.h"
 #include "AppIcon64.xpm"
 
-const wxString AGE_AboutDialog::AGE_VER = "2020.09.23";
+const wxString AGE_AboutDialog::AGE_VER = "2022.10.31";
 
 AGE_AboutDialog::AGE_AboutDialog(wxWindow *parent, const wxFont &font)
 : wxDialog(parent, -1, "About Advanced Genie Editor", wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxNO_DEFAULT)
@@ -12,8 +12,6 @@ AGE_AboutDialog::AGE_AboutDialog(wxWindow *parent, const wxFont &font)
     SolidText *Credits = new SolidText(this, "Credits:\nYkkrosh - GeniEd 1 source code\nScenario_t_c - GeniEd 2 source code\nAlexandra \"Taichi San\", DarkRain654 - data file research\nDiGiT, JustTesting1234, AOHH - genie file structure\nCysion, Kris, Sarthos - important help\nBF_Tanks - some help\nDonnieboy, Sarn, chab - tooltip texts\ngagman - new icon");
     wxHyperlinkCtrl *AoKHThread = new wxHyperlinkCtrl(this, wxID_ANY, "Age of Kings Heaven AGE forum topic", "http://aok.heavengames.com/cgi-bin/forums/display.cgi?action=st&fn=9&tn=44059&st=recent&f=9,44059,0,365", wxDefaultPosition, wxDefaultSize, wxNO_BORDER | wxHL_CONTEXTMENU | wxHL_ALIGN_LEFT);
     wxHyperlinkCtrl *GitHub = new wxHyperlinkCtrl(this, wxID_ANY, "withmorten/AGE on GitHub", "https://github.com/withmorten/AGE", wxDefaultPosition, wxDefaultSize, wxNO_BORDER | wxHL_CONTEXTMENU | wxHL_ALIGN_LEFT);
-    //UPXInfo = new SolidText(this, "Compressed with:");
-    //UPXLink = new wxHyperlinkCtrl(this, wxID_ANY, "The Ultimate Packer for eXecutables", "http://upx.sourceforge.net", wxDefaultPosition, wxDefaultSize, wxNO_BORDER | wxHL_CONTEXTMENU | wxHL_ALIGN_LEFT);
 
     wxBoxSizer *MainRight = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer *MainAbout = new wxBoxSizer(wxVERTICAL);
@@ -24,8 +22,6 @@ AGE_AboutDialog::AGE_AboutDialog(wxWindow *parent, const wxFont &font)
     MainAbout->Add(Credits, 0, wxALL - wxUP, 10);
     MainAbout->Add(AoKHThread, 0, wxALL - wxUP, 10);
     MainAbout->Add(GitHub, 0, wxALL - wxUP, 10);
-    //MainAbout->Add(UPXInfo);
-    //MainAbout->Add(UPXLink);
 
     SetSizerAndFit(MainAbout);
 }
