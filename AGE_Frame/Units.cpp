@@ -3203,7 +3203,7 @@ void AGE_Frame::CreateUnitControls()
     Units_Type_Holder = new wxBoxSizer(wxHORIZONTAL);
     Units_Type_Text = new SolidText(Tab_Units, "Type ");
     Units_Type = AGETextCtrl::init(CByte, &uiGroupUnit, this, &popUp, Tab_Units, AGETextCtrl::SMALL);
-    Units_Type_ComboBox = new AGEComboBox(Tab_Units, &unit_type_names, AGETextCtrl::LARGE);
+    Units_Type_ComboBox = new AGEComboBox(Tab_Units, &unit_type_names, AGETextCtrl::GIANT);
     Units_Class = AGETextCtrl::init(CShort, &uiGroupUnit, this, &popUp, Tab_Units);
     Units_Class->SetToolTip("Determines many things and works in conjunction with other variables");
     Units_Class_ComboBox[0] = new ComboBox_Plus1(Tab_Units, Units_Class, &class_names);
@@ -4386,18 +4386,18 @@ void AGE_Frame::CreateUnitControls()
 
 //  UnitControls actual interface
 
-    unit_type_names.Add("No Type/Invalid Type");
-    unit_type_names.Add("10 - Eye Candy");// Static
-    unit_type_names.Add("15 - Tree (AoK)");
-    unit_type_names.Add("20 - Animated");
-    unit_type_names.Add("25 - Doppelganger");
-    unit_type_names.Add("30 - Moving");
-    unit_type_names.Add("40 - Actor");// Action
-    unit_type_names.Add("50 - Superclass");
-    unit_type_names.Add("60 - Projectile");
-    unit_type_names.Add("70 - Combatant");// Combat
-    unit_type_names.Add("80 - Building");
-    unit_type_names.Add("90 - Tree (AoE)");
+    unit_type_names.Add("Invalid");
+    unit_type_names.Add("10 - RGE_Static");
+    unit_type_names.Add("15 - TRIBE_Tree");
+    unit_type_names.Add("20 - RGE_Animated");
+    unit_type_names.Add("25 - RGE_Doppleganger");
+    unit_type_names.Add("30 - RGE_Moving");
+    unit_type_names.Add("40 - RGE_Action");
+    unit_type_names.Add("50 - RGE_Combat");
+    unit_type_names.Add("60 - RGE_Missile");
+    unit_type_names.Add("70 - TRIBE_Combat");
+    unit_type_names.Add("80 - TRIBE_Building");
+    unit_type_names.Add("90 - TRIBE_Tree (AoE1)");
     Units_Type_ComboBox->Flash();
 
     Type20.Add("Type");

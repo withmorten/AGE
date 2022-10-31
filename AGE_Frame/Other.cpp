@@ -508,52 +508,52 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         // When changing this, edit all 4 other places too
         task_names.Add("Unused Ability/Invalid Ability");   // Selection 0
         task_names.Add("0: None");
-        task_names.Add("1: RGE_Action_Move_To");
-        task_names.Add("2: RGE_Action_Follow");
-        task_names.Add("3: RGE_Action_Enter");
-        task_names.Add("4: RGE_Action_Explore");
-        task_names.Add("5: RGE_Action_Gather");
+        task_names.Add("1: RGE_Move_To");
+        task_names.Add("2: RGE_Follow");
+        task_names.Add("3: RGE_Enter");
+        task_names.Add("4: RGE_Explore");
+        task_names.Add("5: RGE_Gather");
         task_names.Add("6: Graze, deleted?");
-        task_names.Add("7: RGE_Action_Combat");
-        task_names.Add("8: RGE_Action_Missile");
-        task_names.Add("9: RGE_Action_Attack");
-        task_names.Add("10: RGE_Action_Bird");
+        task_names.Add("7: RGE_Combat");
+        task_names.Add("8: RGE_Missile");
+        task_names.Add("9: RGE_Attack");
+        task_names.Add("10: RGE_Bird");
         task_names.Add("11: Scare/Hunt, deleted?");
-        task_names.Add("12: RGE_Action_Transport");
-        task_names.Add("13: RGE_Action_Guard");
-        task_names.Add("HD 14: RGE_Action_TransportOverWall");
-        task_names.Add("20: RGE_Action_Run_Away");
-        task_names.Add("21: RGE_Action_Make");
-        task_names.Add("101: TRIBE_Action_Build");
-        task_names.Add("102: TRIBE_Action_Make_Obj");
-        task_names.Add("103: TRIBE_Action_Make_Tech");
-        task_names.Add("104: TRIBE_Action_Convert");
-        task_names.Add("105: TRIBE_Action_Heal");
-        task_names.Add("106: TRIBE_Action_Repair");
-        task_names.Add("107: TRIBE_Action_Artifact");
-        task_names.Add("108: TRIBE_Action_Discovery_Artifact");
-        task_names.Add("109: TRIBE_Action_Explore");
-        task_names.Add("110: TRIBE_Action_Hunt");
-        task_names.Add("111: TRIBE_Action_Trade");
-        task_names.Add("120: TRIBE_Action_Wonder");
-        task_names.Add("121: TRIBE_Action_Farm");
-        task_names.Add("122: TRIBE_Action_Gather");
-        task_names.Add("123: TRIBE_Action_Housing");
-        task_names.Add("124: TRIBE_Action_Pack");
-        task_names.Add("125: TRIBE_Action_Unpack");
+        task_names.Add("12: RGE_Transport");
+        task_names.Add("13: RGE_Guard");
+        task_names.Add("HD 14: RGE_TransportOverWall");
+        task_names.Add("20: RGE_Run_Away");
+        task_names.Add("21: RGE_Make");
+        task_names.Add("101: TRIBE_Build");
+        task_names.Add("102: TRIBE_Make_Obj");
+        task_names.Add("103: TRIBE_Make_Tech");
+        task_names.Add("104: TRIBE_Convert");
+        task_names.Add("105: TRIBE_Heal");
+        task_names.Add("106: TRIBE_Repair");
+        task_names.Add("107: TRIBE_Artifact");
+        task_names.Add("108: TRIBE_Discovery_Artifact");
+        task_names.Add("109: TRIBE_Explore");
+        task_names.Add("110: TRIBE_Hunt");
+        task_names.Add("111: TRIBE_Trade");
+        task_names.Add("120: TRIBE_Wonder");
+        task_names.Add("121: TRIBE_Farm");
+        task_names.Add("122: TRIBE_Gather");
+        task_names.Add("123: TRIBE_Housing");
+        task_names.Add("124: TRIBE_Pack");
+        task_names.Add("125: TRIBE_Unpack");
         task_names.Add("130: Unknown, nothing?");
-        task_names.Add("131: TRIBE_Action_Offboard_Trade");
-        task_names.Add("132: TRIBE_Action_Pickup_Relic");
-        task_names.Add("133: TRIBE_Action_Charge");
-        task_names.Add("134: TRIBE_Action_Unit_Transform");
-        task_names.Add("135: TRIBE_Action_Capture");
-        task_names.Add("136: TRIBE_Action_Deliver_Relic");
-        task_names.Add("149: TRIBE_Action_Shepherd");
+        task_names.Add("131: TRIBE_Offboard_Trade");
+        task_names.Add("132: TRIBE_Pickup_Relic");
+        task_names.Add("133: TRIBE_Charge");
+        task_names.Add("134: TRIBE_Unit_Transform");
+        task_names.Add("135: TRIBE_Capture");
+        task_names.Add("136: TRIBE_Deliver_Relic");
+        task_names.Add("149: TRIBE_Shepherd");
         task_names.Add("HD 150: Regeneration");
         task_names.Add("HD 151: Feitoria Ability");
-        task_names.Add("201: STRATOS_Action_Move_To");
-        task_names.Add("205: STRATOS_Action_Gather");
-        task_names.Add("212: STRATOS_Action_Transport");
+        task_names.Add("201: STRATOS_Move_To");
+        task_names.Add("205: STRATOS_Gather");
+        task_names.Add("212: STRATOS_Transport");
         Tasks_ActionType_ComboBox->Flash();
 
         age_names.Clear();
@@ -1744,7 +1744,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         }
         else if(GenieVersion < genie::GV_SWGB)
         {
-            graphicset_names.Add("0 Unused");
+            graphicset_names.Add("0 Invalid");
             // AoK
             graphicset_names.Add("1 East European");
             graphicset_names.Add("2 West European");
@@ -1766,7 +1766,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         else
         {
             // SWGB
-            graphicset_names.Add("0 Unused");
+            graphicset_names.Add("0 Invalid");
             graphicset_names.Add("1 Galactic Empire");
             graphicset_names.Add("2 Gungans");
             graphicset_names.Add("3 Rebels");
