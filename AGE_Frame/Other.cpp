@@ -1962,19 +1962,6 @@ void AGE_Frame::OnGameVersionChange()
 {
     if(DataOpened)  // Hiding stuff according to game version should be here.
     {
-        // Some general tab handling
-        for(auto loop = dataset->TerrainBlock.getSomethingSize(); loop < General_Something.size(); ++loop)
-        General_Something[loop]->Show(false);
-        for(auto loop = dataset->TerrainBlock.getBytesSize(); loop < General_SomeBytes.size(); ++loop)
-        General_SomeBytes[loop]->Show(false);
-        if(ShowUnknowns)
-        {
-            for(size_t loop = 0; loop < dataset->TerrainBlock.getSomethingSize(); ++loop)
-            General_Something[loop]->Show(true);
-            for(size_t loop = 0; loop < dataset->TerrainBlock.getBytesSize(); ++loop)
-            General_SomeBytes[loop]->Show(true);
-        }
-
         // Test ->
         bool show = (GenieVersion >= genie::GV_TEST) ? true : false;
         Sounds_CacheTime_Holder->Show(show);
@@ -2033,7 +2020,6 @@ void AGE_Frame::OnGameVersionChange()
         // AoE ->
         show = (GenieVersion >= genie::GV_AoE) ? true : false;
         Units_CopyID_Holder->Show(show);
-        General_TileSizesPadding_Holder->Show(show);
         for(size_t loop = 2; loop < General_TileSizes.size(); loop += 3)
         General_TileSizes[loop]->Show(show);
 

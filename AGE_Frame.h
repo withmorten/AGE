@@ -1158,9 +1158,6 @@ private:
     array<wxBoxSizer*, 19> General_TileSizes_Sizers;
     array<AGETextCtrl*, 57> General_TileSizes;
 
-    wxBoxSizer *MapRowOffset_Sizer;
-    SolidText *MapRowOffset_Text;
-    AGETextCtrl *MapRowOffset;
     wxBoxSizer *MapMinX_Sizer;
     SolidText *MapMinX_Text;
     AGETextCtrl *MapMinX;
@@ -1179,10 +1176,10 @@ private:
     wxBoxSizer *MapMaxYplus1_Sizer;
     SolidText *MapMaxYplus1_Text;
     AGETextCtrl *MapMaxYplus1;
-
     wxBoxSizer *MaxTerrain_Sizer;
     SolidText *MaxTerrain_Text;
     AGETextCtrl *MaxTerrain;
+
     wxBoxSizer *TileWidth_Sizer;
     SolidText *TileWidth_Text;
     AGETextCtrl *TileWidth;
@@ -1198,47 +1195,8 @@ private:
     wxBoxSizer *ElevHeight_Sizer;
     SolidText *ElevHeight_Text;
     AGETextCtrl *ElevHeight;
-    wxBoxSizer *CurRow_Sizer;
-    SolidText *CurRow_Text;
-    AGETextCtrl *CurRow;
-    wxBoxSizer *CurCol_Sizer;
-    SolidText *CurCol_Text;
-    AGETextCtrl *CurCol;
-    wxBoxSizer *BlockBegRow_Sizer;
-    SolidText *BlockBegRow_Text;
-    AGETextCtrl *BlockBegRow;
-    wxBoxSizer *BlockEndRow_Sizer;
-    SolidText *BlockEndRow_Text;
-    AGETextCtrl *BlockEndRow;
-    wxBoxSizer *BlockBegCol_Sizer;
-    SolidText *BlockBegCol_Text;
-    AGETextCtrl *BlockBegCol;
-    wxBoxSizer *BlockEndCol_Sizer;
-    SolidText *BlockEndCol_Text;
-    AGETextCtrl *BlockEndCol;
 
-    wxBoxSizer *SearchMapPtr_Sizer;
-    SolidText *SearchMapPtr_Text;
-    AGETextCtrl *SearchMapPtr;
-    wxBoxSizer *SearchMapRowsPtr_Sizer;
-    SolidText *SearchMapRowsPtr_Text;
-    AGETextCtrl *SearchMapRowsPtr;
-    wxBoxSizer *AnyFrameChange_Sizer;
-    SolidText *AnyFrameChange_Text;
-    AGETextCtrl *AnyFrameChange;
-
-    wxBoxSizer *MapVisibleFlag_Sizer;
-    SolidText *MapVisibleFlag_Text;
-    AGETextCtrl *MapVisibleFlag;
-    wxBoxSizer *FogFlag_Sizer;
-    SolidText *FogFlag_Text;
-    AGETextCtrl *FogFlag;
-
-    SolidText *General_TerrainRendering_Text;
     wxGridSizer *General_TerrainRendering_Grid;
-    array<AGETextCtrl*, 25> General_SomeBytes;
-    wxGridSizer *General_Something_Grid1, *General_Something_Grid2;
-    array<AGETextCtrl*, 157> General_Something;
 
     wxBoxSizer *Borders_Main;
     wxStaticBoxSizer *Borders_Borders;
@@ -1379,12 +1337,6 @@ private:
     array<SolidText*, 8> General_TTKnown_Text;
     array<AGETextCtrl*, 8> General_TTKnown;
 
-    wxBoxSizer *General_MapPointer_Holder;
-    SolidText *General_MapPointer_Text;
-    AGETextCtrl *General_MapPointer;
-    wxBoxSizer *General_VFP_Holder;
-    SolidText *General_VFP_Text;
-    AGETextCtrl *General_VFP;
     wxBoxSizer *General_MapWidth_Holder;
     SolidText *General_MapWidth_Text;
     AGETextCtrl *General_MapWidth;
@@ -1397,9 +1349,6 @@ private:
     wxBoxSizer *General_WorldHeight_Holder;
     SolidText *General_WorldHeight_Text;
     AGETextCtrl *General_WorldHeight;
-    wxBoxSizer *General_TileSizesPadding_Holder;
-    SolidText *General_TileSizesPadding_Text;
-    AGETextCtrl *General_TileSizesPadding;
 
     wxBoxSizer *Unknown_Main;
     AScrolled *RMS_Scroller;
