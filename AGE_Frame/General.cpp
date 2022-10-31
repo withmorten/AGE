@@ -637,12 +637,12 @@ void AGE_Frame::OnMapTerrainSearch(wxCommandEvent &event)
 wxString AGE_Frame::GetMapTerrainName(int Terrain)
 {
     wxString Name = FormatInt(Terrain) + " ";
-    if(dataset->TerrainBlock.Terrains.size() <= Terrain) return Name + "Nonexistent Terrain";
+    if(dataset->TerrainBlock.Terrains.size() <= Terrain) return Name + "NULL";
     if(!dataset->TerrainBlock.Terrains[Terrain].Name.empty())
     {
         return Name + dataset->TerrainBlock.Terrains[Terrain].Name;
     }
-    return Name + "New Terrain";
+    return Name + "NULL";
 }
 
 void AGE_Frame::ListMapTerrains()

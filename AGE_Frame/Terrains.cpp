@@ -24,55 +24,49 @@ string AGE_Frame::GetTerrainName(int index, bool Filter)
                 case 4: // Random
                     Name += "R "+FormatInt(dataset->TerrainBlock.Terrains[index].Random);
                     break;
-                case 5: // ShapePtr
-                    Name += "SP "+FormatInt(dataset->TerrainBlock.Terrains[index].ShapePtr);
-                    break;
-                case 6: // SoundID
+                case 5: // SoundID
                     Name += "S "+FormatInt(dataset->TerrainBlock.Terrains[index].SoundID);
                     break;
-                case 7: // BlendPriority
+                case 6: // BlendPriority
                     Name += "BP "+FormatInt(dataset->TerrainBlock.Terrains[index].BlendPriority);
                     break;
-                case 8: // BlendType
+                case 7: // BlendType
                     Name += "BT "+FormatInt(dataset->TerrainBlock.Terrains[index].BlendType);
                     break;
-                case 9: // Colors
+                case 8: // Colors
                     {
                         Name += "H"+FormatInt(dataset->TerrainBlock.Terrains[index].Colors[0]);
                         Name += " M"+FormatInt(dataset->TerrainBlock.Terrains[index].Colors[1]);
                         Name += " L"+FormatInt(dataset->TerrainBlock.Terrains[index].Colors[2]);
                     }
                     break;
-                case 10: // CliffColors
+                case 9: // CliffColors
                     {
                         Name += "LT"+FormatInt(dataset->TerrainBlock.Terrains[index].CliffColors.first);
                         Name += " RT"+FormatInt(dataset->TerrainBlock.Terrains[index].CliffColors.second);
                     }
                     break;
-                case 11: // PassableTerrain
+                case 10: // PassableTerrain
                     Name += "PT "+FormatInt(dataset->TerrainBlock.Terrains[index].PassableTerrain);
                     break;
-                case 12: // ImpassableTerrain
+                case 11: // ImpassableTerrain
                     Name += "IT "+FormatInt(dataset->TerrainBlock.Terrains[index].ImpassableTerrain);
                     break;
-                case 13: // Frame Count
+                case 12: // Frame Count
                     Name += "FC "+FormatInt(dataset->TerrainBlock.Terrains[index].ElevationGraphics.front().FrameCount);
                     break;
-                case 14: // Angle Count
+                case 13: // Angle Count
                     Name += "AC "+FormatInt(dataset->TerrainBlock.Terrains[index].ElevationGraphics.front().AngleCount);
                     break;
-                case 15: // TerrainToDraw
+                case 14: // TerrainToDraw
                     Name += "TD "+FormatInt(dataset->TerrainBlock.Terrains[index].TerrainToDraw);
                     break;
-                case 16: // TerrainDimensions
+                case 15: // TerrainDimensions
                     Name += "R"+FormatInt(dataset->TerrainBlock.Terrains[index].TerrainDimensions.first);
                     Name += " C"+FormatInt(dataset->TerrainBlock.Terrains[index].TerrainDimensions.second);
                     break;
-                case 17: // NumberOfTerrainUnitsUsed
+                case 16: // NumberOfTerrainUnitsUsed
                     Name += "TU "+FormatInt(dataset->TerrainBlock.Terrains[index].NumberOfTerrainUnitsUsed);
-                    break;
-                case 18: // Phantom
-                    Name += "U1 "+FormatInt(dataset->TerrainBlock.Terrains[index].Phantom);
                     break;
             }
             Name += ", ";
@@ -207,14 +201,12 @@ void AGE_Frame::OnTerrainSelect(wxCommandEvent &event)
         TerrainPointer = &dataset->TerrainBlock.Terrains[TerrainIDs[sel]];
 
         if(GenieVersion < genie::GV_SWGB)
-        Terrains_Phantom->prepend(&TerrainPointer->Phantom);
         Terrains_Enabled->prepend(&TerrainPointer->Enabled);
         Terrains_Random->prepend(&TerrainPointer->Random);
         Terrains_Name->prepend(&TerrainPointer->Name);
         Terrains_FileName->prepend(&TerrainPointer->Name2);
         if(GenieVersion >= genie::GV_AoEB)
         Terrains_SLP->prepend(&TerrainPointer->SLP);
-        Terrains_ShapePtr->prepend(&TerrainPointer->ShapePtr);
         Terrains_SoundID->prepend(&TerrainPointer->SoundID);
         if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
         {
@@ -653,10 +645,6 @@ void AGE_Frame::CreateTerrainControls()
     Terrains_HideInEditor_Holder = new wxBoxSizer(wxVERTICAL);
     Terrains_HideInEditor_Text = new SolidText(Terrains_Scroller, " Hide in Editor");
     Terrains_HideInEditor = AGETextCtrl::init(CByte, &uiGroupTerrain, this, &popUp, Terrains_Scroller);
-    Terrains_ShapePtr_Holder = new wxBoxSizer(wxVERTICAL);
-    Terrains_ShapePtr_Text = new SolidText(Terrains_Scroller, " Shape Pointer *");
-    Terrains_ShapePtr = AGETextCtrl::init(CLong, &uiGroupTerrain, this, &popUp, Terrains_Scroller);
-    Terrains_ShapePtr->SetToolTip("Assigned using SHP Filename");
     Terrains_GridX1 = new wxBoxSizer(wxHORIZONTAL);
     Terrains_GridX2 = new wxFlexGridSizer(3, 5, 5);
 
@@ -678,9 +666,6 @@ void AGE_Frame::CreateTerrainControls()
     Terrains_UsedTerrainUnits_Holder = new wxBoxSizer(wxVERTICAL);
     Terrains_UsedTerrainUnits_Text = new SolidText(Terrains_Scroller, " Terrain Units Used");
     Terrains_UsedTerrainUnits = AGETextCtrl::init(CShort, &uiGroupTerrain, this, &popUp, Terrains_Scroller);
-    Terrains_Phantom_Holder = new wxBoxSizer(wxVERTICAL);
-    Terrains_Phantom_Text = new SolidText(Terrains_Scroller, " Phantom Var");
-    Terrains_Phantom = AGETextCtrl::init(CShort, &uiGroupTerrain, this, &popUp, Terrains_Scroller);
     Terrains_TerrainUnits_Holder = new wxBoxSizer(wxHORIZONTAL);
     Terrains_TerrainUnitID_Holder = new wxBoxSizer(wxVERTICAL);
     Terrains_TerrainUnitID_Holder1 = new wxBoxSizer(wxVERTICAL);
@@ -754,7 +739,6 @@ void AGE_Frame::CreateTerrainControls()
     terrain_filters.Add("SLP");
     terrain_filters.Add("Enabled");
     terrain_filters.Add("Random");
-    terrain_filters.Add("Shape Pointer");
     terrain_filters.Add("Sound");
     terrain_filters.Add("Blend Priority");
     terrain_filters.Add("Blend Type");
@@ -767,7 +751,6 @@ void AGE_Frame::CreateTerrainControls()
     terrain_filters.Add("Terrain to Draw");
     terrain_filters.Add("Terrain Dimensions");
     terrain_filters.Add("Terrain Units Used");
-    terrain_filters.Add("Phantom Variable");
     for(size_t loop = 0; loop < 2; ++loop)
     {
         Terrains_SearchFilters[loop]->Flash();
@@ -793,8 +776,6 @@ void AGE_Frame::CreateTerrainControls()
     Terrains_Terrains->Add(Terrains_UsedCountHolder, 0, wxEXPAND);
     Terrains_Terrains->Add(Terrains_Terrains_Buttons, 0, wxEXPAND | wxTOP, 2);
 
-    Terrains_Phantom_Holder->Add(Terrains_Phantom_Text);
-    Terrains_Phantom_Holder->Add(Terrains_Phantom);
     Terrains_Enabled1_Holder->Add(Terrains_Enabled);
     Terrains_Enabled1_Holder->Add(Terrains_Enabled_CheckBox, 0, wxLEFT, 2);
     Terrains_Enabled_Holder->Add(Terrains_Enabled_Text);
@@ -807,8 +788,6 @@ void AGE_Frame::CreateTerrainControls()
     Terrains_FileName_Holder->Add(Terrains_FileName);
     Terrains_SLP_Holder->Add(Terrains_SLP_Text);
     Terrains_SLP_Holder->Add(Terrains_SLP);
-    Terrains_ShapePtr_Holder->Add(Terrains_ShapePtr_Text);
-    Terrains_ShapePtr_Holder->Add(Terrains_ShapePtr);
     Terrains_SoundID_Holder->Add(Terrains_SoundID_Text);
     wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
     sizer->Add(Terrains_SoundID, 1, wxEXPAND);
@@ -932,9 +911,7 @@ void AGE_Frame::CreateTerrainControls()
     Terrains_GridX2->Add(Terrains_StringID_Holder);
     Terrains_GridX2->Add(Terrains_IsWater_Holder);
     Terrains_GridX2->Add(Terrains_HideInEditor_Holder);
-    Terrains_GridX2->Add(Terrains_ShapePtr_Holder);
     Terrains_GridX2->Add(Terrains_UsedTerrainUnits_Holder);
-    Terrains_GridX2->Add(Terrains_Phantom_Holder);
     Terrains_Area2_Grid->Add(Terrains_PassableTerrain_Holder, 0, wxLEFT, 5);
     Terrains_Area2_Grid->Add(Terrains_ImpassableTerrain_Holder, 0, wxLEFT, 5);
 

@@ -130,7 +130,7 @@ void AGE_Frame::OnUnitLinesPasteInsert(wxCommandEvent &event)
 wxString AGE_Frame::GetUnitLineUnitName(int Unit)
 {
     wxString Name = FormatInt(Unit) + " ";
-    if(dataset->Civs.front().Units.size() <= Unit) return Name + "Nonexistent Unit";
+    if(dataset->Civs.front().Units.size() <= Unit) return Name + "NULL";
     if(!TranslatedText(dataset->Civs.front().Units[Unit].LanguageDLLName, 2).empty())
     {
         return Name + TranslatedText(dataset->Civs.front().Units[Unit].LanguageDLLName, 64);
@@ -139,7 +139,7 @@ wxString AGE_Frame::GetUnitLineUnitName(int Unit)
     {
         return Name + dataset->Civs.front().Units[Unit].Name;
     }
-    return Name + "New Unit";
+    return Name + "NULL";
 }
 
 void AGE_Frame::OnUnitLineUnitsSearch(wxCommandEvent &event)

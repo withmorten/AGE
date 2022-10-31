@@ -2172,7 +2172,6 @@ void AGE_Frame::OnGameVersionChange()
         UnitLines_Main->Show(show);
         Civs_SUnknown1_Holder->Show(show);
         General_Variables1_Holder->Show(show && ShowUnknowns);
-        Terrains_Phantom_Holder->Show(!show);
 
         bool appear = GenieVersion >= genie::GV_Tapsa && GenieVersion <= genie::GV_LatestTap;
         bool emerge = GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2;

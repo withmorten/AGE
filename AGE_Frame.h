@@ -1248,9 +1248,6 @@ private:
     wxBoxSizer *Borders_SLP_Holder;
     SolidText *Borders_SLP_Text;
     AGETextCtrl *Borders_SLP;
-    wxBoxSizer *Borders_ShapePtr_Holder;
-    SolidText *Borders_ShapePtr_Text;
-    AGETextCtrl *Borders_ShapePtr;
     wxBoxSizer *Borders_Sound_Holder;
     SolidText *Borders_Sound_Text;
     AGETextCtrl *Borders_Sound;
@@ -2899,9 +2896,6 @@ private:
     wxBoxSizer *Terrains_Area2_Grid;
     wxBoxSizer *Terrains_GridX1;
     wxGridSizer *Terrains_GridX2;
-    wxBoxSizer *Terrains_Phantom_Holder;
-    SolidText *Terrains_Phantom_Text;
-    AGETextCtrl *Terrains_Phantom;
     wxBoxSizer *Terrains_Enabled_Holder;
     wxBoxSizer *Terrains_Enabled1_Holder;
     SolidText *Terrains_Enabled_Text;
@@ -2919,9 +2913,6 @@ private:
     wxBoxSizer *Terrains_SLP_Holder;
     SolidText *Terrains_SLP_Text;
     AGETextCtrl *Terrains_SLP;
-    wxBoxSizer *Terrains_ShapePtr_Holder;
-    SolidText *Terrains_ShapePtr_Text;
-    AGETextCtrl *Terrains_ShapePtr;
     wxBoxSizer *Terrains_SoundID_Holder;
     SolidText *Terrains_SoundID_Text;
     AGETextCtrl *Terrains_SoundID;

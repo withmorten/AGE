@@ -156,7 +156,6 @@ void AGE_Frame::OnTerrainBorderSelect(wxCommandEvent &event)
         Borders_Name[1]->prepend(&BorderPointer->Name2);
         if(GenieVersion >= genie::GV_AoEB)
         Borders_SLP->prepend(&BorderPointer->SLP);
-        Borders_ShapePtr->prepend(&BorderPointer->ShapePtr);
         Borders_Sound->prepend(&BorderPointer->SoundID);
         for(size_t loop = 0; loop < 3; ++loop)
         {
@@ -504,10 +503,6 @@ void AGE_Frame::CreateTerrainBorderControls()
     Borders_SLP_Holder = new wxBoxSizer(wxVERTICAL);
     Borders_SLP_Text = new SolidText(Tab_TerrainBorders, " SLP");
     Borders_SLP = AGETextCtrl::init(CLong, &uiGroupBorder, this, &popUp, Tab_TerrainBorders);
-    Borders_ShapePtr_Holder = new wxBoxSizer(wxVERTICAL);
-    Borders_ShapePtr_Text = new SolidText(Tab_TerrainBorders, " Shape Pointer *");
-    Borders_ShapePtr = AGETextCtrl::init(CLong, &uiGroupBorder, this, &popUp, Tab_TerrainBorders);
-    Borders_ShapePtr->SetToolTip("Assigned using SHP Filename");
     Borders_Sound_Holder = new wxBoxSizer(wxVERTICAL);
     Borders_Sound_Text = new SolidText(Tab_TerrainBorders, " Sound");
     Borders_Sound = AGETextCtrl::init(CLong, &uiGroupBorder, this, &popUp, Tab_TerrainBorders);
@@ -635,8 +630,6 @@ void AGE_Frame::CreateTerrainBorderControls()
 
     Borders_SLP_Holder->Add(Borders_SLP_Text);
     Borders_SLP_Holder->Add(Borders_SLP);
-    Borders_ShapePtr_Holder->Add(Borders_ShapePtr_Text);
-    Borders_ShapePtr_Holder->Add(Borders_ShapePtr);
     Borders_Sound_Holder->Add(Borders_Sound_Text);
     Borders_Sound_Holder->Add(Borders_Sound, 0, wxEXPAND);
     for(size_t loop = 0; loop < 3; ++loop)
@@ -652,7 +645,6 @@ void AGE_Frame::CreateTerrainBorderControls()
     Borders_BorderStyle_Holder->Add(Borders_BorderStyle);
 
     Borders_Data1->Add(Borders_SLP_Holder);
-    Borders_Data1->Add(Borders_ShapePtr_Holder, 0, wxLEFT, 5);
     Borders_Data1->Add(Borders_Sound_Holder, 0, wxLEFT, 5);
     Borders_Data1->Add(Borders_Colors_Holder, 0, wxLEFT, 5);
 
