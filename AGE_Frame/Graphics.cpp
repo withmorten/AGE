@@ -919,12 +919,9 @@ void AGE_Frame::OnGraphicDeltaSelect(wxCommandEvent &event)
             DeltaPointer = &dataset->Graphics[GraphicIDs.front()].Deltas[DeltaIDs[sel]];
 
             GraphicDeltas_GraphicID->prepend(&DeltaPointer->GraphicID);
-            GraphicDeltas_Padding1->prepend(&DeltaPointer->Padding1);
-            GraphicDeltas_SpritePtr->prepend(&DeltaPointer->SpritePtr);
             GraphicDeltas_OffsetX->prepend(&DeltaPointer->OffsetX);
             GraphicDeltas_OffsetY->prepend(&DeltaPointer->OffsetY);
             GraphicDeltas_DisplayAngle->prepend(&DeltaPointer->DisplayAngle);
-            GraphicDeltas_Padding2->prepend(&DeltaPointer->Padding2);
         }
     }
     for(auto &box: uiGroupGraphicDelta) box->update();
@@ -1270,18 +1267,6 @@ void AGE_Frame::CreateGraphicsControls()
     GraphicDeltas_DisplayAngle->SetToolTip("The angle where this delta will be displayed.\n"
         "Angle 0 is always east. Angles increase clocwise.\nIn a sprite with 8 angles would be,\n"
         "0 east, 1 south-east, 2 south, 3 south-west,\n4 west, 5 north-west, 6 north, 7 north-east.");
-    GraphicDeltas_SpritePtr_Holder = new wxBoxSizer(wxVERTICAL);
-    GraphicDeltas_SpritePtr_Text = new SolidText(Graphics_Scroller, " Sprite Pointer *");
-    GraphicDeltas_SpritePtr = AGETextCtrl::init(CLong, &uiGroupGraphicDelta, this, &popUp, Graphics_Scroller);
-    GraphicDeltas_SpritePtr->SetToolTip("Is overwritten");
-    GraphicDeltas_Padding1_Holder = new wxBoxSizer(wxVERTICAL);
-    GraphicDeltas_Padding1_Text = new SolidText(Graphics_Scroller, " Padding 1 *");
-    GraphicDeltas_Padding1 = AGETextCtrl::init(CShort, &uiGroupGraphicDelta, this, &popUp, Graphics_Scroller);
-    GraphicDeltas_Padding1->SetToolTip("Completely useless");
-    GraphicDeltas_Padding2_Holder = new wxBoxSizer(wxVERTICAL);
-    GraphicDeltas_Padding2_Text = new SolidText(Graphics_Scroller, " Padding 2 *");
-    GraphicDeltas_Padding2 = AGETextCtrl::init(CShort, &uiGroupGraphicDelta, this, &popUp, Graphics_Scroller);
-    GraphicDeltas_Padding2->SetToolTip("Completely useless");
     Deltas_Import = new wxButton(Graphics_Scroller, wxID_ANY, "Import delta change list");
 
     Graphics_FirstFrame_Holder = new wxBoxSizer(wxVERTICAL);
@@ -1318,7 +1303,6 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_Deltas_Holder = new wxStaticBoxSizer(wxHORIZONTAL, Graphics_Scroller, "Deltas");
     Graphics_Deltas_Holder_Data = new wxBoxSizer(wxVERTICAL);
     Deltas_Holder = new wxBoxSizer(wxHORIZONTAL);
-    Deltas_Unknowns_Holder = new wxBoxSizer(wxHORIZONTAL);
     Graphics_AngleSoundArea_Holder = new wxStaticBoxSizer(wxHORIZONTAL, Graphics_Scroller, "Angle Sounds");
 
     graphic_filters.Add("Internal Name");  // 0
@@ -1467,28 +1451,18 @@ void AGE_Frame::CreateGraphicsControls()
     GraphicDeltas_GraphicID_Holder->Add(GraphicDeltas_GraphicID_Text);
     GraphicDeltas_GraphicID_Holder->Add(GraphicDeltas_GraphicID, 0, wxEXPAND);
     GraphicDeltas_GraphicID_Holder->Add(GraphicDeltas_GraphicID_ComboBox);
-    GraphicDeltas_Padding1_Holder->Add(GraphicDeltas_Padding1_Text);
-    GraphicDeltas_Padding1_Holder->Add(GraphicDeltas_Padding1);
-    GraphicDeltas_SpritePtr_Holder->Add(GraphicDeltas_SpritePtr_Text);
-    GraphicDeltas_SpritePtr_Holder->Add(GraphicDeltas_SpritePtr);
     GraphicDeltas_OffsetX_Holder->Add(GraphicDeltas_OffsetX_Text);
     GraphicDeltas_OffsetX_Holder->Add(GraphicDeltas_OffsetX);
     GraphicDeltas_OffsetY_Holder->Add(GraphicDeltas_OffsetY_Text);
     GraphicDeltas_OffsetY_Holder->Add(GraphicDeltas_OffsetY);
     GraphicDeltas_DisplayAngle_Holder->Add(GraphicDeltas_DisplayAngle_Text);
     GraphicDeltas_DisplayAngle_Holder->Add(GraphicDeltas_DisplayAngle);
-    GraphicDeltas_Padding2_Holder->Add(GraphicDeltas_Padding2_Text);
-    GraphicDeltas_Padding2_Holder->Add(GraphicDeltas_Padding2);
 
     Deltas_Holder->Add(GraphicDeltas_GraphicID_Holder);
     Deltas_Holder->Add(GraphicDeltas_OffsetX_Holder, 0, wxLEFT, 5);
     Deltas_Holder->Add(GraphicDeltas_OffsetY_Holder, 0, wxLEFT, 5);
     Deltas_Holder->Add(GraphicDeltas_DisplayAngle_Holder, 0, wxLEFT, 5);
-    Deltas_Unknowns_Holder->Add(GraphicDeltas_SpritePtr_Holder);
-    Deltas_Unknowns_Holder->Add(GraphicDeltas_Padding1_Holder, 0, wxLEFT, 5);
-    Deltas_Unknowns_Holder->Add(GraphicDeltas_Padding2_Holder, 0, wxLEFT, 5);
     Graphics_Deltas_Holder_Data->Add(Deltas_Holder);
-    Graphics_Deltas_Holder_Data->Add(Deltas_Unknowns_Holder, 0, wxTOP, 5);
     Graphics_Deltas_Holder_Data->Add(Deltas_Import, 0, wxTOP, 5);
 
     Graphics_Deltas_Holder->Add(Graphics_Deltas, 1, wxEXPAND);

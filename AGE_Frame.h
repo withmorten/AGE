@@ -1355,8 +1355,6 @@ private:
     wxBoxSizer *Unknown_ScrollSpace;
 
     vector<AGETextCtrl*> uiGroupRandomMap, uiGroupRMBase, uiGroupRMTerrain, uiGroupRMUnit, uiGroupRMUnknown;
-    SolidText *RMS_MapsPtr_Text;
-    AGETextCtrl *RMS_MapsPtr;
 
     wxStaticBoxSizer *Unknowns;
     wxBoxSizer *Unknowns_ListArea;
@@ -1378,14 +1376,6 @@ private:
     array<wxBoxSizer*, 9> RMS_LandData_Holder;
     array<SolidText*, 9> RMS_LandData_Text;
     array<AGETextCtrl*, 9> RMS_LandData;
-    SolidText *RMS_LandsPtr_Text;
-    AGETextCtrl *RMS_LandsPtr;
-    SolidText *RMS_TerrainsPtr_Text;
-    AGETextCtrl *RMS_TerrainsPtr;
-    SolidText *RMS_UnitsPtr_Text;
-    AGETextCtrl *RMS_UnitsPtr;
-    SolidText *RMS_ElevationsPtr_Text;
-    AGETextCtrl *RMS_ElevationsPtr;
 
     wxStaticBoxSizer *RMSMapLands;
     wxBoxSizer *RMS_Land_ListArea;
@@ -1422,9 +1412,6 @@ private:
     wxBoxSizer *RMS_Land_PlacementType_Holder;
     SolidText *RMS_Land_PlacementType_Text;
     AGETextCtrl *RMS_Land_PlacementType;
-    wxBoxSizer *RMS_Land_Padding1_Holder;
-    SolidText *RMS_Land_Padding1_Text;
-    AGETextCtrl *RMS_Land_Padding1;
 
     wxBoxSizer *RMS_Land_X_Holder;
     SolidText *RMS_Land_X_Text;
@@ -1439,9 +1426,6 @@ private:
     wxBoxSizer *RMS_Land_ByPlayerFlag_Holder;
     SolidText *RMS_Land_ByPlayerFlag_Text;
     AGETextCtrl *RMS_Land_ByPlayerFlag;
-    wxBoxSizer *RMS_Land_Padding2_Holder;
-    SolidText *RMS_Land_Padding2_Text;
-    AGETextCtrl *RMS_Land_Padding2;
 
     wxBoxSizer *RMS_Land_StartAreaRadius_Holder;
     SolidText *RMS_Land_StartAreaRadius_Text;
@@ -1499,9 +1483,6 @@ private:
     wxBoxSizer *RMS_Unit_ScaleFlag_Holder;
     SolidText *RMS_Unit_ScaleFlag_Text;
     AGETextCtrl *RMS_Unit_ScaleFlag;
-    wxBoxSizer *RMS_Unit_Padding1_Holder;
-    SolidText *RMS_Unit_Padding1_Text;
-    AGETextCtrl *RMS_Unit_Padding1;
     wxBoxSizer *RMS_Unit_ObjectsPerPlayer_Holder;
     SolidText *RMS_Unit_ObjectsPerPlayer_Text;
     AGETextCtrl *RMS_Unit_ObjectsPerPlayer;
@@ -2849,19 +2830,12 @@ private:
     wxStaticBoxSizer *Graphics_Deltas_Holder;
     wxBoxSizer *Graphics_Deltas_Holder_Data;
     wxBoxSizer *Deltas_Holder;
-    wxBoxSizer *Deltas_Unknowns_Holder;
     wxStaticBoxSizer *Graphics_AngleSoundArea_Holder;
 
     wxBoxSizer *GraphicDeltas_GraphicID_Holder;
     SolidText *GraphicDeltas_GraphicID_Text;
     AGETextCtrl *GraphicDeltas_GraphicID;
     ComboBox_Plus1 *GraphicDeltas_GraphicID_ComboBox;
-    wxBoxSizer *GraphicDeltas_Padding1_Holder;
-    SolidText *GraphicDeltas_Padding1_Text;
-    AGETextCtrl *GraphicDeltas_Padding1;
-    wxBoxSizer *GraphicDeltas_SpritePtr_Holder;
-    SolidText *GraphicDeltas_SpritePtr_Text;
-    AGETextCtrl *GraphicDeltas_SpritePtr;
     wxBoxSizer *GraphicDeltas_OffsetX_Holder;
     SolidText *GraphicDeltas_OffsetX_Text;
     AGETextCtrl *GraphicDeltas_OffsetX;
@@ -2871,9 +2845,6 @@ private:
     wxBoxSizer *GraphicDeltas_DisplayAngle_Holder;
     SolidText *GraphicDeltas_DisplayAngle_Text;
     AGETextCtrl *GraphicDeltas_DisplayAngle;
-    wxBoxSizer *GraphicDeltas_Padding2_Holder;
-    SolidText *GraphicDeltas_Padding2_Text;
-    AGETextCtrl *GraphicDeltas_Padding2;
     wxBoxSizer *Graphics_AngleSounds_Holder;
     SolidText *Graphics_AngleSounds_Text;
     wxBoxSizer *Graphics_AngleFrameNums_Holder;
