@@ -1746,12 +1746,12 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         {
             graphicset_names.Add("0 Unused");
             // AoK
-            graphicset_names.Add("1 Central Europeans");
-            graphicset_names.Add("2 West Europeans");
-            graphicset_names.Add("3 East Asians");
-            graphicset_names.Add("4 Arabs");
+            graphicset_names.Add("1 East European");
+            graphicset_names.Add("2 West European");
+            graphicset_names.Add("3 Far Eastern");
+            graphicset_names.Add("4 Middle Eastern");
             // + TC
-            graphicset_names.Add("5 Americans");
+            graphicset_names.Add("5 New World");
             // + FE
             if(GenieVersion >= genie::GV_Cysion)
             {
