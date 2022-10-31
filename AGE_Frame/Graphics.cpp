@@ -719,8 +719,6 @@ int AGE_Frame::ShouldAnimate(AGE_SLP &graphic, bool &framesleft)
     if((graphic.frames > 1 && fpms == 0) || graphic.fpa == 1) fpms = 700;
     if(fpms) ChooseNextFrame(graphic, framesleft);
     return fpms;
-
-    return 0;
 }
 
 void AGE_Frame::Listen(AGE_SLP &art)
