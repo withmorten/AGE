@@ -9,7 +9,7 @@ string AGE_Frame::GetGraphicName(int index, bool Filter)
     string Name;
     if(GenieVersion >= genie::GV_AoE && dataset->GraphicPointers[index] == 0)
     {
-        return "Nonexistent";
+        return "NULL";
     }
     if(Filter)
     {
@@ -113,7 +113,7 @@ InternalName:
     {
         return Name + dataset->Graphics[index].FileName;
     }
-    return Name + "New Sprite";
+    return Name + "NULL";
 }
 
 void AGE_Frame::OnGraphicsSearch(wxCommandEvent &event)

@@ -3,7 +3,7 @@
 string AGE_Frame::GetTerrainBorderName(int index)
 {
     if(dataset->TerrainBlock.TerrainBorders[index].Name.empty() && dataset->TerrainBlock.TerrainBorders[index].Name2.empty())
-        return "Border "+lexical_cast<string>(index);
+        return "NULL";
     return dataset->TerrainBlock.TerrainBorders[index].Name+" - "+dataset->TerrainBlock.TerrainBorders[index].Name2;
 }
 

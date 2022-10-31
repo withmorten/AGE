@@ -6,7 +6,7 @@ wxString AGE_Frame::GetUnitName(int index, short civ, bool Filter)
 
     if(dataset->Civs[civ].UnitPointers[index] == 0)
     {
-        return "Nonexistent";
+        return "NULL";
     }
     if(Filter)
     {
@@ -978,7 +978,7 @@ void AGE_Frame::InitUnits(short civ, bool all)
         {
             short cult = 0;
             wxString name = GetUnitName(loop, 0);
-            while("Nonexistent" == name && ++cult < dataset->Civs.size())
+            while("NULL" == name && ++cult < dataset->Civs.size())
             {
                 name = GetUnitName(loop, cult);
             }
@@ -3136,7 +3136,7 @@ void AGE_Frame::CreateUnitControls()
     Tab_Units = new APanel(TabBar_Main);
 
     Units_Main = new wxBoxSizer(wxHORIZONTAL);
-    Units_Units = new wxStaticBoxSizer(wxVERTICAL, Tab_Units, "Units");
+    Units_Units = new wxStaticBoxSizer(wxVERTICAL, Tab_Units, "Master Objects");
     //Units_Line = new wxStaticLine(Tab_Units, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL, "");
     Units_Special = new wxBoxSizer(wxHORIZONTAL);
     Units_Civs_List = new AGEComboBox(Tab_Units, &civ_names_only, AGETextCtrl::LARGE, false);

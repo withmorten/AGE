@@ -14,7 +14,7 @@ string AGE_Frame::GetPlayerColorName(int index)
 {
     if(GenieVersion < genie::GV_AoKE3)
         return dataset->PlayerColours[index].Name;
-    return "Color "+lexical_cast<string>(index);
+    return "Color Table "+lexical_cast<string>(index);
 }
 
 void AGE_Frame::ListPlayerColors()
@@ -215,7 +215,7 @@ void AGE_Frame::CreatePlayerColorControls()
     Colors_Main = new wxBoxSizer(wxHORIZONTAL);
     Tab_PlayerColors = new APanel(TabBar_Main);
 
-    Colors_Colors = new wxStaticBoxSizer(wxVERTICAL, Tab_PlayerColors, "Player Colors");
+    Colors_Colors = new wxStaticBoxSizer(wxVERTICAL, Tab_PlayerColors, "Color Tables");
     Colors_Colors_Search = new wxTextCtrl(Tab_PlayerColors, wxID_ANY);
     Colors_Colors_Search_R = new wxTextCtrl(Tab_PlayerColors, wxID_ANY);
     Colors_Colors_ListV = new ProperList(Tab_PlayerColors, wxSize(200, 100));

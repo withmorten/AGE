@@ -245,18 +245,18 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
 
     TabBar_Main->AddPage(Tab_Research, "Techs");
     TabBar_Main->AddPage(Tab_Techs, "Effects");
-    TabBar_Main->AddPage(Tab_TechTrees, "Tech Trees");
-    TabBar_Main->AddPage(Tab_Civs, "Civilizations");
-    TabBar_Main->AddPage(Tab_Units, "Units");
-    TabBar_Main->AddPage(Tab_UnitLine, "Unitlines");
+    TabBar_Main->AddPage(Tab_TechTrees, "Tech Tree");
+    TabBar_Main->AddPage(Tab_Civs, "Players");
+    TabBar_Main->AddPage(Tab_Units, "Objects");
+    TabBar_Main->AddPage(Tab_UnitLine, "Unit Lines");
     TabBar_Main->AddPage(Tab_Graphics, "Sprites");
     TabBar_Main->AddPage(Tab_General, "Map");
     TabBar_Main->AddPage(Tab_Terrains, "Terrains");
     TabBar_Main->AddPage(Tab_TerrainBorders, "Borders");
-    TabBar_Main->AddPage(Tab_TerrainRestrictions, "Terrain Tables");
+    TabBar_Main->AddPage(Tab_TerrainRestrictions, "Terrain Info");
     TabBar_Main->AddPage(Tab_Sounds, "Sounds");
-    TabBar_Main->AddPage(Tab_PlayerColors, "Colors");
-    TabBar_Main->AddPage(Tab_Unknown, "Maps");
+    TabBar_Main->AddPage(Tab_PlayerColors, "Color Tables");
+    TabBar_Main->AddPage(Tab_Unknown, "Map Data");
     TabBar_Main->ChangeSelection(4);
 
     AGE_Frame::FixSize(this);

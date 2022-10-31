@@ -120,7 +120,7 @@ InternalName:
     {
         return Name + dataset->Techs[index].Name;
     }
-    return Name + "New Tech";
+    return Name + "NULL";
 }
 
 void AGE_Frame::OnResearchSearch(wxCommandEvent &event)

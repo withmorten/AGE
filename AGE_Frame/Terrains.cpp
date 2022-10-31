@@ -2,7 +2,7 @@
 
 string AGE_Frame::GetTerrainName(int index, bool Filter)
 {
-    if(dataset->TerrainBlock.Terrains.size() <= index) return "Nonexistent Terrain";
+    if(dataset->TerrainBlock.Terrains.size() <= index) return "NULL";
     string Name;
     if(Filter)
     {
@@ -90,7 +90,7 @@ InternalName:
     {
         return Name + dataset->TerrainBlock.Terrains[index].Name2;
     }
-    return Name + "New Terrain";
+    return Name + "NULL";
 }
 
 void AGE_Frame::OnTerrainsSearch(wxCommandEvent &event)

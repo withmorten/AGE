@@ -2085,7 +2085,6 @@ void AGE_Frame::OnGameVersionChange()
         Units_HeadUnit_Holder->Show(show);
         TerRestrict_Graphics_Holder->Show(show);
         TechTrees_Main->Show(show);
-        TabBar_Main->SetPageText(2, show ? "Tech Trees" : "AoK+ only");
 
         // AoK Beta ->
         show = (GenieVersion >= genie::GV_AoKB) ? true : false;
@@ -2171,7 +2170,6 @@ void AGE_Frame::OnGameVersionChange()
         Units_Unitline_Holder->Show(show);
         Units_MinTechLevel_Holder->Show(show);
         UnitLines_Main->Show(show);
-        TabBar_Main->SetPageText(5, show ? "Unitlines" : "SW only");
         Civs_SUnknown1_Holder->Show(show);
         General_Variables1_Holder->Show(show && ShowUnknowns);
         Terrains_Phantom_Holder->Show(!show);

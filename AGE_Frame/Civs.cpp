@@ -381,7 +381,7 @@ void AGE_Frame::CreateCivControls()
     Civs_Civs_Buttons = new wxGridSizer(3, 0, 0);
     Tab_Civs = new APanel(TabBar_Main);
 
-    Civs_Civs = new wxStaticBoxSizer(wxVERTICAL, Tab_Civs, "Civilizations");
+    Civs_Civs = new wxStaticBoxSizer(wxVERTICAL, Tab_Civs, "Master Players");
     Civs_Civs_Search = new wxTextCtrl(Tab_Civs, wxID_ANY);
     Civs_Civs_Search_R = new wxTextCtrl(Tab_Civs, wxID_ANY);
     Civs_Civs_ListV = new ProperList(Tab_Civs, wxSize(200, 100));

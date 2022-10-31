@@ -136,7 +136,7 @@ void AGE_Frame::OnTTAgesPasteInsert(wxCommandEvent &event)
 wxString AGE_Frame::GetBuildingName(int Building)
 {
     wxString Name = FormatInt(Building) + " ";
-    if(dataset->Civs.front().Units.size() <= Building) return Name + "Nonexistent Building";
+    if(dataset->Civs.front().Units.size() <= Building) return Name + "NULL";
     if(!TranslatedText(dataset->Civs.front().Units[Building].LanguageDLLName, 2).empty())
     {
         return Name + TranslatedText(dataset->Civs.front().Units[Building].LanguageDLLName, 64);
@@ -145,7 +145,7 @@ wxString AGE_Frame::GetBuildingName(int Building)
     {
         return Name + dataset->Civs.front().Units[Building].Name;
     }
-    return Name + "New Building";
+    return Name + "NULL";
 }
 
 void AGE_Frame::OnTTAgesBuildingSearch(wxCommandEvent &event)
@@ -377,7 +377,7 @@ void AGE_Frame::OnTTAgesUnitCopyToAges(wxCommandEvent &event)
 wxString AGE_Frame::GetSimpleResearchName(int tech)
 {
     wxString Name = FormatInt(tech) + " ";
-    if(dataset->Techs.size() <= tech) return Name + "Nonexistent Technology";
+    if(dataset->Techs.size() <= tech) return Name + "NULL";
     if(!TranslatedText(dataset->Techs[tech].LanguageDLLName, 2).empty())
     {
         return Name + TranslatedText(dataset->Techs[tech].LanguageDLLName, 64);
@@ -386,7 +386,7 @@ wxString AGE_Frame::GetSimpleResearchName(int tech)
     {
         return Name + dataset->Techs[tech].Name;
     }
-    return Name + "New Technology";
+    return Name + "NULL";
 }
 
 void AGE_Frame::OnTTAgesResearchSearch(wxCommandEvent &event)
@@ -736,7 +736,7 @@ wxString AGE_Frame::GetTTBuildingName(int index)
     }
     else
     {
-        Name += "New Unit";
+        Name += "NULL";
     }
     return Name;
 }
@@ -1330,7 +1330,7 @@ wxString AGE_Frame::GetTTUnitName(int index)
     }
     else
     {
-        Name += "New Unit";
+        Name += "NULL";
     }
     return Name;
 }
@@ -1723,7 +1723,7 @@ wxString AGE_Frame::GetTTResearchName(int index)
     }
     else
     {
-        Name += "New Technology";
+        Name += "NULL";
     }
     return Name;
 }

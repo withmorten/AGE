@@ -4,7 +4,7 @@ wxString AGE_Frame::GetEffectName(int index)
 {
     if(!dataset->Effects[index].Name.empty())
         return dataset->Effects[index].Name;
-    return "New Effect";
+    return "NULL";
 }
 
 void AGE_Frame::OnEffectRenameGE2(wxCommandEvent &event)
@@ -26,11 +26,11 @@ void AGE_Frame::OnEffectRename(wxCommandEvent &event)
     {
         if(tech.EffectCommands.size()) // Other than empty techs, not researches if research loop doesn't rename them.
         {
-            tech.Name = "Non-Tech";
+            tech.Name = "NULL";
         }
         else // Empty techs.
         {
-            tech.Name = "New Effect";
+            tech.Name = "NULL";
         }
     }
     short ResearchTechID = 0;

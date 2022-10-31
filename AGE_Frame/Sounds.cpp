@@ -2,7 +2,7 @@
 
 wxString AGE_Frame::GetSoundName(int sound)
 {
-    if(dataset->Sounds[sound].Items.empty()) return "Empty";
+    if(dataset->Sounds[sound].Items.empty()) return "NULL";
     else if(dataset->Sounds[sound].Items.size() == 1)
     return "File: " + GetSoundItemName(0, sound);
     else

@@ -235,7 +235,7 @@ void AGE_Frame::CreateTerrainRestrictionControls()
 
     TerRestrict_Main = new wxBoxSizer(wxHORIZONTAL);
     TerRestrict_TerRestrict_Buttons = new wxGridSizer(3, 0, 0);
-    TerRestrict_TerRestrict = new wxStaticBoxSizer(wxVERTICAL, Tab_TerrainRestrictions, "Terrain Tables");
+    TerRestrict_TerRestrict = new wxStaticBoxSizer(wxVERTICAL, Tab_TerrainRestrictions, "Terrain Info");
     TerRestrict_TerRestrict_Search = new wxTextCtrl(Tab_TerrainRestrictions, wxID_ANY);
     TerRestrict_TerRestrict_Search_R = new wxTextCtrl(Tab_TerrainRestrictions, wxID_ANY);
     TerRestrict_TerRestrict_ListV = new ProperList(Tab_TerrainRestrictions, wxSize(200, 100));

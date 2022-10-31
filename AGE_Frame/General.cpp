@@ -1016,7 +1016,7 @@ void AGE_Frame::CreateUnknownControls()
     RMS_Scroller = new AScrolled(Tab_Unknown);
     Unknown_ScrollSpace = new wxBoxSizer(wxVERTICAL);
 
-    Unknowns = new wxStaticBoxSizer(wxHORIZONTAL, Tab_Unknown, "Random Map Scripts (Required in AoE/RoR)");
+    Unknowns = new wxStaticBoxSizer(wxHORIZONTAL, Tab_Unknown, "Map Data");
     Unknowns_ListArea = new wxBoxSizer(wxVERTICAL);
     Unknowns_Search = new wxTextCtrl(Tab_Unknown, wxID_ANY);
     Unknowns_Search_R = new wxTextCtrl(Tab_Unknown, wxID_ANY);
