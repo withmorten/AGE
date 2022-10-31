@@ -2659,6 +2659,9 @@ wxString AGE_Frame::GetUnitCommandName(int index)
         case 149: return task_names[42];
         case 150: return task_names[43];
         case 151: return task_names[44];
+        case 201: return task_names[45];
+        case 205: return task_names[46];
+        case 212: return task_names[47];
         default: return "Unk. Type "+lexical_cast<string>(CommandType);
     }
 }

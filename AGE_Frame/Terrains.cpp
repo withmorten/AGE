@@ -360,7 +360,7 @@ wxThread::ExitCode Loader::Entry()
             size_t warea = wwidth * wheight + 1;
             vector<uint8_t> wrgbdata(warea * 4, 0);
 
-            pair<size_t, size_t> corners[rows * cols];
+            pair<size_t, size_t> *corners = new pair<size_t, size_t>[rows * cols];
             for(int c = 0; c < cols; ++c)
             for(int r = 0; r < rows; ++r)
             {
@@ -408,6 +408,7 @@ wxThread::ExitCode Loader::Entry()
                     }
                 }
             }
+            delete[] corners;
             tileSLP.xpos = wwidth / 2;
             tileSLP.ypos = wheight / 2;
             unsigned char *pic = (unsigned char*)wrgbdata.data();

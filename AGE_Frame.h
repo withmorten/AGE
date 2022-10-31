@@ -1075,8 +1075,8 @@ private:
     wxString TranslatedText(int ID, int Letters = 0);
     //void WriteTranslatedText(int ID, wxString Name);
     bool exportFrame = false;
-    void LoadTXT(const wxString &filename);
-    void LoadIni(const wxString &filename);
+    void LoadTXT(char *filename);
+    void LoadIni(char *filename);
     bool LoadSLP(AGE_SLP*);
     void FrameToBitmap(AGE_SLP*, bool = false);
     void BitmapToSLP(AGE_SLP*);

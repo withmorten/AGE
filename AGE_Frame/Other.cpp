@@ -259,15 +259,15 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         {
             LooseHD = true;
         }
-        LoadTXT(LangFileName);
+        LoadTXT(LangFileName.char_str());
         if(LangX1FileName.size() && 't' == LangX1FileName[LangX1FileName.size() - 1])
-        LoadTXT(LangX1FileName);
+        LoadTXT(LangX1FileName.char_str());
         if(LangX1P1FileName.size() && 't' == LangX1P1FileName[LangX1P1FileName.size() - 1])
-        LoadTXT(LangX1P1FileName);
+        LoadTXT(LangX1P1FileName.char_str());
     }
     else if(LangFileName.size() && 'i' == LangFileName[LangFileName.size() - 1])
     {
-        LoadIni(LangFileName);
+        LoadIni(LangFileName.char_str());
     }
     else
     {
@@ -508,53 +508,52 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         // When changing this, edit all 4 other places too
         task_names.Add("Unused Ability/Invalid Ability");   // Selection 0
         task_names.Add("0: None");
-        task_names.Add("1: Move to");
-        task_names.Add(GenieVersion < genie::GV_AoKA ? "2: None" : "2: Follow");
-        task_names.Add("3: Garrison");
-        task_names.Add("4: Explore");
-        task_names.Add("5: Gather/Rebuild");
+        task_names.Add("1: RGE_Action_Move_To");
+        task_names.Add("2: RGE_Action_Follow");
+        task_names.Add("3: RGE_Action_Enter");
+        task_names.Add("4: RGE_Action_Explore");
+        task_names.Add("5: RGE_Action_Gather");
         task_names.Add("6: Graze, deleted?");
-        task_names.Add("7: Combat");
-        task_names.Add("8: Shoot");
-        task_names.Add("9: Attack");
-        task_names.Add("10: Fly");
+        task_names.Add("7: RGE_Action_Combat");
+        task_names.Add("8: RGE_Action_Missile");
+        task_names.Add("9: RGE_Action_Attack");
+        task_names.Add("10: RGE_Action_Bird");
         task_names.Add("11: Scare/Hunt, deleted?");
-        task_names.Add("12: Unload (Boat-Like)");
-        task_names.Add(GenieVersion < genie::GV_AoKA ? "13: None" : "13: Guard");
-        task_names.Add(GenieVersion < genie::GV_AoKA ? "14: None" : "HD 14: Siege Tower Ability");
-        task_names.Add("20: Escape, deleted?");
-        task_names.Add("21: Make");
-        //task_names.Add("100: Num"); // Useless
-        task_names.Add("101: Build");
-        task_names.Add("102: Make a Unit");
-        task_names.Add("103: Make a Tech");
-        task_names.Add("104: Convert");
-        task_names.Add("105: Heal");
-        task_names.Add("106: Repair");
-        task_names.Add("107: Get Auto-converted");
-        task_names.Add("108: Discovery Artifact");
-        task_names.Add("109: Unknown, nothing?");
-        task_names.Add("110: Hunt");
-        task_names.Add("111: Trade");
-        task_names.Add("120: Generate Wonder Victory");
-        if(GenieVersion >= genie::GV_AoKA)
-        {
-            task_names.Add("121: Deselect when Tasked (Farm)");
-            task_names.Add("122: Loot (Gather)");
-            task_names.Add("123: Housing");
-            task_names.Add("124: Pack");
-            task_names.Add("125: Unpack & Attack");
-            task_names.Add("130: Unknown, nothing?");
-            task_names.Add("131: Off-Map Trade");
-            task_names.Add("132: Pickup Unit");
-            task_names.Add("133: Charge Attack");
-            task_names.Add("134: Transform Unit");
-            task_names.Add("135: Kidnap Unit");
-            task_names.Add("136: Deposit Unit");
-            task_names.Add("149: Shear");
-            task_names.Add("HD 150: Regeneration");
-            task_names.Add("HD 151: Feitoria Ability");
-        }
+        task_names.Add("12: RGE_Action_Transport");
+        task_names.Add("13: RGE_Action_Guard");
+        task_names.Add("HD 14: RGE_Action_TransportOverWall");
+        task_names.Add("20: RGE_Action_Run_Away");
+        task_names.Add("21: RGE_Action_Make");
+        task_names.Add("101: TRIBE_Action_Build");
+        task_names.Add("102: TRIBE_Action_Make_Obj");
+        task_names.Add("103: TRIBE_Action_Make_Tech");
+        task_names.Add("104: TRIBE_Action_Convert");
+        task_names.Add("105: TRIBE_Action_Heal");
+        task_names.Add("106: TRIBE_Action_Repair");
+        task_names.Add("107: TRIBE_Action_Artifact");
+        task_names.Add("108: TRIBE_Action_Discovery_Artifact");
+        task_names.Add("109: TRIBE_Action_Explore");
+        task_names.Add("110: TRIBE_Action_Hunt");
+        task_names.Add("111: TRIBE_Action_Trade");
+        task_names.Add("120: TRIBE_Action_Wonder");
+        task_names.Add("121: TRIBE_Action_Farm");
+        task_names.Add("122: TRIBE_Action_Gather");
+        task_names.Add("123: TRIBE_Action_Housing");
+        task_names.Add("124: TRIBE_Action_Pack");
+        task_names.Add("125: TRIBE_Action_Unpack");
+        task_names.Add("130: Unknown, nothing?");
+        task_names.Add("131: TRIBE_Action_Offboard_Trade");
+        task_names.Add("132: TRIBE_Action_Pickup_Relic");
+        task_names.Add("133: TRIBE_Action_Charge");
+        task_names.Add("134: TRIBE_Action_Unit_Transform");
+        task_names.Add("135: TRIBE_Action_Capture");
+        task_names.Add("136: TRIBE_Action_Deliver_Relic");
+        task_names.Add("149: TRIBE_Action_Shepherd");
+        task_names.Add("HD 150: Regeneration");
+        task_names.Add("HD 151: Feitoria Ability");
+        task_names.Add("201: STRATOS_Action_Move_To");
+        task_names.Add("205: STRATOS_Action_Gather");
+        task_names.Add("212: STRATOS_Action_Transport");
         Tasks_ActionType_ComboBox->Flash();
 
         age_names.Clear();
@@ -3804,7 +3803,7 @@ bool AGE_Frame::FileExists(const char * value)
     return false;
 }*/
 
-void AGE_Frame::LoadTXT(const wxString &filename)
+void AGE_Frame::LoadTXT(char *filename)
 {
     ifstream infile(filename);
     string line;
@@ -3825,7 +3824,7 @@ void AGE_Frame::LoadTXT(const wxString &filename)
     }
 }
 
-void AGE_Frame::LoadIni(const wxString &filename) {
+void AGE_Frame::LoadIni(char *filename) {
     ifstream infile(filename);
     string line;
     while(getline(infile, line))
@@ -3871,10 +3870,11 @@ wxString AGE_Frame::TranslatedText(int ID, int letters)
         }
         else // Does not work when building as 64-bit
         {
-            char buffer[letters];
+            char *buffer = (char *)calloc(letters, 1);
             if(LangsUsed & 4 && LoadStringA(LanguageDLL[2], ID, buffer, letters)) result = buffer;
             else if(LangsUsed & 2 && LoadStringA(LanguageDLL[1], ID, buffer, letters)) result = buffer;
             else if(LangsUsed & 1 && LoadStringA(LanguageDLL[0], ID, buffer, letters)) result = buffer;
+            free(buffer);
         }
         result.Replace("\n", "\r\n");
     }
