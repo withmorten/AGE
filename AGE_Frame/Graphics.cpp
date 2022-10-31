@@ -94,9 +94,6 @@ string AGE_Frame::GetGraphicName(int index, bool Filter)
                 case 21: // Unknown 3
                     Name += "EF "+FormatInt(dataset->Graphics[index].EditorFlag);
                     break;
-                case 22: // Pointer
-                    Name = FormatInt(dataset->GraphicPointers[index]);
-                    break;
             }
             Name += ", ";
             if(Selection[loop+1] < 1) break; // Internal name breaks
@@ -1327,7 +1324,6 @@ void AGE_Frame::CreateGraphicsControls()
     graphic_filters.Add("Sequence Type");
     graphic_filters.Add("Mirroring Mode");
     graphic_filters.Add("Old Editor Flag");
-    graphic_filters.Add("Pointer");
     for(size_t loop = 0; loop < 2; ++loop)
     {
         Graphics_SearchFilters[loop]->Flash();
