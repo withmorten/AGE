@@ -2020,8 +2020,6 @@ void AGE_Frame::OnGameVersionChange()
         // AoE ->
         show = (GenieVersion >= genie::GV_AoE) ? true : false;
         Units_CopyID_Holder->Show(show);
-        for(size_t loop = 2; loop < General_TileSizes.size(); loop += 3)
-        General_TileSizes[loop]->Show(show);
 
         // AoK E3 ->
         show = (GenieVersion >= genie::GV_AoKE3) ? true : false;

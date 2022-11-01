@@ -457,8 +457,6 @@ private:
 
     void ListMapData();
     void OnMapsRefresh(wxCommandEvent &event);
-    void OnVariableCalc(wxFocusEvent &event);
-    void OnVariableCalcReverse(wxFocusEvent &event);
 
     void ListRandomMaps();
     void OnRandomMapSearch(wxCommandEvent &event);
@@ -1146,39 +1144,8 @@ private:
 //  General user interface
 
     wxBoxSizer *General_Main;
-    wxBoxSizer *General_TopRow;
-    wxButton *General_Refresh;
-    SolidText *General_CalcBoxes_Text;
-    SolidText *General_CalcBoxesMiddle_Text;
-    wxTextCtrl *General_CalcBoxes[5];
     AScrolled *General_Scroller;
     wxBoxSizer *General_ScrollSpace;
-    SolidText *General_TileSizes_Text;
-    wxGridSizer *General_TileSizes_Grid;
-    array<wxBoxSizer*, 19> General_TileSizes_Sizers;
-    array<AGETextCtrl*, 57> General_TileSizes;
-
-    wxBoxSizer *MapMinX_Sizer;
-    SolidText *MapMinX_Text;
-    AGETextCtrl *MapMinX;
-    wxBoxSizer *MapMinY_Sizer;
-    SolidText *MapMinY_Text;
-    AGETextCtrl *MapMinY;
-    wxBoxSizer *MapMaxX_Sizer;
-    SolidText *MapMaxX_Text;
-    AGETextCtrl *MapMaxX;
-    wxBoxSizer *MapMaxY_Sizer;
-    SolidText *MapMaxY_Text;
-    AGETextCtrl *MapMaxY;
-    wxBoxSizer *MapMaxXplus1_Sizer;
-    SolidText *MapMaxXplus1_Text;
-    AGETextCtrl *MapMaxXplus1;
-    wxBoxSizer *MapMaxYplus1_Sizer;
-    SolidText *MapMaxYplus1_Text;
-    AGETextCtrl *MapMaxYplus1;
-    wxBoxSizer *MaxTerrain_Sizer;
-    SolidText *MaxTerrain_Text;
-    AGETextCtrl *MaxTerrain;
 
     wxBoxSizer *TileWidth_Sizer;
     SolidText *TileWidth_Text;
@@ -1186,12 +1153,6 @@ private:
     wxBoxSizer *TileHeight_Sizer;
     SolidText *TileHeight_Text;
     AGETextCtrl *TileHeight;
-    wxBoxSizer *TileHalfHeight_Sizer;
-    SolidText *TileHalfHeight_Text;
-    AGETextCtrl *TileHalfHeight;
-    wxBoxSizer *TileHalfWidth_Sizer;
-    SolidText *TileHalfWidth_Text;
-    AGETextCtrl *TileHalfWidth;
     wxBoxSizer *ElevHeight_Sizer;
     SolidText *ElevHeight_Text;
     AGETextCtrl *ElevHeight;
@@ -1309,7 +1270,6 @@ private:
     AGETextCtrl *Borders_BorderStyle;
 
     vector<AGETextCtrl*> uiGroupMaps, uiGroupTT, uiGroupTTAge, uiGroupTTBuilding, uiGroupTTUnit, uiGroupTTResearch;
-    wxBoxSizer *General_Variables2_Grid;
     wxStaticBoxSizer *General_Variables1_Holder;
     wxStaticBoxSizer *General_Variables2_Holder;
     wxBoxSizer *General_SUnknown7_Holder;
@@ -1333,19 +1293,6 @@ private:
     array<wxBoxSizer*, 8> General_TTKnown_Holder;
     array<SolidText*, 8> General_TTKnown_Text;
     array<AGETextCtrl*, 8> General_TTKnown;
-
-    wxBoxSizer *General_MapWidth_Holder;
-    SolidText *General_MapWidth_Text;
-    AGETextCtrl *General_MapWidth;
-    wxBoxSizer *General_MapHeight_Holder;
-    SolidText *General_MapHeight_Text;
-    AGETextCtrl *General_MapHeight;
-    wxBoxSizer *General_WorldWidth_Holder;
-    SolidText *General_WorldWidth_Text;
-    AGETextCtrl *General_WorldWidth;
-    wxBoxSizer *General_WorldHeight_Holder;
-    SolidText *General_WorldHeight_Text;
-    AGETextCtrl *General_WorldHeight;
 
     wxBoxSizer *Unknown_Main;
     AScrolled *RMS_Scroller;

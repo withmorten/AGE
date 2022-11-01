@@ -6,112 +6,12 @@ void AGE_Frame::ListMapData()
     OnMapsRefresh(E);
 }
 
-void AGE_Frame::OnVariableCalc(wxFocusEvent &event)
-{
-    event.Skip();
-    int32_t result = 0;
-
-    if(!General_CalcBoxes[0]->IsEmpty())
-    {
-        try
-        {
-            result = lexical_cast<int32_t>(General_CalcBoxes[0]->GetValue()) & 0xFF;
-        }
-        catch(const bad_lexical_cast&){}
-    }
-
-    if(!General_CalcBoxes[1]->IsEmpty())
-    {
-        try
-        {
-            result += (lexical_cast<int32_t>(General_CalcBoxes[1]->GetValue()) & 0xFF) << 8;
-        }
-        catch(const bad_lexical_cast&){}
-    }
-
-    if(!General_CalcBoxes[2]->IsEmpty())
-    {
-        try
-        {
-            result += (lexical_cast<int32_t>(General_CalcBoxes[2]->GetValue()) & 0xFF) << 16;
-        }
-        catch(const bad_lexical_cast&){}
-    }
-
-    if(!General_CalcBoxes[3]->IsEmpty())
-    {
-        try
-        {
-            result += (lexical_cast<int32_t>(General_CalcBoxes[3]->GetValue()) & 0xFF) << 24;
-        }
-        catch(const bad_lexical_cast&){}
-    }
-
-    General_CalcBoxes[4]->ChangeValue(lexical_cast<string>(result));
-}
-
-void AGE_Frame::OnVariableCalcReverse(wxFocusEvent &event)
-{
-    event.Skip();
-    if(General_CalcBoxes[4]->IsEmpty()) return;
-
-    int32_t result;
-    try
-    {
-        result = lexical_cast<int32_t>(General_CalcBoxes[4]->GetValue());
-    }
-    catch(const bad_lexical_cast&)
-    {
-        result = 0;
-    }
-
-    General_CalcBoxes[0]->ChangeValue(lexical_cast<string>(result & 0xFF));
-    result >>= 8;
-    General_CalcBoxes[1]->ChangeValue(lexical_cast<string>(result & 0xFF));
-    result >>= 8;
-    General_CalcBoxes[2]->ChangeValue(lexical_cast<string>(result & 0xFF));
-    result >>= 8;
-    General_CalcBoxes[3]->ChangeValue(lexical_cast<string>(result & 0xFF));
-}
-
 void AGE_Frame::OnMapsRefresh(wxCommandEvent &event)
 {
     for(auto &box: uiGroupMaps) box->clear();
-    General_MapWidth->prepend(&dataset->TerrainBlock.MapWidth);
-    General_MapHeight->prepend(&dataset->TerrainBlock.MapHeight);
-    General_WorldWidth->prepend(&dataset->TerrainBlock.WorldWidth);
-    General_WorldHeight->prepend(&dataset->TerrainBlock.WorldHeight);
-    for(size_t loop = 0, slot = 0; loop < genie::SharedTerrain::TILE_TYPE_COUNT; ++loop)
-    {
-        General_TileSizes[slot++]->prepend(&dataset->TerrainBlock.TileSizes[loop].Width);
-        General_TileSizes[slot++]->prepend(&dataset->TerrainBlock.TileSizes[loop].Height);
-        if(GenieVersion >= genie::GV_AoE)
-        {
-            General_TileSizes[slot++]->prepend(&dataset->TerrainBlock.TileSizes[loop].DeltaY);
-        }
-        else
-        {
-            ++slot;
-        }
-    }
 
-    if(GenieVersion >= genie::GV_AoKA)
-    {
-        MapMinX->prepend(&dataset->TerrainBlock.MapMinX);
-        MapMinY->prepend(&dataset->TerrainBlock.MapMinY);
-        MapMaxX->prepend(&dataset->TerrainBlock.MapMaxX);
-        MapMaxY->prepend(&dataset->TerrainBlock.MapMaxY);
-    }
-    if(GenieVersion >= genie::GV_AoK)
-    {
-        MapMaxXplus1->prepend(&dataset->TerrainBlock.MapMaxXplus1);
-        MapMaxYplus1->prepend(&dataset->TerrainBlock.MapMaxYplus1);
-    }
-    MaxTerrain->prepend(&dataset->TerrainBlock.MaxTerrain);
     TileWidth->prepend(&dataset->TerrainBlock.TileWidth);
     TileHeight->prepend(&dataset->TerrainBlock.TileHeight);
-    TileHalfHeight->prepend(&dataset->TerrainBlock.TileHalfHeight);
-    TileHalfWidth->prepend(&dataset->TerrainBlock.TileHalfWidth);
     ElevHeight->prepend(&dataset->TerrainBlock.ElevHeight);
 
     if(GenieVersion >= genie::GV_AoKA)
@@ -142,18 +42,10 @@ void AGE_Frame::CreateGeneralControls()
     Tab_General = new APanel(TabBar_Main);
 
     General_Main = new wxBoxSizer(wxVERTICAL);
-    General_TopRow = new wxBoxSizer(wxHORIZONTAL);
-    General_Refresh = new wxButton(Tab_General, wxID_ANY, "Refresh");
-    General_CalcBoxes_Text = new SolidText(Tab_General, " Variable Converter *");
-    General_CalcBoxes_Text->SetToolTip("From four 8 bit integers to one 32 bit integer or vice versa");
-    General_CalcBoxesMiddle_Text = new SolidText(Tab_General, " = ");
-    for(size_t loop = 0; loop < 5; ++loop)
-    General_CalcBoxes[loop] = new wxTextCtrl(Tab_General, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(70, -1));
     General_Scroller = new AScrolled(Tab_General);
     General_ScrollSpace = new wxBoxSizer(wxVERTICAL);
 
     const wxString SWUNKNOWNSINFO = "Unknowns 2 to 5 are in the beginning of the file,\nright after civilization count (first of the two) and\nbefore terrain tables";
-    General_Variables2_Grid = new wxBoxSizer(wxHORIZONTAL);
     General_Variables1_Holder = new wxStaticBoxSizer(wxHORIZONTAL, General_Scroller, "Star Wars Unknowns");
     General_SUnknown2_Holder = new wxBoxSizer(wxVERTICAL);
     General_SUnknown2_Text = new SolidText(General_Scroller, " Unkown 2 *");
@@ -180,118 +72,27 @@ void AGE_Frame::CreateGeneralControls()
     General_SUnknown8 = AGETextCtrl::init(CByte, &uiGroupMaps, this, &popUp, General_Scroller);
     General_SUnknown8->SetToolTip("In the file this is\nright after techs and\nbefore technology trees");
 
-    General_MapWidth_Holder = new wxBoxSizer(wxVERTICAL);
-    General_MapWidth_Text = new SolidText(General_Scroller, " Map Width");
-    General_MapWidth = AGETextCtrl::init(CLong, &uiGroupMaps, this, &popUp, General_Scroller);
-    General_MapHeight_Holder = new wxBoxSizer(wxVERTICAL);
-    General_MapHeight_Text = new SolidText(General_Scroller, " Map Height");
-    General_MapHeight = AGETextCtrl::init(CLong, &uiGroupMaps, this, &popUp, General_Scroller);
-    General_WorldWidth_Holder = new wxBoxSizer(wxVERTICAL);
-    General_WorldWidth_Text = new SolidText(General_Scroller, " World Width");
-    General_WorldWidth = AGETextCtrl::init(CLong, &uiGroupMaps, this, &popUp, General_Scroller);
-    General_WorldHeight_Holder = new wxBoxSizer(wxVERTICAL);
-    General_WorldHeight_Text = new SolidText(General_Scroller, " World Height");
-    General_WorldHeight = AGETextCtrl::init(CLong, &uiGroupMaps, this, &popUp, General_Scroller);
-
-    General_TileSizes_Text = new SolidText(General_Scroller, " Tile Sizes   19 x (Width, Height, Delta Y)   1st is flat tile, then 2 x 8 elevation tiles, then 2 1:1 tiles");
-    General_TileSizes_Grid = new wxFlexGridSizer(5, 0, 0);
-
-    MapMinX_Sizer = new wxBoxSizer(wxVERTICAL);
-    MapMinX_Text = new SolidText(General_Scroller, " Map Min X");
-    MapMinX = AGETextCtrl::init(CFloat, &uiGroupMaps, this, &popUp, General_Scroller);
-    MapMinY_Sizer = new wxBoxSizer(wxVERTICAL);
-    MapMinY_Text = new SolidText(General_Scroller, " Map Min Y");
-    MapMinY = AGETextCtrl::init(CFloat, &uiGroupMaps, this, &popUp, General_Scroller);
-    MapMaxX_Sizer = new wxBoxSizer(wxVERTICAL);
-    MapMaxX_Text = new SolidText(General_Scroller, " Map Max X");
-    MapMaxX = AGETextCtrl::init(CFloat, &uiGroupMaps, this, &popUp, General_Scroller);
-    MapMaxY_Sizer = new wxBoxSizer(wxVERTICAL);
-    MapMaxY_Text = new SolidText(General_Scroller, " Map Max Y");
-    MapMaxY = AGETextCtrl::init(CFloat, &uiGroupMaps, this, &popUp, General_Scroller);
-    MapMaxXplus1_Sizer = new wxBoxSizer(wxVERTICAL);
-    MapMaxXplus1_Text = new SolidText(General_Scroller, " Map Max X + 1");
-    MapMaxXplus1 = AGETextCtrl::init(CFloat, &uiGroupMaps, this, &popUp, General_Scroller);
-    MapMaxYplus1_Sizer = new wxBoxSizer(wxVERTICAL);
-    MapMaxYplus1_Text = new SolidText(General_Scroller, " Map Max Y + 1");
-    MapMaxYplus1 = AGETextCtrl::init(CFloat, &uiGroupMaps, this, &popUp, General_Scroller);
-    MaxTerrain_Sizer = new wxBoxSizer(wxVERTICAL);
-    MaxTerrain_Text = new SolidText(General_Scroller, " Max Terrain");
-    MaxTerrain = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
-
     TileWidth_Sizer = new wxBoxSizer(wxVERTICAL);
     TileWidth_Text = new SolidText(General_Scroller, " Tile Width");
     TileWidth = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
     TileHeight_Sizer = new wxBoxSizer(wxVERTICAL);
     TileHeight_Text = new SolidText(General_Scroller, " Tile Height");
     TileHeight = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
-    TileHalfHeight_Sizer = new wxBoxSizer(wxVERTICAL);
-    TileHalfHeight_Text = new SolidText(General_Scroller, " Tile Half Height");
-    TileHalfHeight = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
-    TileHalfWidth_Sizer = new wxBoxSizer(wxVERTICAL);
-    TileHalfWidth_Text = new SolidText(General_Scroller, " Tile Half Width");
-    TileHalfWidth = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
     ElevHeight_Sizer = new wxBoxSizer(wxVERTICAL);
     ElevHeight_Text = new SolidText(General_Scroller, " Elevation Height");
     ElevHeight = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
 
     General_TerrainRendering_Grid = new wxFlexGridSizer(7, 5, 5);
-    for(auto &sizer: General_TileSizes_Sizers)
-    sizer = new wxBoxSizer(wxHORIZONTAL);
-    for(auto &box: General_TileSizes)
-    box = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller, AGETextCtrl::SMALL);
 
-    General_TopRow->Add(General_Refresh, 0, wxRIGHT, 100);
-    for(size_t loop = 0; loop < 4; ++loop)
-    General_TopRow->Add(General_CalcBoxes[loop]);
-    General_TopRow->Add(General_CalcBoxesMiddle_Text);
-    General_TopRow->Add(General_CalcBoxes[4]);
-    General_TopRow->Add(General_CalcBoxes_Text);
-
-    for(size_t loop = 0, tile = 0; loop < General_TileSizes.size();)
-    {
-        General_TileSizes_Sizers[tile]->Add(General_TileSizes[loop++]);
-        General_TileSizes_Sizers[tile]->Add(General_TileSizes[loop++]);
-        General_TileSizes_Sizers[tile++]->Add(General_TileSizes[loop++]);
-    }
-    for(auto &sizer: General_TileSizes_Sizers)
-    General_TileSizes_Grid->Add(sizer);
-
-    MapMinX_Sizer->Add(MapMinX_Text);
-    MapMinY_Sizer->Add(MapMinY_Text);
-    MapMaxX_Sizer->Add(MapMaxX_Text);
-    MapMaxY_Sizer->Add(MapMaxY_Text);
-    MapMaxXplus1_Sizer->Add(MapMaxXplus1_Text);
-    MapMaxYplus1_Sizer->Add(MapMaxYplus1_Text);
-    MapMinX_Sizer->Add(MapMinX);
-    MapMinY_Sizer->Add(MapMinY);
-    MapMaxX_Sizer->Add(MapMaxX);
-    MapMaxY_Sizer->Add(MapMaxY);
-    MapMaxXplus1_Sizer->Add(MapMaxXplus1);
-    MapMaxYplus1_Sizer->Add(MapMaxYplus1);
-    MaxTerrain_Sizer->Add(MaxTerrain_Text);
     TileWidth_Sizer->Add(TileWidth_Text);
     TileHeight_Sizer->Add(TileHeight_Text);
-    TileHalfHeight_Sizer->Add(TileHalfHeight_Text);
-    TileHalfWidth_Sizer->Add(TileHalfWidth_Text);
     ElevHeight_Sizer->Add(ElevHeight_Text);
-    MaxTerrain_Sizer->Add(MaxTerrain);
     TileWidth_Sizer->Add(TileWidth);
     TileHeight_Sizer->Add(TileHeight);
-    TileHalfHeight_Sizer->Add(TileHalfHeight);
-    TileHalfWidth_Sizer->Add(TileHalfWidth);
     ElevHeight_Sizer->Add(ElevHeight);
 
-    General_TerrainRendering_Grid->Add(MapMinX_Sizer);
-    General_TerrainRendering_Grid->Add(MapMinY_Sizer);
-    General_TerrainRendering_Grid->Add(MapMaxX_Sizer);
-    General_TerrainRendering_Grid->Add(MapMaxY_Sizer);
-    General_TerrainRendering_Grid->Add(MapMaxXplus1_Sizer);
-    General_TerrainRendering_Grid->Add(MapMaxYplus1_Sizer);
-    General_TerrainRendering_Grid->Add(MaxTerrain_Sizer);
     General_TerrainRendering_Grid->Add(TileWidth_Sizer);
     General_TerrainRendering_Grid->Add(TileHeight_Sizer);
-    General_TerrainRendering_Grid->Add(TileHalfHeight_Sizer);
-    General_TerrainRendering_Grid->Add(TileHalfWidth_Sizer);
     General_TerrainRendering_Grid->Add(ElevHeight_Sizer);
 
     General_SUnknown7_Holder->Add(General_SUnknown7_Text);
@@ -313,37 +114,15 @@ void AGE_Frame::CreateGeneralControls()
     General_Variables1_Holder->Add(General_SUnknown7_Holder, 0, wxLEFT, 5);
     General_Variables1_Holder->Add(General_SUnknown8_Holder, 0, wxLEFT, 5);
 
-    General_MapWidth_Holder->Add(General_MapWidth_Text);
-    General_MapWidth_Holder->Add(General_MapWidth);
-    General_MapHeight_Holder->Add(General_MapHeight_Text);
-    General_MapHeight_Holder->Add(General_MapHeight);
-    General_WorldWidth_Holder->Add(General_WorldWidth_Text);
-    General_WorldWidth_Holder->Add(General_WorldWidth);
-    General_WorldHeight_Holder->Add(General_WorldHeight_Text);
-    General_WorldHeight_Holder->Add(General_WorldHeight);
-    General_Variables2_Grid->Add(General_MapWidth_Holder, 0, wxLEFT, 5);
-    General_Variables2_Grid->Add(General_MapHeight_Holder, 0, wxLEFT, 5);
-    General_Variables2_Grid->Add(General_WorldWidth_Holder, 0, wxLEFT, 5);
-    General_Variables2_Grid->Add(General_WorldHeight_Holder, 0, wxLEFT, 5);
-
     General_ScrollSpace->Add(General_Variables1_Holder);
-    General_ScrollSpace->Add(General_Variables2_Grid, 0, wxTOP | wxBOTTOM, 5);
-    General_ScrollSpace->Add(General_TileSizes_Text);
-    General_ScrollSpace->Add(General_TileSizes_Grid);
     General_ScrollSpace->Add(General_TerrainRendering_Grid, 0, wxTOP | wxBOTTOM, 5);
 
     General_Scroller->SetSizer(General_ScrollSpace);
     General_Scroller->SetScrollRate(0, 15);
 
-    General_Main->Add(General_TopRow, 0, wxEXPAND | wxALL, 5);
     General_Main->Add(General_Scroller, 1, wxEXPAND | wxBOTTOM | wxLEFT | wxRIGHT, 5);
 
     Tab_General->SetSizer(General_Main);
-
-    General_Refresh->Bind(wxEVT_BUTTON, &AGE_Frame::OnMapsRefresh, this);
-    for(size_t loop = 0; loop < 4; ++loop)
-    General_CalcBoxes[loop]->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnVariableCalc, this);
-    General_CalcBoxes[4]->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnVariableCalcReverse, this);
 }
 
 void AGE_Frame::OnRandomMapSearch(wxCommandEvent &event)
