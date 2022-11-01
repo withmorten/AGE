@@ -203,8 +203,8 @@ int TextCtrl_Float::SaveEdits(bool forced)
         try
         {
             float casted;
-            if(value == "max") casted = 3.40282347e+38;
-            else if(value == "min") casted = 1.17549435e-38;
+            if(value == "max") casted = FLT_MAX;
+            else if(value == "min") casted = FLT_MIN;
             else casted = lexical_cast<float>(value);
             if(batchMode > 0)
             {
