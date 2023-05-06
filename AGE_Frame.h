@@ -1832,7 +1832,6 @@ private:
     wxCheckBox *Units_Trait_CheckBox[8];
     AGETextCtrl *Units_Civ;
     ComboBox_Plus1 *Units_Civ_ComboBox;
-    AGETextCtrl *Units_Nothing;
     AGETextCtrl *Units_SelectionEffect;
     AGETextCtrl *Units_EditorSelectionColour;
     wxBoxSizer *Units_SelectionRadiusBox;
@@ -2059,7 +2058,6 @@ private:
     SolidText *Units_ObstructionClass_Text;
     SolidText *Units_Trait_Text;
     SolidText *Units_Civ_Text;
-    SolidText *Units_Nothing_Text;
     SolidText *Units_SelectionEffect_Text;
     SolidText *Units_EditorSelectionColour_Text;
     SolidText *Units_SelectionRadius_Text;
@@ -2244,7 +2242,6 @@ private:
     wxBoxSizer *Units_ObstructionClass_Holder;
     wxBoxSizer *Units_Trait_Holder;
     wxBoxSizer *Units_Civ_Holder;
-    wxBoxSizer *Units_Nothing_Holder;
     wxBoxSizer *Units_SelectionEffect_Holder;
     wxBoxSizer *Units_EditorSelectionColour_Holder;
     wxBoxSizer *Units_SelectionRadius_Holder;

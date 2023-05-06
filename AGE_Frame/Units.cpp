@@ -1340,7 +1340,6 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                                     {
                                         Units_Trait->prepend(&UnitPointer->Trait);
                                         Units_Civ->prepend(&UnitPointer->Civilization);
-                                        Units_Nothing->prepend(&UnitPointer->Nothing);
                                         if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
                                         {
                                             Units_WwiseTrainSound->prepend(&UnitPointer->WwiseTrainSoundID);
@@ -3311,7 +3310,6 @@ void AGE_Frame::CreateUnitControls()
     Units_ObstructionClass_Holder = new wxBoxSizer(wxVERTICAL);
     Units_Trait_Holder = new wxBoxSizer(wxVERTICAL);
     Units_Civ_Holder = new wxBoxSizer(wxVERTICAL);
-    Units_Nothing_Holder = new wxBoxSizer(wxVERTICAL);
     Units_SelectionEffect_Holder = new wxBoxSizer(wxVERTICAL);
     Units_EditorSelectionColour_Holder = new wxBoxSizer(wxVERTICAL);
     Units_SelectionRadius_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3494,7 +3492,6 @@ void AGE_Frame::CreateUnitControls()
     Units_ObstructionClass_Text = new SolidText(Units_Scroller, " Blockage Class *");
     Units_Trait_Text = new SolidText(Units_Scroller, " Unit Trait *");
     Units_Civ_Text = new SolidText(Units_Scroller, " Civilization");
-    Units_Nothing_Text = new SolidText(Units_Scroller, " Trait Piece *");
     Units_SelectionEffect_Text = new SolidText(Units_Scroller, " Selection Effect *");
     Units_EditorSelectionColour_Text = new SolidText(Units_Scroller, " Editor Select Color");
     Units_SelectionRadius_Text = new SolidText(Units_Scroller, " Selection Outline Size XYZ *");
@@ -4002,8 +3999,6 @@ void AGE_Frame::CreateUnitControls()
     Units_Civ = AGETextCtrl::init(CByte, &uiGroupUnit, this, &popUp, Units_Scroller);
     Units_Civ_ComboBox = new ComboBox_Plus1(Units_Scroller, Units_Civ, &civ_names);
     CivComboBoxList.push_back(Units_Civ_ComboBox);
-    Units_Nothing = AGETextCtrl::init(CShort, &uiGroupUnit, this, &popUp, Units_Scroller);
-    Units_Nothing->SetToolTip("This is actually leftover from attribute+civ variable\nProbably useless");
     Units_DeadUnitID = AGETextCtrl::init(CShort, &uiGroupUnit, this, &popUp, Units_Scroller);
     Units_DeadUnitID_ComboBox = new ComboBox_Plus1(Units_Scroller, Units_DeadUnitID, &unit_names);
     UnitComboBoxList.push_back(Units_DeadUnitID_ComboBox);
@@ -4652,7 +4647,6 @@ void AGE_Frame::CreateUnitControls()
     Units_ObstructionType_Holder->Add(Units_ObstructionType_Text);
     Units_ObstructionClass_Holder->Add(Units_ObstructionClass_Text);
     Units_Civ_Holder->Add(Units_Civ_Text);
-    Units_Nothing_Holder->Add(Units_Nothing_Text);
     Units_Trait_Holder->Add(Units_Trait_Text);
     Units_SelectionEffect_Holder->Add(Units_SelectionEffect_Text);
     Units_EditorSelectionColour_Holder->Add(Units_EditorSelectionColour_Text);
@@ -4838,7 +4832,6 @@ void AGE_Frame::CreateUnitControls()
     Units_Trait_Holder->Add(Units_Trait_Grid);
     Units_Civ_Holder->Add(Units_Civ, 0, wxEXPAND);
     Units_Civ_Holder->Add(Units_Civ_ComboBox);
-    Units_Nothing_Holder->Add(Units_Nothing);
     Units_SelectionEffect_Holder->Add(Units_SelectionEffect);
     Units_EditorSelectionColour_Holder->Add(Units_EditorSelectionColour, 0, wxEXPAND);
     for(size_t loop = 0; loop < 3; ++loop)
@@ -5374,7 +5367,6 @@ void AGE_Frame::CreateUnitControls()
     for(auto &sizer: Units_ResourceStorage_Holder)
     Units_ResourceStorageHeader_Holder->Add(sizer, 0, wxLEFT, 5);
     Units_A2_Grid->Add(Units_Civ_Holder, 0, wxLEFT, 5);
-    Units_A2_Grid->Add(Units_Nothing_Holder, 0, wxLEFT, 5);
     Units_A1_Grid->Add(Units_DeadUnitID_Holder);
     Units_A1_Grid->Add(Units_BloodUnitID_Holder, 0, wxLEFT, 5);
     Units_A1_Grid->Add(Units_Unitline_Holder, 0, wxLEFT, 5);
