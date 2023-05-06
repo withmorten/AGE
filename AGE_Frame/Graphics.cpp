@@ -1691,8 +1691,8 @@ void AGE_Frame::CreateGraphicsControls()
         if(dd.ShowModal() == wxID_OK && dataset)
         {
             wxBusyCursor WaitCursor;
-            ifstream infile(dd.GetPath().char_str());
-            string line;
+            std::string line(dd.GetPath());
+            std::ifstream infile(line);
             while(getline(infile, line))
             {
                 wxArrayString pieces(wxStringTokenize(line, "\t"));

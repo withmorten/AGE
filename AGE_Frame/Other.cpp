@@ -259,15 +259,15 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         {
             LooseHD = true;
         }
-        LoadTXT(LangFileName.char_str());
+        LoadTXT(LangFileName);
         if(LangX1FileName.size() && 't' == LangX1FileName[LangX1FileName.size() - 1])
-        LoadTXT(LangX1FileName.char_str());
+        LoadTXT(LangX1FileName);
         if(LangX1P1FileName.size() && 't' == LangX1P1FileName[LangX1P1FileName.size() - 1])
-        LoadTXT(LangX1P1FileName.char_str());
+        LoadTXT(LangX1P1FileName);
     }
     else if(LangFileName.size() && 'i' == LangFileName[LangFileName.size() - 1])
     {
-        LoadIni(LangFileName.char_str());
+        LoadIni(LangFileName);
     }
     else
     {
@@ -3784,10 +3784,10 @@ bool AGE_Frame::FileExists(const char * value)
     return false;
 }*/
 
-void AGE_Frame::LoadTXT(char *filename)
+void AGE_Frame::LoadTXT(const wxString &filename)
 {
-    ifstream infile(filename);
-    string line;
+    std::string line(filename);
+    std::ifstream infile(line);
     while(getline(infile, line))
     {
         size_t num = 0;
@@ -3805,9 +3805,9 @@ void AGE_Frame::LoadTXT(char *filename)
     }
 }
 
-void AGE_Frame::LoadIni(char *filename) {
-    ifstream infile(filename);
-    string line;
+void AGE_Frame::LoadIni(const wxString &filename) {
+    std::string line(filename);
+    std::ifstream infile(line);
     while(getline(infile, line))
     {
         if(line[0] == ';')
@@ -3851,11 +3851,11 @@ wxString AGE_Frame::TranslatedText(int ID, int letters)
         }
         else // Does not work when building as 64-bit
         {
-            char *buffer = (char *)calloc(letters, 1);
+            char *buffer = new char[letters];
             if(LangsUsed & 4 && LoadStringA(LanguageDLL[2], ID, buffer, letters)) result = buffer;
             else if(LangsUsed & 2 && LoadStringA(LanguageDLL[1], ID, buffer, letters)) result = buffer;
             else if(LangsUsed & 1 && LoadStringA(LanguageDLL[0], ID, buffer, letters)) result = buffer;
-            free(buffer);
+            delete[] buffer;
         }
         result.Replace("\n", "\r\n");
     }
