@@ -73,10 +73,10 @@ void AGE_Frame::CreateGeneralControls()
     General_SUnknown8->SetToolTip("In the file this is\nright after techs and\nbefore technology trees");
 
     TileWidth_Sizer = new wxBoxSizer(wxVERTICAL);
-    TileWidth_Text = new SolidText(General_Scroller, " Tile Width");
+    TileWidth_Text = new SolidText(General_Scroller, " Map Tile Width");
     TileWidth = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
     TileHeight_Sizer = new wxBoxSizer(wxVERTICAL);
-    TileHeight_Text = new SolidText(General_Scroller, " Tile Height");
+    TileHeight_Text = new SolidText(General_Scroller, " Map Tile Height");
     TileHeight = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
     ElevHeight_Sizer = new wxBoxSizer(wxVERTICAL);
     ElevHeight_Text = new SolidText(General_Scroller, " Elevation Height");

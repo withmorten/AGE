@@ -250,11 +250,11 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
     TabBar_Main->AddPage(Tab_Units, "Objects");
     TabBar_Main->AddPage(Tab_UnitLine, "Unit Lines");
     TabBar_Main->AddPage(Tab_Graphics, "Sprites");
+    TabBar_Main->AddPage(Tab_Sounds, "Sounds");
     TabBar_Main->AddPage(Tab_General, "Map");
     TabBar_Main->AddPage(Tab_Terrains, "Terrains");
     TabBar_Main->AddPage(Tab_TerrainBorders, "Borders");
     TabBar_Main->AddPage(Tab_TerrainRestrictions, "Terrain Info");
-    TabBar_Main->AddPage(Tab_Sounds, "Sounds");
     TabBar_Main->AddPage(Tab_PlayerColors, "Color Tables");
     TabBar_Main->AddPage(Tab_Unknown, "Map Data");
     TabBar_Main->ChangeSelection(4);

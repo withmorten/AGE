@@ -393,7 +393,7 @@ void AGE_Frame::CreateResearchControls()
     Tab_Research = new APanel(TabBar_Main);
 
     Research_Main = new wxBoxSizer(wxHORIZONTAL);
-    Research_Research = new wxStaticBoxSizer(wxVERTICAL, Tab_Research, "Technologies");
+    Research_Research = new wxStaticBoxSizer(wxVERTICAL, Tab_Research, "Techs");
     Research_Research_Search = new wxTextCtrl(Tab_Research, wxID_ANY);
     Research_Research_UseAnd[0] = new wxCheckBox(Tab_Research, wxID_ANY, "And");
     Research_Research_Search_R = new wxTextCtrl(Tab_Research, wxID_ANY);
