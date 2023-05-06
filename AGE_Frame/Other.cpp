@@ -64,7 +64,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
 
         int RecentItems;
         {
-            wxConfig RecentOpen("", "", "AGE2\\RecentOpen", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
+            wxConfig RecentOpen("", "", "AGE2MW\\RecentOpen", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
             RecentOpen.Read("Recent/Items", &RecentItems, 0);
             OpenBox.RecentValues.resize(RecentItems);
             for(int i=0; i < RecentItems; ++i)
@@ -161,7 +161,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         popUp.unSaved = 0;
         ++popUp.loadedFileId;
 
-        wxConfig Config("", "", "AGE2\\ConfigWindow"+lexical_cast<string>(window_num + 1), "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
+        wxConfig Config("", "", "AGE2MW\\ConfigWindow"+lexical_cast<string>(window_num + 1), "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
         Config.Write("DefaultFiles/DriveLetter", DriveLetter);
         Config.Write("DefaultFiles/CustomFolder", CustomFolder);
         Config.Write("DefaultFiles/Version", GameVersion);
@@ -199,7 +199,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         latest.Add(FolderDRS2);
         latest.Add(Path1stDRS);
         int items = produceRecentValues(latest, OpenBox.RecentValues);
-        wxConfig RecentOpen("", "", "AGE2\\RecentOpen", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
+        wxConfig RecentOpen("", "", "AGE2MW\\RecentOpen", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
         RecentOpen.Write("Recent/Items", items);
         for(int i=0; i < items; ++i)
         {
@@ -2330,7 +2330,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
 
     int RecentItems;
     {
-        wxConfig RecentSave("", "", "AGE2\\RecentSave", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
+        wxConfig RecentSave("", "", "AGE2MW\\RecentSave", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
         RecentSave.Read("Recent/Items", &RecentItems, 0);
         SaveBox.RecentValues.resize(RecentItems);
         for(int i=0; i < RecentItems; ++i)
@@ -2400,7 +2400,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
 
     if(!save) return;
     {
-        wxConfig Config("", "", "AGE2\\ConfigWindow"+lexical_cast<string>(window_num + 1), "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
+        wxConfig Config("", "", "AGE2MW\\ConfigWindow"+lexical_cast<string>(window_num + 1), "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
         Config.Write("DefaultFiles/SyncSaveWithOpen", SyncSaveWithOpen);
         Config.Write("DefaultFiles/SaveVersion", SaveGameVersion);
         Config.Write("DefaultFiles/SaveDatFilename", SaveDatFileName);
@@ -2423,7 +2423,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
         latest.Add(SaveLangX1FileName);
         latest.Add(SaveLangX1P1FileName);
         int RecentItems = produceRecentValues(latest, SaveBox.RecentValues);
-        wxConfig RecentSave("", "", "AGE2\\RecentSave", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
+        wxConfig RecentSave("", "", "AGE2MW\\RecentSave", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
         RecentSave.Write("Recent/Items", RecentItems);
         for(int i=0; i < RecentItems; ++i)
         {
@@ -4674,7 +4674,7 @@ void AGE_Frame::OnExitSLP(wxCloseEvent &event)
 void AGE_Frame::OnExit(wxCloseEvent &event)
 {
     {
-        wxConfig Config("", "", "AGE2\\ConfigWindow"+lexical_cast<string>(window_num + 1), "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
+        wxConfig Config("", "", "AGE2MW\\ConfigWindow"+lexical_cast<string>(window_num + 1), "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
         Config.Write("DefaultFiles/AutoBackups", AutoBackups);
         Config.Write("DefaultFiles/PalettesPath", PalettesPath);
         Config.Write("Interaction/PromptForFilesOnOpen", PromptForFilesOnOpen);

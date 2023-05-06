@@ -34,7 +34,7 @@ AGE_Frame::AGE_Frame(const wxString &title, short window, wxString aP)
     {
         int temp;
 
-        wxConfig Config("", "", "AGE2\\ConfigWindow"+lexical_cast<string>(window + 1), "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
+        wxConfig Config("", "", "AGE2MW\\ConfigWindow"+lexical_cast<string>(window + 1), "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
         Config.Read("/EditorVersion", &EditorVersionString, AGE_AboutDialog::AGE_VER);
         sscanf(EditorVersionString, "%f", &EditorVersion);
         Config.Read("/TimesOpened", &TimesOpened, 0);
