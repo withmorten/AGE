@@ -102,7 +102,7 @@ enum EditableVersion
     EV_EF,
     EV_Tapsa,
     EV_DE2,
-    EV_UP15,
+    EV_UP,
 };
 
 enum ContainerType {CByte, CUByte, CFloat, CLong, CULong, CShort, CUShort, CString};

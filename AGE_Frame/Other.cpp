@@ -28,7 +28,7 @@ genie::GameVersion AGE_Frame::version(int ver)
         case EV_CC: return genie::GV_CC;
         case EV_EF: return genie::GV_CC;
         case EV_Tapsa: return genie::GV_Tapsa;
-        case EV_UP15: return genie::GV_UP15;
+        case EV_UP: return genie::GV_UP15;
 
         default: wxMessageBox("Wrong version", "Oops!");
         return genie::GV_None;

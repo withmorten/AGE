@@ -350,7 +350,7 @@ void AGE_OpenSave::OnPathFromRegistry(wxCommandEvent &event)
             break;
         }
         case EV_TC:
-        case EV_UP15:
+        case EV_UP:
         {
             wxRegKey key(wxRegKey::HKLM, "Software\\Microsoft\\Microsoft Games\\Age of Empires II: The Conquerors Expansion\\1.0");
             if(key.Exists())
