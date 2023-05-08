@@ -1942,7 +1942,6 @@ void AGE_Frame::OnUnitDamageGraphicSelect(wxCommandEvent &event)
 
                 DamageGraphics_GraphicID->prepend(&DamageGraphicPointer->GraphicID);
                 DamageGraphics_DamagePercent->prepend(&DamageGraphicPointer->DamagePercent);
-                DamageGraphics_Useless->prepend(&DamageGraphicPointer->OldApplyMode);
                 DamageGraphics_ApplyMode->prepend(&DamageGraphicPointer->ApplyMode);
             }
         }
@@ -3689,10 +3688,6 @@ void AGE_Frame::CreateUnitControls()
     DamageGraphics_ApplyMode_Text = new SolidText(Units_Scroller, " Apply Mode *");
     DamageGraphics_ApplyMode = AGETextCtrl::init(CByte, &uiGroupUnitDmgGraphic, this, &popUp, Units_Scroller);
     DamageGraphics_ApplyMode->SetToolTip("0   Overlay (flames on buildings)\n1   Overlay randomly\n2   Replace sprite (damaged walls)");
-    DamageGraphics_Useless_Holder = new wxBoxSizer(wxVERTICAL);
-    DamageGraphics_Useless_Text = new SolidText(Units_Scroller, " Useless *");
-    DamageGraphics_Useless = AGETextCtrl::init(CByte, &uiGroupUnitDmgGraphic, this, &popUp, Units_Scroller);
-    DamageGraphics_Useless->SetToolTip("Replaced in memory by the Apply Mode");
 
     Units_IconID = AGETextCtrl::init(CShort, &uiGroupUnit, this, &popUp, Units_Scroller, AGETextCtrl::SMALL);
     Units_IconID->SetToolTip("Download Turtle Pack from AoKH to add more than 127 icons.");
@@ -5207,8 +5202,6 @@ void AGE_Frame::CreateUnitControls()
     DamageGraphics_GraphicID_Holder->Add(DamageGraphics_GraphicID_Text);
     DamageGraphics_GraphicID_Holder->Add(DamageGraphics_GraphicID, 0, wxEXPAND);
     DamageGraphics_GraphicID_Holder->Add(DamageGraphics_GraphicID_ComboBox);
-    DamageGraphics_Useless_Holder->Add(DamageGraphics_Useless_Text);
-    DamageGraphics_Useless_Holder->Add(DamageGraphics_Useless);
     DamageGraphics_DamagePercent_Holder->Add(DamageGraphics_DamagePercent_Text);
     DamageGraphics_DamagePercent_Holder->Add(DamageGraphics_DamagePercent);
     DamageGraphics_ApplyMode_Holder->Add(DamageGraphics_ApplyMode_Text);
@@ -5217,7 +5210,6 @@ void AGE_Frame::CreateUnitControls()
     Units_DamageGraphics_Holder_Data->Add(DamageGraphics_GraphicID_Holder);
     Units_DamageGraphics_Holder_Data->Add(DamageGraphics_DamagePercent_Holder, 0, wxTOP, 5);
     Units_DamageGraphics_Holder_Data->Add(DamageGraphics_ApplyMode_Holder, 0, wxTOP, 5);
-    Units_DamageGraphics_Holder_Data->Add(DamageGraphics_Useless_Holder, 0, wxTOP, 5);
 
     Units_DamageGraphics_Buttons->Add(Units_DamageGraphics_Add, 1, wxEXPAND);
     Units_DamageGraphics_Buttons->Add(Units_DamageGraphics_Delete, 1, wxEXPAND);
@@ -6106,8 +6098,6 @@ void AGE_Frame::CreateUnitControls()
     DamageGraphics_GraphicID_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Units, this);
     DamageGraphics_DamagePercent->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Units, this);
     DamageGraphics_DamagePercent->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Units, this);
-    DamageGraphics_Useless->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Units, this);
-    DamageGraphics_Useless->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Units, this);
     Attacks_Class->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Units, this);
     Attacks_Class->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Units, this);
     Attacks_Amount->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Units, this);

@@ -2381,15 +2381,12 @@ private:
     AGETextCtrl *DamageGraphics_GraphicID;
     ComboBox_Plus1 *DamageGraphics_GraphicID_ComboBox;
     AGETextCtrl *DamageGraphics_DamagePercent;
-    AGETextCtrl *DamageGraphics_Useless;
     AGETextCtrl *DamageGraphics_ApplyMode;
     SolidText *DamageGraphics_GraphicID_Text;
     SolidText *DamageGraphics_DamagePercent_Text;
-    SolidText *DamageGraphics_Useless_Text;
     SolidText *DamageGraphics_ApplyMode_Text;
     wxBoxSizer *DamageGraphics_GraphicID_Holder;
     wxBoxSizer *DamageGraphics_DamagePercent_Holder;
-    wxBoxSizer *DamageGraphics_Useless_Holder;
     wxBoxSizer *DamageGraphics_ApplyMode_Holder;
     wxStaticBoxSizer *Units_DamageGraphics;
     wxBoxSizer *Units_DamageGraphics_ListArea;
@@ -2673,7 +2670,6 @@ private:
     wxBoxSizer *Graphics_ColorFlag_Holder;
     wxBoxSizer *Graphics_DrawLevel_Holder;
     wxBoxSizer *Graphics_PlayerColor_Holder;
-    wxBoxSizer *Graphics_Rainbow_Holder;
     wxBoxSizer *Graphics_TransparentPicking_Holder;
     wxBoxSizer *Graphics_Coordinates_Holder;
     wxBoxSizer *Graphics_CoordinateGrid_Holder;
@@ -2705,7 +2701,6 @@ private:
     SolidText *Graphics_ColorFlag_Text;
     SolidText *Graphics_DrawLevel_Text;
     SolidText *Graphics_PlayerColor_Text;
-    SolidText *Graphics_Rainbow_Text;
     SolidText *Graphics_TransparentPicking_Text;
     SolidText *Graphics_Coordinates_Text;
     SolidText *Graphics_SoundID_Text;
@@ -2731,7 +2726,6 @@ private:
     AGETextCtrl *Graphics_DrawLevel;
     AGETextCtrl *Graphics_PlayerColor;
     ComboBox_Plus1 *Graphics_PlayerColor_ComboBox;
-    AGETextCtrl *Graphics_Rainbow;
     AGETextCtrl *Graphics_TransparentPicking;
     AGETextCtrl *Graphics_Coordinates[4];
     AGETextCtrl *Graphics_SoundID;

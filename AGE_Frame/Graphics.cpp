@@ -37,28 +37,25 @@ string AGE_Frame::GetGraphicName(int index, bool Filter)
                 case 6: // Player Color Forcer
                     Name += "PC "+FormatInt(dataset->Graphics[index].PlayerColor);
                     break;
-                case 7: // Rainbow
-                    Name += "RB "+FormatInt(dataset->Graphics[index].Rainbow);
-                    break;
-                case 8: // Transparent Picking
+                case 7: // Transparent Picking
                     Name += "TP "+FormatInt(dataset->Graphics[index].TransparentSelection);
                     break;
-                case 9: // Sound
+                case 8: // Sound
                     Name += "S "+FormatInt(dataset->Graphics[index].SoundID);
                     break;
-                case 10: // Coordinates
+                case 9: // Coordinates
                     Name += "xy "+FormatInt(dataset->Graphics[index].Coordinates[0]);
                     Name += " "+FormatInt(dataset->Graphics[index].Coordinates[1]);
                     Name += " "+FormatInt(dataset->Graphics[index].Coordinates[2]);
                     Name += " "+FormatInt(dataset->Graphics[index].Coordinates[3]);
                     break;
-                case 11: // Deltas
+                case 10: // Deltas
                     Name += "DC "+FormatInt(dataset->Graphics[index].Deltas.size());
                     break;
-                case 12: // Angle Sounds Used
+                case 11: // Angle Sounds Used
                     Name += "U "+FormatInt(dataset->Graphics[index].AngleSoundsUsed);
                     break;
-                case 13: // Angle Sounds
+                case 12: // Angle Sounds
                     if(dataset->Graphics[index].AngleSoundsUsed)
                     {
                         Name += "AS "+FormatInt(dataset->Graphics[index].AngleSounds[0].SoundID);
@@ -70,28 +67,28 @@ string AGE_Frame::GetGraphicName(int index, bool Filter)
                         Name += "None";
                     }
                     break;
-                case 14: // Frames
+                case 13: // Frames
                     Name += "FC "+FormatInt(dataset->Graphics[index].FrameCount);
                     break;
-                case 15: // Angles
+                case 14: // Angles
                     Name += "AC "+FormatInt(dataset->Graphics[index].AngleCount);
                     break;
-                case 16: // Speed
+                case 15: // Speed
                     Name += "SM "+FormatFloat(dataset->Graphics[index].SpeedMultiplier);
                     break;
-                case 17: // Frame Duration
+                case 16: // Frame Duration
                     Name += "AD "+FormatFloat(dataset->Graphics[index].FrameDuration);
                     break;
-                case 18: // Replay Delay
+                case 17: // Replay Delay
                     Name += "RD "+FormatFloat(dataset->Graphics[index].ReplayDelay);
                     break;
-                case 19: // Sequence Type
+                case 18: // Sequence Type
                     Name += "ST "+FormatInt(dataset->Graphics[index].SequenceType);
                     break;
-                case 20: // Mirroring Mode
+                case 19: // Mirroring Mode
                     Name += "M "+FormatInt(dataset->Graphics[index].MirroringMode);
                     break;
-                case 21: // Unknown 3
+                case 20: // Unknown 3
                     Name += "EF "+FormatInt(dataset->Graphics[index].EditorFlag);
                     break;
             }
@@ -184,7 +181,6 @@ void AGE_Frame::OnGraphicSelect(wxCommandEvent &event)
             Graphics_ColorFlag->prepend(&GraphicPointer->OldColorFlag);
             Graphics_DrawLevel->prepend(&GraphicPointer->Layer);
             Graphics_PlayerColor->prepend(&GraphicPointer->PlayerColor);
-            Graphics_Rainbow->prepend(&GraphicPointer->Rainbow);
             Graphics_TransparentPicking->prepend(&GraphicPointer->TransparentSelection);
             for(size_t loop = 0; loop < 4; ++loop)
             {
@@ -1198,10 +1194,6 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_PlayerColor = AGETextCtrl::init(CByte, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
     Graphics_PlayerColor->SetToolTip("The player color to be forced on the sprite");
     Graphics_PlayerColor_ComboBox = new ComboBox_Plus1(Graphics_Scroller, Graphics_PlayerColor, &color_names);
-    Graphics_Rainbow_Holder = new wxBoxSizer(wxVERTICAL);
-    Graphics_Rainbow_Text = new SolidText(Graphics_Scroller, " Rainbow *");
-    Graphics_Rainbow = AGETextCtrl::init(CByte, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
-    Graphics_Rainbow->SetToolTip("Makes the sprite change its player color according to nearby units");
     Graphics_SpeedMultiplier_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_SpeedMultiplier_Text = new SolidText(Graphics_Scroller, " Unit Speed Multiplier *");
     Graphics_SpeedMultiplier = AGETextCtrl::init(CFloat, &uiGroupGraphic, this, &popUp, Graphics_Scroller);
@@ -1309,7 +1301,6 @@ void AGE_Frame::CreateGraphicsControls()
     graphic_filters.Add("Old Color Flag");
     graphic_filters.Add("Layer");
     graphic_filters.Add("Player Color Forcer");
-    graphic_filters.Add("Rainbow");
     graphic_filters.Add("Transparent Picking");
     graphic_filters.Add("Sound");
     graphic_filters.Add("Coordinates");
@@ -1368,8 +1359,6 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_PlayerColor_Holder->Add(Graphics_PlayerColor_Text);
     Graphics_PlayerColor_Holder->Add(Graphics_PlayerColor, 0, wxEXPAND);
     Graphics_PlayerColor_Holder->Add(Graphics_PlayerColor_ComboBox);
-    Graphics_Rainbow_Holder->Add(Graphics_Rainbow_Text);
-    Graphics_Rainbow_Holder->Add(Graphics_Rainbow);
     for(size_t loop = 0; loop < 4; ++loop)
     Graphics_CoordinateGrid_Holder->Add(Graphics_Coordinates[loop]);
     Graphics_Coordinates_Holder->Add(Graphics_Coordinates_Text);
@@ -1424,7 +1413,6 @@ void AGE_Frame::CreateGraphicsControls()
 
     Graphics_3_Grid->Add(Graphics_SoundID_Holder);
     Graphics_3_Grid->Add(Graphics_PlayerColor_Holder, 0, wxLEFT, 5);
-    Graphics_3_Grid->Add(Graphics_Rainbow_Holder, 0, wxLEFT, 5);
     Graphics_3_Grid->Add(Graphics_SpeedMultiplier_Holder, 0, wxLEFT, 5);
 
     Graphics_Unknowns_Grid->Add(Graphics_Loaded_Holder);
