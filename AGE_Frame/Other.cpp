@@ -28,7 +28,7 @@ genie::GameVersion AGE_Frame::version(int ver)
         case EV_CC: return genie::GV_CC;
         case EV_EF: return genie::GV_CC;
         case EV_Tapsa: return genie::GV_Tapsa;
-        case EV_UP: return genie::GV_UP15;
+        case EV_UP: return genie::GV_UP;
 
         default: wxMessageBox("Wrong version", "Oops!");
         return genie::GV_None;
@@ -255,7 +255,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
     {
         UseTXT = true;
         // Bad way of coding, please fix.
-        if((GenieVersion == genie::GV_TC || GenieVersion == genie::GV_UP15) || (GenieVersion >= genie::GV_Cysion && GenieVersion <= genie::GV_LatestDE2))
+        if((GenieVersion == genie::GV_TC || GenieVersion == genie::GV_UP) || (GenieVersion >= genie::GV_Cysion && GenieVersion <= genie::GV_LatestDE2))
         {
             LooseHD = true;
         }
@@ -1713,7 +1713,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         Effects_C_ComboBox->Flash();
 
         modify_research_names.Clear();
-        if(GenieVersion == genie::GV_UP15)
+        if(GenieVersion == genie::GV_UP)
         {
             modify_research_names.Add("-1 - Set Time");
             modify_research_names.Add("-2 - Add Time");
@@ -1795,7 +1795,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         {
             effect_type_names.Add("6 - Resource Modifier (Multiply)");
         }
-        if(GenieVersion == genie::GV_UP15)
+        if(GenieVersion == genie::GV_UP)
         {
             effect_type_names.Add("7 - Enable/Disable/Force Multiuse Tech");
             effect_type_names.Add("8 - Modify Tech");
@@ -1806,7 +1806,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             for(size_t loop = 7; loop < 10; ++loop)
             effect_type_names.Add(lexical_cast<string>(loop) + " - AoC + UP 1.5 only");
         }
-        if((GenieVersion >= genie::GV_Cysion && GenieVersion <= genie::GV_LatestDE2) || GenieVersion == genie::GV_UP15)
+        if((GenieVersion >= genie::GV_Cysion && GenieVersion <= genie::GV_LatestDE2) || GenieVersion == genie::GV_UP)
         {
             effect_type_names.Add("10 - Team Attribute Modifier (Set)");
             effect_type_names.Add("11 - Team Resource Modifier (Set/+/-)");
@@ -1821,7 +1821,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             for(size_t loop = 10; loop < 17; ++loop)
             effect_type_names.Add(lexical_cast<string>(loop) + " - AoK HD only");
         }
-        if(GenieVersion == genie::GV_UP15)
+        if(GenieVersion == genie::GV_UP)
         {
             effect_type_names.Add("17 - Team Enable/Disable/Force Multiuse Tech");
             effect_type_names.Add("18 - Team Modify Tech");
@@ -2875,7 +2875,7 @@ void AGE_Frame::OnMenuOption(wxCommandEvent &event)
                     }
                     else
                     {
-                        if(GenieVersion == genie::GV_TC || GenieVersion == genie::GV_UP15)
+                        if(GenieVersion == genie::GV_TC || GenieVersion == genie::GV_UP)
                         {
                             FilesToRead.Add("\\sounds_x1.drs");
                             FilesToRead.Add("\\gamedata_x1.drs");
