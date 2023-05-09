@@ -4501,7 +4501,7 @@ void AGE_Frame::OnFrameButton(wxCommandEvent &event)
                     {
                         if(imgdata->alpha_channel[slot] == 0)
                         {
-                            imgdata->shadow_mask.push_back({x, y});
+                            imgdata->shadow_mask.push_back({(uint16_t)x, (uint16_t)y});
                         }
                     }
                 }
