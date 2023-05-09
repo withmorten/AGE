@@ -3507,8 +3507,8 @@ void AGE_Frame::FrameToBitmap(AGE_SLP *graphic, bool centralize)
 
         const int width = frame->getWidth();
         const int height = frame->getHeight();
-        graphic->xpos = -frame->layer_hotspot_x;
-        graphic->ypos = -frame->layer_hotspot_y;
+        graphic->xpos = -frame->getLayerHotspotX();
+        graphic->ypos = -frame->getLayerHotspotY();
         const int area = width * height;
         vector<uint8_t> rgbdata(area * 4, 0);
         uint8_t *val = rgbdata.data();
@@ -3554,8 +3554,8 @@ void AGE_Frame::FrameToBitmap(AGE_SLP *graphic, bool centralize)
         wxImage img(width, height, pic, trans, true);
         if(centralize)
         {
-            int left = frame->hotspot_x, right = width - left,
-                top = frame->hotspot_y, bottom = height - top;
+            int left = frame->getHotspotX(), right = width - left,
+                top = frame->getHotspotY(), bottom = height - top;
             int half_width = left > right ? left : right;
             int half_height = top > bottom ? top : bottom;
             img.Resize(wxSize(half_width * 2, half_height * 2), wxPoint(min(half_width, half_width - left), min(half_height, half_height - top)));
@@ -3590,8 +3590,8 @@ void AGE_Frame::FrameToBitmap(AGE_SLP *graphic, bool centralize)
     const int width = frame->getWidth();
     const int height = frame->getHeight();
     const short pal_chooser = frame->getProperties() >> 16;
-    graphic->xpos = graphic->flip ? frame->hotspot_x - width : -frame->hotspot_x;
-    graphic->ypos = -frame->hotspot_y;
+    graphic->xpos = graphic->flip ? frame->getHotspotX() - width : -frame->getHotspotY();
+    graphic->ypos = -frame->getHotspotY();
     const int area = width * height;
     vector<uint8_t> rgbdata(area * 4, 0);
     uint8_t *val = rgbdata.data();
@@ -3712,8 +3712,8 @@ void AGE_Frame::FrameToBitmap(AGE_SLP *graphic, bool centralize)
     if(graphic->flip) img = img.Mirror();
     if(centralize)
     {
-        int left = frame->hotspot_x, right = width - left,
-            top = frame->hotspot_y, bottom = height - top;
+        int left = frame->getHotspotX(), right = width - left,
+            top = frame->getHotspotY(), bottom = height - top;
         int half_width = left > right ? left : right;
         int half_height = top > bottom ? top : bottom;
         img.Resize(wxSize(half_width * 2, half_height * 2), wxPoint(min(half_width, half_width - left), min(half_height, half_height - top)));
