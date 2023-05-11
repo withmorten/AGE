@@ -23,7 +23,8 @@ wxString AGE_Frame::GetResearchName(int index, bool Filter)
                         if(HasFore) Name += ", R"; else {Name += "R"; HasFore = true;}
                         Name += lexical_cast<string>(dataset->Techs[index].RequiredTechs[loop]);
                     }
-                }   break;
+                    break;
+                }
                 case 3: // Min. Req. Techs
                     Name += "MR "+lexical_cast<string>(dataset->Techs[index].RequiredTechCount);
                     break;
@@ -63,7 +64,8 @@ wxString AGE_Frame::GetResearchName(int index, bool Filter)
                         if(HasFore) Name += ", CT"; else {Name += "CT"; HasFore = true;}
                         Name += lexical_cast<string>(dataset->Techs[index].ResourceCosts[loop].Type);
                     }
-                }   break;
+                    break;
+                }
                 case 14: // Cost Amounts
                 {
                     bool HasFore = false;
@@ -72,7 +74,8 @@ wxString AGE_Frame::GetResearchName(int index, bool Filter)
                         if(HasFore) Name += ", CA"; else {Name += "CA"; HasFore = true;}
                         Name += lexical_cast<string>(dataset->Techs[index].ResourceCosts[loop].Amount);
                     }
-                }   break;
+                    break;
+                }
                 case 15: // Cost Uses
                 {
                     bool HasFore = false;
@@ -81,29 +84,27 @@ wxString AGE_Frame::GetResearchName(int index, bool Filter)
                         if(HasFore) Name += ", CU"; else {Name += "CU"; HasFore = true;}
                         Name += lexical_cast<string>((short)dataset->Techs[index].ResourceCosts[loop].Flag);
                     }
-                }   break;
-                if(GenieVersion >= genie::GV_AoKB)
-                {
+                    break;
+                }
                 case 16: // Civilization
+                    if(GenieVersion >= genie::GV_AoKB)
                     Name += "C "+lexical_cast<string>(dataset->Techs[index].Civ);
                     break;
                 case 17: // Full Tech Mode
+                    if(GenieVersion >= genie::GV_AoKB)
                     Name += "F "+lexical_cast<string>(dataset->Techs[index].FullTechMode);
                     break;
-                if(GenieVersion >= genie::GV_SWGB)
-                {
                 case 18: // Internal Name 2
-                    if(!dataset->Techs[index].Name2.empty())
-                    return Name + dataset->Techs[index].Name2;
-                    else goto InternalName;
-                }
-                if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
-                {
-                case 19: // Repeatable
+                    if(GenieVersion >= genie::GV_SWGB)
+                    {
+                        if(!dataset->Techs[index].Name2.empty())
+                        return Name + dataset->Techs[index].Name2;
+                        else goto InternalName;
+                    }
+                    // Repeatable
+                    if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
                     Name += "L "+lexical_cast<string>((short)dataset->Techs[index].Repeatable);
                     break;
-                }
-                }
             }
             Name += ", ";
             if(Selection[1] < 2) break;
@@ -422,14 +423,14 @@ void AGE_Frame::CreateResearchControls()
     Research_Name[1] = AGETextCtrl::init(CString, &uiGroupResearch, this, &popUp, Research_Scroller, lengthiest);
     Research_LangDLLName_Holder = new wxBoxSizer(wxVERTICAL);
     Research_LangDLLName_Text = new SolidText(Research_Scroller, " Language File Name *");
-    Research_LangDLLName = AGETextCtrl::init(CLong, &uiGroupResearch, this, &popUp, Research_Scroller);
+    Research_LangDLLName = AGETextCtrl::init(CUShort, &uiGroupResearch, this, &popUp, Research_Scroller);
     Research_LangDLLName->SetToolTip("Usual Technology File Pattern for The Conquerors\nName: 7000-7999\n"
         "Description: Name +1000\nHelp: Name +100000, in file Name +21000\n"
         "Tech tree: Name +150000, in file Name +10000");
     Research_DLL_LangDLLName = new TextCtrl_DLL(Research_Scroller, wxSize(AGETextCtrl::GIANT, 40));
     Research_LangDLLDescription_Holder = new wxBoxSizer(wxVERTICAL);
     Research_LangDLLDescription_Text = new SolidText(Research_Scroller, " Language File Description");
-    Research_LangDLLDescription = AGETextCtrl::init(CLong, &uiGroupResearch, this, &popUp, Research_Scroller);
+    Research_LangDLLDescription = AGETextCtrl::init(CUShort, &uiGroupResearch, this, &popUp, Research_Scroller);
     Research_DLL_LangDLLDescription = new TextCtrl_DLL(Research_Scroller, wxSize(320, 40));
     Research_HotKey_Holder = new wxBoxSizer(wxVERTICAL);
     Research_HotKey_Text = new SolidText(Research_Scroller, " Hotkey *");
