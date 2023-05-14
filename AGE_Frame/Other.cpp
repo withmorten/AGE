@@ -467,8 +467,8 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
                 dataset->Civs[loop].Units[loop2].BaseID = loop2;
                 else
                 if(dataset->Civs[loop].Units[loop2].Type >= 40 && dataset->Civs[loop].Units[loop2].Type <= 80)
-                for(size_t loop3 = dataset->Civs[loop].Units[loop2].Action.TaskList.size(); loop3--> 0;)
-                dataset->Civs[loop].Units[loop2].Action.TaskList[loop3].ID = loop3;
+                for(size_t loop3 = dataset->Civs[loop].Units[loop2].Bird.TaskList.size(); loop3--> 0;)
+                dataset->Civs[loop].Units[loop2].Bird.TaskList[loop3].ID = loop3;
             }
         }
         for(size_t loop = dataset->PlayerColours.size(); loop--> 0;)
@@ -2470,7 +2470,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
                         {
                             if(dataset->Civs[civ].Units[unit].Type >= 40)
                             {
-                                dataset->Civs[civ].Units[unit].Action.TaskList = dataset->UnitHeaders[unit].TaskList;
+                                dataset->Civs[civ].Units[unit].Bird.TaskList = dataset->UnitHeaders[unit].TaskList;
                             }
                         }
                     }
@@ -3268,16 +3268,16 @@ void AGE_Frame::OnMenuOption(wxCommandEvent &event)
                         switch((short)dataset->Civs[civ].Units[unit].Type)
                         {
                             case 80:
-                            sprite_checker(dataset->Civs[civ].Units[unit].Tribe_Building.ConstructionGraphicID);
-                            sprite_checker(dataset->Civs[civ].Units[unit].Tribe_Building.DestructionGraphicID);
-                            sprite_checker(dataset->Civs[civ].Units[unit].Tribe_Building.DestructionRubbleGraphicID);
-                            sprite_checker(dataset->Civs[civ].Units[unit].Tribe_Building.SnowGraphicID);
+                            sprite_checker(dataset->Civs[civ].Units[unit].Building.ConstructionGraphicID);
+                            sprite_checker(dataset->Civs[civ].Units[unit].Building.DestructionGraphicID);
+                            sprite_checker(dataset->Civs[civ].Units[unit].Building.DestructionRubbleGraphicID);
+                            sprite_checker(dataset->Civs[civ].Units[unit].Building.SnowGraphicID);
                             case 70:
-                            sprite_checker(dataset->Civs[civ].Units[unit].Tribe_Combat.GarrisonGraphic);
-                            sprite_checker(dataset->Civs[civ].Units[unit].Tribe_Combat.SpecialGraphic);
+                            sprite_checker(dataset->Civs[civ].Units[unit].Creatable.GarrisonGraphic);
+                            sprite_checker(dataset->Civs[civ].Units[unit].Creatable.SpecialGraphic);
                             case 60:
                             case 50:
-                            sprite_checker(dataset->Civs[civ].Units[unit].Combat.AttackGraphic);
+                            sprite_checker(dataset->Civs[civ].Units[unit].Type50.AttackGraphic);
                             case 40:
                             if(GenieVersion != genie::GV_RoR && GameVersion != EV_Tapsa)
                             {
@@ -3289,16 +3289,16 @@ void AGE_Frame::OnMenuOption(wxCommandEvent &event)
                                     sprite_checker(dataset->UnitHeaders[unit].TaskList[task].CarryingGraphicID);
                                 }
                             }
-                            else for(size_t task = 0; task < dataset->Civs[civ].Units[unit].Action.TaskList.size(); ++task)
+                            else for(size_t task = 0; task < dataset->Civs[civ].Units[unit].Bird.TaskList.size(); ++task)
                             {
-                                sprite_checker(dataset->Civs[civ].Units[unit].Action.TaskList[task].MovingGraphicID);
-                                sprite_checker(dataset->Civs[civ].Units[unit].Action.TaskList[task].ProceedingGraphicID);
-                                sprite_checker(dataset->Civs[civ].Units[unit].Action.TaskList[task].WorkingGraphicID);
-                                sprite_checker(dataset->Civs[civ].Units[unit].Action.TaskList[task].CarryingGraphicID);
+                                sprite_checker(dataset->Civs[civ].Units[unit].Bird.TaskList[task].MovingGraphicID);
+                                sprite_checker(dataset->Civs[civ].Units[unit].Bird.TaskList[task].ProceedingGraphicID);
+                                sprite_checker(dataset->Civs[civ].Units[unit].Bird.TaskList[task].WorkingGraphicID);
+                                sprite_checker(dataset->Civs[civ].Units[unit].Bird.TaskList[task].CarryingGraphicID);
                             }
                             case 30:
-                            sprite_checker(dataset->Civs[civ].Units[unit].Moving.WalkingGraphic);
-                            sprite_checker(dataset->Civs[civ].Units[unit].Moving.RunningGraphic);
+                            sprite_checker(dataset->Civs[civ].Units[unit].DeadFish.WalkingGraphic);
+                            sprite_checker(dataset->Civs[civ].Units[unit].DeadFish.RunningGraphic);
                         }
                     }
                 }
