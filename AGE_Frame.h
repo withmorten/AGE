@@ -1900,6 +1900,7 @@ private:
     AGETextCtrl *Units_BaseArmor;
     AGETextCtrl *Units_DefenseTerrainBonus;
     ComboBox_Plus1 *Units_DefenseTerrainBonus_ComboBox;
+    AGETextCtrl *Units_BonusDamageResistance;
     AGETextCtrl *Units_MaxRange;
     AGETextCtrl *Units_BlastWidth;
     AGETextCtrl *Units_ReloadTime;
@@ -1960,6 +1961,10 @@ private:
     AGETextCtrl *Units_UpgradeGraphic;
     ComboBox_Plus1 *Units_SpawningGraphic_ComboBox;
     ComboBox_Plus1 *Units_UpgradeGraphic_ComboBox;
+    AGETextCtrl *Units_MaxCharge;
+    AGETextCtrl *Units_RechargeRate;
+    AGETextCtrl *Units_ChargeEvent;
+    AGETextCtrl *Units_ChargeType;
 
 //  Type 80
 
@@ -2107,6 +2112,7 @@ private:
 
     SolidText *Units_BaseArmor_Text;
     SolidText *Units_DefenseTerrainBonus_Text;
+    SolidText *Units_BonusDamageResistance_Text;
     SolidText *Units_MaxRange_Text;
     SolidText *Units_BlastWidth_Text;
     SolidText *Units_ReloadTime_Text;
@@ -2153,6 +2159,10 @@ private:
     SolidText *Units_DisplayedPierceArmour_Text;
     SolidText *Units_SpawningGraphic_Text;
     SolidText *Units_UpgradeGraphic_Text;
+    SolidText *Units_MaxCharge_Text;
+    SolidText *Units_RechargeRate_Text;
+    SolidText *Units_ChargeEvent_Text;
+    SolidText *Units_ChargeType_Text;
 
 //  Type 80
 
@@ -2194,7 +2204,6 @@ private:
     wxBoxSizer *Units_UndeadMode_Holder;
     wxBoxSizer *Units_HitPoints_Holder;
     wxBoxSizer *Units_LineOfSight_Holder;
-    wxBoxSizer *Units_GarrisonCapacity_Holder;
     wxBoxSizer *Units_SizeRadius_Holder;
     wxBoxSizer *Units_SizeRadius_Grid;
     wxBoxSizer *Units_MinCollisionSizeMultiplier_Holder;
@@ -2220,8 +2229,6 @@ private:
     wxBoxSizer *Units_FogVisibility_Holder;
     wxBoxSizer *Units_TerrainRestriction_Holder;
     wxBoxSizer *Units_FlyMode_Holder;
-    wxBoxSizer *Units_ResourceCapacity_Holder;
-    wxBoxSizer *Units_ResourceDecay_Holder;
     wxBoxSizer *Units_BlastDefenseLevel_Holder;
     wxBoxSizer *Units_CombatLevel_Holder;
     wxBoxSizer *Units_InteractionMode_Holder;
@@ -2281,7 +2288,6 @@ private:
 
     wxBoxSizer *Units_DefaultTaskID_Holder;
     wxBoxSizer *Units_SearchRadius_Holder;
-    wxBoxSizer *Units_WorkRate_Holder;
     wxGridSizer *Units_DropSite_Grid;
     wxBoxSizer *Units_TaskSwapGroup_Holder;
     wxBoxSizer *Units_AttackSound_Holder;
@@ -2293,6 +2299,7 @@ private:
 
     wxBoxSizer *Units_BaseArmor_Holder;
     wxBoxSizer *Units_DefenseTerrainBonus_Holder;
+    wxBoxSizer *Units_BonusDamageResistance_Holder;
     wxBoxSizer *Units_MaxRange_Holder;
     wxBoxSizer *Units_BlastWidth_Holder;
     wxBoxSizer *Units_ReloadTime_Holder;
@@ -2369,7 +2376,6 @@ private:
     wxBoxSizer *Units_TransformSound_Holder;
     wxBoxSizer *Units_ConstructionSound_Holder;
     wxBoxSizer *Units_GarrisonType_Holder;
-    wxBoxSizer *Units_GarrisonHealRate_Holder;
     wxBoxSizer *Units_GarrisonRepairRate_Holder;
     wxBoxSizer *Units_PileUnit_Holder;
     wxBoxSizer *Units_LootSwitch_Holder;
@@ -2428,6 +2434,7 @@ private:
 
     wxBoxSizer *Units_Armors_Holder;
     wxBoxSizer *Units_Armors_Holder_Data3;
+    wxGridSizer *Units_Defense_Holder;
     AGETextCtrl *Armors_Class;
     AGETextCtrl *Armors_Amount;
     SolidText *Armors_Class_Text;
@@ -2496,8 +2503,9 @@ private:
     wxStaticBoxSizer *Units_StatsArea_Holder;
     wxBoxSizer *Units_StatsArea1A_Sizer;
     wxBoxSizer *Units_StatsArea1B_Sizer;
-    wxBoxSizer *Units_StatsAreaGarrison_Grid;
-    wxBoxSizer *Units_StatsArea2_Grid;
+    wxSizer *Units_Garrison_Grid;
+    wxSizer *Units_Resource_Grid;
+    wxSizer *Units_Charge_Grid;
     wxStaticBoxSizer *Units_ProjectileArea_Holder;
     wxBoxSizer *Units_P1, *Units_P2, *Units_P3, *Units_AS2_Holder;
     wxStaticBoxSizer *Units_Attributes_Holder;
