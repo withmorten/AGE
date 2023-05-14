@@ -13,6 +13,7 @@
 #include <functional>
 #include <boost/lexical_cast.hpp>
 #include <SFML/Audio.hpp>
+#include <wx/wxprec.h>
 #include <wx/wx.h>
 #include <wx/aboutdlg.h>
 //#include <wx/collpane.h>
