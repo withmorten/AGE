@@ -1713,7 +1713,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         Effects_C_ComboBox->Flash();
 
         modify_research_names.Clear();
-        if(EditorVersion == EV_UP)
+        if(GameVersion == EV_UP)
         {
             modify_research_names.Add("-1 - Set Time");
             modify_research_names.Add("-2 - Add Time");
@@ -1795,7 +1795,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         {
             effect_type_names.Add("6 - Resource Modifier (Multiply)");
         }
-        if(EditorVersion == EV_UP)
+        if(GameVersion == EV_UP)
         {
             effect_type_names.Add("7 - Enable/Disable/Force Multiuse Tech");
             effect_type_names.Add("8 - Modify Tech");
@@ -1806,7 +1806,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             for(size_t loop = 7; loop < 10; ++loop)
             effect_type_names.Add(lexical_cast<string>(loop) + " - AoC + UP 1.5 only");
         }
-        if((GenieVersion >= genie::GV_Cysion && GenieVersion <= genie::GV_LatestDE2) || EditorVersion == EV_UP)
+        if(GenieVersion >= genie::GV_Cysion && GenieVersion <= genie::GV_LatestDE2 || GameVersion == EV_UP)
         {
             effect_type_names.Add("10 - Team Attribute Modifier (Set)");
             effect_type_names.Add("11 - Team Resource Modifier (Set/+/-)");
@@ -1821,7 +1821,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             for(size_t loop = 10; loop < 17; ++loop)
             effect_type_names.Add(lexical_cast<string>(loop) + " - AoK HD only");
         }
-        if(EditorVersion == EV_UP)
+        if(GameVersion == EV_UP)
         {
             effect_type_names.Add("17 - Team Enable/Disable/Force Multiuse Tech");
             effect_type_names.Add("18 - Team Modify Tech");
