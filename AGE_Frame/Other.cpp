@@ -1803,7 +1803,16 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         }
         else
         {
-            for(size_t loop = 7; loop < 10; ++loop)
+            if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+            {
+                effect_type_names.Add("7 - Spawn Unit");
+            }
+            else
+            {
+                effect_type_names.Add("7 - AoC + UP 1.5 / AoK DE only");
+            }
+
+            for(size_t loop = 8; loop < 10; ++loop)
             effect_type_names.Add(lexical_cast<string>(loop) + " - AoC + UP 1.5 only");
         }
         if(GenieVersion >= genie::GV_Cysion && GenieVersion <= genie::GV_LatestDE2 || GameVersion == EV_UP)
