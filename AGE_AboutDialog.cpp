@@ -53,7 +53,7 @@ void LoadPalettes(vector<vector<genie::Color>> &palettes, const wxString &path)
     long avail_num = 1;
     for(const wxString &line: lines)
     {
-        int splitter = line.find(',');
+        size_t splitter = line.find(',');
         if(wxNOT_FOUND != splitter)
         {
             long pal_num;
@@ -66,8 +66,8 @@ void LoadPalettes(vector<vector<genie::Color>> &palettes, const wxString &path)
                 try
                 {
                     genie::PalFile pal;
-                    int cut = path.rfind('\\');
-                    pal.load((path(0, ++cut) + line(++splitter, -1)).c_str());
+                    size_t cut = path.rfind('\\');
+                    pal.load((path(0U, ++cut) + line(++splitter, static_cast<size_t>(-1))).c_str());
                     palettes.push_back(pal.getColors());
                 }
                 catch(const std::ios_base::failure&){}

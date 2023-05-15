@@ -1737,10 +1737,6 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             graphicset_names.Add("3 Asians");
             // + RoR
             graphicset_names.Add("4 Romans");
-            // graphicset_names.Add("5 Unused");
-            // graphicset_names.Add("6 Unused");
-            // graphicset_names.Add("7 Unused");
-            // graphicset_names.Add("8 Unused");
         }
         else if(GenieVersion < genie::GV_SWGB)
         {
@@ -2447,7 +2443,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
         latest.Add(SaveLangFileName);
         latest.Add(SaveLangX1FileName);
         latest.Add(SaveLangX1P1FileName);
-        int RecentItems = produceRecentValues(latest, SaveBox.RecentValues);
+        RecentItems = produceRecentValues(latest, SaveBox.RecentValues);
         wxConfig RecentSave("", "", "AGE2MW\\RecentSave", "", wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_RELATIVE_PATH);
         RecentSave.Write("Recent/Items", RecentItems);
         for(int i=0; i < RecentItems; ++i)
@@ -4209,11 +4205,11 @@ void AGE_Frame::RefreshList(ProperList *list, vector<int> *oldies)
     list->Refresh();
 }
 
-bool AGE_Frame::Paste11Check(size_t pastes, size_t copies)
+bool AGE_Frame::Paste11Check(size_t numPastes, size_t numCopies)
 {
-    bool result = copies == pastes;
+    bool result = numCopies == numPastes;
     if(!result)
-    wxMessageBox(wxString::Format("%u copies, %u selections.\nClick paste tool to switch to sequential paste.", copies, pastes), "Selections Mismatch");
+    wxMessageBox(wxString::Format("%u copies, %u selections.\nClick paste tool to switch to sequential paste.", numCopies, numPastes), "Selections Mismatch");
     return result;
 }
 
