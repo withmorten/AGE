@@ -49,38 +49,38 @@ void AGE_Frame::CreateGeneralControls()
     General_Variables1_Holder = new wxStaticBoxSizer(wxHORIZONTAL, General_Scroller, "Star Wars Unknowns");
     General_SUnknown2_Holder = new wxBoxSizer(wxVERTICAL);
     General_SUnknown2_Text = new SolidText(General_Scroller, " Unkown 2 *");
-    General_SUnknown2 = AGETextCtrl::init(CLong, &uiGroupMaps, this, &popUp, General_Scroller);
+    General_SUnknown2 = new NumberControl(CLong, General_Scroller, this, &uiGroupMaps);
     General_SUnknown2->SetToolTip(SWUNKNOWNSINFO);
     General_SUnknown3_Holder = new wxBoxSizer(wxVERTICAL);
     General_SUnknown3_Text = new SolidText(General_Scroller, " Unkown 3 *");
-    General_SUnknown3 = AGETextCtrl::init(CLong, &uiGroupMaps, this, &popUp, General_Scroller);
+    General_SUnknown3 = new NumberControl(CLong, General_Scroller, this, &uiGroupMaps);
     General_SUnknown3->SetToolTip(SWUNKNOWNSINFO);
     General_SUnknown4_Holder = new wxBoxSizer(wxVERTICAL);
     General_SUnknown4_Text = new SolidText(General_Scroller, " Unkown 4 *");
-    General_SUnknown4 = AGETextCtrl::init(CLong, &uiGroupMaps, this, &popUp, General_Scroller);
+    General_SUnknown4 = new NumberControl(CLong, General_Scroller, this, &uiGroupMaps);
     General_SUnknown4->SetToolTip(SWUNKNOWNSINFO);
     General_SUnknown5_Holder = new wxBoxSizer(wxVERTICAL);
     General_SUnknown5_Text = new SolidText(General_Scroller, " Unkown 5 *");
-    General_SUnknown5 = AGETextCtrl::init(CLong, &uiGroupMaps, this, &popUp, General_Scroller);
+    General_SUnknown5 = new NumberControl(CLong, General_Scroller, this, &uiGroupMaps);
     General_SUnknown5->SetToolTip(SWUNKNOWNSINFO);
     General_SUnknown7_Holder = new wxBoxSizer(wxVERTICAL);
     General_SUnknown7_Text = new SolidText(General_Scroller, " Unkown 7 *");
-    General_SUnknown7 = AGETextCtrl::init(CByte, &uiGroupMaps, this, &popUp, General_Scroller);
+    General_SUnknown7 = new NumberControl(CUByte, General_Scroller, this, &uiGroupMaps);
     General_SUnknown7->SetToolTip("In the file this is\nright after civilizations and\nbefore techs");
     General_SUnknown8_Holder = new wxBoxSizer(wxVERTICAL);
     General_SUnknown8_Text = new SolidText(General_Scroller, " Unkown 8 *");
-    General_SUnknown8 = AGETextCtrl::init(CByte, &uiGroupMaps, this, &popUp, General_Scroller);
+    General_SUnknown8 = new NumberControl(CUByte, General_Scroller, this, &uiGroupMaps);
     General_SUnknown8->SetToolTip("In the file this is\nright after techs and\nbefore technology trees");
 
     TileWidth_Sizer = new wxBoxSizer(wxVERTICAL);
     TileWidth_Text = new SolidText(General_Scroller, " Map Tile Width");
-    TileWidth = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
+    TileWidth = new NumberControl(CShort, General_Scroller, this, &uiGroupMaps);
     TileHeight_Sizer = new wxBoxSizer(wxVERTICAL);
     TileHeight_Text = new SolidText(General_Scroller, " Map Tile Height");
-    TileHeight = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
+    TileHeight = new NumberControl(CShort, General_Scroller, this, &uiGroupMaps);
     ElevHeight_Sizer = new wxBoxSizer(wxVERTICAL);
     ElevHeight_Text = new SolidText(General_Scroller, " Elevation Height");
-    ElevHeight = AGETextCtrl::init(CShort, &uiGroupMaps, this, &popUp, General_Scroller);
+    ElevHeight = new NumberControl(CShort, General_Scroller, this, &uiGroupMaps);
 
     General_TerrainRendering_Grid = new wxFlexGridSizer(7, 5, 5);
 
@@ -810,12 +810,12 @@ void AGE_Frame::CreateUnknownControls()
 
     RMS_MapID_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_MapID_Text = new SolidText(RMS_Scroller, " Script Number");
-    RMS_MapID = AGETextCtrl::init(CLong, &uiGroupRandomMap, this, &popUp, RMS_Scroller);
+    RMS_MapID = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRandomMap, false);
     RMS_LandData_Grid = new wxFlexGridSizer(5, 5, 5);
     for(size_t loop = 0; loop < RMS_LandData.size(); ++loop)
     {
         RMS_LandData_Holder[loop] = new wxBoxSizer(wxVERTICAL);
-        RMS_LandData[loop] = AGETextCtrl::init(CLong, &uiGroupRandomMap, this, &popUp, RMS_Scroller);
+        RMS_LandData[loop] = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRandomMap);
     }
     wxString MAPEDGEBUFFER = "Map Edge Buffer";
     RMS_LandData_Text[0] = new SolidText(RMS_Scroller, " Border SW *");
@@ -854,52 +854,52 @@ void AGE_Frame::CreateUnknownControls()
 
     RMS_Land_LandID_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_LandID_Text = new SolidText(RMS_Scroller, " Land ID");
-    RMS_Land_LandID = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_LandID = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMBase, false);
     RMS_Land_BaseTerrain_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_BaseTerrain_Text = new SolidText(RMS_Scroller, " Base Terrain");
-    RMS_Land_BaseTerrain = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_BaseTerrain = new NumberControl(CUByte, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_PlayerSpacing_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_PlayerSpacing_Text = new SolidText(RMS_Scroller, " Land Spacing *");
-    RMS_Land_PlayerSpacing = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_PlayerSpacing = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_PlayerSpacing->SetToolTip("Non-base terrain (like river) space between players.\nIf too large, they won't be created.");
     RMS_Land_BaseSize_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_BaseSize_Text = new SolidText(RMS_Scroller, " Base Size");
-    RMS_Land_BaseSize = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_BaseSize = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMBase);
 
     RMS_Land_Zone_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_Zone_Text = new SolidText(RMS_Scroller, " Zone");
-    RMS_Land_Zone = AGETextCtrl::init(CByte, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_Zone = new NumberControl(CUByte, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_PlacementType_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_PlacementType_Text = new SolidText(RMS_Scroller, " Placement Type *");
-    RMS_Land_PlacementType = AGETextCtrl::init(CByte, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_PlacementType = new NumberControl(CUByte, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_PlacementType->SetToolTip("Base placement\n0   Random\n1   Given\n2   Spaced");
 
     RMS_Land_X_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_X_Text = new SolidText(RMS_Scroller, " Base X");
-    RMS_Land_X = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_X = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_Y_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_Y_Text = new SolidText(RMS_Scroller, " Base Y");
-    RMS_Land_Y = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_Y = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMBase);
 
     RMS_Land_LandProportion_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_LandProportion_Text = new SolidText(RMS_Scroller, " Land Proportion");
-    RMS_Land_LandProportion = AGETextCtrl::init(CByte, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_LandProportion = new NumberControl(CUByte, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_ByPlayerFlag_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_ByPlayerFlag_Text = new SolidText(RMS_Scroller, " Player Placement *");
-    RMS_Land_ByPlayerFlag = AGETextCtrl::init(CByte, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_ByPlayerFlag = new NumberControl(CUByte, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_ByPlayerFlag->SetToolTip("0   Not by player\n1   By player, overlap\n2   By player, seperate");
 
     RMS_Land_StartAreaRadius_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_StartAreaRadius_Text = new SolidText(RMS_Scroller, " Player Base Size *");
-    RMS_Land_StartAreaRadius = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_StartAreaRadius = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_StartAreaRadius->SetToolTip("This area cannot contain different elevations or terrains\nTerrain edge fading affects this");
     RMS_Land_TerrainEdgeFade_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_TerrainEdgeFade_Text = new SolidText(RMS_Scroller, " Terrain Edge Fade *");
-    RMS_Land_TerrainEdgeFade = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_TerrainEdgeFade = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMBase);
     RMS_Land_TerrainEdgeFade->SetToolTip("Used to fuzz edges");
     RMS_Land_Clumpiness_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Land_Clumpiness_Text = new SolidText(RMS_Scroller, " Clumpiness Factor");
-    RMS_Land_Clumpiness = AGETextCtrl::init(CLong, &uiGroupRMBase, this, &popUp, RMS_Scroller);
+    RMS_Land_Clumpiness = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMBase);
 
     RMSTerrain = new wxStaticBoxSizer(wxHORIZONTAL, RMS_Scroller, "Terrains placed on the map");
     RMS_Terrain_ListArea = new wxBoxSizer(wxVERTICAL);
@@ -919,7 +919,7 @@ void AGE_Frame::CreateUnknownControls()
     for(size_t loop = 0; loop < RMS_TerrainData.size(); ++loop)
     {
         RMS_TerrainData_Holder[loop] = new wxBoxSizer(wxVERTICAL);
-        RMS_TerrainData[loop] = AGETextCtrl::init(CLong, &uiGroupRMTerrain, this, &popUp, RMS_Scroller);
+        RMS_TerrainData[loop] = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMTerrain, false);
     }
     RMS_TerrainData_Text[0] = new SolidText(RMS_Scroller, " Proportion *");
     RMS_TerrainData[0]->SetToolTip("% of the total map area");
@@ -948,45 +948,45 @@ void AGE_Frame::CreateUnknownControls()
     RMS_Unit_Unknown1_Grid = new wxFlexGridSizer(4, 5, 5);
     RMS_Unit_Unit_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_Unit_Text = new SolidText(RMS_Scroller, " Unit");
-    RMS_Unit_Unit = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_Unit = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit, false);
     RMS_Unit_HostTerrain_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_HostTerrain_Text = new SolidText(RMS_Scroller, " Placement Terrain");
-    RMS_Unit_HostTerrain = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_HostTerrain = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_GroupPlacing_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_GroupPlacing_Text = new SolidText(RMS_Scroller, " Group Mode *");
-    RMS_Unit_GroupPlacing = AGETextCtrl::init(CByte, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_GroupPlacing = new NumberControl(CUByte, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_GroupPlacing->SetToolTip("0   Single unit\n1   Place group\n2   Place cluster");
     RMS_Unit_ScaleFlag_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_ScaleFlag_Text = new SolidText(RMS_Scroller, " Scale by Map Size");
-    RMS_Unit_ScaleFlag = AGETextCtrl::init(CByte, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_ScaleFlag = new NumberControl(CUByte, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_ObjectsPerPlayer_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_ObjectsPerPlayer_Text = new SolidText(RMS_Scroller, " Units per Group");
-    RMS_Unit_ObjectsPerPlayer = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_ObjectsPerPlayer = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_Fluctuation_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_Fluctuation_Text = new SolidText(RMS_Scroller, " Fluctuation *");
-    RMS_Unit_Fluctuation = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_Fluctuation = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_Fluctuation->SetToolTip("Max randomness in the number of units per group");
     RMS_Unit_GroupsPerPlayer_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_GroupsPerPlayer_Text = new SolidText(RMS_Scroller, " Groups per Player");
-    RMS_Unit_GroupsPerPlayer = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_GroupsPerPlayer = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_GroupArea_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_GroupArea_Text = new SolidText(RMS_Scroller, " Group Radius *");
-    RMS_Unit_GroupArea = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_GroupArea = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_GroupArea->SetToolTip("Max distance from the center of the group");
     RMS_Unit_PlayerID_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_PlayerID_Text = new SolidText(RMS_Scroller, " Player # *");
-    RMS_Unit_PlayerID = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_PlayerID = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_PlayerID->SetToolTip("-1 for every player");
     RMS_Unit_SetPlaceForAllPlayers_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_SetPlaceForAllPlayers_Text = new SolidText(RMS_Scroller, " Base Land # *");
-    RMS_Unit_SetPlaceForAllPlayers = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_SetPlaceForAllPlayers = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_SetPlaceForAllPlayers->SetToolTip("0+  Place on all matching lands\n-1   Place anywhere\n-2   Avoid land spots");
     RMS_Unit_MinDistanceToPlayers_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_MinDistanceToPlayers_Text = new SolidText(RMS_Scroller, " Min Dist to Players");
-    RMS_Unit_MinDistanceToPlayers = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_MinDistanceToPlayers = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_MaxDistanceToPlayers_Holder = new wxBoxSizer(wxVERTICAL);
     RMS_Unit_MaxDistanceToPlayers_Text = new SolidText(RMS_Scroller, " Max Dist to Players *");
-    RMS_Unit_MaxDistanceToPlayers = AGETextCtrl::init(CLong, &uiGroupRMUnit, this, &popUp, RMS_Scroller);
+    RMS_Unit_MaxDistanceToPlayers = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnit);
     RMS_Unit_MaxDistanceToPlayers->SetToolTip("Don't use 0 here for units that are owned at start.\n0 is okay for other units (gold/bushes/gazelle/etc).\nYou can use -1 as a wildcard for units that are owned at start.");
 
     RMSUnknown = new wxStaticBoxSizer(wxHORIZONTAL, RMS_Scroller, "Elevations placed on the map (These are ignored)");
@@ -1007,7 +1007,7 @@ void AGE_Frame::CreateUnknownControls()
     for(size_t loop = 0; loop < RMS_ElevationData.size(); ++loop)
     {
         RMS_ElevationData_Holder[loop] = new wxBoxSizer(wxVERTICAL);
-        RMS_ElevationData[loop] = AGETextCtrl::init(CLong, &uiGroupRMUnknown, this, &popUp, RMS_Scroller);
+        RMS_ElevationData[loop] = new NumberControl(CLong, RMS_Scroller, this, &uiGroupRMUnknown, false);
     }
     RMS_ElevationData_Text[0] = new SolidText(RMS_Scroller, " Proportion *");
     RMS_ElevationData[0]->SetToolTip("% of the total map area");
@@ -1272,51 +1272,69 @@ void AGE_Frame::CreateUnknownControls()
     RMS_Elevation_PasteInsert->Bind(wxEVT_BUTTON, &AGE_Frame::OnMapElevationPasteInsert, this);
     RMS_Elevation_CopyToMaps->Bind(wxEVT_BUTTON, &AGE_Frame::OnMapElevationCopyToMaps, this);
 
-    RMS_MapID->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_RMS, this);
-    RMS_MapID->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_RMS, this);
-    RMS_Land_LandID->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_RMS, this);
-    RMS_Land_LandID->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_RMS, this);
-    RMS_TerrainData[1]->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_RMS, this);
-    RMS_TerrainData[1]->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_RMS, this);
-    RMS_ElevationData[1]->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_RMS, this);
-    RMS_ElevationData[1]->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_RMS, this);
-    RMS_Unit_Unit->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_RMS, this);
-    RMS_Unit_Unit->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_RMS, this);
-}
-
-void AGE_Frame::OnSaveEdits_RMS(int id)
-{
-    if(id == RMS_MapID->GetId())
+    RMS_MapID->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
     {
+        event.Skip();
+        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+        {
+            ListRandomMaps();
+        }
+    });
+    RMS_MapID->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+    {
+        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
         ListRandomMaps();
-    }
-    else if(id == RMS_Land_LandID->GetId())
+    });
+    RMS_Land_LandID->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
     {
+        event.Skip();
+        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+        {
+            ListMapLands();
+        }
+    });
+    RMS_Land_LandID->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+    {
+        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
         ListMapLands();
-    }
-    else if(id == RMS_TerrainData[1]->GetId())
+    });
+    RMS_TerrainData[1]->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
     {
+        event.Skip();
+        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+        {
+            ListMapTerrains();
+        }
+    });
+    RMS_TerrainData[1]->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+    {
+        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
         ListMapTerrains();
-    }
-    else if(id == RMS_Unit_Unit->GetId())
+    });
+    RMS_ElevationData[1]->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
     {
-        ListMapUnits();
-    }
-    else if(id == RMS_ElevationData[1]->GetId())
+        event.Skip();
+        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+        {
+            ListMapElevations();
+        }
+    });
+    RMS_ElevationData[1]->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
     {
+        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
         ListMapElevations();
-    }
-}
-
-void AGE_Frame::OnEnter_RMS(wxCommandEvent &event)
-{
-    static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-    OnSaveEdits_RMS(event.GetId());
-}
-
-void AGE_Frame::OnKillFocus_RMS(wxFocusEvent &event)
-{
-    event.Skip();
-    if(static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() != 0) return;
-    OnSaveEdits_RMS(event.GetId());
+    });
+    RMS_Unit_Unit->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+    {
+        event.Skip();
+        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+        {
+            ListMapUnits();
+        }
+    });
+    RMS_Unit_Unit->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+    {
+        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+        ListMapUnits();
+    });
 }

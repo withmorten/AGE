@@ -1825,14 +1825,13 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
         else
         {
             for(size_t loop = 10; loop < 17; ++loop)
-            effect_type_names.Add(lexical_cast<string>(loop) + " - AoK HD only");
+            effect_type_names.Add(lexical_cast<string>(loop) + " - AoK UP, HD and DE only");
         }
         if(GameVersion == EV_UP)
         {
             effect_type_names.Add("17 - Team Enable/Disable/Force Multiuse Tech");
             effect_type_names.Add("18 - Team Modify Tech");
             effect_type_names.Add("19 - Team Set Player Civ Name");
-
             effect_type_names.Add("20 - Enemy Attribute Modifier (Set)");
             effect_type_names.Add("21 - Enemy Resource Modifier (Set/+/-)");
             effect_type_names.Add("22 - Enemy Enable/Disable Unit");
@@ -1843,7 +1842,6 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             effect_type_names.Add("27 - Enemy Enable/Disable/Force Multiuse Tech");
             effect_type_names.Add("28 - Enemy Modify Tech");
             effect_type_names.Add("29 - Enemy Set Player Civ Name");
-
             effect_type_names.Add("30 - Neutral Attribute Modifier (Set)");
             effect_type_names.Add("31 - Neutral Resource Modifier (Set/+/-)");
             effect_type_names.Add("32 - Neutral Enable/Disable Unit");
@@ -1988,13 +1986,13 @@ void AGE_Frame::OnGameVersionChange()
         Units_DropSite_ComboBox[1]->Show(show);
         if(show)
         {
-            SoundItems_Resource->changeContainerType(CLong);
-            Graphics_SLP->changeContainerType(CLong);
+            SoundItems_Resource->SetCastType(CLong);
+            Graphics_SLP->SetCastType(CLong);
         }
         else
         {
-            SoundItems_Resource->changeContainerType(CShort);
-            Graphics_SLP->changeContainerType(CShort);
+            SoundItems_Resource->SetCastType(CShort);
+            Graphics_SLP->SetCastType(CShort);
         }
 
         // Mickey ->
@@ -2082,13 +2080,13 @@ void AGE_Frame::OnGameVersionChange()
         Colors_Type_Holder->Show(!show);
         if(show)
         {
-            Colors_ID->changeContainerType(CLong);
-            Colors_MinimapColor->changeContainerType(CLong);
+            Colors_ID->SetCastType(CLong);
+            Colors_MinimapColor->SetCastType(CLong);
         }
         else
         {
-            Colors_ID->changeContainerType(CShort);
-            Colors_MinimapColor->changeContainerType(CUByte);
+            Colors_ID->SetCastType(CShort);
+            Colors_MinimapColor->SetCastType(CUByte);
         }
 
         // AoK Alfa ->
@@ -2174,11 +2172,11 @@ void AGE_Frame::OnGameVersionChange()
 
         if(show) // TC ->
         {
-            Units_BaseArmor->changeContainerType(CShort);
+            Units_BaseArmor->SetCastType(CShort);
         }
         else // <- AoK
         {
-            Units_BaseArmor->changeContainerType(CByte);
+            Units_BaseArmor->SetCastType(CUByte);
         }
 
         // SWGB ->
@@ -2212,10 +2210,10 @@ void AGE_Frame::OnGameVersionChange()
             TerRestrict_Graphics_Holder->Show(true);
             Units_ObstructionType_Holder->Show(true);
             Units_ObstructionClass_Holder->Show(true);
-            Terrains_BlendPriority->changeContainerType(CShort);
-            Terrains_BlendType->changeContainerType(CShort);
-            Units_BaseArmor->changeContainerType(CShort);
-            TerRestrict_Amount->changeContainerType(CFloat);
+            Terrains_BlendPriority->SetCastType(CShort);
+            Terrains_BlendType->SetCastType(CShort);
+            Units_BaseArmor->SetCastType(CShort);
+            TerRestrict_Amount->SetCastType(CFloat);
         }
         else
         {
@@ -2231,7 +2229,7 @@ void AGE_Frame::OnGameVersionChange()
                 SoundItems_Name->setMaxChars(27);
                 Terrains_Name->setMaxChars(17);
                 Terrains_FileName->setMaxChars(17);
-                TerRestrict_Amount->changeContainerType(CFloat);
+                TerRestrict_Amount->SetCastType(CFloat);
             }
             else // <- TC
             {
@@ -2243,20 +2241,20 @@ void AGE_Frame::OnGameVersionChange()
                     Terrains_Name->setMaxChars(13);
                     Terrains_FileName->setMaxChars(13);
                 }
-                TerRestrict_Amount->changeContainerType(CLong);
+                TerRestrict_Amount->SetCastType(CLong);
             }
-            Terrains_BlendPriority->changeContainerType(CLong);
-            Terrains_BlendType->changeContainerType(CLong);
+            Terrains_BlendPriority->SetCastType(CLong);
+            Terrains_BlendType->SetCastType(CLong);
         }
         if(emerge)
         {
-            Units_LanguageDLLName->changeContainerType(CLong);
-            Units_LanguageDLLCreation->changeContainerType(CLong);
+            Units_LanguageDLLName->SetCastType(CLong);
+            Units_LanguageDLLCreation->SetCastType(CLong);
         }
         else
         {
-            Units_LanguageDLLName->changeContainerType(CUShort);
-            Units_LanguageDLLCreation->changeContainerType(CUShort);
+            Units_LanguageDLLName->SetCastType(CShort);
+            Units_LanguageDLLCreation->SetCastType(CShort);
         }
         Graphics_FirstFrame_Holder->Show(appear);
         Units_TelemetryID_Holder->Show(appear);
@@ -3827,8 +3825,8 @@ bool AGE_Frame::FileExists(const char * value)
 
 void AGE_Frame::LoadTXT(const wxString &filename)
 {
-    std::string line(filename);
-    std::ifstream infile(line);
+    string line(filename);
+    ifstream infile(line);
     while(getline(infile, line))
     {
         size_t num = 0;

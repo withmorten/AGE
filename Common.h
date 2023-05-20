@@ -107,7 +107,7 @@ enum EditableVersion
     EV_TCV,
 };
 
-enum ContainerType {CByte, CUByte, CFloat, CLong, CULong, CShort, CUShort, CString};
+enum ContainerType {CUByte, CFloat, CLong, CULong, CShort};
 
 class SolidText: public wxStaticText
 {

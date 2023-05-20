@@ -319,11 +319,11 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             }
             if(GameVersion == EV_UP)
             {
-                if(dataset->Effects[tech].EffectCommands[effect].B == 1)
+                if (dataset->Effects[tech].EffectCommands[effect].B == 1)
                 {
                     Name += "Enable tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
                 }
-                else if(dataset->Effects[tech].EffectCommands[effect].B == 2)
+                else if (dataset->Effects[tech].EffectCommands[effect].B == 2)
                 {
                     Name += "Force multi-use tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D);
                 }
@@ -394,7 +394,8 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             }
             break;
         case 102:
-            Name = "Disable tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D)+" at gamestart";
+            Name = "Disable tech "+FormatFloat(dataset->Effects[tech].EffectCommands[effect].D)
+            +" at gamestart";
             break;
         case 103:
             //Name = "Tech Time Modifier (Set/+/-)";
@@ -453,15 +454,15 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
 {
     auto selections = Techs_Effects_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
-    for(auto &box: uiGroupTechEffect) box->clear();
+    for (auto &box : uiGroupTechEffect)
+    {
+        box->clear();
+    }
+    short attributeNameId = -1;
+    short researchNameId = -1;
     bool enableD = true;
     if(selections > 0)
     {
-        Effects_A->UnsetToolTip();
-        Effects_B->UnsetToolTip();
-        Effects_C->UnsetToolTip();
-        Effects_D->UnsetToolTip();
-        Effects_B_ComboBox->SetIsModifyTechComboBox(false);
         getSelectedItems(selections, Techs_Effects_ListV, EffectIDs);
         Effects_Type_Holder->Show(true);
 
@@ -476,22 +477,42 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
             Effects_D->prepend(&EffectPointer->D);
         }
 
+        if (EffectPointer->Type >= 0 && EffectPointer->Type <= 39)
+        {
+            Effects_Type_ComboBox->SetSelection(EffectPointer->Type + 1);
+        }
+        else if (EffectPointer->Type >= 101 && EffectPointer->Type <= 103)
+        {
+            Effects_Type_ComboBox->SetSelection(EffectPointer->Type - 60);
+        }
+        else
+        {
+            Effects_Type_ComboBox->SetSelection(0);
+        }
+
         bool NeverHide = Effects_NeverHide->GetValue();
         switch(EffectPointer->Type)
         {
-            case 0:
-            case 10:
             case 20:
             case 30:
+            if(GenieVersion != genie::GV_TC)
+            {
+                goto noup;
+            }
+            case 0:
+            case 10:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);
                 Effects_B_CheckBox->Show(false);
+                Effects_B_ComboBox->TakeControl();
                 Effects_B_ComboBox->SwapList(&class_names);
                 Effects_B_ComboBox->Show(true);
                 Effects_C_CheckBox->Show(false);
+                Effects_C_ComboBox->TakeControl();
                 Effects_C_ComboBox->SwapList(&effect_attribute_names);
                 Effects_C_ComboBox->Show(true);
+                attributeNameId = EffectPointer->C;
                 Effects_D_ComboBox->Show(false);
                 Effects_A->Show(true);
                 Effects_B->Show(true);
@@ -515,7 +536,7 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                     Effects_89_Type_CB1->Show(true);
                     uint16_t attack_type = (uint16_t)EffectPointer->D >> 8;
                     Effects_89_Type->ChangeValue(lexical_cast<string>(attack_type)); // Correct class
-                    static_cast<AGELinkedBox*>(Effects_89_Type_CB1)->SetChoice(attack_type);
+                    Effects_89_Type_CB1->SetChoice(attack_type);
                     Effects_89_Type_Text->SetLabel("Type ");
                 }
                 else
@@ -528,14 +549,19 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 }
             }
             break;
-            case 1:
-            case 11:
             case 21:
             case 31:
+            if(GenieVersion != genie::GV_TC)
+            {
+                goto noup;
+            }
+            case 1:
+            case 11:
             {
                 bool DE2 = GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2;
                 Effects_A_ComboBox->SwapList(&resource_names);
                 Effects_A_ComboBox->Show(true);
+                Effects_B_CheckBox->TakeControl();
                 Effects_B_CheckBox->Show(true);
                 Effects_B_ComboBox->Show(false);
                 Effects_C_CheckBox->Show(false);
@@ -567,13 +593,18 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_Info_C->SetLabel(DE2 ? " [>=0] = Multiply with" : "");
             }
             break;
-            case 2:
-            case 12:
             case 22:
             case 32:
+            if(GenieVersion != genie::GV_TC)
+            {
+                goto noup;
+            }
+            case 2:
+            case 12:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);
+                Effects_B_CheckBox->TakeControl();
                 Effects_B_CheckBox->Show(true);
                 Effects_B_ComboBox->Show(false);
                 Effects_C_CheckBox->Show(false);
@@ -597,15 +628,20 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_Info_C->SetLabel("");
             }
             break;
-            case 3:
-            case 13:
             case 23:
             case 33:
+            if(GenieVersion != genie::GV_TC)
+            {
+                goto noup;
+            }
+            case 3:
+            case 13:
             {
                 bool DE2 = GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2;
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);
                 Effects_B_CheckBox->Show(false);
+                Effects_B_ComboBox->TakeControl();
                 Effects_B_ComboBox->SwapList(&unit_names);
                 Effects_B_ComboBox->Show(true);
                 Effects_C_CheckBox->Show(false);
@@ -629,19 +665,26 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_Info_C->SetLabel(DE2 ? " [-1] = All, [!-1] = On map" : "");
             }
             break;
-            case 4:
-            case 14:
             case 24:
             case 34:
+            if(GenieVersion != genie::GV_TC)
+            {
+                goto noup;
+            }
+            case 4:
+            case 14:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);
                 Effects_B_CheckBox->Show(false);
+                Effects_B_ComboBox->TakeControl();
                 Effects_B_ComboBox->SwapList(&class_names);
                 Effects_B_ComboBox->Show(true);
                 Effects_C_CheckBox->Show(false);
+                Effects_C_ComboBox->TakeControl();
                 Effects_C_ComboBox->SwapList(&effect_attribute_names);
                 Effects_C_ComboBox->Show(true);
+                attributeNameId = EffectPointer->C;
                 Effects_D_ComboBox->Show(false);
                 Effects_A->Show(true);
                 Effects_B->Show(true);
@@ -664,7 +707,7 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                     Effects_89_Type_CB1->Show(true);
                     uint16_t attack_type = (uint16_t)EffectPointer->D >> 8;
                     Effects_89_Type->ChangeValue(lexical_cast<string>(attack_type)); // Correct class
-                    static_cast<AGELinkedBox*>(Effects_89_Type_CB1)->SetChoice(attack_type);
+                    Effects_89_Type_CB1->SetChoice(attack_type);
                     Effects_D_Text->SetLabel("Amount [+] ");
                     Effects_89_Type_Text->SetLabel("Type ");
                 }
@@ -679,19 +722,26 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 }
             }
             break;
-            case 5:
-            case 15:
             case 25:
             case 35:
+            if(GenieVersion != genie::GV_TC)
+            {
+                goto noup;
+            }
+            case 5:
+            case 15:
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);
                 Effects_B_CheckBox->Show(false);
+                Effects_B_ComboBox->TakeControl();
                 Effects_B_ComboBox->SwapList(&class_names);
                 Effects_B_ComboBox->Show(true);
                 Effects_C_CheckBox->Show(false);
+                Effects_C_ComboBox->TakeControl();
                 Effects_C_ComboBox->SwapList(&effect_attribute_names);
                 Effects_C_ComboBox->Show(true);
+                attributeNameId = EffectPointer->C;
                 Effects_D_ComboBox->Show(false);
                 Effects_A->Show(true);
                 Effects_B->Show(true);
@@ -714,7 +764,7 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                     Effects_89_Type_CB1->Show(true);
                     uint16_t attack_type = (uint16_t)EffectPointer->D >> 8;
                     Effects_89_Type->ChangeValue(lexical_cast<string>(attack_type)); // Correct class
-                    static_cast<AGELinkedBox*>(Effects_89_Type_CB1)->SetChoice(attack_type);
+                    Effects_89_Type_CB1->SetChoice(attack_type);
                     Effects_D_Text->SetLabel("Amount [%] ");
                     Effects_89_Type_Text->SetLabel("Type ");
                 }
@@ -729,10 +779,14 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 }
             }
             break;
-            case 6:
-            case 16:
             case 26:
             case 36:
+            if(GenieVersion != genie::GV_TC)
+            {
+                goto noup;
+            }
+            case 6:
+            case 16:
             {
                 Effects_A_ComboBox->SwapList(&resource_names);
                 Effects_A_ComboBox->Show(true);
@@ -759,15 +813,20 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_Info_C->SetLabel("");
             }
             break;
-            case 7:
-            case 17:
             case 27:
             case 37:
+            if(GenieVersion != genie::GV_TC)
+            {
+                goto noup;
+            }
+            case 7:
+            case 17:
             if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
             {
                 Effects_A_ComboBox->SwapList(&unit_names);
                 Effects_A_ComboBox->Show(true);
                 Effects_B_CheckBox->Show(false);
+                Effects_B_ComboBox->TakeControl();
                 Effects_B_ComboBox->SwapList(&unit_names);
                 Effects_B_ComboBox->Show(true);
                 Effects_C_CheckBox->Show(false);
@@ -801,7 +860,7 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_89_Type_CB1->Show(false);
                 Effects_A->Show(NeverHide);
                 Effects_B->Show(true);
-                Effects_B->SetToolTip("0 Disable\n1 Enable\n2 Force Enable");
+                Effects_B->SetToolTip("0 Disable\n1 Enable\n2 Force enable");
                 Effects_C->Show(NeverHide);
                 Effects_D->Show(true);
                 Effects_89_Amount->Show(false);
@@ -825,15 +884,16 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_A_ComboBox->SwapList(&research_names);
                 Effects_A_ComboBox->Show(true);
                 Effects_B_CheckBox->Show(false);
+                Effects_B_ComboBox->TakeControl();
                 Effects_B_ComboBox->SwapList(&modify_research_names);
                 Effects_B_ComboBox->Show(true);
-                Effects_B_ComboBox->SetIsModifyTechComboBox(true);
+                researchNameId = EffectPointer->B;
                 Effects_C_CheckBox->Show(false);
                 Effects_C_ComboBox->Show(false);
                 Effects_D_ComboBox->Show(false);
                 Effects_A->Show(true);
                 Effects_B->Show(true);
-                Effects_B->SetToolTip("0-3 and 16384-16387 only work if the Tech has the corresponding Cost/Storage set");
+                Effects_B->SetToolTip("0-3 and 16384-16387 only work if the tech has the corresponding cost/storage set");
                 Effects_C->Show(false);
 
                 Effects_A_Text->SetLabel("Tech ");
@@ -843,12 +903,12 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_Info_B->SetLabel("");
                 Effects_Info_C->SetLabel("");
 
-				Effects_D->Show(true);
-				Effects_89_Amount->Show(false);
-				Effects_89_Type->Show(false);
-				Effects_89_Type_CB1->Show(false);
-				Effects_D_Text->SetLabel("Amount ");
-				Effects_89_Type_Text->SetLabel("");
+                Effects_D->Show(true);
+                Effects_89_Amount->Show(false);
+                Effects_89_Type->Show(false);
+                Effects_89_Type_CB1->Show(false);
+                Effects_D_Text->SetLabel("Amount ");
+                Effects_89_Type_Text->SetLabel("");
             }
             break;
             case 9:
@@ -868,7 +928,7 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_B->Show(true);
                 Effects_B->SetToolTip("Needs to be 0, do not touch");
                 Effects_C->Show(NeverHide);
-                Effects_D->Show(true); 
+                Effects_D->Show(true);
                 Effects_D->SetToolTip("An ID from the language file");
                 Effects_89_Amount->Show(false);
                 Effects_89_Type->Show(false);
@@ -893,8 +953,10 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_A_ComboBox->SwapList(&research_names);
                 Effects_A_ComboBox->Show(true);
                 Effects_B_CheckBox->Show(false);
+                Effects_B_ComboBox->TakeControl();
                 Effects_B_ComboBox->SwapList(&resource_names);
                 Effects_B_ComboBox->Show(true);
+                Effects_C_CheckBox->TakeControl();
                 Effects_C_CheckBox->Show(true);
                 Effects_C_ComboBox->Show(false);
                 Effects_D_ComboBox->Show(false);
@@ -955,6 +1017,7 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_A_ComboBox->Show(true);
                 Effects_B_CheckBox->Show(false);
                 Effects_B_ComboBox->Show(false);
+                Effects_C_CheckBox->TakeControl();
                 Effects_C_CheckBox->Show(true);
                 Effects_C_ComboBox->Show(false);
                 Effects_D_ComboBox->Show(false);
@@ -983,6 +1046,7 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
                 Effects_Info_C->SetLabel(" [ ] = Set, [X] = +/-");
             }
             break;
+            noup:
             default:
             {
                 Effects_A_ComboBox->Show(false);
@@ -1034,10 +1098,47 @@ void AGE_Frame::OnEffectCmdSelect(wxCommandEvent &event)
         Effects_Info_B->SetLabel("");
         Effects_Info_C->SetLabel("");
     }
-    for(auto &box: uiGroupTechEffect) box->update();
+    for (auto &box : uiGroupTechEffect)
+    {
+        box->update();
+    }
     Effects_D->Enable(enableD);
     Effects_Type_Holder->Layout();
     Effects_Data_Holder->Layout();
+    if (attributeNameId != -1)
+    {
+        if (attributeNameId >= 0 && attributeNameId <= 23)
+        {
+            Effects_C_ComboBox->SetSelection(attributeNameId + 1);
+        }
+        else if (attributeNameId >= 100 && attributeNameId <= 109)
+        {
+            Effects_C_ComboBox->SetSelection(attributeNameId - 75);
+        }
+        else
+        {
+            Effects_C_ComboBox->SetSelection(0);
+        }
+    }
+    if (researchNameId != -1)
+    {
+        if (researchNameId == -2)
+        {
+            Effects_B_ComboBox->SetSelection(1);
+        }
+        else if (researchNameId >= 0 && researchNameId <= 4)
+        {
+            Effects_B_ComboBox->SetSelection(researchNameId + 2);
+        }
+        else if (researchNameId >= 16384 && researchNameId <= 16387)
+        {
+            Effects_B_ComboBox->SetSelection(researchNameId - 16378);
+        }
+        else
+        {
+            Effects_B_ComboBox->SetSelection(0);
+        }
+    }
 //  Refresh(); // Too much lag.
 }
 
@@ -1176,7 +1277,7 @@ void AGE_Frame::CreateTechControls()
     Techs_Restore = new wxButton(Tab_Techs, wxID_ANY, "Rename for GeniEd 2");
 
     Techs_Name_Text = new SolidText(Tab_Techs, " Effect Name");
-    Techs_Name = AGETextCtrl::init(CString, NULL, this, &popUp, Tab_Techs, 31);
+    Techs_Name = new StringControl(Tab_Techs, this, nullptr, 31, false);
 
     Techs_Effects = new wxStaticBoxSizer(wxVERTICAL, Tab_Techs, "Effect Commands");
     Techs_Effects_Searches[0] = new wxBoxSizer(wxHORIZONTAL);
@@ -1197,9 +1298,11 @@ void AGE_Frame::CreateTechControls()
     Effects_Type_Holder = new wxBoxSizer(wxVERTICAL);
     Effects_Type2_Holder = new wxBoxSizer(wxHORIZONTAL);
     Effects_Type_Text = new SolidText(Tab_Techs, " Command Type *");
-    Effects_Type = AGETextCtrl::init(CByte, &uiGroupTechEffect, this, &popUp, Tab_Techs);
-    Effects_Type->SetToolTip("101 and 103 are only for\ntech tree and team bonus\n101-103 only work at gamestart\n7-39 are only available with UserPatch 1.5\n10-16 are also available with AoK HD");
-    Effects_Type_ComboBox = new ComboBox_EffectType(Tab_Techs, Effects_Type, &effect_type_names);
+    Effects_Type = new NumberControl(CUByte, Tab_Techs, this, &uiGroupTechEffect, false);
+    Effects_Type->SetToolTip("101 and 103 are only for\ntech tree and team bonus"
+        "\n101-103 only work at gamestart\n7-39 are only available with UserPatch 1.5"
+        "\n10-16 are also available with AoK HD");
+    Effects_Type_ComboBox = new AGEComboBox(Tab_Techs, &effect_type_names, AGETextCtrl::GIANT);
     Effects_Data_Holder = new wxStaticBoxSizer(wxVERTICAL, Tab_Techs, "Effect Attributes");
     Effects_NeverHide = new wxCheckBox(Tab_Techs, wxID_ANY, "Never hide attributes", wxDefaultPosition, wxDefaultSize);
     Effects_NeverHide->SetValue(NeverHideAttributes);
@@ -1214,36 +1317,36 @@ void AGE_Frame::CreateTechControls()
     Effects_D_Holder = new wxBoxSizer(wxHORIZONTAL);
     Effects_89_Type_Holder = new wxBoxSizer(wxVERTICAL);
     Effects_A_Text = new SolidText(Tab_Techs, "Attribute A ", wxALIGN_RIGHT | wxST_NO_AUTORESIZE, wxSize(100, -1));
-    Effects_A = AGETextCtrl::init(CShort, &uiGroupTechEffect, this, &popUp, Tab_Techs, AGETextCtrl::LARGE);
-    Effects_A_ComboBox = new ComboBox_Plus1(Tab_Techs, Effects_A, &unit_names);
+    Effects_A = new NumberControl(CShort, Tab_Techs, this, &uiGroupTechEffect, false, AGETextCtrl::LARGE);
+    Effects_A_ComboBox = new LinkedComboBox(Tab_Techs, Effects_A, &unit_names, false);
     UnitComboBoxList.push_back(Effects_A_ComboBox);
     ResourceComboBoxList.push_back(Effects_A_ComboBox);
     ResearchComboBoxList.push_back(Effects_A_ComboBox);
     Effects_Info_A = new SolidText(Tab_Techs, "");
     Effects_B_Text = new SolidText(Tab_Techs, "Attribute B ", wxALIGN_RIGHT | wxST_NO_AUTORESIZE, wxSize(100, -1));
-    Effects_B = AGETextCtrl::init(CShort, &uiGroupTechEffect, this, &popUp, Tab_Techs, AGETextCtrl::LARGE);
+    Effects_B = new NumberControl(CShort, Tab_Techs, this, &uiGroupTechEffect, false, AGETextCtrl::LARGE);
     Effects_B_Boxes = new wxBoxSizer(wxHORIZONTAL);
-    Effects_B_CheckBox = new CheckBox_2State(Tab_Techs, "", Effects_B);
-    Effects_B_ComboBox = new ComboBox_Plus1(Tab_Techs, Effects_B, &class_names);
+    Effects_B_CheckBox = new LinkedCheckBox(Tab_Techs, "", Effects_B, false);
+    Effects_B_ComboBox = new LinkedComboBox(Tab_Techs, Effects_B, &class_names, false);
     UnitComboBoxList.push_back(Effects_B_ComboBox);
     ResourceComboBoxList.push_back(Effects_B_ComboBox);
     Effects_Info_B = new SolidText(Tab_Techs, " Info B");
     Effects_C_Text = new SolidText(Tab_Techs, "Attribute C ", wxALIGN_RIGHT | wxST_NO_AUTORESIZE, wxSize(100, -1));
-    Effects_C = AGETextCtrl::init(CShort, &uiGroupTechEffect, this, &popUp, Tab_Techs, AGETextCtrl::LARGE);
+    Effects_C = new NumberControl(CShort, Tab_Techs, this, &uiGroupTechEffect, false, AGETextCtrl::LARGE);
     Effects_C_Boxes = new wxBoxSizer(wxHORIZONTAL);
-    Effects_C_CheckBox = new CheckBox_2State(Tab_Techs, "", Effects_C);
-    Effects_C_ComboBox = new ComboBox_EffectAttribute(Tab_Techs, Effects_C, &effect_attribute_names);
+    Effects_C_CheckBox = new LinkedCheckBox(Tab_Techs, "", Effects_C, false);
+    Effects_C_ComboBox = new LinkedComboBox(Tab_Techs, Effects_C, &effect_attribute_names, false);
     Effects_Info_C = new SolidText(Tab_Techs, " Info C");
     Effects_D_Text = new SolidText(Tab_Techs, "Attribute D ", wxALIGN_RIGHT | wxST_NO_AUTORESIZE, wxSize(100, -1));
-    Effects_D = AGETextCtrl::init(CFloat, &uiGroupTechEffect, this, &popUp, Tab_Techs, AGETextCtrl::LARGE);
+    Effects_D = new NumberControl(CFloat, Tab_Techs, this, &uiGroupTechEffect, false, AGETextCtrl::LARGE);
     Effects_D_Boxes = new wxBoxSizer(wxHORIZONTAL);
-    Effects_D_ComboBox = new ComboBox_Plus1(Tab_Techs, Effects_D, &research_names);
+    Effects_D_ComboBox = new LinkedComboBox(Tab_Techs, Effects_D, &research_names, false);
     ResearchComboBoxList.push_back(Effects_D_ComboBox);
     Effects_Info_D = new SolidText(Tab_Techs, "");
-    Effects_89_Amount = AGETextCtrl::init(CUByte, NULL, this, &popUp, Tab_Techs, AGETextCtrl::LARGE);
+    Effects_89_Amount = new NumberControl(CUByte, Tab_Techs, this, nullptr, false, AGETextCtrl::LARGE);
     Effects_89_Type_Text = new SolidText(Tab_Techs, "Type ", wxALIGN_RIGHT | wxST_NO_AUTORESIZE, wxSize(100, -1));
-    Effects_89_Type = AGETextCtrl::init(CUByte, 0, this, &popUp, Tab_Techs, AGETextCtrl::LARGE);
-    Effects_89_Type_CB1 = new ComboBox_Plus1(Tab_Techs, Effects_89_Type, &armor_names);
+    Effects_89_Type = new NumberControl(CUByte, Tab_Techs, this, nullptr, false, AGETextCtrl::LARGE);
+    Effects_89_Type_CB1 = new LinkedComboBox(Tab_Techs, Effects_89_Type, &armor_names, false);
 
     Techs_AllEffects = new wxStaticBoxSizer(wxVERTICAL, Tab_Techs, "Commands of all Effects");
     Techs_AllEffects_Searches[0] = new wxBoxSizer(wxHORIZONTAL);
@@ -1418,11 +1521,73 @@ void AGE_Frame::CreateTechControls()
     Techs_AllEffects_Load->Bind(wxEVT_BUTTON, &AGE_Frame::LoadAllEffects, this);
     Techs_AllEffects_Clear->Bind(wxEVT_BUTTON, &AGE_Frame::ClearAllEffects, this);
 
-    Techs_Name->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Techs, this);
-    Techs_Name->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Techs, this);
+    Techs_Name->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+    {
+        event.Skip();
+        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+        {
+            ListEffects();
+        }
+    });
+    Techs_Name->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+    {
+        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+        ListEffects();
+    });
     Effects_Type->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Techs, this);
     Effects_Type->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Techs, this);
-    Effects_Type_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Techs, this);
+    Effects_Type_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
+    {
+        switch (event.GetSelection())
+        {
+            case 1: Effects_Type->ChangeValue("0"); break;
+            case 2: Effects_Type->ChangeValue("1"); break;
+            case 3: Effects_Type->ChangeValue("2"); break;
+            case 4: Effects_Type->ChangeValue("3"); break;
+            case 5: Effects_Type->ChangeValue("4"); break;
+            case 6: Effects_Type->ChangeValue("5"); break;
+            case 7: Effects_Type->ChangeValue("6"); break;
+            case 8: Effects_Type->ChangeValue("7"); break;
+            case 9: Effects_Type->ChangeValue("8"); break;
+            case 10: Effects_Type->ChangeValue("9"); break;
+            case 11: Effects_Type->ChangeValue("10"); break;
+            case 12: Effects_Type->ChangeValue("11"); break;
+            case 13: Effects_Type->ChangeValue("12"); break;
+            case 14: Effects_Type->ChangeValue("13"); break;
+            case 15: Effects_Type->ChangeValue("14"); break;
+            case 16: Effects_Type->ChangeValue("15"); break;
+            case 17: Effects_Type->ChangeValue("16"); break;
+            case 18: Effects_Type->ChangeValue("17"); break;
+            case 19: Effects_Type->ChangeValue("18"); break;
+            case 20: Effects_Type->ChangeValue("19"); break;
+            case 21: Effects_Type->ChangeValue("20"); break;
+            case 22: Effects_Type->ChangeValue("21"); break;
+            case 23: Effects_Type->ChangeValue("22"); break;
+            case 24: Effects_Type->ChangeValue("23"); break;
+            case 25: Effects_Type->ChangeValue("24"); break;
+            case 26: Effects_Type->ChangeValue("25"); break;
+            case 27: Effects_Type->ChangeValue("26"); break;
+            case 28: Effects_Type->ChangeValue("27"); break;
+            case 29: Effects_Type->ChangeValue("28"); break;
+            case 30: Effects_Type->ChangeValue("29"); break;
+            case 31: Effects_Type->ChangeValue("30"); break;
+            case 32: Effects_Type->ChangeValue("31"); break;
+            case 33: Effects_Type->ChangeValue("32"); break;
+            case 34: Effects_Type->ChangeValue("33"); break;
+            case 35: Effects_Type->ChangeValue("34"); break;
+            case 36: Effects_Type->ChangeValue("35"); break;
+            case 37: Effects_Type->ChangeValue("36"); break;
+            case 38: Effects_Type->ChangeValue("37"); break;
+            case 39: Effects_Type->ChangeValue("38"); break;
+            case 40: Effects_Type->ChangeValue("39"); break;
+            case 41: Effects_Type->ChangeValue("101"); break;
+            case 42: Effects_Type->ChangeValue("102"); break;
+            case 43: Effects_Type->ChangeValue("103"); break;
+            default: Effects_Type->ChangeValue("-1");
+        }
+        Effects_Type->SaveEdits();
+        ListEffectCmds();
+    });
     Effects_A->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Techs, this);
     Effects_A->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Techs, this);
     Effects_B->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Techs, this);
@@ -1433,39 +1598,65 @@ void AGE_Frame::CreateTechControls()
     Effects_D->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Techs, this);
     Effects_A_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Techs, this);
     Effects_B_CheckBox->Bind(wxEVT_CHECKBOX, &AGE_Frame::OnUpdateCheck_Techs, this);
-    Effects_B_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Techs, this);
-    Effects_C_CheckBox->Bind(wxEVT_CHECKBOX, &AGE_Frame::OnUpdateCheck_Techs, this);
-    Effects_C_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Techs, this);
-    Effects_D_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Techs, this);
-    Effects_89_Type_CB1->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Techs, this);
-}
-
-void AGE_Frame::OnSaveEdits_Techs(int id)
-{
-    if(id == Techs_Name->GetId())
+    Effects_B_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
     {
-        ListEffects();
-    }
-    else
-    {
+        // DETECT UP AND PLUSONE!!!
+        switch (event.GetSelection())
+        {
+            case 0: Effects_B->ChangeValue("-1"); break;
+            case 1: Effects_B->ChangeValue("-2"); break;
+            case 2: Effects_B->ChangeValue("0"); break;
+            case 3: Effects_B->ChangeValue("1"); break;
+            case 4: Effects_B->ChangeValue("2"); break;
+            case 5: Effects_B->ChangeValue("3"); break;
+            case 6: Effects_B->ChangeValue("16384"); break;
+            case 7: Effects_B->ChangeValue("16385"); break;
+            case 8: Effects_B->ChangeValue("16386"); break;
+            case 9: Effects_B->ChangeValue("16387"); break;
+            default: Effects_B->ChangeValue("-1");
+        }
+        Effects_B->SaveEdits();
         ListEffectCmds();
-    }
+    });
+    Effects_C_CheckBox->Bind(wxEVT_CHECKBOX, &AGE_Frame::OnUpdateCheck_Techs, this);
+    Effects_C_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
+    {
+        // DETECT EA AND PLUSONE!!!
+        int selection = event.GetSelection();
+        selection = (selection < 25) ? selection - 1 : selection + 75;
+        Effects_C->ChangeValue(lexical_cast<string>(selection));
+        Effects_C->SaveEdits();
+        ListEffectCmds();
+    });
+    Effects_D_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Techs, this);
+    Effects_89_Type_CB1->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
+    {
+        uint16_t Class = (event.GetSelection() - 1) << 8;
+        uint8_t Amount = lexical_cast<int>(Effects_89_Amount->GetValue());
+        Effects_D->ChangeValue(lexical_cast<string>(Amount + Class));
+        Effects_D->SaveEdits();
+
+        ListEffectCmds();
+        return;
+    });
 }
 
 void AGE_Frame::OnEnter_Techs(wxCommandEvent &event)
 {
     static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-    OnSaveEdits_Techs(event.GetId());
+    ListEffectCmds();
 }
 
 void AGE_Frame::OnKillFocus_Techs(wxFocusEvent &event)
 {
     event.Skip();
-    if(static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() != 0) return;
-    OnSaveEdits_Techs(event.GetId());
+    if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+    {
+        ListEffectCmds();
+    }
 }
 
-void AGE_Frame::OnSaveEdits_Effects89(bool forced)
+void AGE_Frame::UpdateEffects89(bool forced)
 {
     // if has something, then update float value.
     if(!Effects_89_Amount->IsEmpty() && !Effects_89_Type->IsEmpty())
@@ -1480,33 +1671,23 @@ void AGE_Frame::OnSaveEdits_Effects89(bool forced)
 
 void AGE_Frame::OnEnter_Effects89(wxCommandEvent &event)
 {
-    OnSaveEdits_Effects89(true);
+    UpdateEffects89(true);
 }
 
 void AGE_Frame::OnKillFocus_Effects89(wxFocusEvent &event)
 {
     event.Skip();
-    OnSaveEdits_Effects89(false);
+    UpdateEffects89(false);
 }
 
 void AGE_Frame::OnUpdateCheck_Techs(wxCommandEvent &event)
 {
-    static_cast<CheckBox_2State*>(event.GetEventObject())->OnChoose(event);
+    static_cast<LinkedCheckBox*>(event.GetEventObject())->OnChoose(event);
     ListEffectCmds();
 }
 
 void AGE_Frame::OnUpdateCombo_Techs(wxCommandEvent &event)
 {
-    if(event.GetId() == Effects_89_Type_CB1->GetId())
-    {
-        uint16_t Class = (Effects_89_Type_CB1->GetSelection() - 1) << 8;
-        uint8_t Amount = lexical_cast<int>(Effects_89_Amount->GetValue());
-        Effects_D->ChangeValue(lexical_cast<string>(Amount + Class));
-        Effects_D->SaveEdits();
-
-        ListEffectCmds();
-        return;
-    }
-    static_cast<ComboBox_Plus1*>(event.GetEventObject())->OnChoose(event);
+    static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
     ListEffectCmds();
 }
