@@ -39,7 +39,7 @@ void AGE_Frame::OnMapsRefresh(wxCommandEvent &event)
 
 void AGE_Frame::CreateGeneralControls()
 {
-    Tab_General = new APanel(TabBar_Main);
+    Tab_General = new ATabPage(TabBar_Main);
 
     General_Main = new wxBoxSizer(wxVERTICAL);
     General_Scroller = new AScrolled(Tab_General);
@@ -789,7 +789,7 @@ void AGE_Frame::OnMapElevationCopyToMaps(wxCommandEvent &event)
 
 void AGE_Frame::CreateUnknownControls()
 {
-    Tab_Unknown = new APanel(TabBar_Main);
+    Tab_Unknown = new ATabPage(TabBar_Main);
 
     Unknown_Main = new wxBoxSizer(wxVERTICAL);
     RMS_Scroller = new AScrolled(Tab_Unknown);
