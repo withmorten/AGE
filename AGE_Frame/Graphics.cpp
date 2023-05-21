@@ -1,12 +1,14 @@
+#include "Common.h"
 #include "../AGE_Frame.h"
+#include "../Loaders.h"
 
 const wxString AGE_Frame::MirrorHelp = "Angle count clockwise from east after mirroring starts.\n"
     "Angles before south are mirrored too.\nFrom the sprite scanner, if the sprite mirror is > 0,\n"
     "mirror = (angle_count >> 1) + (angle_count >> 2)";
 
-string AGE_Frame::GetGraphicName(int index, bool Filter)
+std::string AGE_Frame::GetGraphicName(int index, bool Filter)
 {
-    string Name;
+    std::string Name;
     if(GenieVersion >= genie::GV_AoE && dataset->GraphicPointers[index] == 0)
     {
         return "NULL";
@@ -204,13 +206,13 @@ void AGE_Frame::OnGraphicSelect(wxCommandEvent &event)
             if(GenieVersion >= genie::GV_AoKB)
             Graphics_EditorFlag->prepend(&GraphicPointer->EditorFlag);
         }
-        SetStatusText("Selections: "+lexical_cast<string>(GraphicIDs.size())+"    Selected sprite: "+lexical_cast<string>(GraphicIDs.front()), 0);
+        SetStatusText("Selections: "+lexical_cast<std::string>(GraphicIDs.size())+"    Selected sprite: "+lexical_cast<std::string>(GraphicIDs.front()), 0);
 
         selections = GenieVersion < genie::GV_AoE ? 1 : dataset->GraphicPointers[GraphicIDs.front()];
 
         if(GraphicPointer)
         {
-            Graphics_MirroringMode->SetToolTip("If used, should be " + lexical_cast<string>((GraphicPointer->AngleCount >> 1) + (GraphicPointer->AngleCount >> 2)) + " for this sprite.\n" + MirrorHelp);
+            Graphics_MirroringMode->SetToolTip("If used, should be " + lexical_cast<std::string>((GraphicPointer->AngleCount >> 1) + (GraphicPointer->AngleCount >> 2)) + " for this sprite.\n" + MirrorHelp);
             gallery.datID = GraphicIDs.front();
             gallery.slpID = RELOAD; // Force reloading delta graphics.
         }
@@ -303,7 +305,7 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
                 {
                     if(initArt(art, delta.GraphicID))
                     {
-                        gallery.angles = max(gallery.angles, art.angles);
+                        gallery.angles = std::max(gallery.angles, art.angles);
                     }
                     else continue;
                 }
@@ -315,7 +317,7 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
                 art.xdelta = delta.OffsetX;
                 art.ydelta = delta.OffsetY;
                 SetDisplayBearings(art, delta);
-                gallery.deltas.emplace(move(make_pair(0, move(art))));
+                gallery.deltas.emplace(std::move(std::make_pair(0, std::move(art))));
             }
         }
         DrawGraphics(dc, gallery, centerX, centerY);
@@ -473,7 +475,7 @@ void AGE_Frame::initSounds(AGE_SLP &art, unsigned sound_num, size_t slot)
         auto &sound_item = dataset->Sounds[sound_num].Items[0];
         if(LooseHD)
         {
-            string soundname = GG::LoadSound(soundfolders, sound_item.FileName, sound_item.ResourceID);
+            std::string soundname = GG::LoadSound(soundfolders, sound_item.FileName, sound_item.ResourceID);
             if("" != soundname)
             {
                 if(art.buffers[slot].loadFromFile(soundname)) return;
@@ -489,7 +491,7 @@ void AGE_Frame::initSounds(AGE_SLP &art, unsigned sound_num, size_t slot)
             }
             else // Terrain sounds may be loose files.
             {
-                string soundname = GG::LoadSound(soundfolders, sound_item.FileName, sound_item.ResourceID);
+                std::string soundname = GG::LoadSound(soundfolders, sound_item.FileName, sound_item.ResourceID);
                 if("" != soundname)
                 {
                     if(art.buffers[slot].loadFromFile(soundname)) return;
@@ -587,9 +589,9 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
     int text_pos = 5 / slp_zoom;
     if(spritemap.deltas.size())
     {
-        GG::cache_depth = max(GG::cache_depth, spritemap.deltas.size());
+        GG::cache_depth = std::max(GG::cache_depth, spritemap.deltas.size());
         int fpms = 0x7FFF;
-        set<uint32_t> slpIDs;
+        std::set<uint32_t> slpIDs;
         for(auto &delta: spritemap.deltas)
         {
             if(AGE_SLP::setbearing)
@@ -606,7 +608,7 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
                 }
                 if(AnimSLP)
                 {
-                    fpms = min(fpms, ShouldAnimate(delta.second, framesleft));
+                    fpms = std::min(fpms, ShouldAnimate(delta.second, framesleft));
                 }
                 slpIDs.insert(delta.second.slpID);
             }
@@ -861,12 +863,12 @@ void AGE_Frame::OnGraphicsDisable(wxCommandEvent &event)
     ListGraphics();
 }
 
-string AGE_Frame::GetGraphicDeltaName(int index)
+std::string AGE_Frame::GetGraphicDeltaName(int index)
 {
     int deltaID = dataset->Graphics[GraphicIDs.front()].Deltas[index].GraphicID;
     if(deltaID < dataset->Graphics.size())
-    return lexical_cast<string>(deltaID) + ": " + GetGraphicName(deltaID, false);
-    return "Re-drawer "+lexical_cast<string>(deltaID);
+    return lexical_cast<std::string>(deltaID) + ": " + GetGraphicName(deltaID, false);
+    return "Re-drawer "+lexical_cast<std::string>(deltaID);
 }
 
 void AGE_Frame::OnGraphicDeltasSearch(wxCommandEvent &event)
@@ -1580,7 +1582,7 @@ void AGE_Frame::CreateGraphicsControls()
                                     target.setFrame(frame_pos, src_frame);
                                 }
                             }
-                            catch(const out_of_range&)
+                            catch(const std::out_of_range&)
                             {
                                 // Less frames than is displayed.
                                 frames = f;
@@ -1631,13 +1633,13 @@ void AGE_Frame::CreateGraphicsControls()
         {
             size_t d_cnt = dataset->Graphics[GraphicIDs[lg]].Deltas.size();
             // Save delta #s
-            set<uint16_t> d_nums;
+            std::set<uint16_t> d_nums;
             for(size_t ld = 0; ld < d_cnt; ++ld)
             {
                 d_nums.emplace(dataset->Graphics[GraphicIDs[lg]].Deltas[ld].GraphicID);
             }
             // Give back sorted
-            vector<uint16_t> d_snums(d_nums.begin(), d_nums.end());
+            std::vector<uint16_t> d_snums(d_nums.begin(), d_nums.end());
             for(size_t ld = 0; ld < d_cnt; ++ld)
             {
                 dataset->Graphics[GraphicIDs[lg]].Deltas[ld].GraphicID = d_snums[ld];
@@ -1679,8 +1681,8 @@ void AGE_Frame::CreateGraphicsControls()
         if(dd.ShowModal() == wxID_OK && dataset)
         {
             wxBusyCursor WaitCursor;
-            string line(dd.GetPath());
-            ifstream infile(line);
+            std::string line(dd.GetPath());
+            std::ifstream infile(line);
             while(getline(infile, line))
             {
                 wxArrayString pieces(wxStringTokenize(line, "\t"));

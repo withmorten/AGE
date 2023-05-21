@@ -1,3 +1,4 @@
+#include "Common.h"
 #include "../AGE_Frame.h"
 
 void AGE_Frame::ListMapData()
@@ -135,7 +136,7 @@ wxString AGE_Frame::GetRandomMapName(int index)
 {
     if(GenieVersion >= genie::GV_AoK)
     {
-        return "Map "+lexical_cast<string>(dataset->RandomMaps.Maps[index].MapID);
+        return "Map "+lexical_cast<std::string>(dataset->RandomMaps.Maps[index].MapID);
     }
     wxString Name;
     switch(index)
@@ -152,7 +153,7 @@ wxString AGE_Frame::GetRandomMapName(int index)
         case 9: Name = "Gigantic ("; break;
         default: Name = "Map (";
     }
-    return Name += lexical_cast<string>(dataset->RandomMaps.Maps[index].MapID)+")";
+    return Name += lexical_cast<std::string>(dataset->RandomMaps.Maps[index].MapID)+")";
 }
 
 void AGE_Frame::ListRandomMaps()
@@ -204,7 +205,7 @@ void AGE_Frame::OnRandomMapSelect(wxCommandEvent &event)
             RMS_LandData[7]->prepend(&map_ptr->LandCoverage);
             RMS_LandData[8]->prepend(&map_ptr->UnusedID);
         }
-        SetStatusText("Selections: "+lexical_cast<string>(selections)+"    Selected random map: "+lexical_cast<string>(RandomMapIDs.front()), 0);
+        SetStatusText("Selections: "+lexical_cast<std::string>(selections)+"    Selected random map: "+lexical_cast<std::string>(RandomMapIDs.front()), 0);
     }
     for(auto &box: uiGroupRandomMap) box->update();
     ListMapLands();
@@ -282,7 +283,7 @@ void AGE_Frame::OnMapLandSearch(wxCommandEvent &event)
 
 wxString AGE_Frame::GetMapLandName(int index)
 {
-    return "Land "+lexical_cast<string>(dataset->RandomMaps.Maps[RandomMapIDs.front()].MapLands[index].LandID);
+    return "Land "+lexical_cast<std::string>(dataset->RandomMaps.Maps[RandomMapIDs.front()].MapLands[index].LandID);
 }
 
 void AGE_Frame::ListMapLands()
