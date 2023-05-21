@@ -211,7 +211,6 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             Name = "Team ";
         case 0:
         {
-            //Name = "Attribute Modifier (Set)";
             Name += "Set " + Tester(dataset->Effects[tech].EffectCommands[effect], " to ");
             break;
         }
@@ -222,7 +221,6 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
         case 11:
             Name = "Team ";
         case 1:
-            //Name = "Resource Modifier (Set/+/-)";
             if(dataset->Effects[tech].EffectCommands[effect].B == 0)
             {
                 Name += "Set resource "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
@@ -276,7 +274,6 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             Name = "Team ";
         case 4:
         {
-            //Name = "Attribute Modifier (+/-)";
             Name += "Change " + Tester(dataset->Effects[tech].EffectCommands[effect], " by ");
             break;
         }
@@ -288,7 +285,6 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
             Name = "Team ";
         case 5:
         {
-            //Name = "Attribute Modifier (Multiply)";
             Name += "Multiply " + Tester(dataset->Effects[tech].EffectCommands[effect], " by ");
             break;
         }
@@ -312,7 +308,6 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
         case 7:
             if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
             {
-                //Name = "Spawn Unit";
                 Name = "Spawn unit "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
                 +" from "+FormatInt(dataset->Effects[tech].EffectCommands[effect].B)
                 +", "+FormatInt(dataset->Effects[tech].EffectCommands[effect].C)+" times";
@@ -1583,7 +1578,7 @@ void AGE_Frame::CreateTechControls()
             case 41: Effects_Type->ChangeValue("101"); break;
             case 42: Effects_Type->ChangeValue("102"); break;
             case 43: Effects_Type->ChangeValue("103"); break;
-            default: Effects_Type->ChangeValue("-1");
+            default: Effects_Type->ChangeValue("255");
         }
         Effects_Type->SaveEdits();
         ListEffectCmds();
