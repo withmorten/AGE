@@ -60,7 +60,7 @@ AGE_OpenSave::AGE_OpenSave(wxWindow *parent, const wxString &title, wxDialog *sl
     ComboBox_GenieVer->Append("Forgotten + African Kingdoms + Rajas > 12");
     ComboBox_GenieVer->Append("Star Wars: Galactic Battlegrounds (1.0)");
     ComboBox_GenieVer->Append("Clone Campaigns (1.1)");
-    ComboBox_GenieVer->Append("Mod: Expanding Fronts (Terrain patch)");
+    ComboBox_GenieVer->Append("Expanding Fronts (>= 1.3) + Terrain patch");
     ComboBox_GenieVer->Append("Age of Empires: Definitive Edition");
     ComboBox_GenieVer->Append("Age of Empires II: Definitive Edition");
     ComboBox_GenieVer->Append("The Conquerors + UserPatch 1.5 (11.76)");
