@@ -138,7 +138,7 @@ void AGE_Frame::InitTerrainBorders(bool all)
 
 void AGE_Frame::OnTerrainBorderSelect(wxCommandEvent &event)
 {
-    auto selections = Borders_ListV->GetSelectedCount();
+    size_t selections = Borders_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
     getSelectedItems(selections, Borders_ListV, BorderIDs);
 
@@ -148,7 +148,7 @@ void AGE_Frame::OnTerrainBorderSelect(wxCommandEvent &event)
     for(auto &box: uiGroupBorder) box->clear();
 
     genie::TerrainBorder * BorderPointer = 0;
-    for(auto sel = selections; sel--> 0;)
+    for(size_t sel = selections; sel--> 0;)
     {
         BorderPointer = &dataset->TerrainBlock.TerrainBorders[BorderIDs[sel]];
 
@@ -177,7 +177,8 @@ void AGE_Frame::OnTerrainBorderSelect(wxCommandEvent &event)
         Borders_Terrain->prepend(&BorderPointer->UnderlayTerrain);
         Borders_BorderStyle->prepend(&BorderPointer->BorderStyle);
     }
-    SetStatusText("Selections: "+lexical_cast<std::string>(selections)+"    Selected border: "+lexical_cast<std::string>(BorderIDs.front()), 0);
+    SetStatusText(wxString::Format("Selections: %zu    Selected border: %d",
+        selections, selections > 0 ? BorderIDs.front() : -1), 0);
 
     for(auto &box: uiGroupBorder) box->update();
     if(BorderPointer && !palettes.empty() && !palettes.front().empty())
@@ -309,6 +310,7 @@ void AGE_Frame::ListTerrainBorderTileTypes()
 
     Borders_TileTypes_ListV->Sweep();
 
+    if (BorderIDs.size())
     for(size_t loop = 0; loop < dataset->TerrainBlock.TerrainBorders[BorderIDs.front()].Borders.size(); ++loop)
     {
         wxString Name = FormatInt(loop)+" - "+GetTerrainBorderTileTypeName(loop);
@@ -379,6 +381,7 @@ void AGE_Frame::ListTerrainBorderBorderShapes()
 
     Borders_BorderShapes_ListV->Sweep();
 
+    if (BorderTileTypeIDs.size())
     for(size_t loop = 0; loop < dataset->TerrainBlock.TerrainBorders[BorderIDs.front()].Borders[BorderTileTypeIDs.front()].size(); ++loop)
     {
         wxString Name = FormatInt(loop)+" - "+GetTerrainBorderBorderShapeName(loop);
