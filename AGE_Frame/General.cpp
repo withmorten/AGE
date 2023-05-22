@@ -119,7 +119,6 @@ void AGE_Frame::CreateGeneralControls()
     General_ScrollSpace->Add(General_TerrainRendering_Grid, 0, wxTOP | wxBOTTOM, 5);
 
     General_Scroller->SetSizer(General_ScrollSpace);
-    General_Scroller->SetScrollRate(0, 15);
 
     General_Main->Add(General_Scroller, 1, wxEXPAND | wxBOTTOM | wxLEFT | wxRIGHT, 5);
 
@@ -1201,7 +1200,6 @@ void AGE_Frame::CreateUnknownControls()
     Unknown_ScrollSpace->Add(RMSUnknown, 0, wxEXPAND | wxBOTTOM, 5);
 
     RMS_Scroller->SetSizer(Unknown_ScrollSpace);
-    RMS_Scroller->SetScrollRate(0, 15);
 
     Unknowns->Add(Unknowns_ListArea, 21, wxEXPAND | wxRIGHT, 5);
     Unknowns->Add(RMS_Scroller, 65, wxEXPAND);

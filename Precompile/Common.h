@@ -42,6 +42,7 @@
 #include <wx/dcbuffer.h>
 #include <wx/dialog.h>
 #include <wx/dir.h>
+#include <wx/display.h>
 #include <wx/event.h>
 #include <wx/ffile.h>
 #include <wx/fileconf.h>
