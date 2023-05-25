@@ -51,9 +51,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     task_names.Add("149: TRIBE_Shepherd");
     task_names.Add("150: HD Regeneration");
     task_names.Add("151: HD Feitoria Ability");
-    task_names.Add("201: STRATOS_Move_To");
-    task_names.Add("205: STRATOS_Gather");
-    task_names.Add("212: STRATOS_Transport");
+    //task_names.Add("201: STRATOS_Move_To");
+    //task_names.Add("205: STRATOS_Gather");
+    //task_names.Add("212: STRATOS_Transport");
     Tasks_ActionType_ComboBox->Flash();
 
     age_names.Clear();
