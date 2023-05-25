@@ -351,7 +351,7 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
         SpawnUnit:
             if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
             {
-                Name = "Spawn unit "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
+                Name += "Spawn unit "+FormatInt(dataset->Effects[tech].EffectCommands[effect].A)
                 +" from "+FormatInt(dataset->Effects[tech].EffectCommands[effect].B)
                 +", "+FormatInt(dataset->Effects[tech].EffectCommands[effect].C)+" times";
             }

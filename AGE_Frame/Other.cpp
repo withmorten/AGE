@@ -134,7 +134,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
             {
                 OpenBox.RecentValues[i].Alloc(12);
                 wxString temp, entry = "Recent" + wxString::Format("%04d", i + 1);
-                RecentOpen.Read(entry + "/DatVersion", &temp, "9000"); OpenBox.RecentValues[i].Add(temp);
+                RecentOpen.Read(entry + "/DatVersion", &temp, "-1"); OpenBox.RecentValues[i].Add(temp);
                 RecentOpen.Read(entry + "/DatPath", &temp, wxEmptyString); OpenBox.RecentValues[i].Add(temp);
                 RecentOpen.Read(entry + "/Lang", &temp, wxEmptyString); OpenBox.RecentValues[i].Add(temp);
                 RecentOpen.Read(entry + "/LangX1", &temp, wxEmptyString); OpenBox.RecentValues[i].Add(temp);
@@ -1013,7 +1013,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
         {
             SaveBox.RecentValues[i].Alloc(5);
             wxString temp, entry = "Recent" + wxString::Format("%04d", i + 1);
-            RecentSave.Read(entry + "/DatVersion", &temp, "9000"); SaveBox.RecentValues[i].Add(temp);
+            RecentSave.Read(entry + "/DatVersion", &temp, "-1"); SaveBox.RecentValues[i].Add(temp);
             RecentSave.Read(entry + "/DatPath", &temp, wxEmptyString); SaveBox.RecentValues[i].Add(temp);
             RecentSave.Read(entry + "/Lang", &temp, wxEmptyString); SaveBox.RecentValues[i].Add(temp);
             RecentSave.Read(entry + "/LangX1", &temp, wxEmptyString); SaveBox.RecentValues[i].Add(temp);
@@ -1706,7 +1706,7 @@ void AGE_Frame::OnMenuOption(wxCommandEvent &event)
             slp_csv.Clear();
             obj_csv.Clear();
 
-            slp_csv.AddLine("SLP,PicFilename,Name,NumFrames,NumFacets");
+            slp_csv.AddLine("SLP,PicFilename,Name,NumFrames,NumFacets,FrameDuration,ReplayDelay");
             for(size_t sprite = 0; sprite < dataset->Graphics.size(); ++sprite)
             if(dataset->GraphicPointers[sprite])
             {
@@ -1714,7 +1714,9 @@ void AGE_Frame::OnMenuOption(wxCommandEvent &event)
                             +','+dataset->Graphics[sprite].FileName
                             +','+dataset->Graphics[sprite].Name
                             +','+lexical_cast<std::string>(dataset->Graphics[sprite].FrameCount)
-                            +','+lexical_cast<std::string>(dataset->Graphics[sprite].AngleCount));
+                            +','+lexical_cast<std::string>(dataset->Graphics[sprite].AngleCount)
+                            +','+lexical_cast<std::string>(dataset->Graphics[sprite].FrameDuration)
+                            +','+lexical_cast<std::string>(dataset->Graphics[sprite].ReplayDelay));
             }
 
             size_t unit, civ, depth = 0;
