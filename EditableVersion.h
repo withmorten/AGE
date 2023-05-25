@@ -23,4 +23,5 @@ enum EditableVersion
     EV_DE2,
     EV_UP,
     EV_TCV,
+    EV_EF2,
 };
