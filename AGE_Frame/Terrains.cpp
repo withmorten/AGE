@@ -72,7 +72,7 @@ std::string AGE_Frame::GetTerrainName(int index, bool Filter)
                     break;
             }
             Name += ", ";
-            if(Selection[loop+1] < 1) break; // Internal name breaks
+            if(Selection[1] < 1) break; // Internal name breaks
         }
         if(Selection[0] == 1) goto InternalName;
     }
@@ -91,7 +91,7 @@ InternalName:
 
 void AGE_Frame::OnTerrainsSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListTerrains1(false);
 }
 
@@ -478,7 +478,7 @@ void AGE_Frame::OnTerrainsPaste(wxCommandEvent &event)
 
 void AGE_Frame::OnTerrainsBorderSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListTerrainsBorders();
 }
 

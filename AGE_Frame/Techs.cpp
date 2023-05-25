@@ -71,7 +71,7 @@ void AGE_Frame::OnEffectRename(wxCommandEvent &event)
 
 void AGE_Frame::OnEffectSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListEffects(false);
 }
 
@@ -464,7 +464,7 @@ wxString AGE_Frame::GetEffectCmdName(int effect, int tech)
 
 void AGE_Frame::OnEffectCmdSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListEffectCmds();
 }
 

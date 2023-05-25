@@ -127,7 +127,7 @@ void AGE_Frame::CreateGeneralControls()
 
 void AGE_Frame::OnRandomMapSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListRandomMaps();
 }
 
@@ -274,7 +274,7 @@ void AGE_Frame::OnRandomMapPasteInsert(wxCommandEvent &event)
 
 void AGE_Frame::OnMapLandSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListMapLands();
 }
 
@@ -407,7 +407,7 @@ void AGE_Frame::OnMapLandCopyToMaps(wxCommandEvent &event)
 
 void AGE_Frame::OnMapTerrainSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListMapTerrains();
 }
 
@@ -539,7 +539,7 @@ void AGE_Frame::OnMapTerrainCopyToMaps(wxCommandEvent &event)
 
 void AGE_Frame::OnMapUnitSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListMapUnits();
 }
 
@@ -666,7 +666,7 @@ void AGE_Frame::OnMapUnitCopyToMaps(wxCommandEvent &event)
 
 void AGE_Frame::OnMapElevationSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListMapElevations();
 }
 

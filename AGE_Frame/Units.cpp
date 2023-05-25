@@ -965,7 +965,7 @@ void AGE_Frame::OnUnitsSearch(wxCommandEvent&)
     short Selection = Units_Civs_List->GetSelection();
     if(Selection == wxNOT_FOUND) return;
 
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListUnits(Selection, false);
 }
 
@@ -1560,18 +1560,12 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
     if (selections > 0)
     {
         // Don't count disabled units anymore.
-        std::vector<size_t> deSelectCivs;
-        deSelectCivs.reserve(SelectedCivs.size());
-        for (size_t loop = 0; loop < SelectedCivs.size(); ++loop)
+        for (size_t loop = SelectedCivs.size(); loop-- > 0;)
         {
             if (dataset->Civs[SelectedCivs[loop]].UnitPointers[UnitIDs.front()] == 0)
             {
-                deSelectCivs.emplace_back(loop);
+                SelectedCivs.erase(SelectedCivs.begin() + loop);
             }
-        }
-        if (!deSelectCivs.empty())
-        {
-            DeleteFromList(SelectedCivs, deSelectCivs);
         }
     }
     else
@@ -1945,7 +1939,7 @@ std::string AGE_Frame::GetUnitDamageGraphicName(int index)
 
 void AGE_Frame::OnUnitDamageGraphicsSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListUnitDamageGraphics();
 }
 
@@ -2034,7 +2028,7 @@ void AGE_Frame::OnUnitDamageGraphicsAdd(wxCommandEvent &event)
         if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
         dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.push_back(Temp);
     }
-    How2List = ADD;
+    How2List = ListMode::ADD;
     ListUnitDamageGraphics();
 }
 
@@ -2050,7 +2044,7 @@ void AGE_Frame::OnUnitDamageGraphicsInsert(wxCommandEvent &event)
         if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
         dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.insert(dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.begin() + DamageGraphicIDs.front(), Temp);
     }
-    How2List = INSNEW;
+    How2List = ListMode::INSNEW;
     ListUnitDamageGraphics();
 }
 
@@ -2193,7 +2187,7 @@ std::string AGE_Frame::GetUnitAttackName(int index)
 
 void AGE_Frame::OnUnitAttacksSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListUnitAttacks();
 }
 
@@ -2279,7 +2273,7 @@ void AGE_Frame::OnUnitAttacksAdd(wxCommandEvent &event)
         if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
         dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.push_back(Temp);
     }
-    How2List = ADD;
+    How2List = ListMode::ADD;
     ListUnitAttacks();
 }
 
@@ -2295,7 +2289,7 @@ void AGE_Frame::OnUnitAttacksInsert(wxCommandEvent &event)
         if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
         dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.insert(dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.begin() + AttackIDs.front(), Temp);
     }
-    How2List = INSNEW;
+    How2List = ListMode::INSNEW;
     ListUnitAttacks();
 }
 
@@ -2437,7 +2431,7 @@ std::string AGE_Frame::GetUnitArmorName(int index)
 
 void AGE_Frame::OnUnitArmorsSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListUnitArmors();
 }
 
@@ -2523,7 +2517,7 @@ void AGE_Frame::OnUnitArmorsAdd(wxCommandEvent &event)
         if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
         dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.push_back(Temp);
     }
-    How2List = ADD;
+    How2List = ListMode::ADD;
     ListUnitArmors();
 }
 
@@ -2539,7 +2533,7 @@ void AGE_Frame::OnUnitArmorsInsert(wxCommandEvent &event)
         if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
         dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.insert(dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.begin() + ArmorIDs.front(), Temp);
     }
-    How2List = INSNEW;
+    How2List = ListMode::INSNEW;
     ListUnitArmors();
 }
 
@@ -2741,7 +2735,7 @@ wxString AGE_Frame::GetUnitCommandName(int index)
 
 void AGE_Frame::OnUnitCommandsSearch(wxCommandEvent &event)
 {
-    How2List = SEARCH;
+    How2List = ListMode::SEARCH;
     ListUnitCommands();
 }
 
@@ -2947,7 +2941,7 @@ void AGE_Frame::OnUnitCommandsAdd(wxCommandEvent &event)
             }
         }
     }
-    How2List = ADD;
+    How2List = ListMode::ADD;
     ListUnitCommands();
 }
 
@@ -2976,7 +2970,7 @@ void AGE_Frame::OnUnitCommandsInsert(wxCommandEvent &event)
             }
         }
     }
-    How2List = INSNEW;
+    How2List = ListMode::INSNEW;
     ListUnitCommands();
 }
 
@@ -5702,7 +5696,7 @@ void AGE_Frame::CreateUnitControls()
             if(GenieVersion >= genie::GV_AoK)
             dataset->Civs[loop].Units[dataset->Civs.front().Units.size()-1].BaseID = (int16_t)(dataset->Civs.front().Units.size()-1);
         }
-        How2List = ADD;
+        How2List = ListMode::ADD;
         ListUnits(UnitCivID);
 
         if(GenieVersion < genie::GV_SWGB && dataset->Civs.front().Units.size() > 900) SetStatusText("Units between 900 and 1000 mess up the AI!", 0);
@@ -5735,7 +5729,7 @@ void AGE_Frame::CreateUnitControls()
                 dataset->Civs[loop].Units[loop2].BaseID = loop2;
             }
         }
-        How2List = INSNEW;
+        How2List = ListMode::INSNEW;
         ListUnits(UnitCivID);
     });
 
@@ -5777,9 +5771,9 @@ void AGE_Frame::CreateUnitControls()
             }
             dataset->Civs[civ].UnitPointers.resize(baseId);
             dataset->Civs[civ].Units.resize(baseId);
-            How2List = DEL;
+            How2List = ListMode::DEL;
         }
-        How2List = DEL;
+        How2List = ListMode::DEL;
         ListUnits(UnitCivID);
     });
 
@@ -6000,7 +5994,7 @@ void AGE_Frame::CreateUnitControls()
                 }
             }
         }
-        How2List = PASTE;
+        How2List = ListMode::PASTE;
         ListUnits(UnitCivID);
 
         SetStatusText("Unit special paste", 2);
@@ -6046,7 +6040,7 @@ void AGE_Frame::CreateUnitControls()
                 dataset->Civs[civ].Units[loop].BaseID = loop;
             }
         }
-        How2List = INSPASTE;
+        How2List = ListMode::INSPASTE;
         ListUnits(UnitCivID);
     });
 
@@ -6108,7 +6102,7 @@ void AGE_Frame::CreateUnitControls()
                 }
             }
         }
-        How2List = ENABLE;
+        How2List = ListMode::ENABLE;
         ListUnits(UnitCivID);
     });
 
@@ -6127,7 +6121,7 @@ void AGE_Frame::CreateUnitControls()
             else
             dataset->Civs[UnitCivID].UnitPointers[UnitIDs[sel]] = 0;
         }
-        How2List = ENABLE;
+        How2List = ListMode::ENABLE;
         ListUnits(UnitCivID);
     });
 
