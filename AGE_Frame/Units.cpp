@@ -653,6 +653,13 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "BL " + FormatInt(unit_ptr->Type50.BlastAttackLevel);
         });
+        else if (label.compare("Blast Damage") == 0)
+        { 
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "BLD " + FormatFloat(unit_ptr->Type50.BlastDamage);
+                });
+        }
         else if (label.compare("Min Range") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
@@ -848,6 +855,21 @@ void AGE_Frame::PrepUnitSearch()
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "HGG " + FormatInt(unit_ptr->Creatable.HeroGlowGraphic);
+        });
+        else if (label.compare("Min Conversion Time Mod") == 0)
+        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
+        {
+            return UF70 "MinCT " + FormatInt(unit_ptr->Creatable.MinConversionTimeMod);
+        });
+        else if (label.compare("Max Conversion Time Mod") == 0)
+        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
+        {
+            return UF70 "MaxCT " + FormatInt(unit_ptr->Creatable.MaxConversionTimeMod);
+        });
+        else if (label.compare("Conversion Chance Mod") == 0)
+        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
+        {
+            return UF70 "CCM " + FormatInt(unit_ptr->Creatable.ConversionChanceMod);
         });
 
         else if (label.compare("Construction Graphic") == 0)
@@ -1240,6 +1262,9 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                                 Units_RechargeRate->prepend(&UnitPointer->Creatable.RechargeRate);
                                 Units_ChargeEvent->prepend(&UnitPointer->Creatable.ChargeEvent);
                                 Units_ChargeType->prepend(&UnitPointer->Creatable.ChargeType);
+                                Units_MinConversionTimeMod->prepend(&UnitPointer->Creatable.MinConversionTimeMod);
+                                Units_MaxConversionTimeMod->prepend(&UnitPointer->Creatable.MaxConversionTimeMod);
+                                Units_ConversionChanceMod->prepend(&UnitPointer->Creatable.ConversionChanceMod);
                             }
                         }
                     }
@@ -1276,6 +1301,7 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                         if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
                         {
                             Units_BonusDamageResistance->prepend(&UnitPointer->Type50.BonusDamageResistance);
+                            Units_BlastDamage->prepend(&UnitPointer->Type50.BlastDamage);
                         }
                     }
                 }
@@ -3311,7 +3337,7 @@ void AGE_Frame::CreateUnitControls()
     Units_StatsArea1A_Sizer = new wxBoxSizer(wxHORIZONTAL);
     Units_StatsArea1B_Sizer = new wxBoxSizer(wxHORIZONTAL);
     Units_Garrison_Grid = new wxFlexGridSizer(3, 0, 5);
-    Units_Resource_Grid = new wxFlexGridSizer(3, 0, 5);
+    Units_Resource_Grid = new wxFlexGridSizer(6, 0, 5);
     Units_Charge_Grid = new wxFlexGridSizer(4, 0, 5);
     Units_ProjectileArea_Holder = new wxStaticBoxSizer(wxVERTICAL, Units_Scroller, "Projectiles");
     Units_P1 = new wxBoxSizer(wxHORIZONTAL);
@@ -3462,6 +3488,7 @@ void AGE_Frame::CreateUnitControls()
     Units_GraphicDisplacement_Holder = new wxBoxSizer(wxVERTICAL);
     Units_GraphicDisplacement_Grid = new wxBoxSizer(wxHORIZONTAL);
     Units_BlastAttackLevel_Holder = new wxBoxSizer(wxVERTICAL);
+    Units_BlastDamage_Holder = new wxBoxSizer(wxVERTICAL);
     Units_MinRange_Holder = new wxBoxSizer(wxVERTICAL);
     Units_AccuracyDispersion_Holder = new wxBoxSizer(wxVERTICAL);
     Units_AttackGraphic_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3644,6 +3671,7 @@ void AGE_Frame::CreateUnitControls()
     Units_Delay_Text = new SolidText(Units_Scroller, " Frame Delay *");
     Units_GraphicDisplacement_Text = new SolidText(Units_Scroller, " Sprite Displacement XYZ *");
     Units_BlastAttackLevel_Text = new SolidText(Units_Scroller, " Blast Attack Level *");
+    Units_BlastDamage_Text = new SolidText(Units_Scroller, " Blast Damage *");
     Units_MinRange_Text = new SolidText(Units_Scroller, " Min Range");
     Units_AccuracyDispersion_Text = new SolidText(Units_Scroller, " Attack Dispersion *");
     Units_AttackGraphic_Text = new SolidText(Units_Scroller, " Attack Sprite");
@@ -3687,6 +3715,9 @@ void AGE_Frame::CreateUnitControls()
     Units_RechargeRate_Text = new SolidText(Units_Scroller, " Recharge Rate");
     Units_ChargeEvent_Text = new SolidText(Units_Scroller, " Charge Event *");
     Units_ChargeType_Text = new SolidText(Units_Scroller, " Charge Type *");
+    Units_MinConversionTimeMod_Text = new SolidText(Units_Scroller, " Min Conv Time *");
+    Units_MaxConversionTimeMod_Text = new SolidText(Units_Scroller, " Max Conv Time *");
+    Units_ConversionChanceMod_Text = new SolidText(Units_Scroller, " Conv Chance *");
 
 //  Type 80
 
@@ -3898,6 +3929,8 @@ void AGE_Frame::CreateUnitControls()
     Units_BlastWidth->SetToolTip("If object has 0 blast radius\nand does not hit the unit it had targeted\nalways does half damage");
     Units_BlastAttackLevel = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_BlastAttackLevel->SetToolTip("Blasts damage units that have higher or same blast armor level\n0   Damages resources also\n1   Damages trees also\n2   Damages nearby units\n3   Damages only targeted unit");
+    Units_BlastDamage = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
+    Units_BlastDamage->SetToolTip("Area damage. If the value is above 0, it's a multiplier applied to the base attack. If the value is negative, it does a fixed amount of damage.");
 
     Units_Armors = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Armors");
     Units_Armors_ListArea = new wxBoxSizer(wxVERTICAL);
@@ -3947,6 +3980,12 @@ void AGE_Frame::CreateUnitControls()
     Units_ResourceDecay = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_ResourceDecay->SetToolTip("Can alter decay time of corpses\nSet to -1 for never decaying");
     Units_WorkRate = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
+    Units_MinConversionTimeMod = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
+    Units_MinConversionTimeMod->SetToolTip("Modifier to the minimum time it can take to convert this unit.");
+    Units_MaxConversionTimeMod = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
+    Units_MaxConversionTimeMod->SetToolTip("Modifier to the maximum time it can take to convert this unit.");
+    Units_ConversionChanceMod = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
+    Units_ConversionChanceMod->SetToolTip("Modifier to the overall chance it takes to convert this unit.");
     Units_GarrisonCapacity = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_GarrisonType = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, false);
     Units_GarrisonType->SetToolTip("You can garrison any type,\nif you add the garrison action targeting this class/unit,\nbut you may need to hold the alt key while choosing to garrison.");
@@ -4621,6 +4660,7 @@ void AGE_Frame::CreateUnitControls()
     Units_Delay_Holder->Add(Units_Delay_Text);
     Units_GraphicDisplacement_Holder->Add(Units_GraphicDisplacement_Text);
     Units_BlastAttackLevel_Holder->Add(Units_BlastAttackLevel_Text);
+    Units_BlastDamage_Holder->Add(Units_BlastDamage_Text);
     Units_MinRange_Holder->Add(Units_MinRange_Text);
     Units_AccuracyDispersion_Holder->Add(Units_AccuracyDispersion_Text);
     Units_AttackGraphic_Holder->Add(Units_AttackGraphic_Text);
@@ -4832,6 +4872,7 @@ void AGE_Frame::CreateUnitControls()
     Units_GraphicDisplacement_Grid->Add(Units_GraphicDisplacement[loop]);
     Units_GraphicDisplacement_Holder->Add(Units_GraphicDisplacement_Grid);
     Units_BlastAttackLevel_Holder->Add(Units_BlastAttackLevel);
+    Units_BlastDamage_Holder->Add(Units_BlastDamage);
     Units_MinRange_Holder->Add(Units_MinRange);
     Units_AccuracyDispersion_Holder->Add(Units_AccuracyDispersion);
     Units_AttackGraphic_Holder->Add(Units_AttackGraphic, 0, wxEXPAND);
@@ -5185,6 +5226,7 @@ void AGE_Frame::CreateUnitControls()
     Units_Attacks_Holder_Data->Add(Units_DisplayedReloadTime_Holder);
     Units_Attacks_Holder_Data->Add(Units_BlastWidth_Holder);
     Units_Attacks_Holder_Data->Add(Units_BlastAttackLevel_Holder);
+    Units_Attacks_Holder_Data->Add(Units_BlastDamage_Holder);
 
     Units_Armors_DataArea->Add(Armors_Amount_Holder);
     Units_Armors_DataArea->Add(Armors_Class_Holder, 0, wxTOP, 5);
@@ -5218,9 +5260,15 @@ void AGE_Frame::CreateUnitControls()
     Units_Resource_Grid->Add(Units_ResourceCapacity_Text);
     Units_Resource_Grid->Add(Units_ResourceDecay_Text);
     Units_Resource_Grid->Add(Units_WorkRate_Text);
+    Units_Resource_Grid->Add(Units_MinConversionTimeMod_Text);
+    Units_Resource_Grid->Add(Units_MaxConversionTimeMod_Text);
+    Units_Resource_Grid->Add(Units_ConversionChanceMod_Text);
     Units_Resource_Grid->Add(Units_ResourceCapacity);
     Units_Resource_Grid->Add(Units_ResourceDecay);
     Units_Resource_Grid->Add(Units_WorkRate);
+    Units_Resource_Grid->Add(Units_MinConversionTimeMod);
+    Units_Resource_Grid->Add(Units_MaxConversionTimeMod);
+    Units_Resource_Grid->Add(Units_ConversionChanceMod);
 
     Units_Charge_Grid->Add(Units_MaxCharge_Text);
     Units_Charge_Grid->Add(Units_RechargeRate_Text);
