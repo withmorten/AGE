@@ -895,7 +895,7 @@ void AGE_Frame::OnFrameButton(wxCommandEvent &event)
                     wxMessageBox("Saving SLP failed", "SLP");
                 }
             }
-            else wxMessageBox("Look at some graphic", "SLP");
+            else wxMessageBox("Look at a sprite", "SLP");
             return;
         }
         case eSLPTool:
