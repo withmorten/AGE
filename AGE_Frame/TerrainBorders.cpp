@@ -2,7 +2,7 @@
 #include "../AGE_Frame.h"
 #include "genie/resource/Color.h"
 
-std::string AGE_Frame::GetTerrainBorderName(int index)
+wxString AGE_Frame::GetTerrainBorderName(int index)
 {
     if(dataset->TerrainBlock.TerrainBorders[index].Name.empty() && dataset->TerrainBlock.TerrainBorders[index].Name2.empty())
         return "NULL";
@@ -280,7 +280,7 @@ void AGE_Frame::OnTerrainBordersMoveDown(wxCommandEvent &event)
     ListTerrainBorders();
 }
 
-std::string AGE_Frame::GetTerrainBorderTileTypeName(int index)
+wxString AGE_Frame::GetTerrainBorderTileTypeName(int index)
 {
     switch(index)
     {
@@ -371,7 +371,7 @@ void AGE_Frame::OnTerrainBorderTileTypeCopyToBorders(wxCommandEvent &event)
     }
 }
 
-std::string AGE_Frame::GetTerrainBorderBorderShapeName(int index)
+wxString AGE_Frame::GetTerrainBorderBorderShapeName(int index)
 {
     return "FC "+lexical_cast<std::string>(dataset->TerrainBlock.TerrainBorders[BorderIDs.front()].Borders[BorderTileTypeIDs.front()][index].FrameCount)
     +", A "+lexical_cast<std::string>(dataset->TerrainBlock.TerrainBorders[BorderIDs.front()].Borders[BorderTileTypeIDs.front()][index].AngleCount)
