@@ -61,12 +61,12 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "I1 " + FormatInt(unit_ptr->ID);
         });
-        else if (label.compare("Language File Name") == 0)
+        else if (label.compare("String ID") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "LN " + FormatInt(unit_ptr->LanguageDLLName);
         });
-        else if (label.compare("Language File Creation") == 0)
+        else if (label.compare("String ID 2") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "LC " + FormatInt(unit_ptr->LanguageDLLCreation);
@@ -259,17 +259,17 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "MC " + FormatInt(unit_ptr->MinimapColor);
         });
-        else if (label.compare("Language File Help") == 0)
+        else if (label.compare("Help String ID") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "LH " + FormatInt(unit_ptr->LanguageDLLHelp);
         });
-        else if (label.compare("Language File Hot Key Text") == 0)
+        else if (label.compare("Help Page ID") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "LT " + FormatInt(unit_ptr->LanguageDLLHotKeyText);
         });
-        else if (label.compare("Hot Key") == 0)
+        else if (label.compare("Hotkey ID") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "HK " + FormatInt(unit_ptr->HotKey);
@@ -1567,7 +1567,6 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
 
             Units_RotationAngles_Text->SetLabel(Units_RotationAngles_Label + newLabel + ")");
         }
-        visibleUnitCiv->SetLabel(dataset->Civs[UnitCivID].Name);
         if(!palettes.empty() && !palettes.front().empty())
         {
             genie::Color minimap = palettes.front()[(uint8_t)UnitPointer->MinimapColor];
@@ -1601,7 +1600,6 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
     }
     else
     {
-        visibleUnitCiv->SetLabel("None");
         iconSLP.slpID = museum.datID = -1;
     }
     Units_DLL_LanguageName->SetLabel(TranslatedText(Units_DLL_LanguageName->index, 64));
@@ -3315,10 +3313,9 @@ void AGE_Frame::CreateUnitControls()
     Units_SelectClear = new wxButton(Tab_Units, wxID_ANY, "None", wxDefaultPosition, wxSize(40, -1));
     Units_GraphicSetText = new SolidText(Tab_Units, " Culture: ");
     Units_GraphicSet = new AGEComboBox(Tab_Units, &graphicset_names, AGETextCtrl::NORMAL);
-    visibleUnitCiv = new SolidText(Tab_Units, "Civ ", wxST_NO_AUTORESIZE, wxSize(AGETextCtrl::NORMAL, -1));
     Units_Identity_Holder = new wxStaticBoxSizer(wxVERTICAL, Tab_Units, "");
     Units_Type_Holder = new wxBoxSizer(wxHORIZONTAL);
-    Units_Type_Text = new SolidText(Tab_Units, "Type ");
+    Units_Type_Text = new SolidText(Tab_Units, "Master Type ");
     Units_Type = new NumberControl(CUByte, Tab_Units, this, &uiGroupUnit, false, AGETextCtrl::SMALL);
     Units_Type_ComboBox = new AGEComboBox(Tab_Units, &unit_type_names, AGETextCtrl::LARGE);
     Units_Class = new NumberControl(CShort, Tab_Units, this, &uiGroupUnit);
@@ -3327,7 +3324,7 @@ void AGE_Frame::CreateUnitControls()
     Units_Scroller = new AScrolled(Tab_Units);
     Units_ScrollSpace = new wxBoxSizer(wxVERTICAL);
     Units_TypeArea_Holder = new wxBoxSizer(wxHORIZONTAL);
-    Units_LangDLLArea_Holder = new wxStaticBoxSizer(wxVERTICAL, Units_Scroller, "Language Files");
+    Units_LangDLLArea_Holder = new wxStaticBoxSizer(wxVERTICAL, Units_Scroller, "String IDs");
     Units_GraphicsArea_Holder = new wxStaticBoxSizer(wxVERTICAL, Units_Scroller, "Sprites");
     SolidText* autoCopyHelp = new SolidText(Units_Scroller, autoCopyHelpText);
     Units_GraphicsArea1_Holder = new wxBoxSizer(wxHORIZONTAL);
@@ -3566,9 +3563,9 @@ void AGE_Frame::CreateUnitControls()
 //  Type 10+
 
     Units_ID1_Text = new SolidText(Tab_Units, " ID");
-    Units_LanguageDLLName_Text = new SolidText(Units_Scroller, " Language File Name *");
-    Units_LanguageDLLCreation_Text = new SolidText(Units_Scroller, " Language File Creation");
-    Units_Class_Text = new SolidText(Tab_Units, "  Class * ");
+    Units_LanguageDLLName_Text = new SolidText(Units_Scroller, " String ID *");
+    Units_LanguageDLLCreation_Text = new SolidText(Units_Scroller, " String ID 2");
+    Units_Class_Text = new SolidText(Tab_Units, "  Object Group * ");
     Units_StandingGraphic_Text = new SolidText(Units_Scroller, " Standing Sprite *");
     Units_DyingGraphic_Text = new SolidText(Units_Scroller, " Dying and Undead Sprite");
     Units_HitPoints_Text = new SolidText(Units_Scroller, " Hit Points *");
@@ -3597,11 +3594,11 @@ void AGE_Frame::CreateUnitControls()
     Units_InterfaceKind_Text = new SolidText(Units_Scroller, " Interface Kind *");
     Units_MultipleAttributeMode_Text = new SolidText(Units_Scroller, " Attribute Mode *");
     Units_MinimapColor_Text = new SolidText(Units_Scroller, " Minimap Color *");
-    Units_LanguageDLLHelp_Text = new SolidText(Units_Scroller, " Language File Help *");
+    Units_LanguageDLLHelp_Text = new SolidText(Units_Scroller, " Help String ID *");
     Units_LanguageDLLConverter_Text[0] = new SolidText(Units_Scroller, " Help Converter *");
-    Units_LanguageDLLConverter_Text[1] = new SolidText(Units_Scroller, " Hotkey Text Converter *");
-    Units_LanguageDLLHotKeyText_Text = new SolidText(Units_Scroller, " Lang File Hotkey Text *");
-    Units_HotKey_Text = new SolidText(Units_Scroller, " Hotkey *");
+    Units_LanguageDLLConverter_Text[1] = new SolidText(Units_Scroller, " Help Page Converter *");
+    Units_LanguageDLLHotKeyText_Text = new SolidText(Units_Scroller, " Help Page ID *");
+    Units_HotKey_Text = new SolidText(Units_Scroller, " Hotkey ID *");
     Units_CreateDoppelgangerOnDeath_Text = new SolidText(Units_Scroller, " Doppelganger *");
     Units_ResourceGroup_Text = new SolidText(Units_Scroller, " Gather Group *");
     Units_OcclusionMode_Text = new SolidText(Units_Scroller, " Occlusion Mode *");
@@ -3754,24 +3751,24 @@ void AGE_Frame::CreateUnitControls()
     Units_Name = new StringControl(Tab_Units, this, &uiGroupUnit, maxStringlength, false);
     Units_Name2 = new StringControl(Tab_Units, this, &uiGroupUnit, maxStringlength, false);
     Units_LanguageDLLName = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
-    Units_LanguageDLLName->SetToolTip("Usual Unit File Pattern for The Conquerors\nName: 5000-5999\n"
-        "Creation: Name +1000\nHotkey: Name +11000\nHelp: Name +100000, in file Name +21000\n"
-        "Hotkey Text: Name +150000, in file Name +10000\nTech tree: Name +9000");
+    Units_LanguageDLLName->SetToolTip("Usual Unit File Pattern for The Conquerors\nString ID: 5000-5999\n"
+        "String ID 2: String ID +1000\nHotkey ID: String ID 2 +10000\nHelp String ID: String ID +100000, in file String ID +21000\n"
+        "Help Page ID: String ID +150000, in file String ID +10000\nTech Tree: String ID +9000");
     Units_DLL_LanguageName = new TextIndexControl(Units_Scroller, ASize(200, 25));
     Units_LanguageDLLCreation = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
     Units_DLL_LanguageCreation = new TextIndexControl(Units_Scroller, ASize(200, 25));
     Units_HotKey = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit, false);
-    Units_HotKey->SetToolTip("10000 + Language File Creation (usually)");
+    Units_HotKey->SetToolTip("10000 + String ID 2 (usually)");
     Units_DLL_HotKey4 = new TextIndexControl(Units_Scroller, ASize(200, 25));
     Units_LanguageDLLHelp = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit, false);
-    Units_LanguageDLLHelp->SetToolTip("100000 + Language File Name\nThis is linked to the help text below");
+    Units_LanguageDLLHelp->SetToolTip("100000 + String ID\nThis is linked to the help text below");
     Units_LanguageDLLConverter[0] = new wxTextCtrl(Units_Scroller, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
-    Units_LanguageDLLConverter[0]->SetToolTip("Language help text in file\nHit enter to get the correction into dat file");
+    Units_LanguageDLLConverter[0]->SetToolTip("Hit enter to get the correction into dat file");
     Units_DLL_LanguageHelp = new TextIndexControl(Units_Scroller, ASize(610, 55));
     Units_LanguageDLLHotKeyText = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit, false);
-    Units_LanguageDLLHotKeyText->SetToolTip("150000 + Language File Name\nThis seems to be used only in AoE (not RoR)\nThis language line has other purposes in SWGB and CC");
+    Units_LanguageDLLHotKeyText->SetToolTip("150000 + String ID\nThis seems to be used only in AoE (not RoR)\nThis language line has other purposes in SWGB and CC");
     Units_LanguageDLLConverter[1] = new wxTextCtrl(Units_Scroller, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
-    Units_LanguageDLLConverter[1]->SetToolTip("Language hotkey text in file\nHit enter to get the correction into dat file");
+    Units_LanguageDLLConverter[1]->SetToolTip("Hit enter to get the correction into dat file");
     Units_DLL_LanguageHKText = new TextIndexControl(Units_Scroller, ASize(610, 25));
 
     wxArrayString choices;
@@ -3800,7 +3797,7 @@ void AGE_Frame::CreateUnitControls()
     Units_DamageGraphics_Copy = new wxButton(Units_Scroller, wxID_ANY, "Copy *", wxDefaultPosition, wxSize(10, -1));
     Units_DamageGraphics_Copy->SetToolTip("When \"All civs\" is not selected,\nthis and pasting works only for current civilization");
     Units_DamageGraphics_Paste = new wxButton(Units_Scroller, wxID_ANY, "Paste", wxDefaultPosition, wxSize(10, -1));
-    Units_DamageGraphics_PasteInsert = new wxButton(Units_Scroller, wxID_ANY, "Ins Copies", wxDefaultPosition, wxSize(10, -1));
+    Units_DamageGraphics_PasteInsert = new wxButton(Units_Scroller, wxID_ANY, "Ins Cpys", wxDefaultPosition, wxSize(10, -1));
     Units_DamageGraphics_CopyToUnits = new wxButton(Units_Scroller, wxID_ANY, "Copy all to selected units", wxDefaultPosition, wxSize(10, -1));
     Units_DamageGraphics_Holder_Data = new wxBoxSizer(wxVERTICAL);
     slp_dmg_unit = new wxCheckBox(Units_Scroller, wxID_ANY, "View damage sprite");
@@ -3813,7 +3810,7 @@ void AGE_Frame::CreateUnitControls()
     DamageGraphics_DamagePercent_Text = new SolidText(Units_Scroller, " Damage Percent");
     DamageGraphics_DamagePercent = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnitDmgGraphic, false);
     DamageGraphics_ApplyMode_Holder = new wxBoxSizer(wxVERTICAL);
-    DamageGraphics_ApplyMode_Text = new SolidText(Units_Scroller, " Apply Mode *");
+    DamageGraphics_ApplyMode_Text = new SolidText(Units_Scroller, " Flag *");
     DamageGraphics_ApplyMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnitDmgGraphic);
     DamageGraphics_ApplyMode->SetToolTip("0   Overlay (flames on buildings)\n1   Overlay randomly\n2   Replace sprite (damaged walls)");
 
@@ -4571,7 +4568,6 @@ void AGE_Frame::CreateUnitControls()
     Units_Units->Add(Units_Buttons1, 0, wxEXPAND);
     Units_Units->Add(Units_Special, 0, wxEXPAND | wxTOP, 2);
 
-    Units_Type_Holder->Add(visibleUnitCiv);
     Units_Type_Holder->Add(Units_Type_Text);
     Units_Type_Holder->Add(Units_Type);
     Units_Type_Holder->Add(Units_Type_ComboBox);

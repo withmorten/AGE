@@ -1609,7 +1609,6 @@ private:
 
     AScrolled *Units_Scroller;    // Scrollable unit section
 
-    SolidText *visibleUnitCiv;
     AGETextCtrl *Units_Type;
     AGEComboBox *Units_Type_ComboBox;
     AGETextCtrl *Units_ID1;

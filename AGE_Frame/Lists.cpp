@@ -1909,8 +1909,8 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("*Choose*");
     unit_filters.Add("Type");
     unit_filters.Add("ID");
-    unit_filters.Add("Language File Name");
-    unit_filters.Add("Language File Creation");
+    unit_filters.Add("String ID");
+    unit_filters.Add("String ID 2");
     unit_filters.Add("Class");
     unit_filters.Add("Standing Sprite");
     unit_filters.Add("Dying Sprite");
@@ -1955,9 +1955,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Internal Name 2");
     if (GenieVersion >= genie::GV_AoEB)
     {
-        unit_filters.Add("Language File Help");
-        unit_filters.Add("Language File Hot Key Text");
-        unit_filters.Add("Hot Key");
+        unit_filters.Add("Help String ID");
+        unit_filters.Add("Help Page ID");
+        unit_filters.Add("Hotkey ID");
         unit_filters.Add("Recyclable");
         unit_filters.Add("Gatherable");
         unit_filters.Add("Doppelganger on Death");
