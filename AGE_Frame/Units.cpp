@@ -9,7 +9,7 @@ wxString AGE_Frame::GetUnitName(int index, short civ, bool filter)
 {
     if (dataset->Civs[civ].UnitPointers[index] == 0)
     {
-        return "Nonexistent";
+        return "NULL";
     }
     wxString name;
     if (filter)
@@ -31,7 +31,7 @@ wxString AGE_Frame::GetUnitName(int index, short civ, bool filter)
     {
         return name + dataset->Civs[civ].Units[index].Name;
     }
-    return name + "New Unit";
+    return name + "NULL";
 }
 
 #define UF30 unit_ptr->Type < 30 || unit_ptr->Type > 80 ? "NA" :
@@ -1063,7 +1063,7 @@ void AGE_Frame::InitUnits(short civ, bool all)
         {
             short cult = 0;
             wxString name = GetUnitName(loop, 0);
-            while("Nonexistent" == name && ++cult < dataset->Civs.size() && loop < dataset->Civs[cult].Units.size())
+            while("NULL" == name && ++cult < dataset->Civs.size() && loop < dataset->Civs[cult].Units.size())
             {
                 name = GetUnitName(loop, cult);
             }
