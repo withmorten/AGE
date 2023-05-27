@@ -1912,8 +1912,8 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Language File Name");
     unit_filters.Add("Language File Creation");
     unit_filters.Add("Class");
-    unit_filters.Add("Standing Graphics");
-    unit_filters.Add("Dying Graphics");
+    unit_filters.Add("Standing Sprite");
+    unit_filters.Add("Dying Sprite");
     unit_filters.Add("Undead Mode");
     unit_filters.Add("Hit Points");
     unit_filters.Add("Line of Sight");
@@ -1945,8 +1945,8 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Multiple Attribute Mode");
     unit_filters.Add("Minimap Color");
     unit_filters.Add("Resource Storages");
-    unit_filters.Add("Damage Graphic Count");
-    unit_filters.Add("Damage Graphics");
+    unit_filters.Add("Damage Sprite Count");
+    unit_filters.Add("Damage Sprites");
     unit_filters.Add("Selection Sound");
     unit_filters.Add("Dying Sound");
     unit_filters.Add("Attack Reaction");
@@ -2003,7 +2003,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
 
     unit_filters.Add("Speed");
     unit_filters.Add("Tracking ID");
-    unit_filters.Add("Walking Graphics");
+    unit_filters.Add("Walking Sprite");
     unit_filters.Add("Rotation Speed");
     unit_filters.Add("Size Class");
     unit_filters.Add("Trailing Unit");
@@ -2033,10 +2033,10 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Accuracy Percent");
     unit_filters.Add("Break off Combat");
     unit_filters.Add("Frame Delay");
-    unit_filters.Add("Graphic Displacement");
+    unit_filters.Add("Sprite Displacement");
     unit_filters.Add("Blast Attack Level");
     unit_filters.Add("Min Range");
-    unit_filters.Add("Attack Graphic");
+    unit_filters.Add("Attack Sprite");
     unit_filters.Add("Displayed Melee Armor");
     unit_filters.Add("Displayed Attack");
     unit_filters.Add("Displayed Range");
@@ -2079,21 +2079,21 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         unit_filters.Add("Max Total Projectiles");
         unit_filters.Add("Projectile Spawning Area");
         unit_filters.Add("Secondary Projectile Unit");
-        unit_filters.Add("Special Graphic");
+        unit_filters.Add("Special Sprite");
         unit_filters.Add("Special Ability");
         if (GenieVersion >= genie::GV_AoKB)
         {
             unit_filters.Add("Hero Mode");
-            unit_filters.Add("Garrison Graphic");
+            unit_filters.Add("Garrison Sprite");
             if (isAoE2DE)
             {
-                unit_filters.Add("Spawning Graphic");
-                unit_filters.Add("Upgrade Graphic");
+                unit_filters.Add("Spawning Sprite");
+                unit_filters.Add("Upgrade Sprite");
                 unit_filters.Add("Max Charge");
                 unit_filters.Add("Recharge Rate");
                 unit_filters.Add("Charge Event");
                 unit_filters.Add("Charge Type");
-                unit_filters.Add("Hero Glow Graphic");
+                unit_filters.Add("Hero Glow Sprite");
                 unit_filters.Add("Min Conversion Time Mod");
                 unit_filters.Add("Max Conversion Time Mod");
                 unit_filters.Add("Conversion Chance Mod");
@@ -2102,9 +2102,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         }
     }
 
-    unit_filters.Add("Construction Graphic");
+    unit_filters.Add("Construction Sprite");
     unit_filters.Add("Adjacent Mode");
-    unit_filters.Add("Graphics Angle");
+    unit_filters.Add("Sprite Angle");
     unit_filters.Add("Disappears After Built");
     unit_filters.Add("Stack Unit");
     unit_filters.Add("Foundation Terrain");
@@ -2127,13 +2127,13 @@ void AGE_Frame::FillListsBasedOnGameVersion()
             unit_filters.Add("Head Unit");
             if (GenieVersion >= genie::GV_TC)
             {
-                unit_filters.Add("Snow Graphic");
+                unit_filters.Add("Snow Sprite");
                 if (isAoE2DE)
                 {
-                    unit_filters.Add("Foundation Destruction Graphic");
-                    unit_filters.Add("Foundation Rubble Graphic");
-                    unit_filters.Add("Researching Graphic");
-                    unit_filters.Add("Research Completed Graphic");
+                    unit_filters.Add("Foundation Destruction Sprite");
+                    unit_filters.Add("Foundation Rubble Sprite");
+                    unit_filters.Add("Researching Sprite");
+                    unit_filters.Add("Research Completed Sprite");
                     unit_filters.Add("Transform Wave Works Sound");
                     unit_filters.Add("Construction Wave Works Sound");
                 }

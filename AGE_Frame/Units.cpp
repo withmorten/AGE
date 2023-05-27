@@ -76,13 +76,13 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "C " + FormatInt(unit_ptr->Class);
         });
-        else if (label.compare("Standing Graphics") == 0)
+        else if (label.compare("Standing Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "SG " + FormatInt(unit_ptr->StandingGraphic.first) + " "
                     + FormatInt(unit_ptr->StandingGraphic.second);
         });
-        else if (label.compare("Dying Graphics") == 0)
+        else if (label.compare("Dying Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "DG " + FormatInt(unit_ptr->DyingGraphic) + " "
@@ -352,12 +352,12 @@ void AGE_Frame::PrepUnitSearch()
             }
             return name;
         });
-        else if (label.compare("Damage Graphic Count") == 0)
+        else if (label.compare("Damage Sprite Count") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "DC " + FormatInt(unit_ptr->DamageGraphics.size());
         });
-        else if (label.compare("Damage Graphics") == 0)
+        else if (label.compare("Damage Sprites") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             wxString name = "";
@@ -450,7 +450,7 @@ void AGE_Frame::PrepUnitSearch()
             return "DW " + FormatUnsigned(unit_ptr->WwiseDyingSoundID);
         });
 
-        else if (label.compare("Walking Graphics") == 0)
+        else if (label.compare("Walking Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF30 "WG " + FormatInt(unit_ptr->Moving.WalkingGraphic) + " "
@@ -641,7 +641,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "D " + FormatInt(unit_ptr->Combat.FrameDelay);
         });
-        else if (label.compare("Graphic Displacement") == 0)
+        else if (label.compare("Sprite Displacement") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "x" + FormatFloat(unit_ptr->Combat.GraphicDisplacement[0])
@@ -670,7 +670,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "AE " + FormatFloat(unit_ptr->Combat.AccuracyDispersion);
         });
-        else if (label.compare("Attack Graphic") == 0)
+        else if (label.compare("Attack Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "AG " + FormatInt(unit_ptr->Combat.AttackGraphic);
@@ -779,7 +779,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF70 "HM " + FormatInt(unit_ptr->Tribe_Combat.HeroMode);
         });
-        else if (label.compare("Garrison Graphic") == 0)
+        else if (label.compare("Garrison Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "GG " + FormatInt(unit_ptr->Tribe_Combat.GarrisonGraphic);
@@ -806,7 +806,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF70 "AP " + FormatInt(unit_ptr->Tribe_Combat.SecondaryProjectileUnit);
         });
-        else if (label.compare("Special Graphic") == 0)
+        else if (label.compare("Special Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "CG " + FormatInt(unit_ptr->Tribe_Combat.SpecialGraphic);
@@ -821,12 +821,12 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF70 "DP " + FormatInt(unit_ptr->Tribe_Combat.DisplayedPierceArmour);
         });
-        else if (label.compare("Spawning Graphic") == 0)
+        else if (label.compare("Spawning Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "SpG " + FormatInt(unit_ptr->Tribe_Combat.SpawningGraphic);
         });
-        else if (label.compare("Upgrade Graphic") == 0)
+        else if (label.compare("Upgrade Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "UpG " + FormatInt(unit_ptr->Tribe_Combat.UpgradeGraphic);
@@ -851,7 +851,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF70 "CT " + FormatInt(unit_ptr->Tribe_Combat.ChargeType);
         });
-        else if (label.compare("Hero Glow Graphic") == 0)
+        else if (label.compare("Hero Glow Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "HGG " + FormatInt(unit_ptr->Tribe_Combat.HeroGlowGraphic);
@@ -872,12 +872,12 @@ void AGE_Frame::PrepUnitSearch()
             return UF70 "CCM " + FormatInt(unit_ptr->Tribe_Combat.ConversionChanceMod);
         });
 
-        else if (label.compare("Construction Graphic") == 0)
+        else if (label.compare("Construction Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "CG " + FormatInt(unit_ptr->Tribe_Building.ConstructionGraphicID);
         });
-        else if (label.compare("Snow Graphic") == 0)
+        else if (label.compare("Snow Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "SG " + FormatInt(unit_ptr->Tribe_Building.SnowGraphicID);
@@ -887,7 +887,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF80 "AM " + FormatInt(unit_ptr->Tribe_Building.AdjacentMode);
         });
-        else if (label.compare("Graphics Angle") == 0)
+        else if (label.compare("Sprite Angle") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "GA " + FormatInt(unit_ptr->Tribe_Building.GraphicsAngle);
@@ -990,22 +990,22 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF80 "CW " + FormatUnsigned(unit_ptr->Tribe_Building.WwiseConstructionSoundID);
         });
-        else if (label.compare("Foundation Destruction Graphic") == 0)
+        else if (label.compare("Foundation Destruction Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "FG " + FormatInt(unit_ptr->Tribe_Building.DestructionGraphicID);
         });
-        else if (label.compare("Foundation Rubble Graphic") == 0)
+        else if (label.compare("Foundation Rubble Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "RG " + FormatInt(unit_ptr->Tribe_Building.DestructionRubbleGraphicID);
         });
-        else if (label.compare("Researching Graphic") == 0)
+        else if (label.compare("Researching Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "RPG " + FormatInt(unit_ptr->Tribe_Building.ResearchingGraphic);
         });
-        else if (label.compare("Research Completed Graphic") == 0)
+        else if (label.compare("Research Completed Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "RCG " + FormatInt(unit_ptr->Tribe_Building.ResearchCompletedGraphic);
@@ -3788,7 +3788,7 @@ void AGE_Frame::CreateUnitControls()
     slp_garrison = new wxCheckBox(Units_Scroller, wxID_ANY, "Housed");
     wxSizer *sizer_slp = new wxBoxSizer(wxHORIZONTAL);
     wxSizer *sizer_slp2 = new wxBoxSizer(wxVERTICAL);
-    Units_DamageGraphics = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Damage Sprite");
+    Units_DamageGraphics = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Damage Sprites");
     Units_DamageGraphics_ListArea = new wxBoxSizer(wxVERTICAL);
     Units_DamageGraphics_Search = new wxTextCtrl(Units_Scroller, wxID_ANY);
     Units_DamageGraphics_Search_R = new wxTextCtrl(Units_Scroller, wxID_ANY);
