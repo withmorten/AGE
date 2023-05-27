@@ -1,2 +1,4 @@
 debug/
 build/
+msvc/bin
+msvc/build
