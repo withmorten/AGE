@@ -76,13 +76,13 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "C " + FormatInt(unit_ptr->Class);
         });
-        else if (label.compare("Standing Sprite") == 0)
+        else if (label.compare("Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "SG " + FormatInt(unit_ptr->StandingGraphic.first) + " "
                     + FormatInt(unit_ptr->StandingGraphic.second);
         });
-        else if (label.compare("Dying Sprite") == 0)
+        else if (label.compare("Death / Undead Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "DG " + FormatInt(unit_ptr->DyingGraphic) + " "
@@ -149,7 +149,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "AM " + FormatInt(unit_ptr->CanBeBuiltOn);
         });
-        else if (label.compare("Icon") == 0)
+        else if (label.compare("Button Pict") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "I " + FormatInt(unit_ptr->IconID);
@@ -159,7 +159,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "HE " + FormatInt(unit_ptr->HideInEditor);
         });
-        else if (label.compare("Portrait Picture") == 0)
+        else if (label.compare("Portrait Pict") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "U1 " + FormatInt(unit_ptr->OldPortraitPict);
@@ -450,7 +450,7 @@ void AGE_Frame::PrepUnitSearch()
             return "DW " + FormatUnsigned(unit_ptr->WwiseDyingSoundID);
         });
 
-        else if (label.compare("Walking Sprite") == 0)
+        else if (label.compare("Move / Run Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF30 "WG " + FormatInt(unit_ptr->Moving.WalkingGraphic) + " "
@@ -670,7 +670,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "AE " + FormatFloat(unit_ptr->Combat.AccuracyDispersion);
         });
-        else if (label.compare("Attack Sprite") == 0)
+        else if (label.compare("Fight Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "AG " + FormatInt(unit_ptr->Combat.AttackGraphic);
@@ -806,7 +806,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF70 "AP " + FormatInt(unit_ptr->Tribe_Combat.SecondaryProjectileUnit);
         });
-        else if (label.compare("Special Sprite") == 0)
+        else if (label.compare("Special Attack Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "CG " + FormatInt(unit_ptr->Tribe_Combat.SpecialGraphic);
@@ -1679,7 +1679,7 @@ void AGE_Frame::OnDrawIconSLP(wxPaintEvent &event)
     }
     if(iconSLP.frameID == -1)
     {
-        dc.DrawLabel("No icon", wxNullBitmap, wxRect(0, 0, 100, 40));
+        dc.DrawLabel("No pict", wxNullBitmap, wxRect(0, 0, 100, 40));
         return;
     }
     if(UseDRS && LoadSLP(&iconSLP)) FrameToBitmap(&iconSLP);
@@ -3566,8 +3566,8 @@ void AGE_Frame::CreateUnitControls()
     Units_LanguageDLLName_Text = new SolidText(Units_Scroller, " String ID *");
     Units_LanguageDLLCreation_Text = new SolidText(Units_Scroller, " String ID 2");
     Units_Class_Text = new SolidText(Tab_Units, "  Object Group * ");
-    Units_StandingGraphic_Text = new SolidText(Units_Scroller, " Standing Sprite *");
-    Units_DyingGraphic_Text = new SolidText(Units_Scroller, " Dying and Undead Sprite");
+    Units_StandingGraphic_Text = new SolidText(Units_Scroller, " Sprite / Sprite 2 *");
+    Units_DyingGraphic_Text = new SolidText(Units_Scroller, " Death Sprite / Undead Sprite");
     Units_HitPoints_Text = new SolidText(Units_Scroller, " Hit Points *");
     Units_LineOfSight_Text = new SolidText(Units_Scroller, " Line of Sight *");
     Units_GarrisonCapacity_Text = new SolidText(Units_Scroller, " Garrison Capacity");
@@ -3578,8 +3578,8 @@ void AGE_Frame::CreateUnitControls()
     Units_DeadUnitID_Text = new SolidText(Units_Scroller, " Dead Unit");
     Units_BloodUnitID_Text = new SolidText(Units_Scroller, " Blood Unit");
     Units_SortNumber_Text = new SolidText(Units_Scroller, " Sort Number *");
-    Units_IconID_Text = new SolidText(Units_Scroller, " Icon *");
-    Units_Portrait_Text = new SolidText(Units_Scroller, " Portrait *");
+    Units_IconID_Text = new SolidText(Units_Scroller, " Button *");
+    Units_Portrait_Text = new SolidText(Units_Scroller, " Portrait Pict *");
     Units_PlacementSideTerrain_Text = new SolidText(Units_Scroller, " Placement Side Terrains *");
     Units_PlacementTerrain_Text = new SolidText(Units_Scroller, " Placement Terrains");
     Units_ClearanceSize_Text = new SolidText(Units_Scroller, " Clearance Size XY");
@@ -3630,7 +3630,7 @@ void AGE_Frame::CreateUnitControls()
 
 //  Type 30+
 
-    Units_WalkingGraphic_Text = new SolidText(Units_Scroller, " Walking and Running Sprite");
+    Units_WalkingGraphic_Text = new SolidText(Units_Scroller, " Move Sprite / Run Sprite");
     Units_RotationSpeed_Text = new SolidText(Units_Scroller, " Rotation Speed *");
     Units_SizeClass_Text = new SolidText(Units_Scroller, " Size Class");
     Units_TrackingUnit_Text = new SolidText(Units_Scroller, " Trailing Unit");
@@ -3671,7 +3671,7 @@ void AGE_Frame::CreateUnitControls()
     Units_BlastDamage_Text = new SolidText(Units_Scroller, " Blast Damage *");
     Units_MinRange_Text = new SolidText(Units_Scroller, " Min Range");
     Units_AccuracyDispersion_Text = new SolidText(Units_Scroller, " Attack Dispersion *");
-    Units_AttackGraphic_Text = new SolidText(Units_Scroller, " Attack Sprite");
+    Units_AttackGraphic_Text = new SolidText(Units_Scroller, " Fight Sprite");
     Units_DisplayedMeleeArmour_Text = new SolidText(Units_Scroller, " Shown Melee Armor");
     Units_DisplayedAttack_Text = new SolidText(Units_Scroller, " Shown Attack");
     Units_DisplayedRange_Text = new SolidText(Units_Scroller, " Shown Range");
@@ -3702,7 +3702,7 @@ void AGE_Frame::CreateUnitControls()
     Units_MissileDuplicationCount_Text = new SolidText(Units_Scroller, " Max Total Projectiles *");
     Units_AttackMissileDuplicationSpawning_Text = new SolidText(Units_Scroller, " Projectile Spawning Area *");
     Units_AttackMissileDuplicationUnit_Text = new SolidText(Units_Scroller, " Secondary Projectile Unit *");
-    Units_ChargingGraphic_Text = new SolidText(Units_Scroller, " Special Sprite *");
+    Units_ChargingGraphic_Text = new SolidText(Units_Scroller, " Special Attack Sprite *");
     Units_ChargingMode_Text = new SolidText(Units_Scroller, " Special Ability *");
     Units_DisplayedPierceArmour_Text = new SolidText(Units_Scroller, " Shown Pierce Armor");
     Units_SpawningGraphic_Text = new SolidText(Units_Scroller, " Spawning Sprite");
@@ -3724,7 +3724,7 @@ void AGE_Frame::CreateUnitControls()
     Units_DestructionRubbleGraphicID_Text = new SolidText(Units_Scroller, " Destruction Rubble Sprite");
     Units_ResearchingGraphic_Text = new SolidText(Units_Scroller, " Researching Sprite");
     Units_ResearchCompletedGraphic_Text = new SolidText(Units_Scroller, " Research Completed Sprite");
-    Units_IconAngle_Text = new SolidText(Units_Scroller, " Angle *");
+    Units_IconAngle_Text = new SolidText(Units_Scroller, " Facet *");
     Units_StackUnitID_Text = new SolidText(Units_Scroller, " Stack Unit *");
     Units_TerrainID_Text = new SolidText(Units_Scroller, " Foundation Terrain *");
     Units_OldOverlayID_Text = new SolidText(Units_Scroller, " Overlay *");
@@ -3772,17 +3772,17 @@ void AGE_Frame::CreateUnitControls()
     Units_DLL_LanguageHKText = new TextIndexControl(Units_Scroller, ASize(610, 25));
 
     wxArrayString choices;
-    choices.Add("Stand 1");
-    choices.Add("Stand 2");
-    choices.Add("Dying 1");
-    choices.Add("Dying 2");
-    choices.Add("Walk");
+    choices.Add("Sprite");
+    choices.Add("Sprite 2");
+    choices.Add("Death");
+    choices.Add("Undead");
+    choices.Add("Move");
     choices.Add("Run");
-    choices.Add("Build");
-    choices.Add("Attack");
+    choices.Add("Construct");
+    choices.Add("Fight");
     slp_radio = new wxRadioBox(Units_Scroller, wxID_ANY, "Sprite view", wxDefaultPosition, wxDefaultSize, choices);
     slp_snow = new wxCheckBox(Units_Scroller, wxID_ANY, "Snow");
-    slp_garrison = new wxCheckBox(Units_Scroller, wxID_ANY, "Housed");
+    slp_garrison = new wxCheckBox(Units_Scroller, wxID_ANY, "Garrison");
     wxSizer *sizer_slp = new wxBoxSizer(wxHORIZONTAL);
     wxSizer *sizer_slp2 = new wxBoxSizer(wxVERTICAL);
     Units_DamageGraphics = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Damage Sprites");
@@ -3815,10 +3815,10 @@ void AGE_Frame::CreateUnitControls()
     DamageGraphics_ApplyMode->SetToolTip("0   Overlay (flames on buildings)\n1   Overlay randomly\n2   Replace sprite (damaged walls)");
 
     Units_IconID = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false, AGETextCtrl::SMALL);
-    Units_IconID->SetToolTip("Download Turtle Pack from AoKH to add more than 127 icons.");
+    Units_IconID->SetToolTip("Button Pict\nDownload Turtle Pack from AoKH to add more than 127 icons.");
     Units_IconID_SLP = new APanel(Units_Scroller, ASize(55, 50));
     Units_IconAngle = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false, AGETextCtrl::SMALL);
-    Units_IconAngle->SetToolTip("Effect attribute 17 changes this\n0   Default\n1+ Use icon from 2nd age etc\nIn AoE 1 can be used to set the unit\nhave icon sprites of later ages straight in stone age");
+    Units_IconAngle->SetToolTip("Building Facet\nEffect attribute 17 changes this\n0   Default\n1+ Use icon from 2nd age etc\nIn AoE 1 can be used to set the unit\nhave icon sprites of later ages straight in stone age");
     Units_ChargingGraphic = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit, false);
     Units_ChargingGraphic->SetToolTip("Activates depending on special ability");
     Units_ChargingGraphic_ComboBox = new LinkedComboBox(Units_Scroller, Units_ChargingGraphic, &graphic_names, false);

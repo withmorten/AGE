@@ -1912,8 +1912,8 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("String ID");
     unit_filters.Add("String ID 2");
     unit_filters.Add("Class");
-    unit_filters.Add("Standing Sprite");
-    unit_filters.Add("Dying Sprite");
+    unit_filters.Add("Sprite");
+    unit_filters.Add("Death / Undead Sprite");
     unit_filters.Add("Undead Mode");
     unit_filters.Add("Hit Points");
     unit_filters.Add("Line of Sight");
@@ -1924,9 +1924,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Dead Unit");
     unit_filters.Add("Sort Number");
     unit_filters.Add("Can be Built on");
-    unit_filters.Add("Icon");
+    unit_filters.Add("Button Pict");
     unit_filters.Add("Hide in Editor");
-    unit_filters.Add("Portrait Picture");
+    unit_filters.Add("Portrait Pict");
     unit_filters.Add("Available");
     unit_filters.Add("Placement Side Terrain x2");
     unit_filters.Add("Placement Terrain x2");
@@ -2003,7 +2003,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
 
     unit_filters.Add("Speed");
     unit_filters.Add("Tracking ID");
-    unit_filters.Add("Walking Sprite");
+    unit_filters.Add("Move / Run Sprite");
     unit_filters.Add("Rotation Speed");
     unit_filters.Add("Size Class");
     unit_filters.Add("Trailing Unit");
@@ -2036,7 +2036,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Sprite Displacement");
     unit_filters.Add("Blast Attack Level");
     unit_filters.Add("Min Range");
-    unit_filters.Add("Attack Sprite");
+    unit_filters.Add("Fight Sprite");
     unit_filters.Add("Displayed Melee Armor");
     unit_filters.Add("Displayed Attack");
     unit_filters.Add("Displayed Range");
@@ -2079,7 +2079,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         unit_filters.Add("Max Total Projectiles");
         unit_filters.Add("Projectile Spawning Area");
         unit_filters.Add("Secondary Projectile Unit");
-        unit_filters.Add("Special Sprite");
+        unit_filters.Add("Special Attack Sprite");
         unit_filters.Add("Special Ability");
         if (GenieVersion >= genie::GV_AoKB)
         {
