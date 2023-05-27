@@ -140,21 +140,21 @@ void AGE_Frame::OnTTAgesPasteInsert(wxCommandEvent &event)
     ListTTAges();
 }
 
-wxString AGE_Frame::GetBuildingName(int Building)
+wxString AGE_Frame::GetBuildingName(int Tribe_Building)
 {
-    wxString name = FormatInt(Building) + " ";
-    if (dataset->Civs.front().Units.size() <= Building)
+    wxString name = FormatInt(Tribe_Building) + " ";
+    if (dataset->Civs.front().Units.size() <= Tribe_Building)
     {
         return name + "NULL";
     }
-    wxString DynamicName = TranslatedText(dataset->Civs.front().Units[Building].LanguageDLLName, 64);
+    wxString DynamicName = TranslatedText(dataset->Civs.front().Units[Tribe_Building].LanguageDLLName, 64);
     if (!DynamicName.empty())
     {
         return name + DynamicName;
     }
-    if (!dataset->Civs.front().Units[Building].Name.empty())
+    if (!dataset->Civs.front().Units[Tribe_Building].Name.empty())
     {
-        return name + dataset->Civs.front().Units[Building].Name;
+        return name + dataset->Civs.front().Units[Tribe_Building].Name;
     }
     return name + "NULL";
 }
