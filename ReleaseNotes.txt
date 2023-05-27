@@ -1,17 +1,110 @@
 [b]Advanced Genie Editor[/b]
-for Age of Empires, Rise of Rome, Age of Kings, The Conquerors (including HD), Star Wars Galactic Battlegrounds and Clone Campaigns.
+for Age of Empires, Rise of Rome (including DE), Age of Kings, The Conquerors (including DE), Star Wars Galactic Battlegrounds and Clone Campaigns.
 
 This is a program for editing data of genie (DAT and DLL) files. It can edit properties of units, civilizations, technologies, graphics, terrains, sounds, player colors and some other things.
 
 [b]Please[/b], ask questions on the [url=http://aok.heavengames.com/cgi-bin/forums/display.cgi?action=st&fn=9&tn=44059&st=recent&f=9,44059,0,365]forums[/url].
 
-[color=blue]Check out [url=http://aok.heavengames.com/blacksmith/showfile.php?fileid=11349]this[/url] program also. It's for graphical modding.
+Check out [url=http://aok.heavengames.com/blacksmith/showfile.php?fileid=11349]this[/url] program also. It's for graphical modding.
 
 For editing language files in The Conquerors,
-I recommend [url=http://aok.heavengames.com/blacksmith/showfile.php?fileid=10819]this download[/url].[/color]
+I recommend [url=http://aok.heavengames.com/blacksmith/showfile.php?fileid=10819]this download[/url].
 
 [b]Version History[/b]
 Guide makers et cetera, please include the version into which your guide was written.
+
+Version [b]2023.5.21[/b]:
+-Restored functionality for Star Wars.
+
+Version [b]2023.5.17[/b]:
+-Added support for Return of Rome.
+
+Version [b]2023.3.7[/b]:
+-Fixed heap corruption when using a language DLL file.
+
+Version [b]2022.8.21[/b]:
+-Improved search filters.
+-Terrains can use localized name, if available.
+
+Version [b]2022.2.2[/b]:
+-Prevent focusing on sub-lists unintentionally.
+-Updated default civilization resource names for AoE II DE.
+-Allow choosing a file for editable lists.
+
+Version [b]2021.10.24[/b]:
+-Added support for updated Expanding Fronts.
+-Added missing technology effect types into list for AoE II DE.
+
+Version [b]2021.8.23[/b]:
+-Restored redundant and slower, but functioning erasure of multiple items from lists.
+
+Version [b]2021.7.25[/b]:
+-Restored modifiers for strings, /+ with text to append, and /- with integer to shorten the strings.
+
+Version [b]2021.7.19[/b]:
+-Added hero glow sprite for units.
+-Fixed display angle in SLP view.
+
+Version [b]2021.5.9[/b]:
+-Updated technology effect attribute list for DE2.
+-Updated armor list defaults for DE2.
+-Fixed multiple bugs in units and terrain restrictions tabs.
+-Added additional folder for loading modded sprite files.
+-Prevented AGE windows from spawning beyond observable desktop.
+-Fixed fresh bug in SLP view close handler.
+
+Version [b]2021.4.25[/b]:
+-Fixed more bugs in effects tab including inability to type in negative armor and attack values for UP and DE2.
+-Show all angles of DE sprites.
+-Fixed targeting with mouse.
+
+Version [b]2021.4.18[/b]:
+-Scroll rate of tabs can be adjusted in options.
+-Window no longer spawns larger than screen space.
+
+Version [b]2021.4.11[/b]:
+-Age of Empires DE SLP shadows displayed.
+-Sprite cache based on memory used instead of sprite count.
+
+Version [b]2021.4.4[/b]:
+-Fixed crash when no palettes were loaded.
+-Made SLP view update more reliably.
+-Smoother scrolling.
+-Improvements for high display scaling.
+
+Version [b]2021.4.2[/b]:
+-Added SMX reading support.
+-Fixed reading Age of Empires DE SLP files.
+-DE palette paths are saved in recent list.
+-Improved reading of palettes.
+-Fixed some rare crashes when switching data files.
+
+Version [b]2021.3.22[/b]:
+-Fixed several bugs in effects tab.
+-Reduced lag when dragging main window.
+-Stopped old recent paths from opening as wrong version.
+
+Version [b]2021.3.15[/b]:
+-Updated effects tab for UserPatch 1.5.
+-More accurate text input error messages.
+
+Version [b]2021.3.12[/b]:
+-Added support for Expanding Fronts 1.3 and beyond.
+-Fixed bugs in effect commanmd type drop down menu.
+
+Version [b]2020.10.2[/b]:
+-Support for new charge and damage resistance features in AoE II DE.
+-Revealed hidden boxes in tech effects for new features in AoE II DE.
+
+Version [b]2020.6.12[/b]:
+-Fixed bug with language text indexes.
+-Renamed technology cost and time modifiers for AoE DE.
+
+Version [b]2020.3.30[/b]:
+-Support for new AoE II DE game features.
+
+Version [b]2019.11.28[/b]:
+-Added more unit search filters.
 
 Version [b]2019.11.22[/b]:
 -Fixed default paths for AoE II DE.
@@ -59,40 +152,11 @@ Version [b]2017.1.10[/b]:
 -Mirrored graphics with two angles display properly.
 -Added some helpful buttons to graphics tab.
 
-Version [b]2016.12.30[/b]:
--Deltas with display angle should show properly.
--The actual terrain that is drawn is shown when selecting terrains.
-
-Version [b]2016.12.23[/b]:
--Added WASD keys back to SLP view.
--SLP view can be zoomed.
--Fixed SLP view missing angles.
--Show angles dynamically shows exact angles.
--Better registry paths.
-
-Version [b]2016.12.11[/b]:
--Fixed selection bug in armor combo box in effects.
--User interface fixes and improvements.
-
-Version [b]2016.11.13[/b]:
--Fixed refreshing lists.
-
-Version [b]2016.11.7[/b]:
--Removed broken batch editing from strings.
-
-Version [b]2016.10.9[/b]:
--Reduced memory usage of combo boxes that share strings.
-
-Version [b]2016.10.2[/b]:
--Reduced drawing lag.
-
 [b]Notes[/b]
 
 [color=BA0000]Make your own backups or use the auto-backup feature![/color]
-Extract to anywhere and run.
-You may need to run the program as administrator.
-No help files are included.
-No mod affects your already saved games, only new games.
+Extract to anywhere and run. No help files are included.
+You may need to run the program as administrator if your game is installed in a protected folder.
 You may be able to undo changes by going back to the text box and pressing Ctrl + Z.
 
 [b]Tips[/b]
@@ -100,7 +164,7 @@ You may be able to undo changes by going back to the text box and pressing Ctrl 
 You can have multiple search entries separated with "|" letter.
 Upper search boxes are inclusive and lower ones exclusive.
 Example: "tower|ship|ram"
-Use the check boxes to force match all entries.
+Use the check boxes to toggle matching between all and any entries.
 
 [b]Developers[/b]
 
@@ -115,10 +179,13 @@ Scenario_t_c - GeniEd 2 source code
 Alexandra "Taichi San", DarkRain654 - data file research
 DiGiT, JustTesting1234, AOHH - genie file structure
 Cysion, Kris, Sarthos - important help
+Tevious - SMX support
+Grenadier (RvA) - terrain patch
+withmorten - UserPatch effect support
 BF_Tanks - some help
 Donnieboy, Sarn, chab - tooltip texts
 gagman - new icon
 
-Follow coding [url=https://github.com/Tapsa/AGE/commits/master]here[/url] and [url=https://github.com/Tapsa/genieutils/commits/master]here[/url].
+Follow development [url=https://github.com/Tapsa/AGE/commits/master]here[/url] and [url=https://github.com/Tapsa/genieutils/commits/master]here[/url].
 
 [url=http://aok.heavengames.com/blacksmith/lister.php?&pauthor=keisari%20tapsa&start=0&s=d&o=d]My other uploads[/url].

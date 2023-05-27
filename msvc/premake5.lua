@@ -40,7 +40,7 @@ project "AGE"
 	targetextension ".exe"
 	dpiawareness "HighPerMonitor"
 
-	files { "../Resources.rc" }
+	files { "../AGE.rc" }
 	files { "../AppIcon.ico" }
 
 	includedirs { "../../vendor/win-iconv" }
@@ -67,11 +67,14 @@ project "AGE"
 	files { "../*.hpp" }
 	files { "../*.cpp" }
 	files { "../AGE_Frame/*.cpp" }
+	files { "../Licenses/*.h" }
 
 	removefiles { "../rmcc.cpp" }
 
 	includedirs { "../Precompile" }
 	files { "../Precompile/Common.*" }
+	pchheader "Common.h"
+	pchsource "../Precompile/Common.cpp"
 
 	filter "configurations:Debug"
 		links { "sfml-audio-d", "sfml-system-d" }
