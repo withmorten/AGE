@@ -427,19 +427,19 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
             genie::Unit *unit = &dataset->Civs[UnitCivID].Units[UnitIDs.front()];
             if(DrawCollisionShape)
             {
-                tileToPixels(unit->CollisionSize.x, unit->CollisionSize.y, collision, centerX, centerY);
+                tileToPixels(unit->CollisionSizeX, unit->CollisionSizeY, collision, centerX, centerY);
                 dc.DrawLine(collision.x1, collision.y1, collision.x4, collision.y4);
                 dc.DrawLine(collision.x3, collision.y3, collision.x4, collision.y4);
             }
             if(DrawClearanceShape)
             {
-                tileToPixels(unit->ClearanceSize.first, unit->ClearanceSize.second, clearance, centerX, centerY);
+                tileToPixels(unit->ClearanceSizeX, unit->ClearanceSizeY, clearance, centerX, centerY);
                 dc.DrawLine(clearance.x1, clearance.y1, clearance.x4, clearance.y4);
                 dc.DrawLine(clearance.x3, clearance.y3, clearance.x4, clearance.y4);
             }
             if(DrawOutline)
             {
-                tileToPixels(unit->OutlineSize.x, unit->OutlineSize.y, selection, centerX, centerY);
+                tileToPixels(unit->OutlineSizeX, unit->OutlineSizeY, selection, centerX, centerY);
                 dc.DrawLine(selection.x1, selection.y1, selection.x4, selection.y4);
                 dc.DrawLine(selection.x3, selection.y3, selection.x4, selection.y4);
             }
@@ -469,7 +469,9 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
                         AddAnnexAndStackGraphics(unitID);
                         if(ShowAnnexes)
                         for(int i=0; i < 4; ++i)
-                        CalcAnnexCoords(&dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.Annexes[i]);
+                        CalcAnnexCoords(dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.AnnexUnitID[i],
+                            dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.AnnexMisplacementX[i],
+                            dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.AnnexMisplacementY[i]);
                     }
                     if(ShowStack && dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.StackUnitID < dataset->Civs[UnitCivID].Units.size())
                     {
@@ -477,7 +479,9 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
                         AddAnnexAndStackGraphics(unitID);
                         if(ShowAnnexes)
                         for(int i=0; i < 4; ++i)
-                        CalcAnnexCoords(&dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.Annexes[i]);
+                        CalcAnnexCoords(dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.AnnexUnitID[i],
+                            dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.AnnexMisplacementX[i],
+                            dataset->Civs[UnitCivID].Units[unitID].Tribe_Building.AnnexMisplacementY[i]);
                     }
                 }
                 else AddAnnexAndStackGraphics(unitID);

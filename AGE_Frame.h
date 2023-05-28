@@ -256,7 +256,7 @@ private:
     void HandleLastFrame(const uint16_t, bool, unsigned);
     int loadChosenGraphic(unsigned int unitID);
     void AddAnnexAndStackGraphics(unsigned int unitID, int offsetX = 0, int offsetY = 0, int apply = 0);
-    void CalcAnnexCoords(const genie::unit::BuildingAnnex *annex);
+    void CalcAnnexCoords(int16_t unitID, float misplacementX, float misplacementY);
     void DrawGraphics(wxBufferedPaintDC&, AGE_SLPs&, int, int);
     void DrawAngle(wxBufferedPaintDC&, int, int, int, int);
     bool loadPalette(const wxString &folder);

@@ -124,7 +124,7 @@ void AGE_Frame::PrepTechSearch()
             bool hasFore = false;
             for (size_t l2 = 0; l2 < 3; ++l2)
             {
-                if (tech_ptr->ResourceCosts[l2].Type != -1)
+                if (tech_ptr->ResourceCostType[l2] != -1)
                 {
                     if (hasFore)
                     {
@@ -135,7 +135,7 @@ void AGE_Frame::PrepTechSearch()
                         name += "CT";
                         hasFore = true;
                     }
-                    name += FormatInt(tech_ptr->ResourceCosts[l2].Type);
+                    name += FormatInt(tech_ptr->ResourceCostType[l2]);
                 }
             }
             return name.empty() ? "No CT" : name;
@@ -156,7 +156,7 @@ void AGE_Frame::PrepTechSearch()
                     name += "CA";
                     hasFore = true;
                 }
-                name += FormatInt(tech_ptr->ResourceCosts[l2].Amount);
+                name += FormatInt(tech_ptr->ResourceCostAmount[l2]);
             }
             return name;
         });
@@ -176,7 +176,7 @@ void AGE_Frame::PrepTechSearch()
                     name += "CU";
                     hasFore = true;
                 }
-                name += FormatInt(tech_ptr->ResourceCosts[l2].Flag);
+                name += FormatInt(tech_ptr->ResourceCostUsed[l2]);
             }
             return name;
         });
@@ -280,15 +280,15 @@ void AGE_Frame::OnResearchSelect(wxCommandEvent &event)
             Research_RequiredTechs[loop2]->prepend(&ResearchPointer->RequiredTechs[loop2]);
         }
         Research_RequiredTechCount->prepend(&ResearchPointer->RequiredTechCount);
-        Research_Resources[0]->prepend(&ResearchPointer->ResourceCosts[0].Type);
-        Research_Resources[1]->prepend(&ResearchPointer->ResourceCosts[1].Type);
-        Research_Resources[2]->prepend(&ResearchPointer->ResourceCosts[2].Type);
-        Research_Amount[0]->prepend(&ResearchPointer->ResourceCosts[0].Amount);
-        Research_Amount[1]->prepend(&ResearchPointer->ResourceCosts[1].Amount);
-        Research_Amount[2]->prepend(&ResearchPointer->ResourceCosts[2].Amount);
-        Research_Used[0]->prepend(&ResearchPointer->ResourceCosts[0].Flag);
-        Research_Used[1]->prepend(&ResearchPointer->ResourceCosts[1].Flag);
-        Research_Used[2]->prepend(&ResearchPointer->ResourceCosts[2].Flag);
+        Research_Resources[0]->prepend(&ResearchPointer->ResourceCostType[0]);
+        Research_Resources[1]->prepend(&ResearchPointer->ResourceCostType[1]);
+        Research_Resources[2]->prepend(&ResearchPointer->ResourceCostType[2]);
+        Research_Amount[0]->prepend(&ResearchPointer->ResourceCostAmount[0]);
+        Research_Amount[1]->prepend(&ResearchPointer->ResourceCostAmount[1]);
+        Research_Amount[2]->prepend(&ResearchPointer->ResourceCostAmount[2]);
+        Research_Used[0]->prepend(&ResearchPointer->ResourceCostUsed[0]);
+        Research_Used[1]->prepend(&ResearchPointer->ResourceCostUsed[1]);
+        Research_Used[2]->prepend(&ResearchPointer->ResourceCostUsed[2]);
         if(GenieVersion >= genie::GV_AoKB)
         {
             Research_Civ->prepend(&ResearchPointer->Civ);

@@ -2004,7 +2004,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Speed");
     unit_filters.Add("Tracking ID");
     unit_filters.Add("Move / Run Sprite");
-    unit_filters.Add("Rotation Speed");
+    unit_filters.Add("Turn Speed");
     unit_filters.Add("Size Class");
     unit_filters.Add("Trailing Unit");
     unit_filters.Add("Trailing Unit Mode");
@@ -2026,7 +2026,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Armor Count");
     unit_filters.Add("Armors");
     unit_filters.Add("Terrain Defense Bonus");
-    unit_filters.Add("Max Range");
+    unit_filters.Add("Weapon Range");
     unit_filters.Add("Blast Width");
     unit_filters.Add("Reload Time");
     unit_filters.Add("Projectile Unit");
@@ -2035,7 +2035,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Frame Delay");
     unit_filters.Add("Sprite Displacement");
     unit_filters.Add("Blast Attack Level");
-    unit_filters.Add("Min Range");
+    unit_filters.Add("Minimum Weapon Range");
     unit_filters.Add("Fight Sprite");
     unit_filters.Add("Displayed Melee Armor");
     unit_filters.Add("Displayed Attack");

@@ -1788,8 +1788,8 @@ void AGE_Frame::OnMenuOption(wxCommandEvent &event)
                     if(dataset->Civs[civ].UnitPointers[unit] != 0)
                     {
                         // Gather information about all the graphics unit uses.
-                        sprite_checker(dataset->Civs[civ].Units[unit].StandingGraphic.first);
-                        sprite_checker(dataset->Civs[civ].Units[unit].StandingGraphic.second);
+                        sprite_checker(dataset->Civs[civ].Units[unit].StandingGraphic);
+                        sprite_checker(dataset->Civs[civ].Units[unit].StandingGraphic2);
                         sprite_checker(dataset->Civs[civ].Units[unit].DyingGraphic);
                         sprite_checker(dataset->Civs[civ].Units[unit].UndeadGraphic);
                         for(size_t sprite = 0; sprite < dataset->Civs[civ].Units[unit].DamageGraphics.size(); ++sprite)

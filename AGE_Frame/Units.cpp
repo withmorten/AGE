@@ -79,8 +79,8 @@ void AGE_Frame::PrepUnitSearch()
         else if (label.compare("Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            return "SG " + FormatInt(unit_ptr->StandingGraphic.first) + " "
-                    + FormatInt(unit_ptr->StandingGraphic.second);
+            return "SG " + FormatInt(unit_ptr->StandingGraphic) + " "
+                    + FormatInt(unit_ptr->StandingGraphic2);
         });
         else if (label.compare("Death / Undead Sprite") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
@@ -111,13 +111,13 @@ void AGE_Frame::PrepUnitSearch()
         else if (label.compare("Collision Size XY") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            return "SR " + FormatFloat(unit_ptr->CollisionSize.x) + " "
-                    + FormatFloat(unit_ptr->CollisionSize.y);
+            return "SR " + FormatFloat(unit_ptr->CollisionSizeX) + " "
+                    + FormatFloat(unit_ptr->CollisionSizeY);
         });
         else if (label.compare("Collision Size Z") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            return "B1 " + FormatFloat(unit_ptr->CollisionSize.z);
+            return "B1 " + FormatFloat(unit_ptr->CollisionSizeZ);
         });
         else if (label.compare("Train Sound") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
@@ -177,22 +177,22 @@ void AGE_Frame::PrepUnitSearch()
         else if (label.compare("Placement Side Terrain x2") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            wxString name = "PBT " + FormatInt(unit_ptr->PlacementSideTerrain.first) +
-                " PBT " + FormatInt(unit_ptr->PlacementSideTerrain.second) + " ";
+            wxString name = "PBT " + FormatInt(unit_ptr->PlacementSideTerrain1) +
+                " PBT " + FormatInt(unit_ptr->PlacementSideTerrain2) + " ";
             return name;
         });
         else if (label.compare("Placement Terrain x2") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            wxString name = "PT " + FormatInt(unit_ptr->PlacementTerrain.first) +
-                " PT " + FormatInt(unit_ptr->PlacementTerrain.second) + " ";
+            wxString name = "PT " + FormatInt(unit_ptr->PlacementTerrain1) +
+                " PT " + FormatInt(unit_ptr->PlacementTerrain2) + " ";
             return name;
         });
         else if (label.compare("Clearance Size XY") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            return "ER " + FormatFloat(unit_ptr->ClearanceSize.first) + " "
-                    + FormatFloat(unit_ptr->ClearanceSize.second);
+            return "ER " + FormatFloat(unit_ptr->ClearanceSizeX) + " "
+                    + FormatFloat(unit_ptr->ClearanceSizeY);
         });
         else if (label.compare("Hill Mode") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
@@ -332,23 +332,23 @@ void AGE_Frame::PrepUnitSearch()
         else if (label.compare("Selection Size XY") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            return "OS " + FormatFloat(unit_ptr->OutlineSize.x) + " "
-                    + FormatFloat(unit_ptr->OutlineSize.y);
+            return "OS " + FormatFloat(unit_ptr->OutlineSizeX) + " "
+                    + FormatFloat(unit_ptr->OutlineSizeY);
         });
         else if (label.compare("Selection Size Z") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            return "B2 " + FormatFloat(unit_ptr->OutlineSize.z);
+            return "B2 " + FormatFloat(unit_ptr->OutlineSizeZ);
         });
         else if (label.compare("Resource Storages") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             wxString name = "";
-            for (size_t i = 0; i < unit_ptr->ResourceStorages.size(); ++i)
+            for (size_t i = 0; i < 3; ++i)
             {
-                name += "RSD " + FormatInt(unit_ptr->ResourceStorages[i].Type) + " " +
-                    FormatInt(unit_ptr->ResourceStorages[i].Amount) + " " +
-                    FormatInt(unit_ptr->ResourceStorages[i].Flag) + " ";
+                name += "RSD " + FormatInt(unit_ptr->ResourceStoragesType[i]) + " " +
+                    FormatInt(unit_ptr->ResourceStoragesAmount[i]) + " " +
+                    FormatInt(unit_ptr->ResourceStoragesFlag[i]) + " ";
             }
             return name;
         });
@@ -456,7 +456,7 @@ void AGE_Frame::PrepUnitSearch()
             return UF30 "WG " + FormatInt(unit_ptr->Moving.WalkingGraphic) + " "
                     + FormatInt(unit_ptr->Moving.RunningGraphic);
         });
-        else if (label.compare("Rotation Speed") == 0)
+        else if (label.compare("Turn Speed") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF30 "RS " + FormatFloat(unit_ptr->Moving.RotationSpeed);
@@ -519,9 +519,12 @@ void AGE_Frame::PrepUnitSearch()
         else if (label.compare("Drop Sites") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            wxString name = "";
-            for(size_t i = 0; i < unit_ptr->Action.DropSites.size(); ++i)
-            name += "DS" + FormatInt(unit_ptr->Action.DropSites[i]) + " ";
+            wxString name = "DS" + FormatInt(unit_ptr->Action.DropSite);
+            if (GenieVersion >= genie::GV_TEST)
+                name += " DS" + FormatInt(unit_ptr->Action.BackupDropSite);
+            if (GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2)
+                name += " DS" + FormatInt(unit_ptr->Action.BackupDropSite2);
+
             return UF40 name;
         });
         else if (label.compare("Task Swap Group") == 0)
@@ -606,7 +609,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "TR " + FormatInt(unit_ptr->Combat.DefenseTerrainBonus);
         });
-        else if (label.compare("Max Range") == 0)
+        else if (label.compare("Weapon Range") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "MaxR " + FormatFloat(unit_ptr->Combat.MaxRange);
@@ -644,9 +647,9 @@ void AGE_Frame::PrepUnitSearch()
         else if (label.compare("Sprite Displacement") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            return UF50 "x" + FormatFloat(unit_ptr->Combat.GraphicDisplacement[0])
-                    + " y" + FormatFloat(unit_ptr->Combat.GraphicDisplacement[1])
-                    + " z" + FormatFloat(unit_ptr->Combat.GraphicDisplacement[2]);
+            return UF50 "x" + FormatFloat(unit_ptr->Combat.GraphicDisplacementX)
+                    + " y" + FormatFloat(unit_ptr->Combat.GraphicDisplacementY)
+                    + " z" + FormatFloat(unit_ptr->Combat.GraphicDisplacementZ);
         });
         else if (label.compare("Blast Attack Level") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
@@ -660,7 +663,7 @@ void AGE_Frame::PrepUnitSearch()
                     return UF50 "BLD " + FormatFloat(unit_ptr->Combat.BlastDamage);
                 });
         }
-        else if (label.compare("Min Range") == 0)
+        else if (label.compare("Minimum Weapon Range") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "MinR " + FormatFloat(unit_ptr->Combat.MinRange);
@@ -797,9 +800,9 @@ void AGE_Frame::PrepUnitSearch()
         else if (label.compare("Projectile Spawning Area") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
-            return UF70 "x" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningArea[0])
-                    + " y" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningArea[1])
-                    + " z" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningArea[2]);
+            return UF70 "x" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningAreaX)
+                    + " y" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningAreaY)
+                    + " a" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningAreaAdjustment);
         });
         else if (label.compare("Secondary Projectile Unit") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
@@ -926,9 +929,9 @@ void AGE_Frame::PrepUnitSearch()
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             wxString name = "";
-            for (size_t i = 0; i < unit_ptr->Tribe_Building.Annexes.size(); ++i)
+            for (size_t i = 0; i < 4; ++i)
             {
-                name += "AU " + FormatInt(unit_ptr->Tribe_Building.Annexes[i].UnitID) + " ";
+                name += "AU " + FormatInt(unit_ptr->Tribe_Building.AnnexUnitID[i]) + " ";
             }
             return UF80 name;
         });
@@ -1177,9 +1180,9 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                         Units_CanBurn->prepend(&UnitPointer->Tribe_Building.CanBurn);
                         for(size_t loop = 0; loop < 4; ++loop)
                         {
-                            Units_AnnexUnit[loop]->prepend(&UnitPointer->Tribe_Building.Annexes[loop].UnitID);
-                            Units_AnnexUnitMisplacement[loop][0]->prepend(&UnitPointer->Tribe_Building.Annexes[loop].Misplacement.first);
-                            Units_AnnexUnitMisplacement[loop][1]->prepend(&UnitPointer->Tribe_Building.Annexes[loop].Misplacement.second);
+                            Units_AnnexUnit[loop]->prepend(&UnitPointer->Tribe_Building.AnnexUnitID[loop]);
+                            Units_AnnexUnitMisplacement[loop][0]->prepend(&UnitPointer->Tribe_Building.AnnexMisplacementX[loop]);
+                            Units_AnnexUnitMisplacement[loop][1]->prepend(&UnitPointer->Tribe_Building.AnnexMisplacementY[loop]);
                         }
                         Units_TransformUnit->prepend(&UnitPointer->Tribe_Building.TransformUnit);
                         Units_TransformSound->prepend(&UnitPointer->Tribe_Building.TransformSound);
@@ -1233,10 +1236,9 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                         Units_CreatableType->prepend(&UnitPointer->Tribe_Combat.CreatableType);
                         Units_MissileCount->prepend(&UnitPointer->Tribe_Combat.TotalProjectiles);
                         Units_MissileDuplicationCount->prepend(&UnitPointer->Tribe_Combat.MaxTotalProjectiles);
-                        for(size_t loop = 0; loop < 3; ++loop)
-                        {
-                            Units_AttackMissileDuplicationSpawning[loop]->prepend(&UnitPointer->Tribe_Combat.ProjectileSpawningArea[loop]);
-                        }
+                        Units_AttackMissileDuplicationSpawning[0]->prepend(&UnitPointer->Tribe_Combat.ProjectileSpawningAreaX);
+                        Units_AttackMissileDuplicationSpawning[1]->prepend(&UnitPointer->Tribe_Combat.ProjectileSpawningAreaY);
+                        Units_AttackMissileDuplicationSpawning[2]->prepend(&UnitPointer->Tribe_Combat.ProjectileSpawningAreaAdjustment);
                         Units_AttackMissileDuplicationUnit->prepend(&UnitPointer->Tribe_Combat.SecondaryProjectileUnit);
                         if(CopyGraphics || vecCiv == 0)
                         {
@@ -1281,10 +1283,9 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                     Units_AccuracyPercent->prepend(&UnitPointer->Combat.AccuracyPercent);
                     Units_TowerMode->prepend(&UnitPointer->Combat.BreakOffCombat);
                     Units_Delay->prepend(&UnitPointer->Combat.FrameDelay);
-                    for(size_t loop = 0; loop < 3; ++loop)
-                    {
-                        Units_GraphicDisplacement[loop]->prepend(&UnitPointer->Combat.GraphicDisplacement[loop]);
-                    }
+                    Units_GraphicDisplacement[0]->prepend(&UnitPointer->Combat.GraphicDisplacementX);
+                    Units_GraphicDisplacement[1]->prepend(&UnitPointer->Combat.GraphicDisplacementY);
+                    Units_GraphicDisplacement[2]->prepend(&UnitPointer->Combat.GraphicDisplacementZ);
                     Units_BlastAttackLevel->prepend(&UnitPointer->Combat.BlastAttackLevel);
                     Units_MinRange->prepend(&UnitPointer->Combat.MinRange);
                     if(CopyGraphics || vecCiv == 0)
@@ -1310,10 +1311,11 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                     Units_DefaultTaskID->prepend(&UnitPointer->Action.DefaultTaskID);
                     Units_SearchRadius->prepend(&UnitPointer->Action.SearchRadius);
                     Units_WorkRate->prepend(&UnitPointer->Action.WorkRate);
-                    for(size_t i = 0; i < UnitPointer->Action.DropSites.size(); ++i)
-                    {
-                        Units_DropSite[i]->prepend(&UnitPointer->Action.DropSites[i]);
-                    }
+                    Units_DropSite[0]->prepend(&UnitPointer->Action.DropSite);
+                    if (GenieVersion >= genie::GV_TEST)
+                        Units_DropSite[1]->prepend(&UnitPointer->Action.BackupDropSite);
+                    if (GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2)
+                        Units_DropSite[2]->prepend(&UnitPointer->Action.BackupDropSite2);
                     Units_TaskSwapGroup->prepend(&UnitPointer->Action.TaskSwapGroup);
                     Units_AttackSound->prepend(&UnitPointer->Action.AttackSound);
                     Units_MoveSound->prepend(&UnitPointer->Action.MoveSound);
@@ -1366,7 +1368,7 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                     Units_Class->prepend(&UnitPointer->Class);
                     if(CopyGraphics || vecCiv == 0)
                     {
-                        Units_StandingGraphic[0]->prepend(&UnitPointer->StandingGraphic.first);
+                        Units_StandingGraphic[0]->prepend(&UnitPointer->StandingGraphic);
                         Units_DyingGraphic[0]->prepend(&UnitPointer->DyingGraphic);
                         Units_DyingGraphic[1]->prepend(&UnitPointer->UndeadGraphic);
                         Units_IconID->prepend(&UnitPointer->IconID);
@@ -1376,20 +1378,20 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                     Units_HitPoints->prepend(&UnitPointer->HitPoints);
                     Units_LineOfSight->prepend(&UnitPointer->LineOfSight);
                     Units_GarrisonCapacity->prepend(&UnitPointer->GarrisonCapacity);
-                    Units_SizeRadius[0]->prepend(&UnitPointer->CollisionSize.x);
-                    Units_SizeRadius[1]->prepend(&UnitPointer->CollisionSize.y);
-                    Units_SizeRadius[2]->prepend(&UnitPointer->CollisionSize.z);
+                    Units_SizeRadius[0]->prepend(&UnitPointer->CollisionSizeX);
+                    Units_SizeRadius[1]->prepend(&UnitPointer->CollisionSizeY);
+                    Units_SizeRadius[2]->prepend(&UnitPointer->CollisionSizeZ);
                     Units_TrainSound->prepend(&UnitPointer->TrainSound);
                     Units_DeadUnitID->prepend(&UnitPointer->DeadUnitID);
                     Units_SortNumber->prepend(&UnitPointer->SortNumber);
                     Units_CanBeBuiltOn->prepend(&UnitPointer->CanBeBuiltOn);
                     Units_HideInEditor->prepend(&UnitPointer->HideInEditor);
-                    Units_PlacementSideTerrain[0]->prepend(&UnitPointer->PlacementSideTerrain.first);
-                    Units_PlacementSideTerrain[1]->prepend(&UnitPointer->PlacementSideTerrain.second);
-                    Units_PlacementTerrain[0]->prepend(&UnitPointer->PlacementTerrain.first);
-                    Units_PlacementTerrain[1]->prepend(&UnitPointer->PlacementTerrain.second);
-                    Units_ClearanceSize[0]->prepend(&UnitPointer->ClearanceSize.first);
-                    Units_ClearanceSize[1]->prepend(&UnitPointer->ClearanceSize.second);
+                    Units_PlacementSideTerrain[0]->prepend(&UnitPointer->PlacementSideTerrain1);
+                    Units_PlacementSideTerrain[1]->prepend(&UnitPointer->PlacementSideTerrain2);
+                    Units_PlacementTerrain[0]->prepend(&UnitPointer->PlacementTerrain1);
+                    Units_PlacementTerrain[1]->prepend(&UnitPointer->PlacementTerrain2);
+                    Units_ClearanceSize[0]->prepend(&UnitPointer->ClearanceSizeX);
+                    Units_ClearanceSize[1]->prepend(&UnitPointer->ClearanceSizeY);
                     Units_HillMode->prepend(&UnitPointer->HillMode);
                     Units_FogVisibility->prepend(&UnitPointer->FogVisibility);
                     Units_TerrainRestriction->prepend(&UnitPointer->TerrainRestriction);
@@ -1413,9 +1415,9 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                     Units_TrackAsResource->prepend(&UnitPointer->EnableAutoGather);
                     Units_CreateDoppelgangerOnDeath->prepend(&UnitPointer->CreateDoppelgangerOnDeath);
                     Units_ResourceGroup->prepend(&UnitPointer->ResourceGatherGroup);
-                    Units_SelectionRadius[0]->prepend(&UnitPointer->OutlineSize.x);
-                    Units_SelectionRadius[1]->prepend(&UnitPointer->OutlineSize.y);
-                    Units_SelectionRadius[2]->prepend(&UnitPointer->OutlineSize.z);
+                    Units_SelectionRadius[0]->prepend(&UnitPointer->OutlineSizeX);
+                    Units_SelectionRadius[1]->prepend(&UnitPointer->OutlineSizeY);
+                    Units_SelectionRadius[2]->prepend(&UnitPointer->OutlineSizeZ);
                     Units_SelectionSound->prepend(&UnitPointer->SelectionSound);
                     Units_DyingSound->prepend(&UnitPointer->DyingSound);
                     Units_AttackReaction->prepend(&UnitPointer->OldAttackReaction);
@@ -1424,9 +1426,9 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                     Units_CopyID->prepend(&UnitPointer->CopyID);
                     for(size_t loop = 0; loop < 3; ++loop)
                     {
-                        ResourceStorage_Type[loop]->prepend(&UnitPointer->ResourceStorages[loop].Type);
-                        ResourceStorage_Amount[loop]->prepend(&UnitPointer->ResourceStorages[loop].Amount);
-                        ResourceStorage_Mode[loop]->prepend(&UnitPointer->ResourceStorages[loop].Flag);
+                        ResourceStorage_Type[loop]->prepend(&UnitPointer->ResourceStoragesType[loop]);
+                        ResourceStorage_Amount[loop]->prepend(&UnitPointer->ResourceStoragesAmount[loop]);
+                        ResourceStorage_Mode[loop]->prepend(&UnitPointer->ResourceStoragesFlag[loop]);
                     }
                     if(GenieVersion >= genie::GV_AoKE3)
                     {
@@ -1439,7 +1441,7 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
                             {
                                 if(CopyGraphics || vecCiv == 0)
                                 {
-                                    Units_StandingGraphic[1]->prepend(&UnitPointer->StandingGraphic.second);
+                                    Units_StandingGraphic[1]->prepend(&UnitPointer->StandingGraphic2);
                                 }
                                 if(GenieVersion >= genie::GV_AoK)
                                 {
@@ -1721,8 +1723,8 @@ int AGE_Frame::loadChosenGraphic(unsigned int unitID)
 CHOOSE_NORMAL:
     switch(slp_radio->GetSelection())
     {
-        case 0: return unit->StandingGraphic.first;
-        case 1: return unit->StandingGraphic.second;
+        case 0: return unit->StandingGraphic;
+        case 1: return unit->StandingGraphic2;
         case 2: return unit->DyingGraphic;
         case 3: return unit->UndeadGraphic;
         case 4: return unit->Moving.WalkingGraphic;
@@ -1786,11 +1788,11 @@ void AGE_Frame::AddAnnexAndStackGraphics(unsigned int unitID, int offsetX, int o
     }
 }
 
-void AGE_Frame::CalcAnnexCoords(const genie::unit::BuildingAnnex *annex)
+void AGE_Frame::CalcAnnexCoords(int16_t unitID, float misplacementX, float misplacementY)
 {
-    float offsetX = dataset->TerrainBlock.TileHalfWidth * (annex->Misplacement.first + annex->Misplacement.second);
-    float offsetY = dataset->TerrainBlock.TileHalfHeight * (-annex->Misplacement.first + annex->Misplacement.second);
-    AddAnnexAndStackGraphics(annex->UnitID, offsetX, offsetY);
+    float offsetX = dataset->TerrainBlock.TileHalfWidth * (misplacementX + misplacementY);
+    float offsetY = dataset->TerrainBlock.TileHalfHeight * (-misplacementX + misplacementY);
+    AddAnnexAndStackGraphics(unitID, offsetX, offsetY);
 }
 
 void AGE_Frame::OnAutoCopy(wxCommandEvent &event)
@@ -1841,6 +1843,7 @@ void AGE_Frame::UnitsGraphicsCopy(GraphicCopies &store, short civ, short unit)
 {
     store.IconID = dataset->Civs[civ].Units[unit].IconID;// This probably shouldn't be here.
     store.StandingGraphic = dataset->Civs[civ].Units[unit].StandingGraphic;
+    store.StandingGraphic2 = dataset->Civs[civ].Units[unit].StandingGraphic2;
     store.DyingGraphic = dataset->Civs[civ].Units[unit].DyingGraphic;
     store.UndeadGraphic = dataset->Civs[civ].Units[unit].UndeadGraphic;
     store.DamageGraphics = dataset->Civs[civ].Units[unit].DamageGraphics;
@@ -3631,7 +3634,7 @@ void AGE_Frame::CreateUnitControls()
 //  Type 30+
 
     Units_WalkingGraphic_Text = new SolidText(Units_Scroller, " Move Sprite / Run Sprite");
-    Units_RotationSpeed_Text = new SolidText(Units_Scroller, " Rotation Speed *");
+    Units_RotationSpeed_Text = new SolidText(Units_Scroller, " Turn Speed *");
     Units_SizeClass_Text = new SolidText(Units_Scroller, " Size Class");
     Units_TrackingUnit_Text = new SolidText(Units_Scroller, " Trailing Unit");
     Units_TrackingUnitMode_Text = new SolidText(Units_Scroller, " Trail Mode *");
@@ -3660,7 +3663,7 @@ void AGE_Frame::CreateUnitControls()
     Units_BaseArmor_Text = new SolidText(Units_Scroller, " Base Armor *");
     Units_DefenseTerrainBonus_Text = new SolidText(Units_Scroller, " Terrain Defense Bonus *");
     Units_BonusDamageResistance_Text = new SolidText(Units_Scroller, " Bonus Damage Resist *");
-    Units_MaxRange_Text = new SolidText(Units_Scroller, " Max Range");
+    Units_MaxRange_Text = new SolidText(Units_Scroller, " Weapon Range");
     Units_BlastWidth_Text = new SolidText(Units_Scroller, " Blast Width *");
     Units_ReloadTime_Text = new SolidText(Units_Scroller, " Reload Time");
     Units_ProjectileUnitID_Text = new SolidText(Units_Scroller, " Projectile Unit");
@@ -3669,7 +3672,7 @@ void AGE_Frame::CreateUnitControls()
     Units_GraphicDisplacement_Text = new SolidText(Units_Scroller, " Sprite Displacement XYZ *");
     Units_BlastAttackLevel_Text = new SolidText(Units_Scroller, " Blast Attack Level *");
     Units_BlastDamage_Text = new SolidText(Units_Scroller, " Blast Damage *");
-    Units_MinRange_Text = new SolidText(Units_Scroller, " Min Range");
+    Units_MinRange_Text = new SolidText(Units_Scroller, " Min. Weapon Range");
     Units_AccuracyDispersion_Text = new SolidText(Units_Scroller, " Attack Dispersion *");
     Units_AttackGraphic_Text = new SolidText(Units_Scroller, " Fight Sprite");
     Units_DisplayedMeleeArmour_Text = new SolidText(Units_Scroller, " Shown Melee Armor");

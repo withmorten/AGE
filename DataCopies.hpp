@@ -9,7 +9,8 @@ class GraphicCopies
 public:
 
     int16_t IconID = -1;
-    std::pair<int16_t, int16_t> StandingGraphic = { -1, -1 };
+    int16_t StandingGraphic = -1;
+    int16_t StandingGraphic2 = -1;
     int16_t DyingGraphic = -1;
     int16_t UndeadGraphic = -1;
     uint8_t DamageGraphicCount = 0;
