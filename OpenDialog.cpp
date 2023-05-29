@@ -31,7 +31,7 @@ OpenDialog::OpenDialog(wxWindow *parent, const wxFont &font)
     SolidText *Text_PlayerColorPalettePath = new SolidText(this, "Path for player color palette *");
     Text_PlayerColorPalettePath->SetToolTip("Used by Age of Empires DE and II DE");
     SolidText *Text_CustomNamesPath = new SolidText(this, "Path for custom names *");
-    Text_CustomNamesPath->SetToolTip("Used to populate lists for attacks, armors, civilization resources, and terrain tables");
+    Text_CustomNamesPath->SetToolTip("Used to populate lists for weapons, armors, civilization resources, and terrain tables");
     Path_DRS = new wxDirPickerCtrl(this, wxID_ANY, "", "Select a folder", wxDefaultPosition, wxDefaultSize, wxDIRP_USE_TEXTCTRL | wxDIRP_DIR_MUST_EXIST);
     Path_DRS2 = new wxDirPickerCtrl(this, wxID_ANY, "", "Select a folder", wxDefaultPosition, wxDefaultSize, wxDIRP_USE_TEXTCTRL | wxDIRP_DIR_MUST_EXIST);
     Path_DRS3 = new wxFilePickerCtrl(this, wxID_ANY, "", "Select a file", "DRS (*.drs)|*.drs", wxDefaultPosition, wxDefaultSize, wxFLP_OPEN | wxFLP_USE_TEXTCTRL | wxFLP_FILE_MUST_EXIST);

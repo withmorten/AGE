@@ -1937,7 +1937,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Fly Mode");
     unit_filters.Add("Resource Capacity");
     unit_filters.Add("Resource Decay");
-    unit_filters.Add("Blast Defense Level");
+    unit_filters.Add("Area Effect Object Level");
     unit_filters.Add("Combat Level");
     unit_filters.Add("Interaction Mode");
     unit_filters.Add("Minimap Mode");
@@ -2021,30 +2021,30 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Task Count");
     unit_filters.Add("Tasks");
     unit_filters.Add("Base Armor");
-    unit_filters.Add("Attack Count");
-    unit_filters.Add("Attacks");
-    unit_filters.Add("Armor Count");
+    unit_filters.Add("Weapon Num");
+    unit_filters.Add("Weapons");
+    unit_filters.Add("Armor Num");
     unit_filters.Add("Armors");
-    unit_filters.Add("Terrain Defense Bonus");
+    unit_filters.Add("Defense Terrain Bonus");
     unit_filters.Add("Weapon Range");
-    unit_filters.Add("Blast Width");
-    unit_filters.Add("Reload Time");
+    unit_filters.Add("Area Effect Range");
+    unit_filters.Add("Speed of Attack");
     unit_filters.Add("Projectile Unit");
-    unit_filters.Add("Accuracy Percent");
+    unit_filters.Add("Base Hit Chance");
     unit_filters.Add("Break off Combat");
-    unit_filters.Add("Frame Delay");
+    unit_filters.Add("Fire Missile at Frame");
     unit_filters.Add("Sprite Displacement");
-    unit_filters.Add("Blast Attack Level");
+    unit_filters.Add("Area Effect Level");
     unit_filters.Add("Minimum Weapon Range");
     unit_filters.Add("Fight Sprite");
-    unit_filters.Add("Displayed Melee Armor");
-    unit_filters.Add("Displayed Attack");
-    unit_filters.Add("Displayed Range");
-    unit_filters.Add("Displayed Reload Time");
+    unit_filters.Add("Orig. Armor");
+    unit_filters.Add("Orig. Weapon");
+    unit_filters.Add("Orig. Weapon Range");
+    unit_filters.Add("Orig. Speed of Attack");
     if (GenieVersion >= genie::GV_AoKB)
     {
         unit_filters.Add("Rotation Angles");
-        unit_filters.Add("Attack Dispersion");
+        unit_filters.Add("Missed Missile Spread");
         if (isAoE2DE)
         {
             unit_filters.Add("Train Wave Works Sound");
@@ -2069,7 +2069,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Train Time");
     unit_filters.Add("Train Location");
     unit_filters.Add("Train Button");
-    unit_filters.Add("Displayed Pierce Armor");
+    unit_filters.Add("Orig. Pierce Armor");
     if (GenieVersion >= genie::GV_AoKE3)
     {
         unit_filters.Add("Rear Attack Modifier");

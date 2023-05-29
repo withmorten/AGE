@@ -224,7 +224,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "RD " + FormatFloat(unit_ptr->ResourceDecay);
         });
-        else if (label.compare("Blast Defense Level") == 0)
+        else if (label.compare("Area Effect Object Level") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "BA " + FormatInt(unit_ptr->BlastDefenseLevel);
@@ -578,20 +578,20 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "DA " + FormatInt(unit_ptr->Combat.BaseArmor);
         });
-        else if (label.compare("Attack Count") == 0)
+        else if (label.compare("Weapon Num") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "AtC " + FormatInt(unit_ptr->Combat.Attacks.size());
         });
-        else if (label.compare("Attacks") == 0)
+        else if (label.compare("Weapons") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             wxString name = "";
             for(size_t i = 0; i < unit_ptr->Combat.Attacks.size(); ++i)
             name += "C" + FormatInt(unit_ptr->Combat.Attacks[i].Class) + " ";
-            return UF50 name.empty() ? "No AtC" : name;
+            return UF50 name.empty() ? "No WpC" : name;
         });
-        else if (label.compare("Armor Count") == 0)
+        else if (label.compare("Armor Num") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "ArC " + FormatInt(unit_ptr->Combat.Armours.size());
@@ -604,7 +604,7 @@ void AGE_Frame::PrepUnitSearch()
             name += "C" + FormatInt(unit_ptr->Combat.Armours[i].Class) + " ";
             return UF50 name.empty() ? "No ArC" : name;
         });
-        else if (label.compare("Terrain Defense Bonus") == 0)
+        else if (label.compare("Defense Terrain Bonus") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "TR " + FormatInt(unit_ptr->Combat.DefenseTerrainBonus);
@@ -614,12 +614,12 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "MaxR " + FormatFloat(unit_ptr->Combat.MaxRange);
         });
-        else if (label.compare("Blast Width") == 0)
+        else if (label.compare("Area Effect Range") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "BW " + FormatFloat(unit_ptr->Combat.BlastWidth);
         });
-        else if (label.compare("Reload Time") == 0)
+        else if (label.compare("Speed of Attack") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "RT " + FormatFloat(unit_ptr->Combat.ReloadTime);
@@ -629,7 +629,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "PU " + FormatInt(unit_ptr->Combat.ProjectileUnitID);
         });
-        else if (label.compare("Accuracy Percent") == 0)
+        else if (label.compare("Base Hit Chance") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "AP " + FormatInt(unit_ptr->Combat.AccuracyPercent);
@@ -639,7 +639,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "TM " + FormatInt(unit_ptr->Combat.BreakOffCombat);
         });
-        else if (label.compare("Frame Delay") == 0)
+        else if (label.compare("Fire Missile at Frame") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "D " + FormatInt(unit_ptr->Combat.FrameDelay);
@@ -651,7 +651,7 @@ void AGE_Frame::PrepUnitSearch()
                     + " y" + FormatFloat(unit_ptr->Combat.GraphicDisplacementY)
                     + " z" + FormatFloat(unit_ptr->Combat.GraphicDisplacementZ);
         });
-        else if (label.compare("Blast Attack Level") == 0)
+        else if (label.compare("Area Effect Level") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "BL " + FormatInt(unit_ptr->Combat.BlastAttackLevel);
@@ -668,7 +668,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "MinR " + FormatFloat(unit_ptr->Combat.MinRange);
         });
-        else if (label.compare("Attack Dispersion") == 0)
+        else if (label.compare("Missed Missile Spread") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "AE " + FormatFloat(unit_ptr->Combat.AccuracyDispersion);
@@ -678,22 +678,22 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "AG " + FormatInt(unit_ptr->Combat.AttackGraphic);
         });
-        else if (label.compare("Displayed Melee Armor") == 0)
+        else if (label.compare("Orig. Armor") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "DM " + FormatInt(unit_ptr->Combat.DisplayedMeleeArmour);
         });
-        else if (label.compare("Displayed Attack") == 0)
+        else if (label.compare("Orig. Weapon") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "DP " + FormatInt(unit_ptr->Combat.DisplayedAttack);
         });
-        else if (label.compare("Displayed Range") == 0)
+        else if (label.compare("Orig. Weapon Range") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "DR " + FormatFloat(unit_ptr->Combat.DisplayedRange);
         });
-        else if (label.compare("Displayed Reload Time") == 0)
+        else if (label.compare("Orig. Speed of Attack") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "DT " + FormatFloat(unit_ptr->Combat.DisplayedReloadTime);
@@ -819,7 +819,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF70 "CM " + FormatInt(unit_ptr->Tribe_Combat.SpecialAbility);
         });
-        else if (label.compare("Displayed Pierce Armor") == 0)
+        else if (label.compare("Orig. Pierce Armor") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "DP " + FormatInt(unit_ptr->Tribe_Combat.DisplayedPierceArmour);
@@ -2247,8 +2247,8 @@ void AGE_Frame::OnUnitDamageGraphicsCopyToUnits(wxCommandEvent &event)
 
 wxString AGE_Frame::GetUnitAttackName(int index)
 {
-    return "Amount: "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Combat.Attacks[index].Amount)
-    +" - Class "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Combat.Attacks[index].Class);
+    return "Value: "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Combat.Attacks[index].Amount)
+    +" - Type "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Combat.Attacks[index].Class);
 }
 
 void AGE_Frame::OnUnitAttacksSearch(wxCommandEvent &event)
@@ -2300,7 +2300,7 @@ void AGE_Frame::OnUnitAttackSelect(wxCommandEvent &event)
         getSelectedItems(selections, Units_Attacks_ListV, AttackIDs);
 
         bool showWarning = false;
-        wxString warning = "Attack count of civs\n";
+        wxString warning = "Weapon count of civs\n";
         genie::unit::AttackOrArmor * AttackPointer;
         for(size_t sel = selections; sel--> 0;)
         {
@@ -2491,8 +2491,8 @@ void AGE_Frame::OnUnitAttacksCopyToUnits(wxCommandEvent &event)
 
 wxString AGE_Frame::GetUnitArmorName(int index)
 {
-    return "Amount: "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Combat.Armours[index].Amount)
-    +" - Class "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Combat.Armours[index].Class);
+    return "Value: "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Combat.Armours[index].Amount)
+    +" - Type "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Combat.Armours[index].Class);
 }
 
 void AGE_Frame::OnUnitArmorsSearch(wxCommandEvent &event)
@@ -3590,7 +3590,7 @@ void AGE_Frame::CreateUnitControls()
     Units_TerrainRestriction_Text = new SolidText(Units_Scroller, " Terrain Table *");
     Units_ResourceCapacity_Text = new SolidText(Units_Scroller, " Resource Capacity");
     Units_ResourceDecay_Text = new SolidText(Units_Scroller, " Resource Decay *");
-    Units_BlastDefenseLevel_Text = new SolidText(Units_Scroller, " Blast Defense *");
+    Units_BlastDefenseLevel_Text = new SolidText(Units_Scroller, " Area Effect Object Level *");
     Units_CombatLevel_Text = new SolidText(Units_Scroller, " Combat Level *");
     Units_InteractionMode_Text = new SolidText(Units_Scroller, " Interaction Mode *");
     Units_MinimapMode_Text = new SolidText(Units_Scroller, " Minimap Mode *");
@@ -3661,24 +3661,24 @@ void AGE_Frame::CreateUnitControls()
 //  Type 50+
 
     Units_BaseArmor_Text = new SolidText(Units_Scroller, " Base Armor *");
-    Units_DefenseTerrainBonus_Text = new SolidText(Units_Scroller, " Terrain Defense Bonus *");
+    Units_DefenseTerrainBonus_Text = new SolidText(Units_Scroller, " Defense Terrain Bonus *");
     Units_BonusDamageResistance_Text = new SolidText(Units_Scroller, " Bonus Damage Resist *");
     Units_MaxRange_Text = new SolidText(Units_Scroller, " Weapon Range");
-    Units_BlastWidth_Text = new SolidText(Units_Scroller, " Blast Width *");
-    Units_ReloadTime_Text = new SolidText(Units_Scroller, " Reload Time");
+    Units_BlastWidth_Text = new SolidText(Units_Scroller, " Area Effect Range *");
+    Units_ReloadTime_Text = new SolidText(Units_Scroller, " Speed of Attack");
     Units_ProjectileUnitID_Text = new SolidText(Units_Scroller, " Projectile Unit");
-    Units_AccuracyPercent_Text = new SolidText(Units_Scroller, " Accuracy Percent");
-    Units_Delay_Text = new SolidText(Units_Scroller, " Frame Delay *");
+    Units_AccuracyPercent_Text = new SolidText(Units_Scroller, " Base Hit Chance");
+    Units_Delay_Text = new SolidText(Units_Scroller, " Fire Missile at Frame *");
     Units_GraphicDisplacement_Text = new SolidText(Units_Scroller, " Sprite Displacement XYZ *");
-    Units_BlastAttackLevel_Text = new SolidText(Units_Scroller, " Blast Attack Level *");
+    Units_BlastAttackLevel_Text = new SolidText(Units_Scroller, " Area Effect Level *");
     Units_BlastDamage_Text = new SolidText(Units_Scroller, " Blast Damage *");
     Units_MinRange_Text = new SolidText(Units_Scroller, " Min. Weapon Range");
-    Units_AccuracyDispersion_Text = new SolidText(Units_Scroller, " Attack Dispersion *");
+    Units_AccuracyDispersion_Text = new SolidText(Units_Scroller, " Missed Missile Spread *");
     Units_AttackGraphic_Text = new SolidText(Units_Scroller, " Fight Sprite");
-    Units_DisplayedMeleeArmour_Text = new SolidText(Units_Scroller, " Shown Melee Armor");
-    Units_DisplayedAttack_Text = new SolidText(Units_Scroller, " Shown Attack");
-    Units_DisplayedRange_Text = new SolidText(Units_Scroller, " Shown Range");
-    Units_DisplayedReloadTime_Text = new SolidText(Units_Scroller, " Shown Reload Time");
+    Units_DisplayedMeleeArmour_Text = new SolidText(Units_Scroller, " Orig. Armor");
+    Units_DisplayedAttack_Text = new SolidText(Units_Scroller, " Orig. Weapon");
+    Units_DisplayedRange_Text = new SolidText(Units_Scroller, " Orig. Weapon Range");
+    Units_DisplayedReloadTime_Text = new SolidText(Units_Scroller, " Orig. Speed of Attack");
 
 //  Type 60 only
 
@@ -3707,7 +3707,7 @@ void AGE_Frame::CreateUnitControls()
     Units_AttackMissileDuplicationUnit_Text = new SolidText(Units_Scroller, " Secondary Projectile Unit *");
     Units_ChargingGraphic_Text = new SolidText(Units_Scroller, " Special Attack Sprite *");
     Units_ChargingMode_Text = new SolidText(Units_Scroller, " Special Ability *");
-    Units_DisplayedPierceArmour_Text = new SolidText(Units_Scroller, " Shown Pierce Armor");
+    Units_DisplayedPierceArmour_Text = new SolidText(Units_Scroller, " Orig. Pierce Armor");
     Units_SpawningGraphic_Text = new SolidText(Units_Scroller, " Spawning Sprite");
     Units_UpgradeGraphic_Text = new SolidText(Units_Scroller, " Upgrade Sprite");
     Units_HeroGlowGraphic_Text = new SolidText(Units_Scroller, " Hero Glow Sprite");
@@ -3891,7 +3891,7 @@ void AGE_Frame::CreateUnitControls()
     Units_MinRange = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_DisplayedRange = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
 
-    Units_Attacks = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Attacks");
+    Units_Attacks = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Weapons");
     Units_Attacks_ListArea = new wxBoxSizer(wxVERTICAL);
     Units_Attacks_DataArea = new wxBoxSizer(wxVERTICAL);
     Units_Attacks_Search = new wxTextCtrl(Units_Scroller, wxID_ANY);
@@ -3904,31 +3904,31 @@ void AGE_Frame::CreateUnitControls()
     Units_Attacks_Copy = new wxButton(Units_Scroller, wxID_ANY, "Copy *", wxDefaultPosition, wxSize(10, -1));
     Units_Attacks_Copy->SetToolTip("When \"All civs\" is not selected,\nthis and pasting works only for current civilization");
     Units_Attacks_Paste = new wxButton(Units_Scroller, wxID_ANY, "Paste", wxDefaultPosition, wxSize(10, -1));
-    Units_Attacks_PasteInsert = new wxButton(Units_Scroller, wxID_ANY, "Ins Copies", wxDefaultPosition, wxSize(10, -1));
+    Units_Attacks_PasteInsert = new wxButton(Units_Scroller, wxID_ANY, "Ins Cpys", wxDefaultPosition, wxSize(10, -1));
     Units_Attacks_CopyToUnits = new wxButton(Units_Scroller, wxID_ANY, "Copy all to selected units", wxDefaultPosition, wxSize(10, -1));
     Units_Attacks_Holder = new wxBoxSizer(wxHORIZONTAL);
     Units_Attacks_Holder_Data = new wxFlexGridSizer(2, 5, 5);
     Attacks_Amount_Holder = new wxBoxSizer(wxVERTICAL);
-    Attacks_Amount_Text = new SolidText(Units_Scroller, " Amount");
+    Attacks_Amount_Text = new SolidText(Units_Scroller, " Value");
     Attacks_Amount = new NumberControl(CShort, Units_Scroller, this, nullptr, false);
     Attacks_Class_Holder = new wxBoxSizer(wxVERTICAL);
     Attacks_Class_Text = new SolidText(Units_Scroller, " Type *");
     Attacks_Class = new NumberControl(CShort, Units_Scroller, this, nullptr, false);
-    Attacks_Class->SetToolTip("Armor class that this unit can damage\nYou can make your own classes");
+    Attacks_Class->SetToolTip("Armor type that this unit can damage\nYou can make your own classes");
     Attacks_Class_ComboBox[0] = new LinkedComboBox(Units_Scroller, Attacks_Class, &armor_names, false);
 
     Units_DisplayedAttack = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
     Units_Delay = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
-    Units_Delay->SetToolTip("Frame delay before projectile is shot");
+    Units_Delay->SetToolTip("Frame delay before missile is shot");
     Units_AccuracyPercent = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
     Units_AccuracyDispersion = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
-    Units_AccuracyDispersion->SetToolTip("Arc multiplier of the sector where the projectiles may hit.\nHigher values will make missed hits disperse more.");
+    Units_AccuracyDispersion->SetToolTip("Arc multiplier of the sector where the missiles may hit.\nHigher values will make missed hits disperse more.");
     Units_ReloadTime = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_DisplayedReloadTime = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_BlastWidth = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
-    Units_BlastWidth->SetToolTip("If object has 0 blast radius\nand does not hit the unit it had targeted\nalways does half damage");
+    Units_BlastWidth->SetToolTip("If object has 0 area effect range\nand does not hit the unit it had targeted\nalways does half damage");
     Units_BlastAttackLevel = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_BlastAttackLevel->SetToolTip("Blasts damage units that have higher or same blast armor level\n0   Damages resources also\n1   Damages trees also\n2   Damages nearby units\n3   Damages only targeted unit");
+    Units_BlastAttackLevel->SetToolTip("area effect damages units that have higher or same area effect object level\n0   Damages resources also\n1   Damages trees also\n2   Damages nearby units\n3   Damages only targeted unit");
     Units_BlastDamage = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_BlastDamage->SetToolTip("Area damage. If the value is above 0, it's a multiplier applied to the base attack. If the value is negative, it does a fixed amount of damage.");
 
@@ -3945,26 +3945,26 @@ void AGE_Frame::CreateUnitControls()
     Units_Armors_Copy = new wxButton(Units_Scroller, wxID_ANY, "Copy *", wxDefaultPosition, wxSize(10, -1));
     Units_Armors_Copy->SetToolTip("When \"All civs\" is not selected,\nthis and pasting works only for current civilization");
     Units_Armors_Paste = new wxButton(Units_Scroller, wxID_ANY, "Paste", wxDefaultPosition, wxSize(10, -1));
-    Units_Armors_PasteInsert = new wxButton(Units_Scroller, wxID_ANY, "Ins Copies", wxDefaultPosition, wxSize(10, -1));
+    Units_Armors_PasteInsert = new wxButton(Units_Scroller, wxID_ANY, "Ins Cpys", wxDefaultPosition, wxSize(10, -1));
     Units_Armors_CopyToUnits = new wxButton(Units_Scroller, wxID_ANY, "Copy all to selected units", wxDefaultPosition, wxSize(10, -1));
     Units_Armors_Holder = new wxBoxSizer(wxHORIZONTAL);
     Units_Armors_Holder_Data3 = new wxBoxSizer(wxVERTICAL);
     Units_Defense_Holder = new wxFlexGridSizer(2, 5, 5);
     Armors_Amount_Holder = new wxBoxSizer(wxVERTICAL);
-    Armors_Amount_Text = new SolidText(Units_Scroller, " Amount");
+    Armors_Amount_Text = new SolidText(Units_Scroller, " Value");
     Armors_Amount = new NumberControl(CShort, Units_Scroller, this, nullptr, false);
     Armors_Class_Holder = new wxBoxSizer(wxVERTICAL);
     Armors_Class_Text = new SolidText(Units_Scroller, " Type *");
     Armors_Class = new NumberControl(CShort, Units_Scroller, this, nullptr, false);
-    Armors_Class->SetToolTip("Attack class from which this unit can take damage\nYou can make your own classes");
+    Armors_Class->SetToolTip("Weapon type from which this unit can take damage\nYou can make your own classes");
     Attacks_Class_ComboBox[1] = new LinkedComboBox(Units_Scroller, Armors_Class, &armor_names, false);
 
     Units_BlastDefenseLevel = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_BlastDefenseLevel->SetToolTip("Receive blast damage from units that have lower or same blast attack level");
+    Units_BlastDefenseLevel->SetToolTip("Receive area effect damage from units that have lower or same area effect level");
     Units_BonusDamageResistance = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_BonusDamageResistance->SetToolTip("Damage resistance for bonus armors (all but 3, 4, and 31)");
     Units_BaseArmor = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
-    Units_BaseArmor->SetToolTip("This armor is used for attack types that have no corresponding armor type\n"
+    Units_BaseArmor->SetToolTip("This armor is used for weapon types that have no corresponding armor type\n"
         "Can be negative only in The Conquerors and later games");
     Units_DefenseTerrainBonus = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
     Units_DefenseTerrainBonus->SetToolTip("Terrain table ID\n"
@@ -4010,7 +4010,7 @@ void AGE_Frame::CreateUnitControls()
     Units_ProjectileUnitID_ComboBox = new LinkedComboBox(Units_Scroller, Units_ProjectileUnitID, &unit_names);
     UnitComboBoxList.push_back(Units_ProjectileUnitID_ComboBox);
     Units_AttackMissileDuplicationUnit = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit);
-    Units_AttackMissileDuplicationUnit->SetToolTip("Uses its own attack values!");
+    Units_AttackMissileDuplicationUnit->SetToolTip("Uses its own weapon values!");
     Units_AttackMissileDuplicationUnit_ComboBox = new LinkedComboBox(Units_Scroller, Units_AttackMissileDuplicationUnit, &unit_names);
     UnitComboBoxList.push_back(Units_AttackMissileDuplicationUnit_ComboBox);
     Units_MissileCount = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);

@@ -206,7 +206,7 @@ void AGE_Frame::OnEffectPasteInsert(wxCommandEvent &event)    // Works.
 wxString AGE_Frame::Tester(genie::EffectCommand effect, wxString how)
 {
     return ((effect.C == 8 || effect.C == 9) ?
-        (effect.C == 8 ? "armor type " : "attack type ") +
+        (effect.C == 8 ? "armor type " : "weapon type ") +
         (effect.D >= 0 ?
             FormatInt(static_cast<uint16_t>(effect.D) >> 8) + how +
             FormatInt(static_cast<int16_t>(effect.D) & 0xFF) :
