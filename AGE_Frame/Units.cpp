@@ -3914,7 +3914,7 @@ void AGE_Frame::CreateUnitControls()
     Attacks_Class_Holder = new wxBoxSizer(wxVERTICAL);
     Attacks_Class_Text = new SolidText(Units_Scroller, " Type *");
     Attacks_Class = new NumberControl(CShort, Units_Scroller, this, nullptr, false);
-    Attacks_Class->SetToolTip("Armor type that this unit can damage\nYou can make your own classes");
+    Attacks_Class->SetToolTip("Armor type that this unit can damage\nYou can make your own types");
     Attacks_Class_ComboBox[0] = new LinkedComboBox(Units_Scroller, Attacks_Class, &armor_names, false);
 
     Units_DisplayedAttack = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
@@ -3956,7 +3956,7 @@ void AGE_Frame::CreateUnitControls()
     Armors_Class_Holder = new wxBoxSizer(wxVERTICAL);
     Armors_Class_Text = new SolidText(Units_Scroller, " Type *");
     Armors_Class = new NumberControl(CShort, Units_Scroller, this, nullptr, false);
-    Armors_Class->SetToolTip("Weapon type from which this unit can take damage\nYou can make your own classes");
+    Armors_Class->SetToolTip("Weapon type from which this unit can take damage\nYou can make your own types");
     Attacks_Class_ComboBox[1] = new LinkedComboBox(Units_Scroller, Armors_Class, &armor_names, false);
 
     Units_BlastDefenseLevel = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
@@ -5229,10 +5229,10 @@ void AGE_Frame::CreateUnitControls()
 
     Units_Armors_DataArea->Add(Armors_Amount_Holder);
     Units_Armors_DataArea->Add(Armors_Class_Holder, 0, wxTOP, 5);
-    Units_Defense_Holder->Add(Units_BlastDefenseLevel_Holder);
-    Units_Defense_Holder->Add(Units_BonusDamageResistance_Holder);
     Units_Defense_Holder->Add(Units_BaseArmor_Holder);
+    Units_Defense_Holder->Add(Units_BonusDamageResistance_Holder);
     Units_Armors_Holder_Data3->Add(Units_Defense_Holder, 0, wxTOP, 5);
+    Units_Armors_Holder_Data3->Add(Units_BlastDefenseLevel_Holder, 0, wxTOP, 5);
     Units_Armors_Holder_Data3->Add(Units_DefenseTerrainBonus_Holder, 0, wxTOP, 5);
     Units_Armors_Holder_Data3->Add(Units_DisplayedMeleeArmour_Holder, 0, wxTOP, 5);
     Units_Armors_Holder_Data3->Add(Units_DisplayedPierceArmour_Holder, 0, wxTOP, 5);
