@@ -4259,7 +4259,7 @@ void AGE_Frame::CreateUnitControls()
         Units_CostType_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Units_CostType[loop], &resource_names);
         ResourceComboBoxList.push_back(Units_CostType_ComboBox[loop]);
         Units_CostAmount[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
-        Units_CostUsed[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
+        Units_CostUsed[loop] = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
         Units_CostUsed[loop]->SetToolTip("If set to 0 and there is an amount, the amount is required but not paid");
         Units_CostUsed_CheckBox[loop] = new LinkedCheckBox(Units_Scroller, "Paid", Units_CostUsed[loop]);
     }
