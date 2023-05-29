@@ -236,34 +236,34 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     effect_attribute_names.Add("No Attribute/Invalid Attribute");     // Selection 0
     effect_attribute_names.Add("0 - Hit Points");     // Selection 1
     effect_attribute_names.Add("1 - Line of Sight");
-    effect_attribute_names.Add("2 - Garrison Capacity");
-    effect_attribute_names.Add("3 - Unit Size X");
-    effect_attribute_names.Add("4 - Unit Size Y");
-    effect_attribute_names.Add("5 - Movement Speed (types 20-80)");
-    effect_attribute_names.Add("6 - Rotation Speed (types 30-80)");
+    effect_attribute_names.Add("2 - Obj Max");
+    effect_attribute_names.Add("3 - Radius X");
+    effect_attribute_names.Add("4 - Radius Y");
+    effect_attribute_names.Add("5 - Speed (RGE_Animated)");
+    effect_attribute_names.Add("6 - Turn Speed (RGE_Moving)");
     effect_attribute_names.Add("7 - Unused");
     if (GenieVersion < genie::GV_AoKA)
     {
-        effect_attribute_names.Add("8 - Armor (no multiply, types 50-80)");
-        effect_attribute_names.Add("9 - Attack (no multiply, types 50-80)");
+        effect_attribute_names.Add("8 - Armor (no multiply, RGE_Combat)");
+        effect_attribute_names.Add("9 - Weapon (no multiply, RGE_Combat)");
     }
     else
     {
-        effect_attribute_names.Add("8 - Armor (types 50-80)");
-        effect_attribute_names.Add("9 - Attack (types 50-80)");
+        effect_attribute_names.Add("8 - Armor (RGE_Combat)");
+        effect_attribute_names.Add("9 - Weapon (RGE_Combat)");
     }
-    effect_attribute_names.Add("10 - Attack Reload Time (types 50-80)");
-    effect_attribute_names.Add("11 - Accuracy Percent (types 50-80)");
-    effect_attribute_names.Add("12 - Max Range (types 50-80)");
-    effect_attribute_names.Add("13 - Work Rate (types 30-80)");
-    effect_attribute_names.Add("14 - Carry Capacity");
-    effect_attribute_names.Add("15 - Base Armor (types 50-80)");
-    effect_attribute_names.Add("16 - Projectile Unit (types 50-80)");
-    effect_attribute_names.Add("17 - Icon/Sprite Angle (type 80)");
-    effect_attribute_names.Add("18 - Terrain Defense Bonus (always sets, types 50-80)");
+    effect_attribute_names.Add("10 - Speed of Attack (RGE_Combat)");
+    effect_attribute_names.Add("11 - Base Hit Chance (RGE_Combat)");
+    effect_attribute_names.Add("12 - Weapon Range (RGE_Combat)");
+    effect_attribute_names.Add("13 - Work Rate (RGE_Action)");
+    effect_attribute_names.Add("14 - Attribute Max Amount");
+    effect_attribute_names.Add("15 - Base Armor (RGE_Combat)");
+    effect_attribute_names.Add("16 - Missile ID (RGE_Combat)");
+    effect_attribute_names.Add("17 - Building Facet (TRIBE_Building)");
+    effect_attribute_names.Add("18 - Defense Terrain Bonus (always sets, RGE_Combat)");
     if (GenieVersion >= genie::GV_AoEB)
     {
-        effect_attribute_names.Add("19 - Enable Smart Projectiles (type 60)");
+        effect_attribute_names.Add("19 - Targeting Type (RGE_Missile)");
     }
     else
     {
@@ -271,66 +271,66 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     }
     if (GenieVersion >= genie::GV_AoKA)
     {
-        effect_attribute_names.Add("20 - Min Range (types 50-80)");
-        effect_attribute_names.Add("21 - Amount of 1st resource storage");
-        effect_attribute_names.Add("22 - Blast Width (types 50-80)");
-        effect_attribute_names.Add("23 - Search Radius (types 40-80)");
+        effect_attribute_names.Add("20 - Min. Weapon Range (RGE_Combat)");
+        effect_attribute_names.Add("21 - Attribute Amount Held (First)");
+        effect_attribute_names.Add("22 - Area Effect Range (RGE_Combat)");
+        effect_attribute_names.Add("23 - Search Radius (RGE_Action)");
         if (isAoE2DE)
         {
-            effect_attribute_names.Add("24 - Hidden Damage Resistance (types 50-80)");
-            effect_attribute_names.Add("25 - Icon");
-            effect_attribute_names.Add("40 - Hero Status (types 70-80)");
-            effect_attribute_names.Add("41 - Frame Delay (types 50-80)");
-            effect_attribute_names.Add("42 - Train Location (types 70-80)");
-            effect_attribute_names.Add("43 - Train Button (types 70-80)");
-            effect_attribute_names.Add("44 - Blast Attack Level (types 50-80)");
-            effect_attribute_names.Add("45 - Blast Defense Level");
-            effect_attribute_names.Add("46 - Shown Attack (types 50-80)");
-            effect_attribute_names.Add("47 - Shown Range (types 50-80)");
-            effect_attribute_names.Add("48 - Shown Melee Armor (types 50-80)");
-            effect_attribute_names.Add("49 - Shown Pierce Armor (types 70-80)");
-            effect_attribute_names.Add("50 - Unit Name String");
-            effect_attribute_names.Add("51 - Unit Short Description String");
+            effect_attribute_names.Add("24 - Hidden Damage Resistance (RGE_Combat)");
+            effect_attribute_names.Add("25 - Button Pict");
+            effect_attribute_names.Add("40 - Hero Flag (TRIBE_Combat)");
+            effect_attribute_names.Add("41 - Fire Missile at Frame (RGE_Combat)");
+            effect_attribute_names.Add("42 - ID of Building Obj (TRIBE_Combat)");
+            effect_attribute_names.Add("43 - Button Location (TRIBE_Combat)");
+            effect_attribute_names.Add("44 - Area Effect Level (RGE_Combat)");
+            effect_attribute_names.Add("45 - Area Effect Object Level");
+            effect_attribute_names.Add("46 - Orig. Weapon (RGE_Combat)");
+            effect_attribute_names.Add("47 - Orig. Range (RGE_Combat)");
+            effect_attribute_names.Add("48 - Orig. Armor (RGE_Combat)");
+            effect_attribute_names.Add("49 - Orig. Pierce Armor (TRIBE_Combat)");
+            effect_attribute_names.Add("50 - String ID");
+            effect_attribute_names.Add("51 - String ID 2");
             effect_attribute_names.Add("52 - Unused");
-            effect_attribute_names.Add("53 - Terrain Restriction");
-            effect_attribute_names.Add("54 - Unit Trait");
-            effect_attribute_names.Add("55 - Unit Civilization");
-            effect_attribute_names.Add("56 - Unit Trait Piece");
-            effect_attribute_names.Add("57 - Dead Unit");
-            effect_attribute_names.Add("58 - Hotkey");
+            effect_attribute_names.Add("53 - Terrain");
+            effect_attribute_names.Add("54 - Object Flags");
+            effect_attribute_names.Add("55 - Unused");
+            effect_attribute_names.Add("56 - Object Flags (DE2)");
+            effect_attribute_names.Add("57 - Death Spawn Obj ID");
+            effect_attribute_names.Add("58 - Hotkey ID");
         }
-        effect_attribute_names.Add("100 - Resource Costs (types 70-80)");
-        effect_attribute_names.Add("101 - Train Time (types 70-80)");
-        effect_attribute_names.Add("102 - Total Missiles (types 70-80)");
-        effect_attribute_names.Add("103 - Food Costs (types 70-80)");
+        effect_attribute_names.Add("100 - Build Inventory (TRIBE_Combat)");
+        effect_attribute_names.Add("101 - Build Pts. Required (TRIBE_Combat)");
+        effect_attribute_names.Add("102 - Volley Fire Amount (TRIBE_Combat)");
+        effect_attribute_names.Add("103 - Build Inventory Food (TRIBE_Combat)");
         if (GenieVersion < genie::GV_SWGB)
         {
-            effect_attribute_names.Add("104 - Wood Costs (types 70-80)");
-            effect_attribute_names.Add("105 - Gold Costs (types 70-80)");
-            effect_attribute_names.Add("106 - Stone Costs (types 70-80)");
+            effect_attribute_names.Add("104 - Build Inventory Wood (TRIBE_Combat)");
+            effect_attribute_names.Add("105 - Build Inventory Gold (TRIBE_Combat)");
+            effect_attribute_names.Add("106 - Build Inventory Stone (TRIBE_Combat)");
         }
         else
         {
-            effect_attribute_names.Add("104 - Carbon Costs (types 70-80)");
-            effect_attribute_names.Add("105 - Nova Costs (types 70-80)");
-            effect_attribute_names.Add("106 - Ore Costs (types 70-80)");
+            effect_attribute_names.Add("104 - Build Inventory Carbon (TRIBE_Combat)");
+            effect_attribute_names.Add("105 - Build Inventory Nova (TRIBE_Combat)");
+            effect_attribute_names.Add("106 - Build Inventory Ore (TRIBE_Combat)");
         }
-        effect_attribute_names.Add("107 - Max Total Missiles (types 70-80)");
+        effect_attribute_names.Add("107 - Max Attacks in Volley (TRIBE_Combat)");
         if (GenieVersion >= genie::GV_AoKB)
         {
-            effect_attribute_names.Add("108 - Garrison Heal Rate (type 80)");
+            effect_attribute_names.Add("108 - Garrison Heal Rate (TRIBE_Building)");
         }
         if (GenieVersion >= genie::GV_Cysion && GenieVersion <= genie::GV_LatestDE2)
         {
-            effect_attribute_names.Add("109 - Regeneration Rate (types 40-80)");
+            effect_attribute_names.Add("109 - Regeneration Rate (RGE_Action)");
         }
     }
     else
     {
-        effect_attribute_names.Add("100 - Resource Costs (types 70-80)");
+        effect_attribute_names.Add("100 - Build Inventory (TRIBE_Combat)");
         if (GenieVersion >= genie::GV_RoR)
         {
-            effect_attribute_names.Add("101 - Population (set only)");
+            effect_attribute_names.Add("101 - Build Inventory, Population (set only, TRIBE_Combat)");
         }
     }
     Effects_C_ComboBox->Flash();
