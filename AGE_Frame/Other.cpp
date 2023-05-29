@@ -849,6 +849,7 @@ void AGE_Frame::OnGameVersionChange()
         Units_MinTechLevel_Holder->Show(show);
         UnitLines_Main->Show(show);
         Civs_SUnknown1_Holder->Show(show);
+        Units_Civ_Holder->Show(show);
         General_Variables1_Holder->Show(show && ShowUnknowns);
 
         bool appear = GenieVersion >= genie::GV_Tapsa && GenieVersion <= genie::GV_LatestTap;
