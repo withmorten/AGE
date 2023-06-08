@@ -103,7 +103,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "LS " + FormatFloat(unit_ptr->LineOfSight);
         });
-        else if (label.compare("Garrison Capacity") == 0)
+        else if (label.compare("Obj Max") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "GC " + FormatInt(unit_ptr->GarrisonCapacity);
@@ -214,12 +214,12 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "FM " + FormatInt(unit_ptr->FlyMode);
         });
-        else if (label.compare("Resource Capacity") == 0)
+        else if (label.compare("Attribute Max Amount") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "RC " + FormatInt(unit_ptr->ResourceCapacity);
         });
-        else if (label.compare("Resource Decay") == 0)
+        else if (label.compare("Attribute Rot") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "RD " + FormatFloat(unit_ptr->ResourceDecay);
@@ -624,7 +624,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "RT " + FormatFloat(unit_ptr->Combat.ReloadTime);
         });
-        else if (label.compare("Projectile Unit") == 0)
+        else if (label.compare("Missile ID") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "PU " + FormatInt(unit_ptr->Combat.ProjectileUnitID);
@@ -644,7 +644,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF50 "D " + FormatInt(unit_ptr->Combat.FrameDelay);
         });
-        else if (label.compare("Sprite Displacement") == 0)
+        else if (label.compare("Weapon Offset") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF50 "x" + FormatFloat(unit_ptr->Combat.GraphicDisplacementX)
@@ -704,22 +704,22 @@ void AGE_Frame::PrepUnitSearch()
             return UF50 "BR " + FormatFloat(unit_ptr->Combat.BonusDamageResistance);
         });
 
-        else if (label.compare("Projectile Type") == 0)
+        else if (label.compare("Missile Type") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF60 "SM " + FormatInt(unit_ptr->Missile.ProjectileType);
         });
-        else if (label.compare("Smart Mode") == 0)
+        else if (label.compare("Targeting Type") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF60 "CM " + FormatInt(unit_ptr->Missile.SmartMode);
         });
-        else if (label.compare("Hit Mode") == 0)
+        else if (label.compare("Missile Hit Info") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF60 "DA " + FormatInt(unit_ptr->Missile.HitMode);
         });
-        else if (label.compare("Vanish Mode") == 0)
+        else if (label.compare("Missile Die Info") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF60 "PM " + FormatInt(unit_ptr->Missile.VanishMode);
@@ -729,7 +729,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF60 "U24 " + FormatInt(unit_ptr->Missile.AreaEffectSpecials);
         });
-        else if (label.compare("Projectile Arc") == 0)
+        else if (label.compare("Ballistics Ratio") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF60 "PA " + FormatFloat(unit_ptr->Missile.ProjectileArc);
@@ -787,24 +787,24 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF70 "GG " + FormatInt(unit_ptr->Tribe_Combat.GarrisonGraphic);
         });
-        else if (label.compare("Total Projectiles") == 0)
+        else if (label.compare("Volley Fire Amount") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "TP " + FormatFloat(unit_ptr->Tribe_Combat.TotalProjectiles);
         });
-        else if (label.compare("Max Total Projectiles") == 0)
+        else if (label.compare("Max Attacks in Volley") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "MTP " + FormatInt(unit_ptr->Tribe_Combat.MaxTotalProjectiles);
         });
-        else if (label.compare("Projectile Spawning Area") == 0)
+        else if (label.compare("Volley Spread") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "x" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningAreaX)
                     + " y" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningAreaY)
                     + " a" + FormatFloat(unit_ptr->Tribe_Combat.ProjectileSpawningAreaAdjustment);
         });
-        else if (label.compare("Secondary Projectile Unit") == 0)
+        else if (label.compare("Volley Missile ID") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "AP " + FormatInt(unit_ptr->Tribe_Combat.SecondaryProjectileUnit);
@@ -955,7 +955,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF80 "CS " + FormatInt(unit_ptr->Tribe_Building.ConstructionSound);
         });
-        else if (label.compare("Garrison Type") == 0)
+        else if (label.compare("Garrison Units") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "GT " + FormatInt(unit_ptr->Tribe_Building.GarrisonType);
@@ -3333,13 +3333,13 @@ void AGE_Frame::CreateUnitControls()
     Units_GraphicsArea1_Holder = new wxBoxSizer(wxHORIZONTAL);
     Units_GraphicsArea4_Holder = new wxBoxSizer(wxVERTICAL);
     Units_GraphicsArea5_Holder = new wxFlexGridSizer(4, 5, 5);
-    Units_StatsArea_Holder = new wxStaticBoxSizer(wxVERTICAL, Units_Scroller, "Statistics");
+    Units_StatsArea_Holder = new wxStaticBoxSizer(wxVERTICAL, Units_Scroller, "Stats");
     Units_StatsArea1A_Sizer = new wxBoxSizer(wxHORIZONTAL);
     Units_StatsArea1B_Sizer = new wxBoxSizer(wxHORIZONTAL);
     Units_Garrison_Grid = new wxFlexGridSizer(3, 0, 5);
     Units_Resource_Grid = new wxFlexGridSizer(6, 0, 5);
     Units_Charge_Grid = new wxFlexGridSizer(4, 0, 5);
-    Units_ProjectileArea_Holder = new wxStaticBoxSizer(wxVERTICAL, Units_Scroller, "Projectiles");
+    Units_ProjectileArea_Holder = new wxStaticBoxSizer(wxVERTICAL, Units_Scroller, "Missiles");
     Units_P1 = new wxBoxSizer(wxHORIZONTAL);
     Units_P2 = new wxBoxSizer(wxHORIZONTAL);
     Units_P3 = new wxBoxSizer(wxHORIZONTAL);
@@ -3573,7 +3573,7 @@ void AGE_Frame::CreateUnitControls()
     Units_DyingGraphic_Text = new SolidText(Units_Scroller, " Death Sprite / Undead Sprite");
     Units_HitPoints_Text = new SolidText(Units_Scroller, " Hit Points *");
     Units_LineOfSight_Text = new SolidText(Units_Scroller, " Line of Sight *");
-    Units_GarrisonCapacity_Text = new SolidText(Units_Scroller, " Garrison Capacity");
+    Units_GarrisonCapacity_Text = new SolidText(Units_Scroller, " Obj Max *");
     Units_SizeRadius_Text = new SolidText(Units_Scroller, " Collision Size XYZ *");
     Units_MinCollisionSizeMultiplier_Text = new SolidText(Units_Scroller, " Min CS Multiplier *");
     Units_TrainSound_Text = new SolidText(Units_Scroller, " Train Sound");
@@ -3588,8 +3588,8 @@ void AGE_Frame::CreateUnitControls()
     Units_ClearanceSize_Text = new SolidText(Units_Scroller, " Clearance Size XY");
     Units_HillMode_Text = new SolidText(Units_Scroller, " Hill Mode *");
     Units_TerrainRestriction_Text = new SolidText(Units_Scroller, " Terrain Table *");
-    Units_ResourceCapacity_Text = new SolidText(Units_Scroller, " Resource Capacity");
-    Units_ResourceDecay_Text = new SolidText(Units_Scroller, " Resource Decay *");
+    Units_ResourceCapacity_Text = new SolidText(Units_Scroller, " Attr. Max Amount");
+    Units_ResourceDecay_Text = new SolidText(Units_Scroller, " Attribute Rot *");
     Units_BlastDefenseLevel_Text = new SolidText(Units_Scroller, " Area Effect Object Level *");
     Units_CombatLevel_Text = new SolidText(Units_Scroller, " Combat Level *");
     Units_InteractionMode_Text = new SolidText(Units_Scroller, " Interaction Mode *");
@@ -3666,10 +3666,10 @@ void AGE_Frame::CreateUnitControls()
     Units_MaxRange_Text = new SolidText(Units_Scroller, " Weapon Range");
     Units_BlastWidth_Text = new SolidText(Units_Scroller, " Area Effect Range *");
     Units_ReloadTime_Text = new SolidText(Units_Scroller, " Speed of Attack");
-    Units_ProjectileUnitID_Text = new SolidText(Units_Scroller, " Projectile Unit");
+    Units_ProjectileUnitID_Text = new SolidText(Units_Scroller, " Missile ID");
     Units_AccuracyPercent_Text = new SolidText(Units_Scroller, " Base Hit Chance");
     Units_Delay_Text = new SolidText(Units_Scroller, " Fire Missile at Frame *");
-    Units_GraphicDisplacement_Text = new SolidText(Units_Scroller, " Sprite Displacement XYZ *");
+    Units_GraphicDisplacement_Text = new SolidText(Units_Scroller, " Weapon Offset XYZ *");
     Units_BlastAttackLevel_Text = new SolidText(Units_Scroller, " Area Effect Level *");
     Units_BlastDamage_Text = new SolidText(Units_Scroller, " Blast Damage *");
     Units_MinRange_Text = new SolidText(Units_Scroller, " Min. Weapon Range");
@@ -3682,12 +3682,12 @@ void AGE_Frame::CreateUnitControls()
 
 //  Type 60 only
 
-    Units_ProjectileType_Text = new SolidText(Units_Scroller, " Projectile Type *");
-    Units_SmartMode_Text = new SolidText(Units_Scroller, " Smart Mode *");
-    Units_HitMode_Text = new SolidText(Units_Scroller, " Hit Mode *");
-    Units_VanishMode_Text = new SolidText(Units_Scroller, " Vanish Mode *");
-    Units_AreaEffectSpecials_Text = new SolidText(Units_Scroller, " Area Effects *");
-    Units_ProjectileArc_Text = new SolidText(Units_Scroller, " Projectile Arc");
+    Units_ProjectileType_Text = new SolidText(Units_Scroller, " Missile Type *");
+    Units_SmartMode_Text = new SolidText(Units_Scroller, " Targeting Type*");
+    Units_HitMode_Text = new SolidText(Units_Scroller, " Missile Hit Info *");
+    Units_VanishMode_Text = new SolidText(Units_Scroller, " Missile Die Info *");
+    Units_AreaEffectSpecials_Text = new SolidText(Units_Scroller, " Area Effect Specials *");
+    Units_ProjectileArc_Text = new SolidText(Units_Scroller, " Ballistics Ratio");
 
 //  Type 70+
 
@@ -3701,10 +3701,10 @@ void AGE_Frame::CreateUnitControls()
     Units_FlankAttackModifier_Text = new SolidText(Units_Scroller, " Flank Bonus");
     Units_CreatableType_Text = new SolidText(Units_Scroller, " Creatable Type *");
     Units_GarrisonGraphic_Text = new SolidText(Units_Scroller, " Garrison Sprite");
-    Units_MissileCount_Text = new SolidText(Units_Scroller, " Total Projectiles *");
-    Units_MissileDuplicationCount_Text = new SolidText(Units_Scroller, " Max Total Projectiles *");
-    Units_AttackMissileDuplicationSpawning_Text = new SolidText(Units_Scroller, " Projectile Spawning Area *");
-    Units_AttackMissileDuplicationUnit_Text = new SolidText(Units_Scroller, " Secondary Projectile Unit *");
+    Units_MissileCount_Text = new SolidText(Units_Scroller, " Max Attacks in Volley *");
+    Units_MissileDuplicationCount_Text = new SolidText(Units_Scroller, " Volley Fire Amount *");
+    Units_AttackMissileDuplicationSpawning_Text = new SolidText(Units_Scroller, " Volley Spread XY / Start Spread Adjustment *");
+    Units_AttackMissileDuplicationUnit_Text = new SolidText(Units_Scroller, " Volley Missile ID *");
     Units_ChargingGraphic_Text = new SolidText(Units_Scroller, " Special Attack Sprite *");
     Units_ChargingMode_Text = new SolidText(Units_Scroller, " Special Ability *");
     Units_DisplayedPierceArmour_Text = new SolidText(Units_Scroller, " Orig. Pierce Armor");
@@ -3739,7 +3739,7 @@ void AGE_Frame::CreateUnitControls()
     Units_TransformUnit_Text = new SolidText(Units_Scroller, " Transform Unit *");
     Units_TransformSound_Text = new SolidText(Units_Scroller, " Transform Sound *");
     Units_ConstructionSound_Text = new SolidText(Units_Scroller, " Construction Sound");
-    Units_GarrisonType_Text = new SolidText(Units_Scroller, " Garrison Type *");
+    Units_GarrisonType_Text = new SolidText(Units_Scroller, " Garrison Units *");
     Units_GarrisonHealRate_Text = new SolidText(Units_Scroller, " Garrison Heal Rate *");
     Units_GarrisonRepairRate_Text = new SolidText(Units_Scroller, " Garr. Repair Rate");
     Units_PileUnit_Text = new SolidText(Units_Scroller, " Pile Unit *");
@@ -3987,6 +3987,7 @@ void AGE_Frame::CreateUnitControls()
     Units_ConversionChanceMod = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_ConversionChanceMod->SetToolTip("Modifier to the overall chance it takes to convert this unit.");
     Units_GarrisonCapacity = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
+    Units_GarrisonCapacity->SetToolTip("How many units can be garrisoned in this unit.");
     Units_GarrisonType = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, false);
     Units_GarrisonType->SetToolTip("You can garrison any type,\nif you add the garrison action targeting this class/unit,\nbut you may need to hold the alt key while choosing to garrison.");
     Units_GarrisonType_Grid = new wxBoxSizer(wxHORIZONTAL);
@@ -4014,9 +4015,9 @@ void AGE_Frame::CreateUnitControls()
     Units_AttackMissileDuplicationUnit_ComboBox = new LinkedComboBox(Units_Scroller, Units_AttackMissileDuplicationUnit, &unit_names);
     UnitComboBoxList.push_back(Units_AttackMissileDuplicationUnit_ComboBox);
     Units_MissileCount = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
-    Units_MissileCount->SetToolTip("Total missiles including both normal and duplicated projectiles");
+    Units_MissileCount->SetToolTip("Total missiles including both normal and duplicated missiles");
     Units_MissileDuplicationCount = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_MissileDuplicationCount->SetToolTip("Total missiles when garrison capacity is full");
+    Units_MissileDuplicationCount->SetToolTip("Total missiles when obj max is full");
     for(size_t loop = 0; loop < 3; ++loop)
     Units_GraphicDisplacement[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_GraphicDisplacement[0]->SetToolTip("Left/Right distance");
@@ -4031,7 +4032,7 @@ void AGE_Frame::CreateUnitControls()
 
     Units_ProjectileType = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_ProjectileType->SetToolTip("0   Straight\n1   Homing?"
-        ", projectile falls vertically to the bottom of the map\n2   Velocity homing?\n3   Teleporting projectile");
+        ", projectile falls vertically to the bottom of the map\n2   Velocity homing?\n3   Teleporting missile");
     Units_SmartMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_SmartMode->SetToolTip("Effect attribute 19 changes this\n0   Shoot where the target is now\n"
         "1   Shoot where the target is going to be");
@@ -4039,7 +4040,7 @@ void AGE_Frame::CreateUnitControls()
     Units_HitMode->SetToolTip("0   Continue after hitting an obstacle\n1   Disappear once an obstacle is hit\n"
         "2   Hit all. Damages target and resting position?");
     Units_VanishMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_VanishMode->SetToolTip("Only affects sprite of the projectile\n0   Stops sprite at target\n"
+    Units_VanishMode->SetToolTip("Only affects sprite of the missile\n0   Stops sprite at target\n"
         "1   Sprite passes through the target instead of stopping");
     Units_AreaEffectSpecials = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_AreaEffectSpecials->SetToolTip("0   Normal\n1   Random (bullets)\n2   Random explosions");
@@ -5298,8 +5299,8 @@ void AGE_Frame::CreateUnitControls()
 
     Units_P1->Add(Units_ProjectileUnitID_Holder, 0, wxRIGHT, 5);
     Units_P1->Add(Units_AttackMissileDuplicationUnit_Holder, 0, wxRIGHT, 5);
-    Units_P1->Add(Units_MissileCount_Holder, 0, wxRIGHT, 5);
-    Units_P1->Add(Units_MissileDuplicationCount_Holder);
+    Units_P1->Add(Units_MissileDuplicationCount_Holder, 0, wxRIGHT, 5);
+    Units_P1->Add(Units_MissileCount_Holder);
     Units_P2->Add(Units_GraphicDisplacement_Holder, 0, wxRIGHT, 5);
     Units_P2->Add(Units_AttackMissileDuplicationSpawning_Holder);
 

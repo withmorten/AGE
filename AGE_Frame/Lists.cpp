@@ -1917,7 +1917,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Undead Mode");
     unit_filters.Add("Hit Points");
     unit_filters.Add("Line of Sight");
-    unit_filters.Add("Garrison Capacity");
+    unit_filters.Add("Obj Max");
     unit_filters.Add("Collision Size XY");
     unit_filters.Add("Collision Size Z");
     unit_filters.Add("Train Sound");
@@ -1935,8 +1935,8 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Fog Visibility");
     unit_filters.Add("Terrain Table");
     unit_filters.Add("Fly Mode");
-    unit_filters.Add("Resource Capacity");
-    unit_filters.Add("Resource Decay");
+    unit_filters.Add("Attribute Max Amount");
+    unit_filters.Add("Attribute Rot");
     unit_filters.Add("Area Effect Object Level");
     unit_filters.Add("Combat Level");
     unit_filters.Add("Interaction Mode");
@@ -2029,11 +2029,11 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Weapon Range");
     unit_filters.Add("Area Effect Range");
     unit_filters.Add("Speed of Attack");
-    unit_filters.Add("Projectile Unit");
+    unit_filters.Add("Missile ID");
     unit_filters.Add("Base Hit Chance");
     unit_filters.Add("Break off Combat");
     unit_filters.Add("Fire Missile at Frame");
-    unit_filters.Add("Sprite Displacement");
+    unit_filters.Add("Weapon Offset");
     unit_filters.Add("Area Effect Level");
     unit_filters.Add("Minimum Weapon Range");
     unit_filters.Add("Fight Sprite");
@@ -2058,12 +2058,12 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         }
     }
 
-    unit_filters.Add("Projectile Type");
-    unit_filters.Add("Smart Mode");
-    unit_filters.Add("Hit Mode");
-    unit_filters.Add("Vanish Mode");
+    unit_filters.Add("Missile Type");
+    unit_filters.Add("Targeting Type");
+    unit_filters.Add("Missile Hit Info");
+    unit_filters.Add("Missile Die Info");
     unit_filters.Add("Area Effect Specials");
-    unit_filters.Add("Projectile Arc");
+    unit_filters.Add("Ballistics Ratio");
 
     unit_filters.Add("Resource Costs");
     unit_filters.Add("Train Time");
@@ -2075,10 +2075,10 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         unit_filters.Add("Rear Attack Modifier");
         unit_filters.Add("Flank Attack Modifier");
         unit_filters.Add("Creatable Type");
-        unit_filters.Add("Total Projectiles");
-        unit_filters.Add("Max Total Projectiles");
-        unit_filters.Add("Projectile Spawning Area");
-        unit_filters.Add("Secondary Projectile Unit");
+        unit_filters.Add("Volley Fire Amount");
+        unit_filters.Add("Max Attacks in Volley");
+        unit_filters.Add("Volley Spread");
+        unit_filters.Add("Volley Missile ID");
         unit_filters.Add("Special Attack Sprite");
         unit_filters.Add("Special Ability");
         if (GenieVersion >= genie::GV_AoKB)
@@ -2117,7 +2117,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         unit_filters.Add("Annexes");
         unit_filters.Add("Transform Unit");
         unit_filters.Add("Transform Sound");
-        unit_filters.Add("Garrison Type");
+        unit_filters.Add("Garrison Units");
         unit_filters.Add("Garrison Heal Rate");
         unit_filters.Add("Garrison Repair Rate");
         unit_filters.Add("Pile Unit");
