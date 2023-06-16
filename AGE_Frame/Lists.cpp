@@ -1914,7 +1914,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Class");
     unit_filters.Add("Sprite");
     unit_filters.Add("Death / Undead Sprite");
-    unit_filters.Add("Undead Mode");
+    unit_filters.Add("Undead Flag");
     unit_filters.Add("Hit Points");
     unit_filters.Add("Line of Sight");
     unit_filters.Add("Obj Max");
@@ -1925,7 +1925,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Sort Number");
     unit_filters.Add("Can be Built on");
     unit_filters.Add("Button Pict");
-    unit_filters.Add("Hide in Editor");
+    unit_filters.Add("Hide in Scenario Editor");
     unit_filters.Add("Portrait Pict");
     unit_filters.Add("Available");
     unit_filters.Add("Placement Side Terrain x2");
@@ -1934,7 +1934,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Hill Mode");
     unit_filters.Add("Fog Visibility");
     unit_filters.Add("Terrain Table");
-    unit_filters.Add("Fly Mode");
+    unit_filters.Add("Movement Type");
     unit_filters.Add("Attribute Max Amount");
     unit_filters.Add("Attribute Rot");
     unit_filters.Add("Area Effect Object Level");
@@ -1959,7 +1959,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         unit_filters.Add("Help Page ID");
         unit_filters.Add("Hotkey ID");
         unit_filters.Add("Recyclable");
-        unit_filters.Add("Gatherable");
+        unit_filters.Add("Track as Resource");
         unit_filters.Add("Doppelganger on Death");
         unit_filters.Add("Gather Group");
         unit_filters.Add("Selection Effect");
@@ -2083,7 +2083,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         unit_filters.Add("Special Ability");
         if (GenieVersion >= genie::GV_AoKB)
         {
-            unit_filters.Add("Hero Mode");
+            unit_filters.Add("Hero Flag");
             unit_filters.Add("Garrison Sprite");
             if (isAoE2DE)
             {
@@ -2103,9 +2103,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     }
 
     unit_filters.Add("Construction Sprite");
-    unit_filters.Add("Adjacent Mode");
+    unit_filters.Add("Building Connect Flag");
     unit_filters.Add("Sprite Angle");
-    unit_filters.Add("Disappears After Built");
+    unit_filters.Add("Build and Go Away");
     unit_filters.Add("Stack Unit");
     unit_filters.Add("Foundation Terrain");
     unit_filters.Add("Old Overlay");

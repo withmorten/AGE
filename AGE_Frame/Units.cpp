@@ -88,7 +88,7 @@ void AGE_Frame::PrepUnitSearch()
             return "DG " + FormatInt(unit_ptr->DyingGraphic) + " "
                     + FormatInt(unit_ptr->UndeadGraphic);
         });
-        else if (label.compare("Undead Mode") == 0)
+        else if (label.compare("Undead Flag") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "DM " + FormatInt(unit_ptr->UndeadMode);
@@ -144,7 +144,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "PM " + FormatInt(unit_ptr->SortNumber);
         });
-        else if (label.compare("Can be Built on") == 0)
+        else if (label.compare("Can be built on") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "AM " + FormatInt(unit_ptr->CanBeBuiltOn);
@@ -154,7 +154,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "I " + FormatInt(unit_ptr->IconID);
         });
-        else if (label.compare("Hide in Editor") == 0)
+        else if (label.compare("Hide in Scenario Editor") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "HE " + FormatInt(unit_ptr->HideInEditor);
@@ -209,7 +209,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "TR " + FormatInt(unit_ptr->TerrainRestriction);
         });
-        else if (label.compare("Fly Mode") == 0)
+        else if (label.compare("Movement Type") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "FM " + FormatInt(unit_ptr->FlyMode);
@@ -279,7 +279,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "US " + FormatInt(unit_ptr->Recyclable);
         });
-        else if (label.compare("Gatherable") == 0)
+        else if (label.compare("Track as Resource") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "IG " + FormatInt(unit_ptr->EnableAutoGather);
@@ -777,7 +777,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF70 "U28 " + FormatInt(unit_ptr->Tribe_Combat.CreatableType);
         });
-        else if (label.compare("Hero Mode") == 0)
+        else if (label.compare("Hero Flag") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF70 "HM " + FormatInt(unit_ptr->Tribe_Combat.HeroMode);
@@ -885,7 +885,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF80 "SG " + FormatInt(unit_ptr->Tribe_Building.SnowGraphicID);
         });
-        else if (label.compare("Adjacent Mode") == 0)
+        else if (label.compare("Building Connect Flag") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "AM " + FormatInt(unit_ptr->Tribe_Building.AdjacentMode);
@@ -895,7 +895,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return UF80 "GA " + FormatInt(unit_ptr->Tribe_Building.GraphicsAngle);
         });
-        else if (label.compare("Disappears After Built") == 0)
+        else if (label.compare("Build and Go Away") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF80 "DB " + FormatInt(unit_ptr->Tribe_Building.DisappearsWhenBuilt);
@@ -4056,30 +4056,30 @@ void AGE_Frame::CreateUnitControls()
     Units_Disabled_CheckBox = new LinkedCheckBox(Units_Scroller, "Disabled *", Units_Disabled);
     Units_UndeadMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
     Units_UndeadMode->SetToolTip("After 1st dying sprite:\n0   Transform into dead unit\n1   Show undead sprite");
-    Units_UndeadMode_CheckBox = new LinkedCheckBox(Units_Scroller, "Undead Mode *", Units_UndeadMode);
+    Units_UndeadMode_CheckBox = new LinkedCheckBox(Units_Scroller, "Undead Flag *", Units_UndeadMode);
     Units_CanBeBuiltOn = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
     Units_CanBeBuiltOn->SetToolTip("0   Default\n1   Sprite stays at highest elevation until destination is reached\n2+ Sprite is not affected by elevation");
-    Units_CanBeBuiltOn_CheckBox = new LinkedCheckBox(Units_Scroller, "Can be Built on *", Units_CanBeBuiltOn);
+    Units_CanBeBuiltOn_CheckBox = new LinkedCheckBox(Units_Scroller, "Can be built on *", Units_CanBeBuiltOn);
     Units_HideInEditor = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
     Units_HideInEditor->SetToolTip("Possible values: 0, 1 and as boolean");
-    Units_HideInEditor_CheckBox = new LinkedCheckBox(Units_Scroller, "Hide in Editor", Units_HideInEditor);
+    Units_HideInEditor_CheckBox = new LinkedCheckBox(Units_Scroller, "Hide in Scen. Editor", Units_HideInEditor);
     Units_FlyMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
     Units_FlyMode->SetToolTip("Controls sprite altitude when teleporting\n0   Stay on ground\n1   Sprite appear higher than the shadow");
-    Units_FlyMode_CheckBox = new LinkedCheckBox(Units_Scroller, "Fly Mode *", Units_FlyMode);
+    Units_FlyMode_CheckBox = new LinkedCheckBox(Units_Scroller, "Movement Type *", Units_FlyMode);
     Units_Recyclable = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
     Units_Recyclable->SetToolTip("Unselectable\nNot scanned but set to 1 for class 11\nCan change during gameplay");
     Units_Recyclable_CheckBox = new LinkedCheckBox(Units_Scroller, "Recyclable *", Units_Recyclable);
     Units_TrackAsResource = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
-    Units_TrackAsResource->SetToolTip("Track as Resource\nAllows automatic gathering and handles fog visibility");
-    Units_TrackAsResource_CheckBox = new LinkedCheckBox(Units_Scroller, "Can be Gathered *", Units_TrackAsResource);
+    Units_TrackAsResource->SetToolTip("Can be gathered\nAllows automatic gathering and handles fog visibility");
+    Units_TrackAsResource_CheckBox = new LinkedCheckBox(Units_Scroller, "Track as Resource *", Units_TrackAsResource);
     Units_HeroMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
-    Units_HeroMode_CheckBox = new LinkedCheckBox(Units_Scroller, "Hero Mode", Units_HeroMode);
+    Units_HeroMode_CheckBox = new LinkedCheckBox(Units_Scroller, "Hero Flag", Units_HeroMode);
     Units_AdjacentMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
     Units_AdjacentMode->SetToolTip("0   Default\n1   Adjacent buildings can change sprite of this unit\nThis changes the sprite angle");
-    Units_AdjacentMode_CheckBox = new LinkedCheckBox(Units_Scroller, "Adjacent Mode *", Units_AdjacentMode);
+    Units_AdjacentMode_CheckBox = new LinkedCheckBox(Units_Scroller, "Bldg. Connect Flag *", Units_AdjacentMode);
     Units_DisappearsWhenBuilt = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
     Units_DisappearsWhenBuilt->SetToolTip("Useful for stack unit placement\n0   Default\n1   Makes the building disappear when built");
-    Units_BuildAndVanish_CheckBox = new LinkedCheckBox(Units_Scroller, "Built: Vanishes *", Units_DisappearsWhenBuilt);
+    Units_BuildAndVanish_CheckBox = new LinkedCheckBox(Units_Scroller, "Build and Go Away *", Units_DisappearsWhenBuilt);
 
     Units_SortNumber = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_SortNumber->SetToolTip("Units with low sort numbers are drawn last\n0   Can be placed on top of other units in scenario editor\n5   Cannot be placed on top of other units in scenario editor");
