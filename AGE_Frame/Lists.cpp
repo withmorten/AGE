@@ -1931,19 +1931,19 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Placement Side Terrain x2");
     unit_filters.Add("Placement Terrain x2");
     unit_filters.Add("Clearance Size XY");
-    unit_filters.Add("Hill Mode");
-    unit_filters.Add("Fog Visibility");
+    unit_filters.Add("Elevation Flag");
+    unit_filters.Add("Fog Flag");
     unit_filters.Add("Terrain Table");
     unit_filters.Add("Movement Type");
     unit_filters.Add("Attribute Max Amount");
     unit_filters.Add("Attribute Rot");
     unit_filters.Add("Area Effect Object Level");
     unit_filters.Add("Combat Level");
-    unit_filters.Add("Interaction Mode");
-    unit_filters.Add("Minimap Mode");
+    unit_filters.Add("Select Level");
+    unit_filters.Add("Map Draw Level");
     unit_filters.Add("Interface Kind");
     unit_filters.Add("Multiple Attribute Mode");
-    unit_filters.Add("Minimap Color");
+    unit_filters.Add("Map Color");
     unit_filters.Add("Resource Storages");
     unit_filters.Add("Damage Sprite Count");
     unit_filters.Add("Damage Sprites");
@@ -1960,8 +1960,8 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         unit_filters.Add("Hotkey ID");
         unit_filters.Add("Recyclable");
         unit_filters.Add("Track as Resource");
-        unit_filters.Add("Doppelganger on Death");
-        unit_filters.Add("Gather Group");
+        unit_filters.Add("Create Doppleganger on Death");
+        unit_filters.Add("Resource Group");
         unit_filters.Add("Selection Effect");
         unit_filters.Add("Editor Selection Color");
         unit_filters.Add("Selection Size XY");
@@ -1979,7 +1979,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
                     unit_filters.Add("Disabled");
                     if (GenieVersion >= genie::GV_TC)
                     {
-                        unit_filters.Add("Trait");
+                        unit_filters.Add("Object Flags");
                         unit_filters.Add("Civilization");
                         if (GenieVersion >= genie::GV_SWGB)
                         {
@@ -2014,7 +2014,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     unit_filters.Add("Search Radius");
     unit_filters.Add("Work Rate");
     unit_filters.Add("Drop Sites");
-    unit_filters.Add("Task Swap Group");
+    unit_filters.Add("Task by Group");
     unit_filters.Add("Attack Sound");
     unit_filters.Add("Move Sound");
     unit_filters.Add("Run Pattern");

@@ -194,12 +194,12 @@ void AGE_Frame::PrepUnitSearch()
             return "ER " + FormatFloat(unit_ptr->ClearanceSizeX) + " "
                     + FormatFloat(unit_ptr->ClearanceSizeY);
         });
-        else if (label.compare("Hill Mode") == 0)
+        else if (label.compare("Elevation Flag") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "HM " + FormatInt(unit_ptr->HillMode);
         });
-        else if (label.compare("Fog Visibility") == 0)
+        else if (label.compare("Fog Flag") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "VF " + FormatInt(unit_ptr->FogVisibility);
@@ -234,12 +234,12 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "U2 " + FormatInt(unit_ptr->CombatLevel);
         });
-        else if (label.compare("Interaction Mode") == 0)
+        else if (label.compare("Select Level") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "IM " + FormatInt(unit_ptr->InteractionMode);
         });
-        else if (label.compare("Minimap Mode") == 0)
+        else if (label.compare("Map Draw Level") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "MM " + FormatInt(unit_ptr->MinimapMode);
@@ -254,7 +254,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "U3A " + FormatFloat(unit_ptr->MultipleAttributeMode);
         });
-        else if (label.compare("Minimap Color") == 0)
+        else if (label.compare("Map Color") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "MC " + FormatInt(unit_ptr->MinimapColor);
@@ -284,12 +284,12 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "IG " + FormatInt(unit_ptr->EnableAutoGather);
         });
-        else if (label.compare("Doppelganger on Death") == 0)
+        else if (label.compare("Create Doppleganger on Death") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "DD " + FormatInt(unit_ptr->CreateDoppelgangerOnDeath);
         });
-        else if (label.compare("Gather Group") == 0)
+        else if (label.compare("Resource Group") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "GG " + FormatInt(unit_ptr->ResourceGatherGroup);
@@ -309,7 +309,7 @@ void AGE_Frame::PrepUnitSearch()
         {
             return "OC " + FormatInt(unit_ptr->ObstructionClass);
         });
-        else if (label.compare("Trait") == 0)
+        else if (label.compare("Object Flags") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return "A " + FormatInt(unit_ptr->Trait);
@@ -527,7 +527,7 @@ void AGE_Frame::PrepUnitSearch()
 
             return UF40 name;
         });
-        else if (label.compare("Task Swap Group") == 0)
+        else if (label.compare("Task by Group") == 0)
         UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
         {
             return UF40 "VM " + FormatInt(unit_ptr->Action.TaskSwapGroup);
@@ -3586,28 +3586,28 @@ void AGE_Frame::CreateUnitControls()
     Units_PlacementSideTerrain_Text = new SolidText(Units_Scroller, " Placement Side Terrains *");
     Units_PlacementTerrain_Text = new SolidText(Units_Scroller, " Placement Terrains");
     Units_ClearanceSize_Text = new SolidText(Units_Scroller, " Clearance Size XY");
-    Units_HillMode_Text = new SolidText(Units_Scroller, " Hill Mode *");
+    Units_HillMode_Text = new SolidText(Units_Scroller, " Elevation Flag *");
     Units_TerrainRestriction_Text = new SolidText(Units_Scroller, " Terrain Table *");
     Units_ResourceCapacity_Text = new SolidText(Units_Scroller, " Attr. Max Amount");
     Units_ResourceDecay_Text = new SolidText(Units_Scroller, " Attribute Rot *");
     Units_BlastDefenseLevel_Text = new SolidText(Units_Scroller, " Area Effect Object Level *");
     Units_CombatLevel_Text = new SolidText(Units_Scroller, " Combat Level *");
-    Units_InteractionMode_Text = new SolidText(Units_Scroller, " Interaction Mode *");
-    Units_MinimapMode_Text = new SolidText(Units_Scroller, " Minimap Mode *");
+    Units_InteractionMode_Text = new SolidText(Units_Scroller, " Select Level *");
+    Units_MinimapMode_Text = new SolidText(Units_Scroller, " Map Draw Level *");
     Units_InterfaceKind_Text = new SolidText(Units_Scroller, " Interface Kind *");
     Units_MultipleAttributeMode_Text = new SolidText(Units_Scroller, " Attribute Mode *");
-    Units_MinimapColor_Text = new SolidText(Units_Scroller, " Minimap Color *");
+    Units_MinimapColor_Text = new SolidText(Units_Scroller, " Map Color *");
     Units_LanguageDLLHelp_Text = new SolidText(Units_Scroller, " Help String ID *");
     Units_LanguageDLLConverter_Text[0] = new SolidText(Units_Scroller, " Help Converter *");
     Units_LanguageDLLConverter_Text[1] = new SolidText(Units_Scroller, " Help Page Converter *");
     Units_LanguageDLLHotKeyText_Text = new SolidText(Units_Scroller, " Help Page ID *");
     Units_HotKey_Text = new SolidText(Units_Scroller, " Hotkey ID *");
-    Units_CreateDoppelgangerOnDeath_Text = new SolidText(Units_Scroller, " Doppelganger *");
-    Units_ResourceGroup_Text = new SolidText(Units_Scroller, " Gather Group *");
+    Units_CreateDoppelgangerOnDeath_Text = new SolidText(Units_Scroller, " Doppleganger *");
+    Units_ResourceGroup_Text = new SolidText(Units_Scroller, " Resource Group *");
     Units_OcclusionMode_Text = new SolidText(Units_Scroller, " Occlusion Mode *");
     Units_ObstructionType_Text = new SolidText(Units_Scroller, " Obstruction Type *");
     Units_ObstructionClass_Text = new SolidText(Units_Scroller, " Blockage Class *");
-    Units_Trait_Text = new SolidText(Units_Scroller, " Unit Trait *");
+    Units_Trait_Text = new SolidText(Units_Scroller, " Object Flags *");
     Units_Civ_Text = new SolidText(Units_Scroller, " Civilization");
     Units_SelectionEffect_Text = new SolidText(Units_Scroller, " Selection Effect *");
     Units_EditorSelectionColour_Text = new SolidText(Units_Scroller, " Editor Select Color");
@@ -3653,7 +3653,7 @@ void AGE_Frame::CreateUnitControls()
     Units_SearchRadius_Text = new SolidText(Units_Scroller, " Search Radius");
     Units_WorkRate_Text = new SolidText(Units_Scroller, " Work Rate");
     Units_DropSite_Text = new SolidText(Units_Scroller, " Drop Sites *");
-    Units_TaskSwapGroup_Text = new SolidText(Units_Scroller, " Task Swap Group *");
+    Units_TaskSwapGroup_Text = new SolidText(Units_Scroller, " Task by Group *");
     Units_AttackSound_Text = new SolidText(Units_Scroller, " Attack Sound");
     Units_MoveSound_Text = new SolidText(Units_Scroller, " Move Sound");
     Units_Exists_Text = new SolidText(Units_Scroller, " Exists");
@@ -4085,25 +4085,25 @@ void AGE_Frame::CreateUnitControls()
     Units_SortNumber->SetToolTip("Units with low sort numbers are drawn last\n0   Can be placed on top of other units in scenario editor\n5   Cannot be placed on top of other units in scenario editor");
     Units_HillMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_HillMode->SetToolTip("0   No restriction\n1   Cannot place on corners of hills\n2   Can only place on flat land\n3   Allows one elevation difference");
-    Units_FogVisibility_Text = new SolidText(Units_Scroller, " Fog Visibility *");
+    Units_FogVisibility_Text = new SolidText(Units_Scroller, " Fog Flag *");
     Units_FogVisibility = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_FogVisibility->SetToolTip("0   Not visible\n1   Always visible\n2   Visible if alive\n3   Inverted visibility\n4   Check doppelganger");
     Units_CombatLevel = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_CombatLevel->SetToolTip("Mainly used in trigger conditions\n0   None\n1   Base\n2   Building\n3   Civilian\n4   Soldier\n5   Priest\n");
     Units_InteractionMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_InteractionMode->SetToolTip("Select Level\n0   None. No interaction.\n"
+    Units_InteractionMode->SetToolTip("0   None. No interaction.\n"
         "1   Object. Can pick.\n2   Resource. Can select, unable to attack or move.\n"
         "3   Building. Can select and attack, unable to move.\n4   Unit. Can select, attack and move.");
     Units_MinimapMode = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_MinimapMode->SetToolTip("Draw Level\n0   None. No dot on minimap.\n"
+    Units_MinimapMode->SetToolTip("0   None. No dot on minimap.\n"
         "1   Unit. Square dot turning white when selected.\n"
         "2   Building. Diamond dot turning white when selected.\n"
         "3   Terrain. Diamond dot keeping color.\n4   Terrain. Larger spot, not following the unit,\n"
         "      no blinking when attacked, everyone can see it.");
     Units_MinimapColor = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_MinimapColor->SetToolTip("Minimap modes 3 and 4 allow this to work");
+    Units_MinimapColor->SetToolTip("Map draw levels 3 and 4 allow this to work");
     Units_CreateDoppelgangerOnDeath = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_CreateDoppelgangerOnDeath->SetToolTip("Create doppelganger on death.\n"
+    Units_CreateDoppelgangerOnDeath->SetToolTip("Create Doppleganger on Death\n"
         "0   None\n1   After death\n2   When dying");
     Units_ResourceGroup = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_ResourceGroup->SetToolTip("Visible resource group\nNeeds to be gatherable\n"
@@ -4128,7 +4128,7 @@ void AGE_Frame::CreateUnitControls()
         "6   Board\n    Attach to another ship, resulting in takeover or sinking.");
 
     Units_Trait = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, false);
-    Units_Trait->SetToolTip("This is a byte of eight booleans\nYou can combine these attributes");
+    Units_Trait->SetToolTip("This is a byte of eight booleans\nYou can combine these flags");
     Units_Trait_Grid = new wxBoxSizer(wxHORIZONTAL);
     for(size_t loop = 0; loop < 8; ++loop)
     Units_Trait_CheckBox[loop] = new wxCheckBox(Units_Scroller, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(15, -1));
