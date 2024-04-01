@@ -1,9 +1,6 @@
 workspace "AGE"
-	configurations
-	{
-		"Debug",
-		"Release",
-	}
+	configurations { "Debug", "Release" }
+	platforms { "x86", "x64" }
 
 	startproject "AGE"
 
@@ -36,7 +33,7 @@ project "AGE"
 	kind "WindowedApp"
 	language "C++"
 	targetname "AdvancedGenieEditor3"
-	targetdir "bin/%{cfg.buildcfg}"
+	targetdir "bin/%{cfg.platform}/%{cfg.buildcfg}"
 	targetextension ".exe"
 	dpiawareness "HighPerMonitor"
 
@@ -47,17 +44,33 @@ project "AGE"
 
 	includedirs { "../../vendor/wxWidgets-3.1.4/include" }
 	includedirs { "../../vendor/wxWidgets-3.1.4/include/msvc" }
-	includedirs { "../../vendor/wxWidgets-3.1.4/lib/vc_lib/mswu" }
-	libdirs { "../../vendor/wxWidgets-3.1.4/lib/vc_lib" }
+	
+	filter { "platforms:x86" }
+		includedirs { "../../vendor/wxWidgets-3.1.4/lib/vc_lib/mswu" }
+		libdirs { "../../vendor/wxWidgets-3.1.4/lib/vc_lib" }
+	filter { "platforms:x64" }
+		includedirs { "../../vendor/wxWidgets-3.1.4/lib/vc_x64_lib/mswu" }
+		libdirs { "../../vendor/wxWidgets-3.1.4/lib/vc_x64_lib" }
+	filter { }
 
 	includedirs { "../../vendor/SFML/include" }
-	libdirs { "../../vendor/SFML/lib" }
+	
+	filter { "platforms:x86" }
+		libdirs { "../../vendor/SFML/lib" }
+	filter { "platforms:x64" }
+		libdirs { "../../vendor/SFML/lib64" }
+	filter { }
 
 	includedirs { "../../vendor/boost_1_80_0" }
-	libdirs { "../../vendor/boost_1_80_0/lib32-msvc-14.3" }
+	
+	filter { "platforms:x86" }
+		libdirs { "../../vendor/boost_1_80_0/lib32-msvc-14.3" }
+	filter { "platforms:x64" }
+		libdirs { "../../vendor/boost_1_80_0/lib64-msvc-14.3" }
+	filter { }
 
 	dependson { "genieutils" }
-	libdirs { "build/obj/%{cfg.buildcfg}/genieutils" }
+	libdirs { "build/obj/%{cfg.platform}/%{cfg.buildcfg}/genieutils" }
 	links { "genieutils" }
 	includedirs { "../../genieutils/include" }
 
@@ -86,7 +99,7 @@ project "genieutils"
 	kind "StaticLib"
 	language "C++"
 	targetname "genieutils"
-	targetdir "build/obj/%{cfg.buildcfg}/genieutils"
+	targetdir "build/obj/%{cfg.platform}/%{cfg.buildcfg}/genieutils"
 	targetextension ".lib"
 
 	includedirs { "../../vendor/win-iconv" }
