@@ -1165,7 +1165,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
                 }
                 GenieVersion = genie::GV_LatestDE2;
                 // Remember to update this version number!
-                dataset->FileVersion = "VER 7.7";
+                dataset->FileVersion = "VER 7.8";
             }
             else if(GenieVersion <= genie::GV_LatestTap && genie::GV_Tapsa <= GenieVersion)
             {
