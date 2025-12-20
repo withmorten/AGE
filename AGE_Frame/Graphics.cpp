@@ -3,8 +3,8 @@
 #include "../Loaders.h"
 
 const wxString MirrorHelp = "Angle count clockwise from east after mirroring starts.\n"
-    "Angles before south are mirrored too.\nFrom the graphics scanner, if the graphic mirror is > 0,\n"
-    "mirror = (angle_count >> 1) + (angle_count >> 2)";
+"Angles before south are mirrored too.\nFrom the graphics scanner, if the graphic mirror is > 0,\n"
+"mirror = (angle_count >> 1) + (angle_count >> 2)";
 
 std::vector<std::function<wxString(genie::Graphic*)>> GraphicFilterFunctions;
 bool UseGraphicName;
@@ -18,7 +18,7 @@ wxString AGE_Frame::GetGraphicName(int index, bool filter)
     wxString name;
     if (filter)
     {
-        for (auto &f : GraphicFilterFunctions)
+        for (auto& f : GraphicFilterFunctions)
         {
             name += f(&dataset->Graphics[index]) + ", ";
         }
@@ -50,144 +50,144 @@ void AGE_Frame::PrepGraphicSearch()
             continue;
         }
         else if (label.compare("Particle Effect Name") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "PE " + graphic_ptr->ParticleEffectName;
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "PE " + graphic_ptr->ParticleEffectName;
+                });
         else if (label.compare("Sprite") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "SLP " + FormatInt(graphic_ptr->SLP);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "SLP " + FormatInt(graphic_ptr->SLP);
+                });
         else if (label.compare("Disabler") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "IL " + FormatInt(graphic_ptr->IsLoaded);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "IL " + FormatInt(graphic_ptr->IsLoaded);
+                });
         else if (label.compare("Old Color Flag") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "CF " + FormatInt(graphic_ptr->OldColorFlag);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "CF " + FormatInt(graphic_ptr->OldColorFlag);
+                });
         else if (label.compare("Layer") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "L " + FormatInt(graphic_ptr->Layer);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "L " + FormatInt(graphic_ptr->Layer);
+                });
         else if (label.compare("Player Color Forcer") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "PC " + FormatInt(graphic_ptr->PlayerColor);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "PC " + FormatInt(graphic_ptr->PlayerColor);
+                });
         else if (label.compare("Transparent Picking") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "TP " + FormatInt(graphic_ptr->TransparentSelection);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "TP " + FormatInt(graphic_ptr->TransparentSelection);
+                });
         else if (label.compare("Sound") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "S " + FormatInt(graphic_ptr->SoundID);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "S " + FormatInt(graphic_ptr->SoundID);
+                });
         else if (label.compare("Wave Works Sound") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "WS " + FormatInt(graphic_ptr->WwiseSoundID);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "WS " + FormatInt(graphic_ptr->WwiseSoundID);
+                });
         else if (label.compare("Coordinates") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "xy " + FormatInt(graphic_ptr->Coordinates[0])
-                + " " + FormatInt(graphic_ptr->Coordinates[1])
-                + " " + FormatInt(graphic_ptr->Coordinates[2])
-                + " " + FormatInt(graphic_ptr->Coordinates[3]);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "xy " + FormatInt(graphic_ptr->Coordinates[0])
+                        + " " + FormatInt(graphic_ptr->Coordinates[1])
+                        + " " + FormatInt(graphic_ptr->Coordinates[2])
+                        + " " + FormatInt(graphic_ptr->Coordinates[3]);
+                });
         else if (label.compare("Delta Count") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "DC " + FormatInt(graphic_ptr->Deltas.size());
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "DC " + FormatInt(graphic_ptr->Deltas.size());
+                });
         else if (label.compare("Angle Sounds Used") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "U " + FormatInt(graphic_ptr->AngleSoundsUsed);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "U " + FormatInt(graphic_ptr->AngleSoundsUsed);
+                });
         else if (label.compare("Angle Sounds") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            wxString name;
-            if (graphic_ptr->AngleSoundsUsed)
-            {
-                name = "AS " + FormatInt(graphic_ptr->AngleSounds[0].SoundID)
-                    + ", AS " + FormatInt(graphic_ptr->AngleSounds[0].SoundID2)
-                    + ", AS " + FormatInt(graphic_ptr->AngleSounds[0].SoundID3);
-            }
-            else
-            {
-                name = "None";
-            }
-            return name;
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    wxString name;
+                    if (graphic_ptr->AngleSoundsUsed)
+                    {
+                        name = "AS " + FormatInt(graphic_ptr->AngleSounds[0].SoundID)
+                            + ", AS " + FormatInt(graphic_ptr->AngleSounds[0].SoundID2)
+                            + ", AS " + FormatInt(graphic_ptr->AngleSounds[0].SoundID3);
+                    }
+                    else
+                    {
+                        name = "None";
+                    }
+                    return name;
+                });
         else if (label.compare("Angle Wave Works Sounds") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            wxString name;
-            if (graphic_ptr->AngleSoundsUsed)
-            {
-                name = "AWS " + FormatInt(graphic_ptr->AngleSounds[0].WwiseSoundID)
-                    + ", AWS " + FormatInt(graphic_ptr->AngleSounds[0].WwiseSoundID2)
-                    + ", AWS " + FormatInt(graphic_ptr->AngleSounds[0].WwiseSoundID3);
-            }
-            else
-            {
-                name = "None";
-            }
-            return name;
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    wxString name;
+                    if (graphic_ptr->AngleSoundsUsed)
+                    {
+                        name = "AWS " + FormatInt(graphic_ptr->AngleSounds[0].WwiseSoundID)
+                            + ", AWS " + FormatInt(graphic_ptr->AngleSounds[0].WwiseSoundID2)
+                            + ", AWS " + FormatInt(graphic_ptr->AngleSounds[0].WwiseSoundID3);
+                    }
+                    else
+                    {
+                        name = "None";
+                    }
+                    return name;
+                });
         else if (label.compare("Frames per Angle") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "FC " + FormatInt(graphic_ptr->FrameCount);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "FC " + FormatInt(graphic_ptr->FrameCount);
+                });
         else if (label.compare("Angle Count") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "AC " + FormatInt(graphic_ptr->AngleCount);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "AC " + FormatInt(graphic_ptr->AngleCount);
+                });
         else if (label.compare("New Speed") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "SM " + FormatFloat(graphic_ptr->SpeedMultiplier);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "SM " + FormatFloat(graphic_ptr->SpeedMultiplier);
+                });
         else if (label.compare("Animation Duration") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "AD " + FormatFloat(graphic_ptr->AnimationDuration);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "AD " + FormatFloat(graphic_ptr->AnimationDuration);
+                });
         else if (label.compare("Replay Delay") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "RD " + FormatFloat(graphic_ptr->ReplayDelay);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "RD " + FormatFloat(graphic_ptr->ReplayDelay);
+                });
         else if (label.compare("Sequence Type") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "ST " + FormatInt(graphic_ptr->SequenceType);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "ST " + FormatInt(graphic_ptr->SequenceType);
+                });
         else if (label.compare("Mirroring Mode") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "M " + FormatInt(graphic_ptr->MirroringMode);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "M " + FormatInt(graphic_ptr->MirroringMode);
+                });
         else if (label.compare("Old Editor Flag") == 0)
-            GraphicFilterFunctions.push_back([this](genie::Graphic *graphic_ptr)
-        {
-            return "EF " + FormatInt(graphic_ptr->EditorFlag);
-        });
+            GraphicFilterFunctions.push_back([this](genie::Graphic* graphic_ptr)
+                {
+                    return "EF " + FormatInt(graphic_ptr->EditorFlag);
+                });
     }
 }
 
-void AGE_Frame::OnGraphicsSearch(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsSearch(wxCommandEvent& event)
 {
     How2List = ListMode::SEARCH;
     ListGraphics(false);
@@ -208,28 +208,28 @@ void AGE_Frame::InitGraphics(bool all)
     PrepGraphicSearch();
 
     Graphics_Graphics_ListV->Sweep();
-    if(all)
+    if (all)
     {
         graphic_names.Clear();
         graphic_names.Alloc(1 + dataset->Graphics.size());
         graphic_names.Add("-1 - None");
     }
 
-    for(size_t loop = 0; loop < dataset->Graphics.size(); ++loop)
+    for (size_t loop = 0; loop < dataset->Graphics.size(); ++loop)
     {
-        wxString Name = FormatInt(loop)+" - "+GetGraphicName(loop, true);
-        if(SearchMatches(" " + Name.Lower() + " "))
+        wxString Name = FormatInt(loop) + " - " + GetGraphicName(loop, true);
+        if (SearchMatches(" " + Name.Lower() + " "))
         {
             Graphics_Graphics_ListV->names.Add(Name);
             Graphics_Graphics_ListV->indexes.push_back(loop);
         }
-        if(all) graphic_names.Add(FormatInt(loop)+" - "+GetGraphicName(loop));
+        if (all) graphic_names.Add(FormatInt(loop) + " - " + GetGraphicName(loop));
     }
 
     RefreshList(Graphics_Graphics_ListV, &GraphicIDs);
     if (all)
     {
-        for (AGEComboBox *list : GraphicComboBoxList)
+        for (AGEComboBox* list : GraphicComboBoxList)
         {
             list->Flash();
         }
@@ -238,15 +238,15 @@ void AGE_Frame::InitGraphics(bool all)
     SearchAnd = ExcludeAnd = false;
 }
 
-void AGE_Frame::OnGraphicSelect(wxCommandEvent &event)
+void AGE_Frame::OnGraphicSelect(wxCommandEvent& event)
 {
     size_t selections = Graphics_Graphics_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
-    for (AGETextCtrl *box : uiGroupGraphic) box->clear();
+    for (AGETextCtrl* box : uiGroupGraphic) box->clear();
     Graphics_ID->clear();
     getSelectedItems(selections, Graphics_Graphics_ListV, GraphicIDs);
 
-    genie::Graphic *GraphicPointer = 0;
+    genie::Graphic* GraphicPointer = 0;
     for (size_t sel = selections; sel-- > 0;)
     {
         if (GenieVersion >= genie::GV_AoE && !dataset->GraphicPointers[GraphicIDs[sel]]) continue;
@@ -302,7 +302,7 @@ void AGE_Frame::OnGraphicSelect(wxCommandEvent &event)
         gallery.reload(); // Force reloading delta graphics.
     }
     setbearing = 1u;
-    for (AGETextCtrl *box : uiGroupGraphic) box->update();
+    for (AGETextCtrl* box : uiGroupGraphic) box->update();
 
     Graphics_ID->refill();
     Deltas_Add->Enable(selections);
@@ -311,16 +311,16 @@ void AGE_Frame::OnGraphicSelect(wxCommandEvent &event)
     if (slp_window) slp_view->Refresh();
 }
 
-void AGE_Frame::CalcDrawCenter(wxWindowBase *canvas, int &centerX, int &centerY)
+void AGE_Frame::CalcDrawCenter(wxWindowBase* canvas, int& centerX, int& centerY)
 {
     canvas->GetClientSize(&centerX, &centerY);
     centerX *= 0.5f / slp_zoom;
     centerY *= 0.6f / slp_zoom;
 }
 
-void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
+void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent& event)
 {
-    APanel *canvas = static_cast<APanel*>(event.GetEventObject());
+    APanel* canvas = static_cast<APanel*>(event.GetEventObject());
     wxBufferedPaintDC dc(canvas);
     dc.SetBackground(slp_background_brush);
     dc.Clear();
@@ -332,21 +332,21 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
     dc.SetUserScale(slp_zoom, slp_zoom);
     int centerX, centerY, text_pos = 5 / slp_zoom;
     CalcDrawCenter(canvas, centerX, centerY);
-    if(DrawTerrain && tileSLP.bitmap.IsOk())
+    if (DrawTerrain && tileSLP.bitmap.IsOk())
     {
         dc.DrawBitmap(tileSLP.bitmap, centerX - tileSLP.xpos, centerY - tileSLP.ypos, true);
     }
     unsigned c8 = unsigned((bearing + 0.392699f) * 1.27324f) % 8u;
     unsigned c16 = unsigned((bearing + 0.19635f) * 2.54648f) % 16u;
-    dc.DrawLabel("Angle "+FormatInt(c8)+"/8 "+FormatInt(c16)+"/16", wxRect((centerX << 1) - 80, text_pos, 80, 20));
-    if(slp_extra_info.size())
+    dc.DrawLabel("Angle " + FormatInt(c8) + "/8 " + FormatInt(c16) + "/16", wxRect((centerX << 1) - 80, text_pos, 80, 20));
+    if (slp_extra_info.size())
     {
         dc.DrawLabel(slp_extra_info, wxRect(text_pos, text_pos * 6, 100, 40));
         slp_extra_info = "";
     }
-    if(6 == TabBar_Main->GetSelection())
+    if (6 == TabBar_Main->GetSelection())
     {
-        if(currentDisplay != SHOW::GRAPHIC)
+        if (currentDisplay != SHOW::GRAPHIC)
         {
             currentDisplay = SHOW::GRAPHIC;
             gallery.reload();
@@ -358,9 +358,9 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
             slp_selection->Enable(false);
         }
     }
-    else if(4 == TabBar_Main->GetSelection())
+    else if (4 == TabBar_Main->GetSelection())
     {
-        if(currentDisplay != SHOW::UNIT)
+        if (currentDisplay != SHOW::UNIT)
         {
             currentDisplay = SHOW::UNIT;
             museum.reload();
@@ -373,123 +373,123 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
         }
     }
     size_t spriteMemoryInUse = 0u;
-    if(currentDisplay == SHOW::GRAPHIC)
+    if (currentDisplay == SHOW::GRAPHIC)
     {
         if (gallery.datID >= dataset->Graphics.size() || dataset->Graphics[gallery.datID].FrameCount == 0)
         {
             dc.DrawLabel("No frames", wxRect(text_pos, text_pos, 100, 40));
             return;
         }
-        if(gallery.slpID != dataset->Graphics[gallery.datID].SLP) // SLP changed
+        if (gallery.slpID != dataset->Graphics[gallery.datID].SLP) // SLP changed
         {
             setbearing = 1u;
             bool has_base = initArt(gallery, gallery.datID);
             // SLP cache reduces reloading times.
             gallery.deltas.clear();
             // Load possible delta graphics.
-            if(ShowDeltas)
-            for(const genie::GraphicDelta &delta: dataset->Graphics[gallery.datID].Deltas)
-            {
-                AGE_SLP art;
-                if(delta.GraphicID < dataset->Graphics.size())
+            if (ShowDeltas)
+                for (const genie::GraphicDelta& delta : dataset->Graphics[gallery.datID].Deltas)
                 {
-                    if(initArt(art, delta.GraphicID))
+                    AGE_SLP art;
+                    if (delta.GraphicID < dataset->Graphics.size())
                     {
-                        gallery.angles = std::max(gallery.angles, art.angles);
+                        if (initArt(art, delta.GraphicID))
+                        {
+                            gallery.angles = std::max(gallery.angles, art.angles);
+                        }
+                        else continue;
+                    }
+                    else if (has_base)
+                    {
+                        initArt(art, gallery.datID);
                     }
                     else continue;
+                    art.xdelta = delta.OffsetX;
+                    art.ydelta = delta.OffsetY;
+                    SetDisplayBearings(art, delta);
+                    gallery.deltas.emplace(std::move(std::make_pair(0, std::move(art))));
                 }
-                else if(has_base)
-                {
-                    initArt(art, gallery.datID);
-                }
-                else continue;
-                art.xdelta = delta.OffsetX;
-                art.ydelta = delta.OffsetY;
-                SetDisplayBearings(art, delta);
-                gallery.deltas.emplace(std::move(std::make_pair(0, std::move(art))));
-            }
         }
         DrawGraphics(dc, gallery, centerX, centerY);
         spriteMemoryInUse = gallery.getMemoryInUse();
     }
-    else if(currentDisplay == SHOW::UNIT)
+    else if (currentDisplay == SHOW::UNIT)
     {
         if (UnitCivID >= dataset->Civs.size())
         {
             return;
         }
         Pixels collision, clearance, selection;
-        if(UnitIDs.size())
+        if (UnitIDs.size())
         {
             wxPen pen(wxColour(255 - ViewBackgroundColor.Red(), 255 - ViewBackgroundColor.Green(), 255 - ViewBackgroundColor.Blue()));
             dc.SetPen(pen);
-            genie::Unit *unit = &dataset->Civs[UnitCivID].Units[UnitIDs.front()];
-            if(DrawCollisionShape)
+            genie::Unit* unit = &dataset->Civs[UnitCivID].Units[UnitIDs.front()];
+            if (DrawCollisionShape)
             {
                 tileToPixels(unit->CollisionSize.x, unit->CollisionSize.y, collision, centerX, centerY);
                 dc.DrawLine(collision.x1, collision.y1, collision.x4, collision.y4);
                 dc.DrawLine(collision.x3, collision.y3, collision.x4, collision.y4);
             }
-            if(DrawClearanceShape)
+            if (DrawClearanceShape)
             {
                 tileToPixels(unit->ClearanceSize.first, unit->ClearanceSize.second, clearance, centerX, centerY);
                 dc.DrawLine(clearance.x1, clearance.y1, clearance.x4, clearance.y4);
                 dc.DrawLine(clearance.x3, clearance.y3, clearance.x4, clearance.y4);
             }
-            if(DrawOutline)
+            if (DrawOutline)
             {
                 tileToPixels(unit->OutlineSize.x, unit->OutlineSize.y, selection, centerX, centerY);
                 dc.DrawLine(selection.x1, selection.y1, selection.x4, selection.y4);
                 dc.DrawLine(selection.x3, selection.y3, selection.x4, selection.y4);
             }
         }
-        if(UnitIDs.size() == 0 || museum.datID >= dataset->Graphics.size())
+        if (UnitIDs.size() == 0 || museum.datID >= dataset->Graphics.size())
         {
             dc.DrawLabel("No graphic " + FormatInt(museum.datID), wxRect(text_pos, text_pos, 100, 40));
             return;
         }
-        if(museum.slpID != dataset->Graphics[museum.datID].SLP) // SLP changed
+        if (museum.slpID != dataset->Graphics[museum.datID].SLP) // SLP changed
         {
             setbearing = 1u;
             initArt(museum, museum.datID);
             museum.deltas.clear();
-            if(ShowDeltas)
+            if (ShowDeltas)
             {
                 unsigned int unitID = UnitIDs.front();
                 // Load possible delta and annex graphics.
-                if(dataset->Civs[UnitCivID].Units[unitID].Type == 80)
+                if (dataset->Civs[UnitCivID].Units[unitID].Type == 80)
                 {
                     // Start drawing from head unit instead.
-                    if(ShowStack && dataset->Civs[UnitCivID].Units[unitID].Building.HeadUnit < dataset->Civs[UnitCivID].Units.size())
+                    if (ShowStack && dataset->Civs[UnitCivID].Units[unitID].Building.HeadUnit < dataset->Civs[UnitCivID].Units.size())
                         unitID = dataset->Civs[UnitCivID].Units[unitID].Building.HeadUnit;
                     // Draw this building only if it will stay up after built.
-                    if(dataset->Civs[UnitCivID].Units[unitID].Building.DisappearsWhenBuilt == 0 || !ShowStack)
+                    if (dataset->Civs[UnitCivID].Units[unitID].Building.DisappearsWhenBuilt == 0 || !ShowStack)
                     {
                         AddAnnexAndStackGraphics(unitID);
-                        if(ShowAnnexes)
-                        for(int i=0; i < 4; ++i)
-                        CalcAnnexCoords(&dataset->Civs[UnitCivID].Units[unitID].Building.Annexes[i]);
+                        if (ShowAnnexes)
+                            for (int i = 0; i < 4; ++i)
+                                CalcAnnexCoords(&dataset->Civs[UnitCivID].Units[unitID].Building.Annexes[i]);
                     }
-                    if(ShowStack && dataset->Civs[UnitCivID].Units[unitID].Building.StackUnitID < dataset->Civs[UnitCivID].Units.size())
+                    if (ShowStack && dataset->Civs[UnitCivID].Units[unitID].Building.StackUnitID < dataset->Civs[UnitCivID].Units.size())
                     {
                         unitID = dataset->Civs[UnitCivID].Units[unitID].Building.StackUnitID;
                         AddAnnexAndStackGraphics(unitID);
-                        if(ShowAnnexes)
-                        for(int i=0; i < 4; ++i)
-                        CalcAnnexCoords(&dataset->Civs[UnitCivID].Units[unitID].Building.Annexes[i]);
+                        if (ShowAnnexes)
+                            for (int i = 0; i < 4; ++i)
+                                CalcAnnexCoords(&dataset->Civs[UnitCivID].Units[unitID].Building.Annexes[i]);
                     }
                 }
                 else AddAnnexAndStackGraphics(unitID);
-                if(slp_garrison->GetValue()) // Garrison
+                if (slp_garrison->GetValue()) // Garrison
                 {
                     AddAnnexAndStackGraphics(unitID, 0, 0, 3);
                 }
-                if(slp_snow->GetValue()) // Snow
+                if (slp_snow->GetValue()) // Snow
                 {
                     AddAnnexAndStackGraphics(unitID, 0, 0, 2);
                 }
-                if(slp_dmg_unit->GetValue()) // Damage
+                if (slp_dmg_unit->GetValue()) // Damage
                 {
                     AddAnnexAndStackGraphics(unitID, 0, 0, 1);
                 }
@@ -497,26 +497,26 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
         }
         DrawGraphics(dc, museum, centerX, centerY);
         spriteMemoryInUse = museum.getMemoryInUse();
-        if(UnitIDs.size())
+        if (UnitIDs.size())
         {
-            if(DrawCollisionShape)
+            if (DrawCollisionShape)
             {
                 dc.DrawLine(collision.x1, collision.y1, collision.x2, collision.y2);
                 dc.DrawLine(collision.x3, collision.y3, collision.x2, collision.y2);
             }
-            if(DrawClearanceShape)
+            if (DrawClearanceShape)
             {
                 dc.DrawLine(clearance.x1, clearance.y1, clearance.x2, clearance.y2);
                 dc.DrawLine(clearance.x3, clearance.y3, clearance.x2, clearance.y2);
             }
-            if(DrawOutline)
+            if (DrawOutline)
             {
                 dc.DrawLine(selection.x1, selection.y1, selection.x2, selection.y2);
                 dc.DrawLine(selection.x3, selection.y3, selection.x2, selection.y2);
             }
         }
     }
-    if(DrawHot)
+    if (DrawHot)
     {
         wxPen pen = wxPen(wxColour(255, 242, 0));
         dc.SetPen(pen);
@@ -534,9 +534,9 @@ void AGE_Frame::OnDrawGraphicSLP(wxPaintEvent &event)
     }
 }
 
-bool AGE_Frame::initArt(AGE_SLP &art, unsigned graphicID)
+bool AGE_Frame::initArt(AGE_SLP& art, unsigned graphicID)
 {
-    genie::Graphic &graphic = dataset->Graphics[graphicID];
+    genie::Graphic& graphic = dataset->Graphics[graphicID];
     art.datID = graphicID;
     art.angles = graphic.AngleCount;
     art.fpa = graphic.FrameCount;
@@ -546,10 +546,10 @@ bool AGE_Frame::initArt(AGE_SLP &art, unsigned graphicID)
     art.slpID = valid ? graphic.SLP : -1;
 
     // Might wanna make this into another thread.
-    if(PlaySounds)
+    if (PlaySounds)
     {
         initSounds(art, graphic.SoundID, 0);
-        if(graphic.AngleSoundsUsed && graphic.AngleSounds.size())
+        if (graphic.AngleSoundsUsed && graphic.AngleSounds.size())
         {
             // Is it worth to figure out sounds for each angle? I think not.
             art.delays[1] = graphic.AngleSounds[0].FrameNum;
@@ -570,34 +570,34 @@ bool AGE_Frame::initArt(AGE_SLP &art, unsigned graphicID)
     return valid;
 }
 
-void AGE_Frame::initSounds(AGE_SLP &art, unsigned sound_num, size_t slot)
+void AGE_Frame::initSounds(AGE_SLP& art, unsigned sound_num, size_t slot)
 {
-    if(sound_num < dataset->Sounds.size() && dataset->Sounds[sound_num].Items.size())
+    if (sound_num < dataset->Sounds.size() && dataset->Sounds[sound_num].Items.size())
     {
         // TODO: Handle randomization, civ sounds.
-        genie::SoundItem &sound_item = dataset->Sounds[sound_num].Items[0];
-        if(LooseHD)
+        genie::SoundItem& sound_item = dataset->Sounds[sound_num].Items[0];
+        if (LooseHD)
         {
             std::string soundname = GG::LoadSound(soundfolders, sound_item.FileName, sound_item.ResourceID);
-            if("" != soundname)
+            if ("" != soundname)
             {
-                if(art.buffers[slot].loadFromFile(soundname)) return;
+                if (art.buffers[slot].loadFromFile(soundname)) return;
             }
         }
         else
         {
             const unsigned char* sounddata = GG::LoadSound(datafiles, sound_item.ResourceID);
-            if(0 != sounddata)
+            if (0 != sounddata)
             {
                 size_t size = *((uint32_t*)sounddata + 1) + 8;
-                if(art.buffers[slot].loadFromMemory(sounddata, size)) return;
+                if (art.buffers[slot].loadFromMemory(sounddata, size)) return;
             }
             else // Terrain sounds may be loose files.
             {
                 std::string soundname = GG::LoadSound(soundfolders, sound_item.FileName, sound_item.ResourceID);
-                if("" != soundname)
+                if ("" != soundname)
                 {
-                    if(art.buffers[slot].loadFromFile(soundname)) return;
+                    if (art.buffers[slot].loadFromFile(soundname)) return;
                 }
             }
         }
@@ -606,15 +606,15 @@ void AGE_Frame::initSounds(AGE_SLP &art, unsigned sound_num, size_t slot)
     art.buffers[slot] = sf::SoundBuffer();
 }
 
-void AGE_Frame::SetDisplayBearings(AGE_SLP &graphic, const genie::GraphicDelta &delta)
+void AGE_Frame::SetDisplayBearings(AGE_SLP& graphic, const genie::GraphicDelta& delta)
 {
-    if(delta.DisplayAngle != -1 && graphic.angles)
+    if (delta.DisplayAngle != -1 && graphic.angles)
     {
         float quarter = FillMissingFrames ? 1.5708f : 0.f;
         float anglesize = PI2A / graphic.angles,
             properangle = anglesize * delta.DisplayAngle - quarter;// -anglesize / 2;
         graphic.beginbearing = properangle < 0.f ? properangle + PI2A : properangle;
-            properangle += anglesize;
+        properangle += anglesize;
         graphic.endbearing = properangle < 0.f ? properangle + PI2A : properangle;
     }
     else
@@ -623,13 +623,13 @@ void AGE_Frame::SetDisplayBearings(AGE_SLP &graphic, const genie::GraphicDelta &
     }
 }
 
-void AGE_Frame::CalcAngle(AGE_SLP &graphic)
+void AGE_Frame::CalcAngle(AGE_SLP& graphic)
 {
     float result = bearing + 3.14159f / graphic.angles;
     float bearing = result > PI2A ? result - PI2A : result;
-    if(graphic.beginbearing < graphic.endbearing)
+    if (graphic.beginbearing < graphic.endbearing)
     {
-        if(graphic.beginbearing > bearing || bearing > graphic.endbearing)
+        if (graphic.beginbearing > bearing || bearing > graphic.endbearing)
         {
             graphic.startframe = graphic.frameID = -0xC000;
             return;
@@ -637,7 +637,7 @@ void AGE_Frame::CalcAngle(AGE_SLP &graphic)
     }
     else
     {
-        if(graphic.beginbearing > bearing && bearing > graphic.endbearing)
+        if (graphic.beginbearing > bearing && bearing > graphic.endbearing)
         {
             graphic.startframe = graphic.frameID = -0xC000;
             return;
@@ -647,12 +647,12 @@ void AGE_Frame::CalcAngle(AGE_SLP &graphic)
     graphic.flip = false;
     if (FillMissingFrames && graphic.mirror)
     {
-        if(angle > graphic.angles >> 1)
+        if (angle > graphic.angles >> 1)
         {
             angle = graphic.angles - angle;
             graphic.flip = true;
         }
-        else if(graphic.angles == 2)
+        else if (graphic.angles == 2)
         {
             graphic.flip = angle == 1;
             angle = 0;
@@ -662,17 +662,17 @@ void AGE_Frame::CalcAngle(AGE_SLP &graphic)
     graphic.frameID = setbearing == 2u ? graphic.fpa - 1 + graphic.startframe : graphic.startframe;
 }
 
-void AGE_Frame::DrawAngle(wxBufferedPaintDC &dc, int x, int y, int centerX, int centerY)
+void AGE_Frame::DrawAngle(wxBufferedPaintDC& dc, int x, int y, int centerX, int centerY)
 {
     dc.DrawLine(-x + centerX, -y + centerY, x + centerX, y + centerY);
     dc.DrawLine(-x + centerX, y + centerY, x + centerX, -y + centerY);
 }
 
-void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int centerX, int centerY)
+void AGE_Frame::DrawGraphics(wxBufferedPaintDC& dc, AGE_SLPs& spritemap, int centerX, int centerY)
 {
-    if(DrawAngles)
+    if (DrawAngles)
     {
-        if(spritemap.angles)
+        if (spritemap.angles)
         {
             uint16_t angles = spritemap.angles;
             float anglesize = PI2A / angles;
@@ -680,7 +680,7 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
             int x = sin(direction) * 512.f;
             int y = cos(direction) * 256.f;
             dc.DrawLine(-x + centerX, y + centerY, centerX, centerY);
-            while(--angles > 0)
+            while (--angles > 0)
             {
                 direction += anglesize;
                 x = sin(direction) * 512.f;
@@ -692,13 +692,13 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
     bool framesleft = false;
     int text_pos = 5 / slp_zoom;
     wxRect banner(text_pos, text_pos, 100, 40);
-    if(spritemap.deltas.size())
+    if (spritemap.deltas.size())
     {
         int fpms = 0x7FFF;
         wxString text = "Sprites";
-        for(std::pair<const int, AGE_SLP> &delta: spritemap.deltas)
+        for (std::pair<const int, AGE_SLP>& delta : spritemap.deltas)
         {
-            if(setbearing)
+            if (setbearing)
             {
                 CalcAngle(delta.second);
             }
@@ -706,7 +706,7 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
             {
                 FrameToBitmap(&delta.second);
             }
-            if(delta.second.bitmap.IsOk())
+            if (delta.second.bitmap.IsOk())
             {
                 int xdelta = delta.second.xdelta;
                 int ydelta = delta.second.ydelta;
@@ -716,18 +716,18 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
                     ydelta *= 2;
                 }
                 dc.DrawBitmap(delta.second.bitmap, centerX + delta.second.xpos + xdelta, centerY + delta.second.ypos + ydelta, true);
-                if(PlaySounds)
+                if (PlaySounds)
                 {
                     Listen(delta.second);
                 }
-                if(AnimSLP)
+                if (AnimSLP)
                 {
                     fpms = std::min(fpms, ShouldAnimate(delta.second, framesleft));
                 }
                 text += "\n" + FormatInt(delta.second.slpID) + " " + delta.second.filename;
             }
         }
-        if(AnimSLP)
+        if (AnimSLP)
         {
             animater.Start(fpms);
         }
@@ -739,7 +739,7 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
     }
     else
     {
-        if(setbearing)
+        if (setbearing)
         {
             CalcAngle(spritemap);
         }
@@ -747,15 +747,15 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
         {
             FrameToBitmap(&spritemap);
         }
-        if(spritemap.bitmap.IsOk())
+        if (spritemap.bitmap.IsOk())
         {
             dc.DrawBitmap(spritemap.bitmap, spritemap.xpos + centerX, spritemap.ypos + centerY, true);
             // Ideally sound starts playing after timer is running.
-            if(PlaySounds)
+            if (PlaySounds)
             {
                 Listen(spritemap);
             }
-            if(AnimSLP)
+            if (AnimSLP)
             {
                 animater.Start(ShouldAnimate(spritemap, framesleft));
             }
@@ -763,12 +763,12 @@ void AGE_Frame::DrawGraphics(wxBufferedPaintDC &dc, AGE_SLPs &spritemap, int cen
         }
         else dc.DrawLabel("No sprite " + FormatInt(spritemap.slpID) + " " + spritemap.filename, banner);
     }
-    if(AnimSLP)
+    if (AnimSLP)
     {
-        if(!framesleft && !spritemap.pause)
+        if (!framesleft && !spritemap.pause)
         {
             int rdms = dataset->Graphics[spritemap.datID].ReplayDelay * 1000;
-            if(rdms)
+            if (rdms)
             {
                 animater.Start(rdms);
                 spritemap.pause = true;
@@ -816,60 +816,60 @@ void AGE_Frame::HandleLastFrame(const uint16_t angles, bool framesleft, unsigned
     }
 }
 
-int AGE_Frame::ShouldAnimate(AGE_SLP &graphic, bool &framesleft)
+int AGE_Frame::ShouldAnimate(AGE_SLP& graphic, bool& framesleft)
 {
     int fpms = graphic.fpa ? dataset->Graphics[graphic.datID].AnimationDuration / graphic.fpa * 1000 : 0;
-    if((graphic.frames > 1 && fpms == 0) || graphic.fpa == 1) fpms = 700;
-    if(fpms) ChooseNextFrame(graphic, framesleft);
+    if ((graphic.frames > 1 && fpms == 0) || graphic.fpa == 1) fpms = 700;
+    if (fpms) ChooseNextFrame(graphic, framesleft);
     return fpms;
 }
 
-void AGE_Frame::Listen(AGE_SLP &art)
+void AGE_Frame::Listen(AGE_SLP& art)
 {
-    if(art.fpa) for(size_t i = 0; i < 4; ++i)
-    if(art.delays[i] == art.frameID % art.fpa)
-    {
-        //if valid sound data?
-        if(art.buffers[i].getSampleCount() > 0)
+    if (art.fpa) for (size_t i = 0; i < 4; ++i)
+        if (art.delays[i] == art.frameID % art.fpa)
         {
-            art.sounds[i].setBuffer(art.buffers[i]);
-            art.sounds[i].play();
+            //if valid sound data?
+            if (art.buffers[i].getSampleCount() > 0)
+            {
+                art.sounds[i].setBuffer(art.buffers[i]);
+                art.sounds[i].play();
+            }
         }
-    }
 }
 
-void AGE_Frame::ChooseNextFrame(AGE_SLP &graphic, bool &framesleft)
+void AGE_Frame::ChooseNextFrame(AGE_SLP& graphic, bool& framesleft)
 {
     int32_t nextframe = graphic.frameID + 1; // Rotate through frames.
-    if(nextframe < graphic.startframe + graphic.fpa)
+    if (nextframe < graphic.startframe + graphic.fpa)
     {
         graphic.frameID = nextframe;
         framesleft = true;
     }
 }
 
-void AGE_Frame::ChoosePreviousFrame(AGE_SLP &graphic, bool &framesleft)
+void AGE_Frame::ChoosePreviousFrame(AGE_SLP& graphic, bool& framesleft)
 {
     int32_t prevframe = graphic.frameID - 1;
-    if(prevframe >= graphic.startframe)
+    if (prevframe >= graphic.startframe)
     {
         graphic.frameID = prevframe;
         framesleft = true;
     }
 }
 
-void AGE_Frame::OnGraphicAnim(wxTimerEvent &event)
+void AGE_Frame::OnGraphicAnim(wxTimerEvent& event)
 {
     animater.Stop();
-    if(slp_window)
+    if (slp_window)
     {
-        if(slp_view->IsShownOnScreen())
-        slp_view->Refresh();
+        if (slp_view->IsShownOnScreen())
+            slp_view->Refresh();
         else animater.Start(1000);
     }
 }
 
-void AGE_Frame::tileToPixels(float sizeX, float sizeY, Pixels &p, int centerX, int centerY)
+void AGE_Frame::tileToPixels(float sizeX, float sizeY, Pixels& p, int centerX, int centerY)
 {
     p.x1 = centerX + dataset->TerrainBlock.TileHalfWidth * (sizeX + sizeY);
     p.y2 = centerY + dataset->TerrainBlock.TileHalfHeight * (sizeX + sizeY);
@@ -881,9 +881,9 @@ void AGE_Frame::tileToPixels(float sizeX, float sizeY, Pixels &p, int centerX, i
     p.y4 = centerY + dataset->TerrainBlock.TileHalfHeight * (-sizeX - sizeY);
 }
 
-void AGE_Frame::OnGraphicsAdd(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsAdd(wxCommandEvent& event)
 {
-    if(!dataset) return;
+    if (!dataset) return;
 
     wxBusyCursor WaitCursor;
     dataset->GraphicPointers.push_back(1);
@@ -891,9 +891,9 @@ void AGE_Frame::OnGraphicsAdd(wxCommandEvent &event)
     ListGraphics();
 }
 
-void AGE_Frame::OnGraphicsInsert(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsInsert(wxCommandEvent& event)
 {
-    if(!Graphics_Graphics_ListV->GetSelectedCount()) return;
+    if (!Graphics_Graphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     dataset->GraphicPointers.insert(dataset->GraphicPointers.begin() + GraphicIDs.front(), 1);
@@ -901,9 +901,9 @@ void AGE_Frame::OnGraphicsInsert(wxCommandEvent &event)
     ListGraphics();
 }
 
-void AGE_Frame::OnGraphicsDelete(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsDelete(wxCommandEvent& event)
 {
-    if(!Graphics_Graphics_ListV->GetSelectedCount()) return;
+    if (!Graphics_Graphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     DeleteFromList(dataset->GraphicPointers, GraphicIDs);
@@ -911,9 +911,9 @@ void AGE_Frame::OnGraphicsDelete(wxCommandEvent &event)
     ListGraphics();
 }
 
-void AGE_Frame::OnGraphicsCopy(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsCopy(wxCommandEvent& event)
 {
-    if(!Graphics_Graphics_ListV->GetSelectedCount()) return;
+    if (!Graphics_Graphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     CopyFromList(dataset->GraphicPointers, GraphicIDs, copies.GraphicPointer);
@@ -921,9 +921,9 @@ void AGE_Frame::OnGraphicsCopy(wxCommandEvent &event)
     Graphics_Graphics_ListV->SetFocus();
 }
 
-void AGE_Frame::OnGraphicsPaste(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsPaste(wxCommandEvent& event)
 {
-    if(!Graphics_Graphics_ListV->GetSelectedCount()) return;
+    if (!Graphics_Graphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     PasteToListNoGV(dataset->GraphicPointers, GraphicIDs, copies.GraphicPointer);
@@ -931,9 +931,9 @@ void AGE_Frame::OnGraphicsPaste(wxCommandEvent &event)
     ListGraphics();
 }
 
-void AGE_Frame::OnGraphicsPasteInsert(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsPasteInsert(wxCommandEvent& event)
 {
-    if(!Graphics_Graphics_ListV->GetSelectedCount()) return;
+    if (!Graphics_Graphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     PasteInsertToListNoGV(dataset->GraphicPointers, GraphicIDs.front(), copies.GraphicPointer);
@@ -941,13 +941,13 @@ void AGE_Frame::OnGraphicsPasteInsert(wxCommandEvent &event)
     ListGraphics();
 }
 
-void AGE_Frame::OnGraphicsEnable(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsEnable(wxCommandEvent& event)
 {
     size_t selections = Graphics_Graphics_ListV->GetSelectedCount();
     if (!selections) return;
 
     wxBusyCursor WaitCursor;
-    for(size_t loop = 0; loop < selections; ++loop)
+    for (size_t loop = 0; loop < selections; ++loop)
     {
         dataset->GraphicPointers[GraphicIDs[loop]] = 1;
         dataset->Graphics[GraphicIDs[loop]].ID = GraphicIDs[loop]; // ID Fix
@@ -956,14 +956,14 @@ void AGE_Frame::OnGraphicsEnable(wxCommandEvent &event)
     ListGraphics();
 }
 
-void AGE_Frame::OnGraphicsDisable(wxCommandEvent &event)
+void AGE_Frame::OnGraphicsDisable(wxCommandEvent& event)
 {
     size_t selections = Graphics_Graphics_ListV->GetSelectedCount();
     if (!selections) return;
 
     wxBusyCursor WaitCursor;
-    for(size_t loop = 0; loop < selections; ++loop)
-    dataset->GraphicPointers[GraphicIDs[loop]] = 0;
+    for (size_t loop = 0; loop < selections; ++loop)
+        dataset->GraphicPointers[GraphicIDs[loop]] = 0;
     How2List = ListMode::ENABLE;
     ListGraphics();
 }
@@ -971,12 +971,12 @@ void AGE_Frame::OnGraphicsDisable(wxCommandEvent &event)
 wxString AGE_Frame::GetGraphicDeltaName(int index)
 {
     int deltaID = dataset->Graphics[GraphicIDs.front()].Deltas[index].GraphicID;
-    if(deltaID < dataset->Graphics.size())
-    return lexical_cast<std::string>(deltaID) + ": " + GetGraphicName(deltaID, false);
-    return "Re-drawer "+lexical_cast<std::string>(deltaID);
+    if (deltaID < dataset->Graphics.size())
+        return lexical_cast<std::string>(deltaID) + ": " + GetGraphicName(deltaID, false);
+    return "Re-drawer " + lexical_cast<std::string>(deltaID);
 }
 
-void AGE_Frame::OnGraphicDeltasSearch(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltasSearch(wxCommandEvent& event)
 {
     How2List = ListMode::SEARCH;
     ListGraphicDeltas();
@@ -988,33 +988,33 @@ void AGE_Frame::ListGraphicDeltas()
 
     Graphics_Deltas_ListV->Sweep();
 
-    if(Graphics_Graphics_ListV->GetSelectedCount())
-    for(size_t loop = 0; loop < dataset->Graphics[GraphicIDs.front()].Deltas.size(); ++loop)
-    {
-        wxString Name = FormatInt(loop)+" - "+GetGraphicDeltaName(loop);
-        if(SearchMatches(" " + Name.Lower() + " "))
+    if (Graphics_Graphics_ListV->GetSelectedCount())
+        for (size_t loop = 0; loop < dataset->Graphics[GraphicIDs.front()].Deltas.size(); ++loop)
         {
-            Graphics_Deltas_ListV->names.Add(Name);
-            Graphics_Deltas_ListV->indexes.push_back(loop);
+            wxString Name = FormatInt(loop) + " - " + GetGraphicDeltaName(loop);
+            if (SearchMatches(" " + Name.Lower() + " "))
+            {
+                Graphics_Deltas_ListV->names.Add(Name);
+                Graphics_Deltas_ListV->indexes.push_back(loop);
+            }
         }
-    }
     RefreshList(Graphics_Deltas_ListV, &DeltaIDs);
 
     wxCommandEvent e;
     OnGraphicDeltaSelect(e);
 }
 
-void AGE_Frame::OnGraphicDeltaSelect(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltaSelect(wxCommandEvent& event)
 {
     size_t selections = Graphics_Deltas_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
-    for (AGETextCtrl *box : uiGroupGraphicDelta) box->clear();
-    if(selections > 0)
+    for (AGETextCtrl* box : uiGroupGraphicDelta) box->clear();
+    if (selections > 0)
     {
         getSelectedItems(selections, Graphics_Deltas_ListV, DeltaIDs);
 
-        genie::GraphicDelta * DeltaPointer;
-        for(size_t sel = selections; sel--> 0;)
+        genie::GraphicDelta* DeltaPointer;
+        for (size_t sel = selections; sel-- > 0;)
         {
             DeltaPointer = &dataset->Graphics[GraphicIDs.front()].Deltas[DeltaIDs[sel]];
 
@@ -1027,10 +1027,10 @@ void AGE_Frame::OnGraphicDeltaSelect(wxCommandEvent &event)
             GraphicDeltas_Padding2->prepend(&DeltaPointer->Padding2);
         }
     }
-    for (AGETextCtrl *box : uiGroupGraphicDelta) box->update();
+    for (AGETextCtrl* box : uiGroupGraphicDelta) box->update();
 }
 
-void AGE_Frame::OnGraphicDeltasAdd(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltasAdd(wxCommandEvent& event)
 {
     size_t selections = Graphics_Graphics_ListV->GetSelectedCount();
     if (!selections) return;
@@ -1039,10 +1039,10 @@ void AGE_Frame::OnGraphicDeltasAdd(wxCommandEvent &event)
     AddToList(dataset->Graphics[GraphicIDs.front()].Deltas);
     gallery.reload();
     ListGraphicDeltas();
-    if(slp_window && ShowDeltas) slp_view->Refresh();
+    if (slp_window && ShowDeltas) slp_view->Refresh();
 }
 
-void AGE_Frame::OnGraphicDeltasInsert(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltasInsert(wxCommandEvent& event)
 {
     size_t selections = Graphics_Deltas_ListV->GetSelectedCount();
     if (!selections) return;
@@ -1051,10 +1051,10 @@ void AGE_Frame::OnGraphicDeltasInsert(wxCommandEvent &event)
     InsertToList(dataset->Graphics[GraphicIDs.front()].Deltas, DeltaIDs.front());
     gallery.reload();
     ListGraphicDeltas();
-    if(slp_window && ShowDeltas) slp_view->Refresh();
+    if (slp_window && ShowDeltas) slp_view->Refresh();
 }
 
-void AGE_Frame::OnGraphicDeltasDelete(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltasDelete(wxCommandEvent& event)
 {
     size_t selections = Graphics_Deltas_ListV->GetSelectedCount();
     if (!selections) return;
@@ -1063,10 +1063,10 @@ void AGE_Frame::OnGraphicDeltasDelete(wxCommandEvent &event)
     DeleteFromList(dataset->Graphics[GraphicIDs.front()].Deltas, DeltaIDs);
     gallery.reload();
     ListGraphicDeltas();
-    if(slp_window && ShowDeltas) slp_view->Refresh();
+    if (slp_window && ShowDeltas) slp_view->Refresh();
 }
 
-void AGE_Frame::OnGraphicDeltasCopy(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltasCopy(wxCommandEvent& event)
 {
     size_t selections = Graphics_Deltas_ListV->GetSelectedCount();
     if (!selections) return;
@@ -1076,7 +1076,7 @@ void AGE_Frame::OnGraphicDeltasCopy(wxCommandEvent &event)
     Graphics_Deltas_ListV->SetFocus();
 }
 
-void AGE_Frame::OnGraphicDeltasPaste(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltasPaste(wxCommandEvent& event)
 {
     size_t selections = Graphics_Deltas_ListV->GetSelectedCount();
     if (!selections) return;
@@ -1085,10 +1085,10 @@ void AGE_Frame::OnGraphicDeltasPaste(wxCommandEvent &event)
     PasteToList(dataset->Graphics[GraphicIDs.front()].Deltas, DeltaIDs, copies.GraphicDelta);
     gallery.reload();
     ListGraphicDeltas();
-    if(slp_window && ShowDeltas) slp_view->Refresh();
+    if (slp_window && ShowDeltas) slp_view->Refresh();
 }
 
-void AGE_Frame::OnGraphicDeltasPasteInsert(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltasPasteInsert(wxCommandEvent& event)
 {
     size_t selections = Graphics_Deltas_ListV->GetSelectedCount();
     if (!selections) return;
@@ -1097,12 +1097,12 @@ void AGE_Frame::OnGraphicDeltasPasteInsert(wxCommandEvent &event)
     PasteInsertToList(dataset->Graphics[GraphicIDs.front()].Deltas, DeltaIDs.front(), copies.GraphicDelta);
     gallery.reload();
     ListGraphicDeltas();
-    if(slp_window && ShowDeltas) slp_view->Refresh();
+    if (slp_window && ShowDeltas) slp_view->Refresh();
 }
 
-void AGE_Frame::OnGraphicDeltasCopyToGraphics(wxCommandEvent &event)
+void AGE_Frame::OnGraphicDeltasCopyToGraphics(wxCommandEvent& event)
 {
-    for(size_t loop=1; loop < GraphicIDs.size(); ++loop)
+    for (size_t loop = 1; loop < GraphicIDs.size(); ++loop)
     {
         dataset->Graphics[GraphicIDs[loop]].Deltas = dataset->Graphics[GraphicIDs.front()].Deltas;
     }
@@ -1111,12 +1111,12 @@ void AGE_Frame::OnGraphicDeltasCopyToGraphics(wxCommandEvent &event)
 wxString AGE_Frame::GetGraphicAngleSoundName(int index)
 {
     // Sounds 1, 2, 3 - Delays 1, 2, 3
-    genie::GraphicAngleSound &angle = dataset->Graphics[GraphicIDs.front()].AngleSounds[index];
-    return "Sounds: "+FormatInt(angle.SoundID)+", "+FormatInt(angle.SoundID2)+", "+FormatInt(angle.SoundID3)
-        +", Delays: "+FormatInt(angle.FrameNum)+", "+FormatInt(angle.FrameNum2)+", "+FormatInt(angle.FrameNum3);
+    genie::GraphicAngleSound& angle = dataset->Graphics[GraphicIDs.front()].AngleSounds[index];
+    return "Sounds: " + FormatInt(angle.SoundID) + ", " + FormatInt(angle.SoundID2) + ", " + FormatInt(angle.SoundID3)
+        + ", Delays: " + FormatInt(angle.FrameNum) + ", " + FormatInt(angle.FrameNum2) + ", " + FormatInt(angle.FrameNum3);
 }
 
-void AGE_Frame::OnGraphicAngleSoundsSearch(wxCommandEvent &event)
+void AGE_Frame::OnGraphicAngleSoundsSearch(wxCommandEvent& event)
 {
     How2List = ListMode::SEARCH;
     ListGraphicAngleSounds();
@@ -1126,12 +1126,12 @@ void AGE_Frame::ListGraphicAngleSounds()
 {
     Graphics_AngleSounds_ListV->Sweep();
 
-    if(Graphics_Graphics_ListV->GetSelectedCount())
-    for(size_t loop = 0; loop < dataset->Graphics[GraphicIDs.front()].AngleSounds.size(); ++loop)
-    {
-        Graphics_AngleSounds_ListV->names.Add(FormatInt(loop)+" - "+GetGraphicAngleSoundName(loop));
-        Graphics_AngleSounds_ListV->indexes.push_back(loop);
-    }
+    if (Graphics_Graphics_ListV->GetSelectedCount())
+        for (size_t loop = 0; loop < dataset->Graphics[GraphicIDs.front()].AngleSounds.size(); ++loop)
+        {
+            Graphics_AngleSounds_ListV->names.Add(FormatInt(loop) + " - " + GetGraphicAngleSoundName(loop));
+            Graphics_AngleSounds_ListV->indexes.push_back(loop);
+        }
 
     RefreshList(Graphics_AngleSounds_ListV, &AttackSoundIDs);
 
@@ -1139,35 +1139,35 @@ void AGE_Frame::ListGraphicAngleSounds()
     OnGraphicAngleSoundSelect(e);
 }
 
-void AGE_Frame::OnGraphicAngleSoundSelect(wxCommandEvent &event)
+void AGE_Frame::OnGraphicAngleSoundSelect(wxCommandEvent& event)
 {
     size_t selections = Graphics_AngleSounds_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
-    for (AGETextCtrl *box : uiGroupGraphicSound) box->clear();
-    if(selections > 0)
+    for (AGETextCtrl* box : uiGroupGraphicSound) box->clear();
+    if (selections > 0)
     {
         getSelectedItems(selections, Graphics_AngleSounds_ListV, AttackSoundIDs);
 
-        genie::GraphicAngleSound * angle_ptr;
-        if(AutoCopyAngles)
-        for(size_t loop = dataset->Graphics[GraphicIDs.front()].AngleSounds.size(); loop--> 0;)
-        {
-            angle_ptr = &dataset->Graphics[GraphicIDs.front()].AngleSounds[loop];
-
-            Graphics_AngleSoundID[0]->prepend(&angle_ptr->SoundID);
-            Graphics_AngleSoundID[1]->prepend(&angle_ptr->SoundID2);
-            Graphics_AngleSoundID[2]->prepend(&angle_ptr->SoundID3);
-            Graphics_AngleFrameNum[0]->prepend(&angle_ptr->FrameNum);
-            Graphics_AngleFrameNum[1]->prepend(&angle_ptr->FrameNum2);
-            Graphics_AngleFrameNum[2]->prepend(&angle_ptr->FrameNum3);
-            if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+        genie::GraphicAngleSound* angle_ptr;
+        if (AutoCopyAngles)
+            for (size_t loop = dataset->Graphics[GraphicIDs.front()].AngleSounds.size(); loop-- > 0;)
             {
-                Graphics_WwiseAngleSoundID[0]->prepend(&angle_ptr->WwiseSoundID);
-                Graphics_WwiseAngleSoundID[1]->prepend(&angle_ptr->WwiseSoundID2);
-                Graphics_WwiseAngleSoundID[2]->prepend(&angle_ptr->WwiseSoundID3);
+                angle_ptr = &dataset->Graphics[GraphicIDs.front()].AngleSounds[loop];
+
+                Graphics_AngleSoundID[0]->prepend(&angle_ptr->SoundID);
+                Graphics_AngleSoundID[1]->prepend(&angle_ptr->SoundID2);
+                Graphics_AngleSoundID[2]->prepend(&angle_ptr->SoundID3);
+                Graphics_AngleFrameNum[0]->prepend(&angle_ptr->FrameNum);
+                Graphics_AngleFrameNum[1]->prepend(&angle_ptr->FrameNum2);
+                Graphics_AngleFrameNum[2]->prepend(&angle_ptr->FrameNum3);
+                if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+                {
+                    Graphics_WwiseAngleSoundID[0]->prepend(&angle_ptr->WwiseSoundID);
+                    Graphics_WwiseAngleSoundID[1]->prepend(&angle_ptr->WwiseSoundID2);
+                    Graphics_WwiseAngleSoundID[2]->prepend(&angle_ptr->WwiseSoundID3);
+                }
             }
-        }
-        else for(size_t sel = selections; sel--> 0;)
+        else for (size_t sel = selections; sel-- > 0;)
         {
             angle_ptr = &dataset->Graphics[GraphicIDs.front()].AngleSounds[AttackSoundIDs[sel]];
 
@@ -1177,7 +1177,7 @@ void AGE_Frame::OnGraphicAngleSoundSelect(wxCommandEvent &event)
             Graphics_AngleFrameNum[0]->prepend(&angle_ptr->FrameNum);
             Graphics_AngleFrameNum[1]->prepend(&angle_ptr->FrameNum2);
             Graphics_AngleFrameNum[2]->prepend(&angle_ptr->FrameNum3);
-            if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+            if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
             {
                 Graphics_WwiseAngleSoundID[0]->prepend(&angle_ptr->WwiseSoundID);
                 Graphics_WwiseAngleSoundID[1]->prepend(&angle_ptr->WwiseSoundID2);
@@ -1185,25 +1185,25 @@ void AGE_Frame::OnGraphicAngleSoundSelect(wxCommandEvent &event)
             }
         }
     }
-    for (AGETextCtrl *box : uiGroupGraphicSound) box->update();
+    for (AGETextCtrl* box : uiGroupGraphicSound) box->update();
 }
 
-void AGE_Frame::OnGraphicAngleSoundsCopy(wxCommandEvent &event)
+void AGE_Frame::OnGraphicAngleSoundsCopy(wxCommandEvent& event)
 {
     size_t selections = Graphics_AngleSounds_ListV->GetSelectedCount();
     if (!selections) return;
 
     wxBusyCursor WaitCursor;
     genie::GraphicAngleSound Copy = dataset->Graphics[GraphicIDs.front()].AngleSounds[AttackSoundIDs.front()];
-    for(size_t loop2 = 0; loop2 < dataset->Graphics[GraphicIDs.front()].AngleSounds.size(); ++loop2)
-    dataset->Graphics[GraphicIDs.front()].AngleSounds[loop2] = Copy;
+    for (size_t loop2 = 0; loop2 < dataset->Graphics[GraphicIDs.front()].AngleSounds.size(); ++loop2)
+        dataset->Graphics[GraphicIDs.front()].AngleSounds[loop2] = Copy;
     ListGraphicAngleSounds();
     Graphics_AngleSounds_ListV->SetFocus();
 }
 
-void AGE_Frame::OnGraphicAngleSoundsCopyToGraphics(wxCommandEvent &event)
+void AGE_Frame::OnGraphicAngleSoundsCopyToGraphics(wxCommandEvent& event)
 {
-    for(size_t loop=1; loop < GraphicIDs.size(); ++loop)
+    for (size_t loop = 1; loop < GraphicIDs.size(); ++loop)
     {
         dataset->Graphics[GraphicIDs[loop]].AngleSounds = dataset->Graphics[GraphicIDs.front()].AngleSounds;
     }
@@ -1219,7 +1219,7 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_Graphics_UseAnd[0] = new wxCheckBox(Tab_Graphics, wxID_ANY, "And");
     Graphics_Graphics_Search_R = new wxTextCtrl(Tab_Graphics, wxID_ANY);
     Graphics_Graphics_UseAnd[1] = new wxCheckBox(Tab_Graphics, wxID_ANY, "And");
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Graphics_Graphics_Searches[loop] = new wxBoxSizer(wxHORIZONTAL);
         Graphics_SearchFilters[loop] = new AGEComboBox(Tab_Graphics, &graphic_filters);
@@ -1252,10 +1252,10 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_Name = new StringControl(Graphics_Scroller, this, &uiGroupGraphic, false);
     Graphics_FileName_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_FileName_Text = new SolidText(Graphics_Scroller, " Sprite Name");
-    Graphics_FileName = new StringControl(Graphics_Scroller,  this, &uiGroupGraphic, false);
+    Graphics_FileName = new StringControl(Graphics_Scroller, this, &uiGroupGraphic, false);
     Graphics_ParticleEffectName_Holder = new wxBoxSizer(wxHORIZONTAL);
     Graphics_ParticleEffectName_Text = new SolidText(Graphics_Scroller, " Particle Effect Name");
-    Graphics_ParticleEffectName = new StringControl(Graphics_Scroller,  this, &uiGroupGraphic);
+    Graphics_ParticleEffectName = new StringControl(Graphics_Scroller, this, &uiGroupGraphic);
     Graphics_ParticleEffectName_Browse = new wxButton(Graphics_Scroller, wxID_ANY, "Browse");
     Graphics_ID_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_ID_Text = new SolidText(Graphics_Scroller, " ID");
@@ -1312,8 +1312,8 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_Coordinates_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_CoordinateGrid_Holder = new wxBoxSizer(wxHORIZONTAL);
     Graphics_Coordinates_Text = new SolidText(Graphics_Scroller, " Bounding Box Coordinates (X1, Y1, X2, Y2)");
-    for(size_t loop = 0; loop < 4; ++loop)
-    Graphics_Coordinates[loop] = new NumberControl(CShort, Graphics_Scroller, this, &uiGroupGraphic, true, AGETextCtrl::MEDIUM);
+    for (size_t loop = 0; loop < 4; ++loop)
+        Graphics_Coordinates[loop] = new NumberControl(CShort, Graphics_Scroller, this, &uiGroupGraphic, true, AGETextCtrl::MEDIUM);
 
     Graphics_Loaded_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_Loaded_Text = new SolidText(Graphics_Scroller, " Is Loaded *");
@@ -1379,6 +1379,7 @@ void AGE_Frame::CreateGraphicsControls()
     GraphicDeltas_Padding2 = new NumberControl(CShort, Graphics_Scroller, this, &uiGroupGraphicDelta);
     GraphicDeltas_Padding2->SetToolTip("Completely useless");
     Deltas_Import = new wxButton(Graphics_Scroller, wxID_ANY, "Import delta change list");
+    Deltas_Import_Auto = new wxButton(Graphics_Scroller, wxID_ANY, "Import Deltas");
 
     Graphics_FirstFrame_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_FirstFrame_Text = new SolidText(Graphics_Scroller, " First Frame");
@@ -1394,7 +1395,7 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_AngleSoundsUsed_CheckBox = new LinkedCheckBox(Graphics_Scroller, "Used", Graphics_AngleSoundsUsed, false);
     Graphics_AngleSounds = new wxBoxSizer(wxVERTICAL);
     Graphics_AngleSounds_ListV = new ProperList(Graphics_Scroller, ASize(240, 140));
-    wxBoxSizer *AngleSounds_CopySizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* AngleSounds_CopySizer = new wxBoxSizer(wxHORIZONTAL);
     AngleSounds_AutoCopy = new wxCheckBox(Graphics_Scroller, wxID_ANY, "Automatically");
     AngleSounds_Copy = new wxButton(Graphics_Scroller, wxID_ANY, "Copy to all", wxDefaultPosition, wxSize(10, -1));
     AngleSounds_CopyToGraphics = new wxButton(Graphics_Scroller, wxID_ANY, "Copy all to selected graphics", wxDefaultPosition, wxSize(10, -1));
@@ -1402,7 +1403,7 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_AngleSounds_Text = new SolidText(Graphics_Scroller, " Sound");
     Graphics_AngleFrameNums_Holder = new wxBoxSizer(wxVERTICAL);
     Graphics_AngleFrameNums_Text = new SolidText(Graphics_Scroller, " Frame Delay");
-    for(size_t loop = 0; loop < 3; ++loop)
+    for (size_t loop = 0; loop < 3; ++loop)
     {
         Graphics_WwiseAngleSoundID[loop] = new NumberControl(CULong, Graphics_Scroller, this, &uiGroupGraphicSound, false);
         Graphics_AngleSoundID[loop] = new NumberControl(CShort, Graphics_Scroller, this, &uiGroupGraphicSound, false, AGETextCtrl::SMALL);
@@ -1434,10 +1435,10 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_Graphics_Searches[0]->Add(Graphics_Graphics_UseAnd[0], 0, wxLEFT, 2);
     Graphics_Graphics_Searches[1]->Add(Graphics_Graphics_Search_R, 1, wxEXPAND);
     Graphics_Graphics_Searches[1]->Add(Graphics_Graphics_UseAnd[1], 0, wxLEFT, 2);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Graphics_Graphics->Add(Graphics_Graphics_Searches[loop], 0, wxEXPAND);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Graphics_Graphics->Add(Graphics_SearchFilters[loop], 0, wxEXPAND);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Graphics_Graphics->Add(Graphics_Graphics_Searches[loop], 0, wxEXPAND);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Graphics_Graphics->Add(Graphics_SearchFilters[loop], 0, wxEXPAND);
     Graphics_Graphics->Add(Graphics_Graphics_ListV, 1, wxEXPAND | wxBOTTOM | wxTOP, 2);
     Graphics_Graphics->Add(Graphics_Graphics_Buttons, 0, wxEXPAND);
 
@@ -1456,8 +1457,8 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_PlayerColor_Holder->Add(Graphics_PlayerColor_Text);
     Graphics_PlayerColor_Holder->Add(Graphics_PlayerColor, 0, wxEXPAND);
     Graphics_PlayerColor_Holder->Add(Graphics_PlayerColor_ComboBox);
-    for(size_t loop = 0; loop < 4; ++loop)
-    Graphics_CoordinateGrid_Holder->Add(Graphics_Coordinates[loop]);
+    for (size_t loop = 0; loop < 4; ++loop)
+        Graphics_CoordinateGrid_Holder->Add(Graphics_Coordinates[loop]);
     Graphics_Coordinates_Holder->Add(Graphics_Coordinates_Text);
     Graphics_Coordinates_Holder->Add(Graphics_CoordinateGrid_Holder);
     Graphics_SpeedMultiplier_Holder->Add(Graphics_SpeedMultiplier_Text);
@@ -1469,7 +1470,7 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_TransparentPicking_Holder->Add(Graphics_TransparentPicking_Text);
     Graphics_TransparentPicking_Holder->Add(Graphics_TransparentPicking);
     Graphics_SoundID_Holder->Add(Graphics_SoundID_Text);
-    wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
     sizer->Add(Graphics_SoundID, 1, wxEXPAND);
     sizer->Add(Graphics_WwiseSoundID, 2, wxEXPAND);
     Graphics_SoundID_Holder->Add(sizer, 0, wxEXPAND);
@@ -1555,6 +1556,7 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_Deltas_Holder_Data->Add(Deltas_Holder);
     Graphics_Deltas_Holder_Data->Add(Deltas_Unknowns_Holder, 0, wxTOP, 5);
     Graphics_Deltas_Holder_Data->Add(Deltas_Import, 0, wxTOP, 5);
+    Graphics_Deltas_Holder_Data->Add(Deltas_Import_Auto, 0, wxTOP, 5);
 
     Graphics_Deltas_Holder->Add(Graphics_Deltas, 1, wxEXPAND);
     Graphics_Deltas_Holder->Add(Graphics_Deltas_Holder_Data, 3, wxEXPAND | wxLEFT, 5);
@@ -1567,7 +1569,7 @@ void AGE_Frame::CreateGraphicsControls()
 
     Graphics_AngleSounds_Holder->Add(Graphics_AngleSounds_Text);
     Graphics_AngleFrameNums_Holder->Add(Graphics_AngleFrameNums_Text);
-    for(size_t loop = 0; loop < 3; ++loop)
+    for (size_t loop = 0; loop < 3; ++loop)
     {
         sizer = new wxBoxSizer(wxHORIZONTAL);
         sizer->Add(Graphics_AngleSoundID[loop], 1, wxEXPAND);
@@ -1611,7 +1613,7 @@ void AGE_Frame::CreateGraphicsControls()
 
     Graphics_Graphics_Search->Bind(wxEVT_TEXT, &AGE_Frame::OnGraphicsSearch, this);
     Graphics_Graphics_Search_R->Bind(wxEVT_TEXT, &AGE_Frame::OnGraphicsSearch, this);
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Graphics_Graphics_UseAnd[loop]->Bind(wxEVT_CHECKBOX, &AGE_Frame::OnGraphicsSearch, this);
         Graphics_SearchFilters[loop]->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnSelection_SearchFilters, this);
@@ -1624,151 +1626,151 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_Paste->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicsPaste, this);
     Graphics_PasteInsert->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicsPasteInsert, this);
     Graphics_NoMirror->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        if(!dataset) return;
-        wxBusyCursor WaitCursor;
-        // Choose folder where to save.
-        wxDirDialog dd(this, wxDirSelectorPromptStr, wxGetCwd());
-        if(dd.ShowModal() != wxID_OK) return;
-        wxString path = dd.GetPath() + "\\";
-
-        // Export SLP file from each selected graphic.
-        for (int i : GraphicIDs)
         {
-            if(dataset->Graphics[i].SLP != -1)
+            if (!dataset) return;
+            wxBusyCursor WaitCursor;
+            // Choose folder where to save.
+            wxDirDialog dd(this, wxDirSelectorPromptStr, wxGetCwd());
+            if (dd.ShowModal() != wxID_OK) return;
+            wxString path = dd.GetPath() + "\\";
+
+            // Export SLP file from each selected graphic.
+            for (int i : GraphicIDs)
             {
-                AGE_SLP source;
-                source.slpID = dataset->Graphics[i].SLP;
-                source.filename = dataset->Graphics[i].FileName;
-                if (!LoadSLP(&source) || !source.slp->isSLP()) continue;
-                genie::SlpFile *slp = static_cast<genie::SlpFile *>(source.slp.get());
-                size_t north = dataset->Graphics[i].MirroringMode;
-                wxString name = path + source.filename + ".slp";
-
-                if(north)
+                if (dataset->Graphics[i].SLP != -1)
                 {
-                    size_t south = dataset->Graphics[i].AngleCount >> 2;
-                    size_t angles = dataset->Graphics[i].AngleCount;
-                    size_t frames = dataset->Graphics[i].FrameCount;
+                    AGE_SLP source;
+                    source.slpID = dataset->Graphics[i].SLP;
+                    source.filename = dataset->Graphics[i].FileName;
+                    if (!LoadSLP(&source) || !source.slp->isSLP()) continue;
+                    genie::SlpFile* slp = static_cast<genie::SlpFile*>(source.slp.get());
+                    size_t north = dataset->Graphics[i].MirroringMode;
+                    wxString name = path + source.filename + ".slp";
 
-                    genie::SlpFile target;
-                    target.setFrameCount(angles * frames);
-
-                    for(size_t a = 0; a < angles; ++a)
+                    if (north)
                     {
-                        // Calculate the angles that need to be mirrored.
-                        if(south > a || a > north)
-                        {
-                            source.flip = true;
-                            source.frameID = (south + angles - a) % angles * frames;
-                        }
-                        else if(angles == 2)
-                        {
-                            source.flip = a == 1;
-                            source.frameID = 0;
-                        }
-                        else
-                        {
-                            source.flip = false;
-                            source.frameID = (a - south) * frames;
-                        }
-                        for(size_t f = 0; f < frames; ++f)
-                        {
-                            size_t frame_pos = a * frames + f;
-                            try
-                            {
-                                genie::SlpFramePtr src_frame = slp->getFrame(source.frameID);
-                                if(source.flip)
-                                {
-                                    target.setFrame(frame_pos, src_frame->mirrorX());
-                                }
-                                else
-                                {
-                                    target.setFrame(frame_pos, src_frame);
-                                }
-                            }
-                            catch(const std::out_of_range&)
-                            {
-                                // Less frames than is displayed.
-                                frames = f;
-                                break;
-                            }
-                            ++source.frameID;
-                        }
-                    }
+                        size_t south = dataset->Graphics[i].AngleCount >> 2;
+                        size_t angles = dataset->Graphics[i].AngleCount;
+                        size_t frames = dataset->Graphics[i].FrameCount;
 
-                    // Save only sprites that have content in them.
-                    if(angles && frames)
-                    {
-                        // Set correct total frame count.
+                        genie::SlpFile target;
                         target.setFrameCount(angles * frames);
-                        target.version = slp->version;
-                        target.comment = slp->comment;
-                        target.saveAs(name.c_str());
+
+                        for (size_t a = 0; a < angles; ++a)
+                        {
+                            // Calculate the angles that need to be mirrored.
+                            if (south > a || a > north)
+                            {
+                                source.flip = true;
+                                source.frameID = (south + angles - a) % angles * frames;
+                            }
+                            else if (angles == 2)
+                            {
+                                source.flip = a == 1;
+                                source.frameID = 0;
+                            }
+                            else
+                            {
+                                source.flip = false;
+                                source.frameID = (a - south) * frames;
+                            }
+                            for (size_t f = 0; f < frames; ++f)
+                            {
+                                size_t frame_pos = a * frames + f;
+                                try
+                                {
+                                    genie::SlpFramePtr src_frame = slp->getFrame(source.frameID);
+                                    if (source.flip)
+                                    {
+                                        target.setFrame(frame_pos, src_frame->mirrorX());
+                                    }
+                                    else
+                                    {
+                                        target.setFrame(frame_pos, src_frame);
+                                    }
+                                }
+                                catch (const std::out_of_range&)
+                                {
+                                    // Less frames than is displayed.
+                                    frames = f;
+                                    break;
+                                }
+                                ++source.frameID;
+                            }
+                        }
+
+                        // Save only sprites that have content in them.
+                        if (angles && frames)
+                        {
+                            // Set correct total frame count.
+                            target.setFrameCount(angles * frames);
+                            target.version = slp->version;
+                            target.comment = slp->comment;
+                            target.saveAs(name.c_str());
+                        }
                     }
-                }
-                else // Nothing to mirror, save as is.
-                {
-                    slp->saveAs(name.c_str());
+                    else // Nothing to mirror, save as is.
+                    {
+                        slp->saveAs(name.c_str());
+                    }
                 }
             }
-        }
-    });
+        });
     Graphics_Enable->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicsEnable, this);
     Graphics_Disable->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicsDisable, this);
-    Graphics_CopyToEnd->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        if(!dataset) return;
-        wxBusyCursor WaitCursor;
-        OnGraphicsCopy(event);
-        wxString search = Graphics_Graphics_Search->GetValue();
-        wxString exclude = Graphics_Graphics_Search_R->GetValue();
-        Graphics_Graphics_Search->Clear();
-        Graphics_Graphics_Search_R->Clear();
-        OnGraphicsAdd(event);
-        OnGraphicsPaste(event);
-        Graphics_Graphics_Search->SetValue(search);
-        Graphics_Graphics_Search_R->SetValue(exclude);
-    });
-    Graphics_MakeLast->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        if(!dataset) return;
-        wxBusyCursor WaitCursor;
-        for(size_t lg = 0; lg < GraphicIDs.size(); ++lg)
+    Graphics_CopyToEnd->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
         {
-            size_t d_cnt = dataset->Graphics[GraphicIDs[lg]].Deltas.size();
-            // Save delta #s
-            std::set<uint16_t> d_nums;
-            for(size_t ld = 0; ld < d_cnt; ++ld)
+            if (!dataset) return;
+            wxBusyCursor WaitCursor;
+            OnGraphicsCopy(event);
+            wxString search = Graphics_Graphics_Search->GetValue();
+            wxString exclude = Graphics_Graphics_Search_R->GetValue();
+            Graphics_Graphics_Search->Clear();
+            Graphics_Graphics_Search_R->Clear();
+            OnGraphicsAdd(event);
+            OnGraphicsPaste(event);
+            Graphics_Graphics_Search->SetValue(search);
+            Graphics_Graphics_Search_R->SetValue(exclude);
+        });
+    Graphics_MakeLast->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
+        {
+            if (!dataset) return;
+            wxBusyCursor WaitCursor;
+            for (size_t lg = 0; lg < GraphicIDs.size(); ++lg)
             {
-                d_nums.emplace(dataset->Graphics[GraphicIDs[lg]].Deltas[ld].GraphicID);
+                size_t d_cnt = dataset->Graphics[GraphicIDs[lg]].Deltas.size();
+                // Save delta #s
+                std::set<uint16_t> d_nums;
+                for (size_t ld = 0; ld < d_cnt; ++ld)
+                {
+                    d_nums.emplace(dataset->Graphics[GraphicIDs[lg]].Deltas[ld].GraphicID);
+                }
+                // Give back sorted
+                std::vector<uint16_t> d_snums(d_nums.begin(), d_nums.end());
+                for (size_t ld = 0; ld < d_cnt; ++ld)
+                {
+                    dataset->Graphics[GraphicIDs[lg]].Deltas[ld].GraphicID = d_snums[ld];
+                }
             }
-            // Give back sorted
-            std::vector<uint16_t> d_snums(d_nums.begin(), d_nums.end());
-            for(size_t ld = 0; ld < d_cnt; ++ld)
+        });
+    Graphics_Rename->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
+        {
+            if (!dataset) return;
+            wxString replacement;
+            wxTextEntryDialog ted(this, "Enter a letter to replace the last one with", "Rename");
+            if (ted.ShowModal() == wxID_OK)
             {
-                dataset->Graphics[GraphicIDs[lg]].Deltas[ld].GraphicID = d_snums[ld];
+                replacement = ted.GetValue();
             }
-        }
-    });
-    Graphics_Rename->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        if(!dataset) return;
-        wxString replacement;
-        wxTextEntryDialog ted(this, "Enter a letter to replace the last one with", "Rename");
-        if(ted.ShowModal() == wxID_OK)
-        {
-            replacement = ted.GetValue();
-        }
-        wxBusyCursor WaitCursor;
-        for(size_t lg = 0; lg < GraphicIDs.size(); ++lg)
-        {
-            genie::Graphic &sprite = dataset->Graphics[GraphicIDs[lg]];
-            sprite.Name = sprite.Name.substr(0, sprite.Name.length() - 1) + replacement;
-            sprite.FileName = sprite.FileName.substr(0, sprite.FileName.length() - 1) + replacement;
-        }
-        ListGraphics();
-    });
+            wxBusyCursor WaitCursor;
+            for (size_t lg = 0; lg < GraphicIDs.size(); ++lg)
+            {
+                genie::Graphic& sprite = dataset->Graphics[GraphicIDs[lg]];
+                sprite.Name = sprite.Name.substr(0, sprite.Name.length() - 1) + replacement;
+                sprite.FileName = sprite.FileName.substr(0, sprite.FileName.length() - 1) + replacement;
+            }
+            ListGraphics();
+        });
     Graphics_Deltas_Search->Bind(wxEVT_TEXT, &AGE_Frame::OnGraphicDeltasSearch, this);
     Graphics_Deltas_Search_R->Bind(wxEVT_TEXT, &AGE_Frame::OnGraphicDeltasSearch, this);
     Graphics_Deltas_ListV->Bind(wxEVT_LISTBOX, &AGE_Frame::OnGraphicDeltaSelect, this);
@@ -1779,218 +1781,103 @@ void AGE_Frame::CreateGraphicsControls()
     Deltas_Paste->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicDeltasPaste, this);
     Deltas_PasteInsert->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicDeltasPasteInsert, this);
     Deltas_CopyToGraphics->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicDeltasCopyToGraphics, this);
-    Deltas_Import->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        wxFileDialog dd(this, "Open sprite change list", "", "tr_spred.txt",
-        "Sprite editor files (*.txt)|*.txt", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-        if(dd.ShowModal() == wxID_OK && dataset)
-        {
-            wxBusyCursor WaitCursor;
-            std::string line(dd.GetPath());
-            std::ifstream infile(line);
-            while(getline(infile, line))
-            {
-                wxArrayString pieces(wxStringTokenize(line, "\t"));
-                for(size_t loop = 1, spriteID = static_cast<size_t>(-1), deltaID = static_cast<size_t>(-1); loop < pieces.GetCount(); ++loop)
-                {
-                    switch(loop)
-                    {
-                        case 1: // ID
-                        {
-                            try
-                            {
-                                spriteID = lexical_cast<uint32_t>(pieces[1]);
-                            }
-                            catch(const bad_lexical_cast&)
-                            {
-                                wxMessageBox(pieces[1], "Invalid sprite index");
-                            }
-                            if(spriteID < dataset->Graphics.size()) break;
-                            else goto LINE_PARSED;
-                        }
-                        case 2: // Either index of the delta or the sprite number of the delta.
-                        {
-                            try
-                            {
-                                deltaID = lexical_cast<uint32_t>(pieces[2]);
-                            }
-                            catch(const bad_lexical_cast&)
-                            {
-                                wxMessageBox(pieces[2], "Invalid delta number");
-                            }
-                            break;
-                        }
-                        case 3: // Add, Delete, Change
-                        {
-                            switch(static_cast<char>(pieces[3][0]))
-                            {
-                                case 'A':
-                                {
-                                    if(deltaID < dataset->Graphics.size())
-                                    {
-                                        genie::GraphicDelta newDelta;
-                                        newDelta.setGameVersion(GenieVersion);
-                                        newDelta.GraphicID = deltaID;
-                                        // Fixup the index of the delta for offset setting.
-                                        deltaID = dataset->Graphics[spriteID].Deltas.size();
-                                        dataset->Graphics[spriteID].Deltas.push_back(newDelta);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        wxMessageBox(pieces[2], "Trying to add reference to nonexistent sprite!");
-                                        goto LINE_PARSED;
-                                    }
-                                }
-                                case 'D': // Delete immediately and proceed to next line.
-                                {
-                                    auto &deltas = dataset->Graphics[spriteID].Deltas;
-                                    if(deltaID < deltas.size())
-                                    {
-                                        deltas.erase(deltas.begin() + deltaID);
-                                    }
-                                    goto LINE_PARSED;
-                                }
-                            }
-                            break;
-                        }
-                        case 4: // Offset X
-                        {
-                            if(deltaID >= dataset->Graphics[spriteID].Deltas.size())
-                            {
-                                wxMessageBox(line, "Skipping nonexistent delta "+pieces[2]+"!");
-                                goto LINE_PARSED;
-                            }
-                            try
-                            {
-                                dataset->Graphics[spriteID].Deltas[deltaID].OffsetX = lexical_cast<int16_t>(pieces[4]);
-                            }
-                            catch(const bad_lexical_cast&)
-                            {
-                                wxMessageBox(pieces[4], "Invalid X offset");
-                            }
-                            break;
-                        }
-                        case 5: // Offset Y
-                        {
-                            try // In case of missing new line.
-                            {
-                                dataset->Graphics[spriteID].Deltas[deltaID].OffsetY = lexical_cast<int16_t>(pieces[5]);
-                            }
-                            catch(const bad_lexical_cast&)
-                            {
-                                wxMessageBox(pieces[5], "Invalid Y offset");
-                            }
-                            break;
-                        }
-                    }
-                }
-                LINE_PARSED:;
-            }
-            // In case the currently viewed graphics was changed.
-            gallery.reload();
-            ListGraphicDeltas();
-            if(slp_window)
-            {
-                slp_view->Refresh();
-            }
-        }
-    });
+    Deltas_Import->Bind(wxEVT_BUTTON, &AGE_Frame::LoadSpriteDeltaFileWithDialog, this);
+    Deltas_Import_Auto->Bind(wxEVT_BUTTON, &AGE_Frame::LoadSpriteDeltaFileAuto, this);
     Graphics_AngleSounds_ListV->Bind(wxEVT_LISTBOX, &AGE_Frame::OnGraphicAngleSoundSelect, this);
-    AngleSounds_AutoCopy->Bind(wxEVT_CHECKBOX, [this](wxCommandEvent &event)
-    {
-        AutoCopyAngles = event.IsChecked();
-        AngleSounds_Copy->Enable(!AutoCopyAngles);
+    AngleSounds_AutoCopy->Bind(wxEVT_CHECKBOX, [this](wxCommandEvent& event)
+        {
+            AutoCopyAngles = event.IsChecked();
+            AngleSounds_Copy->Enable(!AutoCopyAngles);
 
-        wxCommandEvent e;
-        OnGraphicAngleSoundSelect(e);
-    });
+            wxCommandEvent e;
+            OnGraphicAngleSoundSelect(e);
+        });
     AngleSounds_Copy->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicAngleSoundsCopy, this);
     AngleSounds_CopyToGraphics->Bind(wxEVT_BUTTON, &AGE_Frame::OnGraphicAngleSoundsCopyToGraphics, this);
     animater.Bind(wxEVT_TIMER, &AGE_Frame::OnGraphicAnim, this);
 
     GraphicDeltas_GraphicID_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
-    {
-        static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
-        gallery.reload();
-        ListGraphicDeltas();
-        if (slp_window && ShowDeltas)
         {
-            slp_view->Refresh();
-        }
-    });
-    Graphics_SoundID_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Graphics, this);
-    Graphics_AngleSoundsUsed_CheckBox->Bind(wxEVT_CHECKBOX, [this](wxCommandEvent& event)
-    {
-        static_cast<LinkedCheckBox*>(event.GetEventObject())->OnChoose(event);
-        ResizeAngles();
-    });
-
-    // Need handling for both kill focus and enter events.
-    Graphics_Name->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
-        {
-            ListGraphics();
-        }
-    });
-    Graphics_Name->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ListGraphics();
-    });
-    Graphics_FileName->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
-        {
-            wxCommandEvent e;
-            OnGraphicSelect(e);
-        }
-    });
-    Graphics_FileName->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        wxCommandEvent e;
-        OnGraphicSelect(e);
-    });
-    GraphicDeltas_GraphicID->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
-        {
+            static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
             gallery.reload();
             ListGraphicDeltas();
             if (slp_window && ShowDeltas)
             {
                 slp_view->Refresh();
             }
-        }
-    });
-    GraphicDeltas_GraphicID->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        gallery.reload();
-        ListGraphicDeltas();
-        if (slp_window && ShowDeltas)
+        });
+    Graphics_SoundID_ComboBox->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Graphics, this);
+    Graphics_AngleSoundsUsed_CheckBox->Bind(wxEVT_CHECKBOX, [this](wxCommandEvent& event)
         {
-            slp_view->Refresh();
-        }
-    });
-    auto TrySaveThenResizeAngles = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
-        {
+            static_cast<LinkedCheckBox*>(event.GetEventObject())->OnChoose(event);
             ResizeAngles();
-        }
-    };
+        });
+
+    // Need handling for both kill focus and enter events.
+    Graphics_Name->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListGraphics();
+            }
+        });
+    Graphics_Name->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            ListGraphics();
+        });
+    Graphics_FileName->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                wxCommandEvent e;
+                OnGraphicSelect(e);
+            }
+        });
+    Graphics_FileName->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            wxCommandEvent e;
+            OnGraphicSelect(e);
+        });
+    GraphicDeltas_GraphicID->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                gallery.reload();
+                ListGraphicDeltas();
+                if (slp_window && ShowDeltas)
+                {
+                    slp_view->Refresh();
+                }
+            }
+        });
+    GraphicDeltas_GraphicID->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            gallery.reload();
+            ListGraphicDeltas();
+            if (slp_window && ShowDeltas)
+            {
+                slp_view->Refresh();
+            }
+        });
+    auto TrySaveThenResizeAngles = [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ResizeAngles();
+            }
+        };
     auto SaveThenResizeAngles = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ResizeAngles();
-    };
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            ResizeAngles();
+        };
     Graphics_AngleCount->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Graphics, this);
     Graphics_AngleCount->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Graphics, this);
     Graphics_AngleSoundsUsed->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_Graphics, this);
@@ -2017,19 +1904,19 @@ void AGE_Frame::CreateGraphicsControls()
     Graphics_WwiseSoundID->Bind(wxEVT_TEXT_ENTER, &AGE_Frame::OnEnter_Graphics, this);
 
     auto TrySaveThenReloadAngles = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
-            ReloadAngles();
-        }
-    };
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ReloadAngles();
+            }
+        };
     auto SaveThenReloadAngles = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ReloadAngles();
-    };
-    for(size_t loop = 0; loop < 3; ++loop)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            ReloadAngles();
+        };
+    for (size_t loop = 0; loop < 3; ++loop)
     {
         Graphics_AngleSoundID[loop]->Bind(wxEVT_KILL_FOCUS, TrySaveThenReloadAngles);
         Graphics_WwiseAngleSoundID[loop]->Bind(wxEVT_KILL_FOCUS, TrySaveThenReloadAngles);
@@ -2040,22 +1927,22 @@ void AGE_Frame::CreateGraphicsControls()
         Graphics_AngleSoundID_ComboBox[loop]->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUpdateCombo_Graphics, this);
     }
 
-    Graphics_ParticleEffectName_Browse->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        wxFileDialog md(this, "Select particle effect file", "", "",
-        "Particle effect files (*.json)|*.json", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-        if(md.ShowModal() == wxID_OK)
+    Graphics_ParticleEffectName_Browse->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
         {
-            Graphics_ParticleEffectName->ChangeValue(md.GetFilename().BeforeLast('.'));
-            Graphics_ParticleEffectName->SaveEdits(true);
-        }
-    });
+            wxFileDialog md(this, "Select particle effect file", "", "",
+                "Particle effect files (*.json)|*.json", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+            if (md.ShowModal() == wxID_OK)
+            {
+                Graphics_ParticleEffectName->ChangeValue(md.GetFilename().BeforeLast('.'));
+                Graphics_ParticleEffectName->SaveEdits(true);
+            }
+        });
 }
 
 void AGE_Frame::ReloadAngles()
 {
     ListGraphicAngleSounds();
-    if(PlaySounds)// Need to reload displaying graphic sounds.
+    if (PlaySounds)// Need to reload displaying graphic sounds.
     {
         UpdateGraphicsView();
     }
@@ -2063,12 +1950,12 @@ void AGE_Frame::ReloadAngles()
 
 void AGE_Frame::ResizeAngles()
 {
-    if(dataset->Graphics[GraphicIDs.front()].AngleSoundsUsed != 0)
+    if (dataset->Graphics[GraphicIDs.front()].AngleSoundsUsed != 0)
     {
-        for(size_t loop = 0; loop < GraphicIDs.size(); ++loop)
+        for (size_t loop = 0; loop < GraphicIDs.size(); ++loop)
         {
-            genie::Graphic &graphic = dataset->Graphics[GraphicIDs[loop]];
-            if(graphic.AngleSounds.size())
+            genie::Graphic& graphic = dataset->Graphics[GraphicIDs[loop]];
+            if (graphic.AngleSounds.size())
             {
                 graphic.AngleSounds.resize(graphic.AngleCount, graphic.AngleSounds.front());
             }
@@ -2092,13 +1979,13 @@ void AGE_Frame::UpdateGraphicsView(void)
     }
 }
 
-void AGE_Frame::OnEnter_Graphics(wxCommandEvent &event)
+void AGE_Frame::OnEnter_Graphics(wxCommandEvent& event)
 {
     static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
     UpdateGraphicsView();
 }
 
-void AGE_Frame::OnKillFocus_Graphics(wxFocusEvent &event)
+void AGE_Frame::OnKillFocus_Graphics(wxFocusEvent& event)
 {
     event.Skip();
     if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
@@ -2107,8 +1994,267 @@ void AGE_Frame::OnKillFocus_Graphics(wxFocusEvent &event)
     }
 }
 
-void AGE_Frame::OnUpdateCombo_Graphics(wxCommandEvent &event)
+void AGE_Frame::OnUpdateCombo_Graphics(wxCommandEvent& event)
 {
     static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
     ReloadAngles();
+}
+
+void AGE_Frame::LoadSpriteDeltaFile(wxCommandEvent& event)
+{
+    wxFileDialog dd(this, "Open sprite change list", "", "tr_spred.txt",
+        "Sprite editor files (*.txt)|*.txt", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+    if (dd.ShowModal() == wxID_OK && dataset)
+    {
+        wxBusyCursor WaitCursor;
+        std::string line(dd.GetPath());
+        std::ifstream infile(line);
+        while (getline(infile, line))
+        {
+            wxArrayString pieces(wxStringTokenize(line, "\t"));
+            for (size_t loop = 1, spriteID = static_cast<size_t>(-1), deltaID = static_cast<size_t>(-1); loop < pieces.GetCount(); ++loop)
+            {
+                switch (loop)
+                {
+                case 1: // ID
+                {
+                    try
+                    {
+                        spriteID = lexical_cast<uint32_t>(pieces[1]);
+                    }
+                    catch (const bad_lexical_cast&)
+                    {
+                        wxMessageBox(pieces[1], "Invalid sprite index");
+                    }
+                    if (spriteID < dataset->Graphics.size()) break;
+                    else goto LINE_PARSED;
+                }
+                case 2: // Either index of the delta or the sprite number of the delta.
+                {
+                    try
+                    {
+                        deltaID = lexical_cast<uint32_t>(pieces[2]);
+                    }
+                    catch (const bad_lexical_cast&)
+                    {
+                        wxMessageBox(pieces[2], "Invalid delta number");
+                    }
+                    break;
+                }
+                case 3: // Add, Delete, Change
+                {
+                    switch (static_cast<char>(pieces[3][0]))
+                    {
+                    case 'A':
+                    {
+                        if (deltaID < dataset->Graphics.size())
+                        {
+                            genie::GraphicDelta newDelta;
+                            newDelta.setGameVersion(GenieVersion);
+                            newDelta.GraphicID = deltaID;
+                            // Fixup the index of the delta for offset setting.
+                            deltaID = dataset->Graphics[spriteID].Deltas.size();
+                            dataset->Graphics[spriteID].Deltas.push_back(newDelta);
+                            break;
+                        }
+                        else
+                        {
+                            wxMessageBox(pieces[2], "Trying to add reference to nonexistent sprite!");
+                            goto LINE_PARSED;
+                        }
+                    }
+                    case 'D': // Delete immediately and proceed to next line.
+                    {
+                        auto& deltas = dataset->Graphics[spriteID].Deltas;
+                        if (deltaID < deltas.size())
+                        {
+                            deltas.erase(deltas.begin() + deltaID);
+                        }
+                        goto LINE_PARSED;
+                    }
+                    }
+                    break;
+                }
+                case 4: // Offset X
+                {
+                    if (deltaID >= dataset->Graphics[spriteID].Deltas.size())
+                    {
+                        wxMessageBox(line, "Skipping nonexistent delta " + pieces[2] + "!");
+                        goto LINE_PARSED;
+                    }
+                    try
+                    {
+                        dataset->Graphics[spriteID].Deltas[deltaID].OffsetX = lexical_cast<int16_t>(pieces[4]);
+                    }
+                    catch (const bad_lexical_cast&)
+                    {
+                        wxMessageBox(pieces[4], "Invalid X offset");
+                    }
+                    break;
+                }
+                case 5: // Offset Y
+                {
+                    try // In case of missing new line.
+                    {
+                        dataset->Graphics[spriteID].Deltas[deltaID].OffsetY = lexical_cast<int16_t>(pieces[5]);
+                    }
+                    catch (const bad_lexical_cast&)
+                    {
+                        wxMessageBox(pieces[5], "Invalid Y offset");
+                    }
+                    break;
+                }
+                }
+            }
+        LINE_PARSED:;
+        }
+        // In case the currently viewed graphics was changed.
+        gallery.reload();
+        ListGraphicDeltas();
+        if (slp_window)
+        {
+            slp_view->Refresh();
+        }
+    }
+}
+
+void AGE_Frame::LoadSpriteDeltaFileWithDialog(wxCommandEvent& event)
+{
+    // Get Selected Sprite ID
+    uint32_t spriteID;
+    if (GraphicIDs.size() != 1)
+    {
+        wxMessageBox("A single graphic has to be selected from the list");
+        return;
+    }
+    spriteID = GraphicIDs[0];
+
+    // Get current working directory
+    wxString cwd = wxGetCwd();
+
+    // Open file dialog
+    wxFileDialog dd(nullptr, "Open sprite change list", cwd, "tr_spred.txt",
+        "Sprite editor files (*.txt)|*.txt", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+
+    if (dd.ShowModal() == wxID_OK && dataset)
+    {
+        wxBusyCursor WaitCursor;
+        std::string filePath(dd.GetPath());
+
+        ParseSpriteDeltaFile(filePath, spriteID);
+    }
+}
+void AGE_Frame::LoadSpriteDeltaFileAuto(wxCommandEvent& event)
+{
+    // Get Selected Sprite ID
+    uint32_t spriteID;
+    if (GraphicIDs.size() != 1)
+    {
+        wxMessageBox("A single graphic has to be selected from the list");
+        return;
+    }
+    spriteID = GraphicIDs[0];
+
+    // Get current working directory
+    wxString cwd = wxGetCwd();
+    wxFileName path(cwd, "tr_spred.txt");
+    wxString fullPath = path.GetFullPath();
+
+    ParseSpriteDeltaFile(std::string(fullPath.mb_str()), spriteID);
+}
+
+void AGE_Frame::ParseSpriteDeltaFile(std::string filePath, uint32_t spriteID)
+{
+    std::ifstream infile(filePath);
+
+    if (!infile.good()) {
+        wxMessageBox(filePath, "File does not exist");
+        return;
+    }
+
+    std::string line;
+    std::vector<genie::GraphicDelta> spriteDeltaList;
+    size_t index = 0;
+
+    while (getline(infile, line))
+    {
+        wxArrayString pieces(wxStringTokenize(line, "\t"));
+
+        uint32_t deltaID;
+        uint16_t offsetX, offsetY;
+
+        if (pieces.size() != 3)
+        {
+            wxMessageBox("Invalid sprite delta data");
+            return;
+        }
+
+        // Sprite delta ID
+        try
+        {
+            deltaID = lexical_cast<uint32_t>(pieces[0]);
+        }
+        catch (const bad_lexical_cast&)
+        {
+            wxMessageBox(pieces[0], "Invalid delta sprite ID");
+            return;
+        }
+
+        if (deltaID < 0 || deltaID > dataset->Graphics.size())
+        {
+            wxMessageBox(pieces[0], "Sprite ID Out of Range");
+            return;
+        }
+
+        // Offset X
+        try
+        {
+            offsetX = lexical_cast<uint32_t>(pieces[1]);
+        }
+        catch (const bad_lexical_cast&)
+        {
+            wxMessageBox(pieces[1], "Invalid offset X");
+            return;
+        }
+
+        // Offset Y
+        try
+        {
+            offsetY = lexical_cast<uint32_t>(pieces[2]);
+        }
+        catch (const bad_lexical_cast&)
+        {
+            wxMessageBox(pieces[2], "Invalid offset Y");
+            return;
+        }
+
+        // Create new GraphicDelta
+        genie::GraphicDelta newDelta;
+        newDelta.setGameVersion(GenieVersion);
+        newDelta.GraphicID = deltaID;
+        newDelta.OffsetX = offsetX;
+        newDelta.OffsetY = offsetY;
+        // Fixup the index of the delta for offset setting.
+        deltaID = index;
+        spriteDeltaList.push_back(newDelta);
+
+        ++index;
+    }
+
+    // Empty existing delta list
+    dataset->Graphics[spriteID].Deltas.clear();
+
+    // Add new deltas
+    for (auto& delta : spriteDeltaList)
+    {
+        dataset->Graphics[spriteID].Deltas.push_back(delta);
+    }
+
+    // In case the currently viewed graphics was changed.
+    gallery.reload();
+    ListGraphicDeltas();
+    if (slp_window)
+    {
+        slp_view->Refresh();
+    }
 }

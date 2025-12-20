@@ -394,113 +394,113 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         if (isAoE2DE)
         {
             // Attributes 0 to 34, 40 to 77 and 100 to 115 only.
-            SetEffectAttributeChoice = [](LinkedComboBox *linkedComboBox, short value)
-            {
-                if (value >= 0 && value <= 34)
+            SetEffectAttributeChoice = [](LinkedComboBox* linkedComboBox, short value)
                 {
-                    linkedComboBox->SetChoice(value);
-                }
-                else if (value >= 40 && value <= 77)
+                    if (value >= 0 && value <= 34)
+                    {
+                        linkedComboBox->SetChoice(value);
+                    }
+                    else if (value >= 40 && value <= 77)
+                    {
+                        linkedComboBox->SetChoice(value - 5);
+                    }
+                    else if (value >= 100 && value <= 115)
+                    {
+                        linkedComboBox->SetChoice(value - 27);
+                    }
+                    else
+                    {
+                        linkedComboBox->SetChoice(-1);
+                    }
+                };
+            OnChooseEffectAttribute = [](AGETextCtrl* linkedTextBox, unsigned selection)
                 {
-                    linkedComboBox->SetChoice(value - 5);
-                }
-                else if (value >= 100 && value <= 115)
-                {
-                    linkedComboBox->SetChoice(value - 27);
-                }
-                else
-                {
-                    linkedComboBox->SetChoice(-1);
-                }
-            };
-            OnChooseEffectAttribute = [](AGETextCtrl *linkedTextBox, unsigned selection)
-            {
-                if (selection < 35)
-                {
-                    linkedTextBox->SetAsText(selection);
-                }
-                else if (selection < 73)
-                {
-                    linkedTextBox->SetAsText(selection + 5);
-                }
-                else if (selection < 89)
-                {
-                    linkedTextBox->SetAsText(selection + 27);
-                }
-                else
-                {
-                    linkedTextBox->ChangeValue("-1");
-                }
-            };
+                    if (selection < 35)
+                    {
+                        linkedTextBox->SetAsText(selection);
+                    }
+                    else if (selection < 73)
+                    {
+                        linkedTextBox->SetAsText(selection + 5);
+                    }
+                    else if (selection < 89)
+                    {
+                        linkedTextBox->SetAsText(selection + 27);
+                    }
+                    else
+                    {
+                        linkedTextBox->ChangeValue("-1");
+                    }
+                };
         }
         else
         {
             // Attributes 0 to 23 and 100 to 109 only.
-            SetEffectAttributeChoice = [](LinkedComboBox *linkedComboBox, short value)
-            {
-                if (value >= 0 && value <= 23)
+            SetEffectAttributeChoice = [](LinkedComboBox* linkedComboBox, short value)
                 {
-                    linkedComboBox->SetChoice(value);
-                }
-                else if (value >= 100 && value <= 109)
+                    if (value >= 0 && value <= 23)
+                    {
+                        linkedComboBox->SetChoice(value);
+                    }
+                    else if (value >= 100 && value <= 109)
+                    {
+                        linkedComboBox->SetChoice(value - 76);
+                    }
+                    else
+                    {
+                        linkedComboBox->SetChoice(-1);
+                    }
+                };
+            OnChooseEffectAttribute = [](AGETextCtrl* linkedTextBox, unsigned selection)
                 {
-                    linkedComboBox->SetChoice(value - 76);
-                }
-                else
-                {
-                    linkedComboBox->SetChoice(-1);
-                }
-            };
-            OnChooseEffectAttribute = [](AGETextCtrl *linkedTextBox, unsigned selection)
-            {
-                if (selection < 24)
-                {
-                    linkedTextBox->SetAsText(selection);
-                }
-                else if (selection < 34)
-                {
-                    linkedTextBox->SetAsText(selection + 76);
-                }
-                else
-                {
-                    linkedTextBox->ChangeValue("-1");
-                }
-            };
+                    if (selection < 24)
+                    {
+                        linkedTextBox->SetAsText(selection);
+                    }
+                    else if (selection < 34)
+                    {
+                        linkedTextBox->SetAsText(selection + 76);
+                    }
+                    else
+                    {
+                        linkedTextBox->ChangeValue("-1");
+                    }
+                };
         }
     }
     else
     {
         // Attributes 0 to 19 and 100 to 101 only.
-        SetEffectAttributeChoice = [](LinkedComboBox *linkedComboBox, short value)
-        {
-            if (value >= 0 && value <= 19)
+        SetEffectAttributeChoice = [](LinkedComboBox* linkedComboBox, short value)
             {
-                linkedComboBox->SetChoice(value);
-            }
-            else if (value >= 100 && value <= 101)
+                if (value >= 0 && value <= 19)
+                {
+                    linkedComboBox->SetChoice(value);
+                }
+                else if (value >= 100 && value <= 101)
+                {
+                    linkedComboBox->SetChoice(value - 80);
+                }
+                else
+                {
+                    linkedComboBox->SetChoice(-1);
+                }
+            };
+        OnChooseEffectAttribute = [](AGETextCtrl* linkedTextBox, unsigned selection)
             {
-                linkedComboBox->SetChoice(value - 80);
-            }
-            else
-            {
-                linkedComboBox->SetChoice(-1);
-            }
-        };
-        OnChooseEffectAttribute = [](AGETextCtrl *linkedTextBox, unsigned selection)
-        {
-            if (selection < 20)
-            {
-                linkedTextBox->SetAsText(selection);
-            }
-            else if (selection < 22)
-            {
-                linkedTextBox->SetAsText(selection + 80);
-            }
-            else
-            {
-                linkedTextBox->ChangeValue("-1");
-            }
-        };
+                if (selection < 20)
+                {
+                    linkedTextBox->SetAsText(selection);
+                }
+                else if (selection < 22)
+                {
+                    linkedTextBox->SetAsText(selection + 80);
+                }
+                else
+                {
+                    linkedTextBox->ChangeValue("-1");
+                }
+            };
     }
 
     modify_research_names.Clear();
@@ -688,6 +688,17 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     {
         effect_type_names.Add("103 - Tech Time Modifier (Set/+/-)");
     }
+
+    if (isAoE2DE)
+    {
+        effect_type_names.Add("200 - Own Master Objects Attribute Modifier (Set)");
+        effect_type_names.Add("201 - Own Master Objects Attribute Modifier (+/-)");
+        effect_type_names.Add("202 - Own Master Objects Attribute Modifier (Multiply)");
+        effect_type_names.Add("203 - Selected Unit Attribute Modifier (Set)");
+        effect_type_names.Add("204 - Selected Unit Attribute Modifier (+/-)");
+        effect_type_names.Add("205 - Selected Unit Attribute Modifier (Multiply)");
+        effect_type_names.Add("206 - Transform Selected Unit");
+    }
     Effects_Type_ComboBox->Flash();
 
     // Special selection logic that takes into account gaps in the list above.
@@ -698,214 +709,222 @@ void AGE_Frame::FillListsBasedOnGameVersion()
             if (GenieVersion >= genie::GV_C2)
             {
                 // Types 0 to 8, 10 to 18, 20 to 28, 30 to 38, 40 to 48 and 101 to 103 only.
-                SetEffectTypeChoice = [](LinkedComboBox *linkedComboBox, short value)
-                {
-                    if (value >= 0 && value <= 8)
+                SetEffectTypeChoice = [](LinkedComboBox* linkedComboBox, short value)
                     {
-                        linkedComboBox->SetChoice(value);
-                    }
-                    else if (value >= 10 && value <= 18)
+                        if (value >= 0 && value <= 8)
+                        {
+                            linkedComboBox->SetChoice(value);
+                        }
+                        else if (value >= 10 && value <= 18)
+                        {
+                            linkedComboBox->SetChoice(value - 1);
+                        }
+                        else if (value >= 20 && value <= 28)
+                        {
+                            linkedComboBox->SetChoice(value - 2);
+                        }
+                        else if (value >= 30 && value <= 38)
+                        {
+                            linkedComboBox->SetChoice(value - 3);
+                        }
+                        else if (value >= 40 && value <= 48)
+                        {
+                            linkedComboBox->SetChoice(value - 4);
+                        }
+                        else if (value >= 101 && value <= 103)
+                        {
+                            linkedComboBox->SetChoice(value - 56);
+                        }
+                        else if (value >= 200 && value <= 206)
+                        {
+                            linkedComboBox->SetChoice(value - 152);
+                        }
+                        else
+                        {
+                            linkedComboBox->SetChoice(-1);
+                        }
+                    };
+                OnChooseEffectType = [](AGETextCtrl* linkedTextBox, unsigned selection)
                     {
-                        linkedComboBox->SetChoice(value - 1);
-                    }
-                    else if (value >= 20 && value <= 28)
-                    {
-                        linkedComboBox->SetChoice(value - 2);
-                    }
-                    else if (value >= 30 && value <= 38)
-                    {
-                        linkedComboBox->SetChoice(value - 3);
-                    }
-                    else if (value >= 40 && value <= 48)
-                    {
-                        linkedComboBox->SetChoice(value - 4);
-                    }
-                    else if (value >= 101 && value <= 103)
-                    {
-                        linkedComboBox->SetChoice(value - 56);
-                    }
-                    else
-                    {
-                        linkedComboBox->SetChoice(-1);
-                    }
-                };
-                OnChooseEffectType = [](AGETextCtrl *linkedTextBox, unsigned selection)
-                {
-                    if (selection < 9)
-                    {
-                        linkedTextBox->SetAsText(selection);
-                    }
-                    else if (selection < 18)
-                    {
-                        linkedTextBox->SetAsText(selection + 1);
-                    }
-                    else if (selection < 27)
-                    {
-                        linkedTextBox->SetAsText(selection + 2);
-                    }
-                    else if (selection < 36)
-                    {
-                        linkedTextBox->SetAsText(selection + 3);
-                    }
-                    else if (selection < 45)
-                    {
-                        linkedTextBox->SetAsText(selection + 4);
-                    }
-                    else if (selection < 48)
-                    {
-                        linkedTextBox->SetAsText(selection + 56);
-                    }
-                    else
-                    {
-                        linkedTextBox->ChangeValue("255");
-                    }
-                };
+                        if (selection < 9)
+                        {
+                            linkedTextBox->SetAsText(selection);
+                        }
+                        else if (selection < 18)
+                        {
+                            linkedTextBox->SetAsText(selection + 1);
+                        }
+                        else if (selection < 27)
+                        {
+                            linkedTextBox->SetAsText(selection + 2);
+                        }
+                        else if (selection < 36)
+                        {
+                            linkedTextBox->SetAsText(selection + 3);
+                        }
+                        else if (selection < 45)
+                        {
+                            linkedTextBox->SetAsText(selection + 4);
+                        }
+                        else if (selection < 48)
+                        {
+                            linkedTextBox->SetAsText(selection + 56);
+                        }
+                        else if (selection < 55)
+                        {
+                            linkedTextBox->SetAsText(selection + 152);
+                        }
+                        else
+                        {
+                            linkedTextBox->ChangeValue("255");
+                        }
+                    };
             }
             else
             {
                 // Types 0 to 6, 10 to 16 and 101 to 103 only.
-                SetEffectTypeChoice = [](LinkedComboBox *linkedComboBox, short value)
-                {
-                    if (value >= 0 && value <= 6)
+                SetEffectTypeChoice = [](LinkedComboBox* linkedComboBox, short value)
                     {
-                        linkedComboBox->SetChoice(value);
-                    }
-                    else if (value >= 10 && value <= 16)
+                        if (value >= 0 && value <= 6)
+                        {
+                            linkedComboBox->SetChoice(value);
+                        }
+                        else if (value >= 10 && value <= 16)
+                        {
+                            linkedComboBox->SetChoice(value - 3);
+                        }
+                        else if (value >= 101 && value <= 103)
+                        {
+                            linkedComboBox->SetChoice(value - 87);
+                        }
+                        else
+                        {
+                            linkedComboBox->SetChoice(-1);
+                        }
+                    };
+                OnChooseEffectType = [](AGETextCtrl* linkedTextBox, unsigned selection)
                     {
-                        linkedComboBox->SetChoice(value - 3);
-                    }
-                    else if (value >= 101 && value <= 103)
-                    {
-                        linkedComboBox->SetChoice(value - 87);
-                    }
-                    else
-                    {
-                        linkedComboBox->SetChoice(-1);
-                    }
-                };
-                OnChooseEffectType = [](AGETextCtrl *linkedTextBox, unsigned selection)
-                {
-                    if (selection < 7)
-                    {
-                        linkedTextBox->SetAsText(selection);
-                    }
-                    else if (selection < 14)
-                    {
-                        linkedTextBox->SetAsText(selection + 3);
-                    }
-                    else if (selection < 17)
-                    {
-                        linkedTextBox->SetAsText(selection + 87);
-                    }
-                    else
-                    {
-                        linkedTextBox->ChangeValue("255");
-                    }
-                };
+                        if (selection < 7)
+                        {
+                            linkedTextBox->SetAsText(selection);
+                        }
+                        else if (selection < 14)
+                        {
+                            linkedTextBox->SetAsText(selection + 3);
+                        }
+                        else if (selection < 17)
+                        {
+                            linkedTextBox->SetAsText(selection + 87);
+                        }
+                        else
+                        {
+                            linkedTextBox->ChangeValue("255");
+                        }
+                    };
             }
         }
         else if (GameVersion == EV_UP)
         {
             // Types 0 to 39 and 101 to 103 only.
-            SetEffectTypeChoice = [](LinkedComboBox *linkedComboBox, short value)
-            {
-                if (value >= 0 && value <= 39)
+            SetEffectTypeChoice = [](LinkedComboBox* linkedComboBox, short value)
                 {
-                    linkedComboBox->SetChoice(value);
-                }
-                else if (value >= 101 && value <= 103)
+                    if (value >= 0 && value <= 39)
+                    {
+                        linkedComboBox->SetChoice(value);
+                    }
+                    else if (value >= 101 && value <= 103)
+                    {
+                        linkedComboBox->SetChoice(value - 61);
+                    }
+                    else
+                    {
+                        linkedComboBox->SetChoice(-1);
+                    }
+                };
+            OnChooseEffectType = [](AGETextCtrl* linkedTextBox, unsigned selection)
                 {
-                    linkedComboBox->SetChoice(value - 61);
-                }
-                else
-                {
-                    linkedComboBox->SetChoice(-1);
-                }
-            };
-            OnChooseEffectType = [](AGETextCtrl *linkedTextBox, unsigned selection)
-            {
-                if (selection < 40)
-                {
-                    linkedTextBox->SetAsText(selection);
-                }
-                else if (selection < 43)
-                {
-                    linkedTextBox->SetAsText(selection + 61);
-                }
-                else
-                {
-                    linkedTextBox->ChangeValue("255");
-                }
-            };
+                    if (selection < 40)
+                    {
+                        linkedTextBox->SetAsText(selection);
+                    }
+                    else if (selection < 43)
+                    {
+                        linkedTextBox->SetAsText(selection + 61);
+                    }
+                    else
+                    {
+                        linkedTextBox->ChangeValue("255");
+                    }
+                };
         }
         else
         {
             // Types 0 to 6 and 101 to 103 only.
-            SetEffectTypeChoice = [](LinkedComboBox *linkedComboBox, short value)
-            {
-                if (value >= 0 && value <= 6)
+            SetEffectTypeChoice = [](LinkedComboBox* linkedComboBox, short value)
                 {
-                    linkedComboBox->SetChoice(value);
-                }
-                else if (value >= 101 && value <= 103)
+                    if (value >= 0 && value <= 6)
+                    {
+                        linkedComboBox->SetChoice(value);
+                    }
+                    else if (value >= 101 && value <= 103)
+                    {
+                        linkedComboBox->SetChoice(value - 94);
+                    }
+                    else
+                    {
+                        linkedComboBox->SetChoice(-1);
+                    }
+                };
+            OnChooseEffectType = [](AGETextCtrl* linkedTextBox, unsigned selection)
                 {
-                    linkedComboBox->SetChoice(value - 94);
-                }
-                else
-                {
-                    linkedComboBox->SetChoice(-1);
-                }
-            };
-            OnChooseEffectType = [](AGETextCtrl *linkedTextBox, unsigned selection)
-            {
-                if (selection < 7)
-                {
-                    linkedTextBox->SetAsText(selection);
-                }
-                else if (selection < 10)
-                {
-                    linkedTextBox->SetAsText(selection + 94);
-                }
-                else
-                {
-                    linkedTextBox->ChangeValue("255");
-                }
-            };
+                    if (selection < 7)
+                    {
+                        linkedTextBox->SetAsText(selection);
+                    }
+                    else if (selection < 10)
+                    {
+                        linkedTextBox->SetAsText(selection + 94);
+                    }
+                    else
+                    {
+                        linkedTextBox->ChangeValue("255");
+                    }
+                };
         }
     }
     else
     {
         // Types 0 to 5 and 102 only.
-        SetEffectTypeChoice = [](LinkedComboBox *linkedComboBox, short value)
-        {
-            if (value >= 0 && value <= 5)
+        SetEffectTypeChoice = [](LinkedComboBox* linkedComboBox, short value)
             {
-                linkedComboBox->SetChoice(value);
-            }
-            else if (value == 102)
+                if (value >= 0 && value <= 5)
+                {
+                    linkedComboBox->SetChoice(value);
+                }
+                else if (value == 102)
+                {
+                    linkedComboBox->SetChoice(value - 96);
+                }
+                else
+                {
+                    linkedComboBox->SetChoice(-1);
+                }
+            };
+        OnChooseEffectType = [](AGETextCtrl* linkedTextBox, unsigned selection)
             {
-                linkedComboBox->SetChoice(value - 96);
-            }
-            else
-            {
-                linkedComboBox->SetChoice(-1);
-            }
-        };
-        OnChooseEffectType = [](AGETextCtrl *linkedTextBox, unsigned selection)
-        {
-            if (selection < 6)
-            {
-                linkedTextBox->SetAsText(selection);
-            }
-            else if (selection == 6)
-            {
-                linkedTextBox->SetAsText(selection + 96);
-            }
-            else
-            {
-                linkedTextBox->ChangeValue("255");
-            }
-        };
+                if (selection < 6)
+                {
+                    linkedTextBox->SetAsText(selection);
+                }
+                else if (selection == 6)
+                {
+                    linkedTextBox->SetAsText(selection + 96);
+                }
+                else
+                {
+                    linkedTextBox->ChangeValue("255");
+                }
+            };
     }
 
     const wxString localFilename = PathCustomNames.empty() ? "AGE3NamesV0007.ini" : PathCustomNames;
@@ -993,8 +1012,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         class ArmorWriter
         {
         public:
-            ArmorWriter(wxFileConfig &file, wxString &key, wxArrayString &list) :
-                index(0), key(key), file(file), list(list) {}
+            ArmorWriter(wxFileConfig& file, wxString& key, wxArrayString& list) :
+                index(0), key(key), file(file), list(list) {
+            }
             void Add(wxString name)
             {
                 wxString indexAsText = lexical_cast<std::string>(index++);
@@ -1004,9 +1024,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
             long NumNames(void) const { return index; }
         private:
             long index;
-            wxString &key;
-            wxFileConfig &file;
-            wxArrayString &list;
+            wxString& key;
+            wxFileConfig& file;
+            wxArrayString& list;
         };
 
         ArmorWriter names(Customs, KeyArmorNames, armor_names);
@@ -1389,8 +1409,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
     class NameWriter
     {
     public:
-        NameWriter(wxFileConfig &file, wxString &key, wxArrayString &list) :
-            index(0), key(key), file(file), list(list) {}
+        NameWriter(wxFileConfig& file, wxString& key, wxArrayString& list) :
+            index(0), key(key), file(file), list(list) {
+        }
         void Add(wxString name)
         {
             wxString line = key + lexical_cast<std::string>(index++);
@@ -1400,9 +1421,9 @@ void AGE_Frame::FillListsBasedOnGameVersion()
         long NumNames(void) const { return index; }
     private:
         long index;
-        wxString &key;
-        wxFileConfig &file;
-        wxArrayString &list;
+        wxString& key;
+        wxFileConfig& file;
+        wxArrayString& list;
     };
 
     TerrainRestrictionNames.clear();
@@ -2592,7 +2613,7 @@ void AGE_Frame::FillListsBasedOnGameVersion()
             unit_filters.Add("Move Wave Works Sound");
             unit_filters.Add("Bonus Damage Resistance");
             unit_filters.Add("Blast Damage");
-            unit_filters.Add("Instant Karma");
+            unit_filters.Add("Damage Reflection");
             unit_filters.Add("Friendly Fire Damage");
             unit_filters.Add("Interrupt Frame");
             unit_filters.Add("Garrison Firepower");
@@ -2910,13 +2931,13 @@ void AGE_Frame::LoadLists()
     }
 }
 
-void AGE_Frame::InitSearch(const wxString &yes, const wxString &no)
+void AGE_Frame::InitSearch(const wxString& yes, const wxString& no)
 {
     SearchYes = wxStringTokenize(yes, "|");
     SearchNo = wxStringTokenize(no, "|");
 }
 
-bool AGE_Frame::SearchMatches(const wxString &hay)
+bool AGE_Frame::SearchMatches(const wxString& hay)
 {
     bool matches = false;
 
@@ -2930,7 +2951,7 @@ bool AGE_Frame::SearchMatches(const wxString &hay)
         if (SearchAnd) // All search parts must match.
         {
             matches = true;
-            for (const wxString &pin : SearchYes)
+            for (const wxString& pin : SearchYes)
                 if (wxNOT_FOUND == hay.Find(pin))
                 {
                     matches = false;
@@ -2939,7 +2960,7 @@ bool AGE_Frame::SearchMatches(const wxString &hay)
         }
         else // Only one match needed.
         {
-            for (const wxString &pin : SearchYes)
+            for (const wxString& pin : SearchYes)
                 if (wxNOT_FOUND != hay.Find(pin))
                 {
                     matches = true;
@@ -2959,7 +2980,7 @@ bool AGE_Frame::SearchMatches(const wxString &hay)
         if (ExcludeAnd) // All search parts must match.
         {
             matches = false;
-            for (const wxString &pin : SearchNo)
+            for (const wxString& pin : SearchNo)
                 if (wxNOT_FOUND == hay.Find(pin))
                 {
                     matches = true;
@@ -2968,7 +2989,7 @@ bool AGE_Frame::SearchMatches(const wxString &hay)
         }
         else // Only one match needed.
         {
-            for (const wxString &pin : SearchNo)
+            for (const wxString& pin : SearchNo)
                 if (wxNOT_FOUND != hay.Find(pin))
                 {
                     matches = false;
@@ -2980,7 +3001,7 @@ bool AGE_Frame::SearchMatches(const wxString &hay)
     return matches;
 }
 
-void AGE_Frame::OnSelection_SearchFilters(wxCommandEvent &event)
+void AGE_Frame::OnSelection_SearchFilters(wxCommandEvent& event)
 {
     for (size_t loop = 0; loop < 2; ++loop) // Custom search filters
     {
@@ -3022,7 +3043,7 @@ void AGE_Frame::OnSelection_SearchFilters(wxCommandEvent &event)
     }
 }
 
-void AGE_Frame::RefreshList(ProperList *list, std::vector<int> *oldies)
+void AGE_Frame::RefreshList(ProperList* list, std::vector<int>* oldies)
 {
     unsigned long cookie;
     size_t first_visible = list->GetVisibleRowsBegin();
@@ -3093,7 +3114,7 @@ bool AGE_Frame::Paste11Check(size_t numPastes, size_t numCopies)
     return result;
 }
 
-void AGE_Frame::SearchAllSubVectors(ProperList *list, wxTextCtrl *topSearch, wxTextCtrl *subSearch)
+void AGE_Frame::SearchAllSubVectors(ProperList* list, wxTextCtrl* topSearch, wxTextCtrl* subSearch)
 {
     size_t selections = list->GetSelectedCount();
     wxBusyCursor WaitCursor;
@@ -3127,7 +3148,7 @@ void AGE_Frame::SearchAllSubVectors(ProperList *list, wxTextCtrl *topSearch, wxT
     }
 }
 
-void AGE_Frame::getSelectedItems(const size_t selections, const ProperList *list, std::vector<int> &indexes)
+void AGE_Frame::getSelectedItems(const size_t selections, const ProperList* list, std::vector<int>& indexes)
 {
     unsigned long cookie;
     indexes.resize(selections);

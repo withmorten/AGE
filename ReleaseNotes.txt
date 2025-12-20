@@ -13,14 +13,37 @@ I recommend [url=http://aok.heavengames.com/blacksmith/showfile.php?fileid=10819
 [b]Version History[/b]
 Guide makers et cetera, please include the version into which your guide was written.
 
-Version [b]2025.4.28[/b]:
--Fixed display logic of some boxes for AoE II DE.
+Version [b]2025.6.3[/b]:
+-Fixed display logic of some editing boxes for AoE 2 DE.
+
+Version [b]2025.5.23[/b]:
+-Added configuration for multiple Research Locations for technologies.
 
 Version [b]2025.4.28[/b]:
 -Save and read colors of data editing boxes.
 
 Version [b]2025.4.25[/b]:
 -Fixed crash on exit.
+
+Version [b]2025.4.23[/b]:
+-Graphics: fixed "Import delta change list" action to match with new in game Sprite Delta Editor. Added "Import Deltas" action to automatically load tr_spred.txt file from current working directory. 
+
+Version [b]2025.2.20[/b]:
+-Moved unit hotkey variable from Unit.h to TrainLocation.h (as part of Creatable.h) to support different hotkeys for multiple train locations
+
+Version [b]2025.2.14[/b]:
+-Updated description for "Upgrade Unit" command type modes
+-Added command type 206 - Transform Selected Unit
+
+Version [b]2025.2.13[/b]:
+-Added support for multiple Train Locations to Units
+
+Version [b]2025.2.3[/b]:
+-Added dropdown and text data for command types 200-205
+-Updated description for "Upgrade Unit" command type modes
+
+Version [b]2025.1.17[/b]:
+-Added resource field "enabled" in Units -> Tasks
 
 Version [b]2024.7.2[/b]:
 -Added unit attribute fields: "Charge Projectile Unit", "Attack Priority", "Invulnerability Level".

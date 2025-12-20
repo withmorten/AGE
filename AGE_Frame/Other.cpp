@@ -619,6 +619,7 @@ void AGE_Frame::OnOpen(wxCommandEvent&)
                 {
                     if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
                     {
+                        // Dropsites
                         auto it = std::find_if(dataset->Civs[loop].Units[loop2].Bird.DropSites.rbegin(), dataset->Civs[loop].Units[loop2].Bird.DropSites.rend(), [](int i) { return i != -1; });
                         if (it != dataset->Civs[loop].Units[loop2].Bird.DropSites.rend())
                         {
@@ -739,14 +740,12 @@ void AGE_Frame::OnGameVersionChange()
         // AoE Beta ->
         show = (GenieVersion >= genie::GV_AoEB) ? true : false;
         Research_PointerArea_Holder->Show(show);
-        Research_HotKey_Holder->Show(show);
         Research_DLL_LanguageDLLHelp->Show(show);
         Research_DLL_LanguageDLLName2->Show(show);
         Terrains_SLP_Holder->Show(show);
         Borders_SLP_Holder->Show(show);
         Units_LanguageDLLHelp_Holder->Show(show);
         Units_LanguageDLLHotKeyText_Holder->Show(show);
-        Units_HotKey_Holder->Show(show);
         Units_LangHotKey_Holder->Show(show);
         Units_DLL_LanguageHelp->Show(show);
         Units_DLL_LanguageHKText->Show(show);
@@ -1306,7 +1305,7 @@ void AGE_Frame::OnSave(wxCommandEvent&)
                 }
                 GenieVersion = genie::GV_LatestDE2;
                 // Remember to update this version number!
-                dataset->FileVersion = "VER 8.4";
+                dataset->FileVersion = "VER 8.8";
             }
             else if(GenieVersion <= genie::GV_LatestTap && genie::GV_Tapsa <= GenieVersion)
             {

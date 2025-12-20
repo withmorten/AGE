@@ -14,7 +14,7 @@ wxString AGE_Frame::GetUnitName(int index, short civ, bool filter)
     wxString name;
     if (filter)
     {
-        for (auto &f : UnitFilterFunctions)
+        for (auto& f : UnitFilterFunctions)
         {
             name += f(&dataset->Civs[civ].Units[index]) + ", ";
         }
@@ -45,1064 +45,1092 @@ void AGE_Frame::PrepUnitSearch()
 {
     UseDynamicUnitName = true;
     UnitFilterFunctions.clear();
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         int selection = Units_SearchFilters[loop]->GetSelection();
-        if(selection < 1) continue;
+        if (selection < 1) continue;
         wxString label = unit_filters[selection];
 
         if (label.compare("Type") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "T " + FormatInt(unit_ptr->Type);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "T " + FormatInt(unit_ptr->Type);
+                });
         else if (label.compare("ID") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "I1 " + FormatInt(unit_ptr->ID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "I1 " + FormatInt(unit_ptr->ID);
+                });
         else if (label.compare("Language File Name") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "LN " + FormatInt(unit_ptr->LanguageDLLName);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "LN " + FormatInt(unit_ptr->LanguageDLLName);
+                });
         else if (label.compare("Language File Creation") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "LC " + FormatInt(unit_ptr->LanguageDLLCreation);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "LC " + FormatInt(unit_ptr->LanguageDLLCreation);
+                });
         else if (label.compare("Class") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "C " + FormatInt(unit_ptr->Class);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "C " + FormatInt(unit_ptr->Class);
+                });
         else if (label.compare("Standing Graphics") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "SG " + FormatInt(unit_ptr->StandingGraphic.first) + " "
-                    + FormatInt(unit_ptr->StandingGraphic.second);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "SG " + FormatInt(unit_ptr->StandingGraphic.first) + " "
+                        + FormatInt(unit_ptr->StandingGraphic.second);
+                });
         else if (label.compare("Dying Graphics") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "DG " + FormatInt(unit_ptr->DyingGraphic) + " "
-                    + FormatInt(unit_ptr->UndeadGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "DG " + FormatInt(unit_ptr->DyingGraphic) + " "
+                        + FormatInt(unit_ptr->UndeadGraphic);
+                });
         else if (label.compare("Undead Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "DM " + FormatInt(unit_ptr->UndeadMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "DM " + FormatInt(unit_ptr->UndeadMode);
+                });
         else if (label.compare("Hit Points") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "HP " + FormatInt(unit_ptr->HitPoints);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "HP " + FormatInt(unit_ptr->HitPoints);
+                });
         else if (label.compare("Line of Sight") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "LS " + FormatFloat(unit_ptr->LineOfSight);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "LS " + FormatFloat(unit_ptr->LineOfSight);
+                });
         else if (label.compare("Garrison Capacity") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "GC " + FormatInt(unit_ptr->GarrisonCapacity);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "GC " + FormatInt(unit_ptr->GarrisonCapacity);
+                });
         else if (label.compare("Collision Size XY") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "SR " + FormatFloat(unit_ptr->CollisionSize.x) + " "
-                    + FormatFloat(unit_ptr->CollisionSize.y);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "SR " + FormatFloat(unit_ptr->CollisionSize.x) + " "
+                        + FormatFloat(unit_ptr->CollisionSize.y);
+                });
         else if (label.compare("Collision Size Z") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "B1 " + FormatFloat(unit_ptr->CollisionSize.z);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "B1 " + FormatFloat(unit_ptr->CollisionSize.z);
+                });
         else if (label.compare("Train Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "TS " + FormatInt(unit_ptr->TrainSound);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "TS " + FormatInt(unit_ptr->TrainSound);
+                });
         else if (label.compare("Damage Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "VS " + FormatInt(unit_ptr->DamageSound);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "VS " + FormatInt(unit_ptr->DamageSound);
+                });
         else if (label.compare("Dead Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "DU " + FormatInt(unit_ptr->DeadUnitID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "DU " + FormatInt(unit_ptr->DeadUnitID);
+                });
         else if (label.compare("Blood Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "BU " + FormatInt(unit_ptr->BloodUnitID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "BU " + FormatInt(unit_ptr->BloodUnitID);
+                });
         else if (label.compare("Sort Number") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "PM " + FormatInt(unit_ptr->SortNumber);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "PM " + FormatInt(unit_ptr->SortNumber);
+                });
         else if (label.compare("Can be Built on") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "AM " + FormatInt(unit_ptr->CanBeBuiltOn);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "AM " + FormatInt(unit_ptr->CanBeBuiltOn);
+                });
         else if (label.compare("Icon") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "I " + FormatInt(unit_ptr->IconID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "I " + FormatInt(unit_ptr->IconID);
+                });
         else if (label.compare("Hide in Editor") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "HE " + FormatInt(unit_ptr->HideInEditor);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "HE " + FormatInt(unit_ptr->HideInEditor);
+                });
         else if (label.compare("Portrait Picture") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "U1 " + FormatInt(unit_ptr->OldPortraitPict);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "U1 " + FormatInt(unit_ptr->OldPortraitPict);
+                });
         else if (label.compare("Available") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "E " + FormatInt(unit_ptr->Enabled);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "E " + FormatInt(unit_ptr->Enabled);
+                });
         else if (label.compare("Disabled") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "D " + FormatInt(unit_ptr->Disabled);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "D " + FormatInt(unit_ptr->Disabled);
+                });
         else if (label.compare("Placement Side Terrain x2") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "PBT " + FormatInt(unit_ptr->PlacementSideTerrain.first) +
-                " PBT " + FormatInt(unit_ptr->PlacementSideTerrain.second) + " ";
-            return name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "PBT " + FormatInt(unit_ptr->PlacementSideTerrain.first) +
+                        " PBT " + FormatInt(unit_ptr->PlacementSideTerrain.second) + " ";
+                    return name;
+                });
         else if (label.compare("Placement Terrain x2") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "PT " + FormatInt(unit_ptr->PlacementTerrain.first) +
-                " PT " + FormatInt(unit_ptr->PlacementTerrain.second) + " ";
-            return name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "PT " + FormatInt(unit_ptr->PlacementTerrain.first) +
+                        " PT " + FormatInt(unit_ptr->PlacementTerrain.second) + " ";
+                    return name;
+                });
         else if (label.compare("Clearance Size XY") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "ER " + FormatFloat(unit_ptr->ClearanceSize.first) + " "
-                    + FormatFloat(unit_ptr->ClearanceSize.second);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "ER " + FormatFloat(unit_ptr->ClearanceSize.first) + " "
+                        + FormatFloat(unit_ptr->ClearanceSize.second);
+                });
         else if (label.compare("Hill Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "HM " + FormatInt(unit_ptr->HillMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "HM " + FormatInt(unit_ptr->HillMode);
+                });
         else if (label.compare("Fog Visibility") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "VF " + FormatInt(unit_ptr->FogVisibility);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "VF " + FormatInt(unit_ptr->FogVisibility);
+                });
         else if (label.compare("Terrain Table") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "TR " + FormatInt(unit_ptr->TerrainRestriction);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "TR " + FormatInt(unit_ptr->TerrainRestriction);
+                });
         else if (label.compare("Fly Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "FM " + FormatInt(unit_ptr->FlyMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "FM " + FormatInt(unit_ptr->FlyMode);
+                });
         else if (label.compare("Resource Capacity") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "RC " + FormatInt(unit_ptr->ResourceCapacity);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "RC " + FormatInt(unit_ptr->ResourceCapacity);
+                });
         else if (label.compare("Resource Decay") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "RD " + FormatFloat(unit_ptr->ResourceDecay);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "RD " + FormatFloat(unit_ptr->ResourceDecay);
+                });
         else if (label.compare("Blast Defense Level") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "BA " + FormatInt(unit_ptr->BlastDefenseLevel);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "BA " + FormatInt(unit_ptr->BlastDefenseLevel);
+                });
         else if (label.compare("Combat Level") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "U2 " + FormatInt(unit_ptr->CombatLevel);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "U2 " + FormatInt(unit_ptr->CombatLevel);
+                });
         else if (label.compare("Interaction Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "IM " + FormatInt(unit_ptr->InteractionMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "IM " + FormatInt(unit_ptr->InteractionMode);
+                });
         else if (label.compare("Minimap Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "MM " + FormatInt(unit_ptr->MinimapMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "MM " + FormatInt(unit_ptr->MinimapMode);
+                });
         else if (label.compare("Interface Kind") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "CA " + FormatInt(unit_ptr->InterfaceKind);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "CA " + FormatInt(unit_ptr->InterfaceKind);
+                });
         else if (label.compare("Multiple Attribute Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "U3A " + FormatFloat(unit_ptr->MultipleAttributeMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "U3A " + FormatFloat(unit_ptr->MultipleAttributeMode);
+                });
         else if (label.compare("Minimap Color") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "MC " + FormatInt(unit_ptr->MinimapColor);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "MC " + FormatInt(unit_ptr->MinimapColor);
+                });
         else if (label.compare("Language File Help") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "LH " + FormatInt(unit_ptr->LanguageDLLHelp);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "LH " + FormatInt(unit_ptr->LanguageDLLHelp);
+                });
         else if (label.compare("Language File Hot Key Text") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "LT " + FormatInt(unit_ptr->LanguageDLLHotKeyText);
-        });
-        else if (label.compare("Hot Key") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "HK " + FormatInt(unit_ptr->HotKey);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "LT " + FormatInt(unit_ptr->LanguageDLLHotKeyText);
+                });
         else if (label.compare("Recyclable") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "US " + FormatInt(unit_ptr->Recyclable);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "US " + FormatInt(unit_ptr->Recyclable);
+                });
         else if (label.compare("Gatherable") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "IG " + FormatInt(unit_ptr->EnableAutoGather);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "IG " + FormatInt(unit_ptr->EnableAutoGather);
+                });
         else if (label.compare("Doppelganger on Death") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "DD " + FormatInt(unit_ptr->CreateDoppelgangerOnDeath);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "DD " + FormatInt(unit_ptr->CreateDoppelgangerOnDeath);
+                });
         else if (label.compare("Gather Group") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "GG " + FormatInt(unit_ptr->ResourceGatherGroup);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "GG " + FormatInt(unit_ptr->ResourceGatherGroup);
+                });
         else if (label.compare("Occlusion Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "OM " + FormatInt(unit_ptr->OcclusionMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "OM " + FormatInt(unit_ptr->OcclusionMode);
+                });
         else if (label.compare("Obstruction Type") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "OT " + FormatInt(unit_ptr->ObstructionType);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "OT " + FormatInt(unit_ptr->ObstructionType);
+                });
         else if (label.compare("Obstruction Class") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "OC " + FormatInt(unit_ptr->ObstructionClass);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "OC " + FormatInt(unit_ptr->ObstructionClass);
+                });
         else if (label.compare("Trait") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "A " + FormatInt(unit_ptr->Trait);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "A " + FormatInt(unit_ptr->Trait);
+                });
         else if (label.compare("Civilization") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "Civ " + FormatInt(unit_ptr->Civilization);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "Civ " + FormatInt(unit_ptr->Civilization);
+                });
         else if (label.compare("Nothing") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "No " + FormatInt(unit_ptr->Nothing);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "No " + FormatInt(unit_ptr->Nothing);
+                });
         else if (label.compare("Selection Effect") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "SE " + FormatInt(unit_ptr->SelectionEffect);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "SE " + FormatInt(unit_ptr->SelectionEffect);
+                });
         else if (label.compare("Editor Selection Color") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "EC " + FormatInt(unit_ptr->EditorSelectionColour);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "EC " + FormatInt(unit_ptr->EditorSelectionColour);
+                });
         else if (label.compare("Selection Size XY") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "OS " + FormatFloat(unit_ptr->OutlineSize.x) + " "
-                    + FormatFloat(unit_ptr->OutlineSize.y);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "OS " + FormatFloat(unit_ptr->OutlineSize.x) + " "
+                        + FormatFloat(unit_ptr->OutlineSize.y);
+                });
         else if (label.compare("Selection Size Z") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "B2 " + FormatFloat(unit_ptr->OutlineSize.z);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "B2 " + FormatFloat(unit_ptr->OutlineSize.z);
+                });
         else if (label.compare("Resource Storages") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for (size_t i = 0; i < unit_ptr->ResourceStorages.size(); ++i)
-            {
-                name += "RSD " + FormatInt(unit_ptr->ResourceStorages[i].Type) + " " +
-                    FormatInt(unit_ptr->ResourceStorages[i].Amount) + " " +
-                    FormatInt(unit_ptr->ResourceStorages[i].Flag) + " ";
-            }
-            return name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->ResourceStorages.size(); ++i)
+                    {
+                        name += "RSD " + FormatInt(unit_ptr->ResourceStorages[i].Type) + " " +
+                            FormatInt(unit_ptr->ResourceStorages[i].Amount) + " " +
+                            FormatInt(unit_ptr->ResourceStorages[i].Flag) + " ";
+                    }
+                    return name;
+                });
         else if (label.compare("Damage Graphic Count") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "DC " + FormatInt(unit_ptr->DamageGraphics.size());
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "DC " + FormatInt(unit_ptr->DamageGraphics.size());
+                });
         else if (label.compare("Damage Graphics") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for (size_t i = 0; i < unit_ptr->DamageGraphics.size(); ++i)
-            {
-                name += "DGD " + FormatInt(unit_ptr->DamageGraphics[i].GraphicID) + " " +
-                    FormatInt(unit_ptr->DamageGraphics[i].DamagePercent) + " " +
-                    FormatInt(unit_ptr->DamageGraphics[i].ApplyMode) + " ";
-            }
-            return name.empty() ? "No DGD" : name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->DamageGraphics.size(); ++i)
+                    {
+                        name += "DGD " + FormatInt(unit_ptr->DamageGraphics[i].GraphicID) + " " +
+                            FormatInt(unit_ptr->DamageGraphics[i].DamagePercent) + " " +
+                            FormatInt(unit_ptr->DamageGraphics[i].ApplyMode) + " ";
+                    }
+                    return name.empty() ? "No DGD" : name;
+                });
         else if (label.compare("Selection Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "SS " + FormatInt(unit_ptr->SelectionSound);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "SS " + FormatInt(unit_ptr->SelectionSound);
+                });
         else if (label.compare("Dying Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "DS " + FormatInt(unit_ptr->DyingSound);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "DS " + FormatInt(unit_ptr->DyingSound);
+                });
         else if (label.compare("Attack Reaction") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "AtM " + FormatInt(unit_ptr->OldAttackReaction);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "AtM " + FormatInt(unit_ptr->OldAttackReaction);
+                });
         else if (label.compare("Convert Terrain") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "EM " + FormatInt(unit_ptr->ConvertTerrain);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "EM " + FormatInt(unit_ptr->ConvertTerrain);
+                });
         else if (label.compare("Internal Name") == 0)
         {
             UseDynamicUnitName = false;
             continue;
         }
         else if (label.compare("Internal Name 2") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return wxString(unit_ptr->Name2);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return wxString(unit_ptr->Name2);
+                });
         else if (label.compare("Unitline") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "UL " + FormatInt(unit_ptr->Unitline);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "UL " + FormatInt(unit_ptr->Unitline);
+                });
         else if (label.compare("Min Tech Level") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "MT " + FormatInt(unit_ptr->MinTechLevel);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "MT " + FormatInt(unit_ptr->MinTechLevel);
+                });
         else if (label.compare("Copy ID") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "I2 " + FormatInt(unit_ptr->CopyID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "I2 " + FormatInt(unit_ptr->CopyID);
+                });
         else if (label.compare("Base ID") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "I3 " + FormatInt(unit_ptr->BaseID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "I3 " + FormatInt(unit_ptr->BaseID);
+                });
         else if (label.compare("Speed") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "S " + FormatFloat(unit_ptr->Speed);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "S " + FormatFloat(unit_ptr->Speed);
+                });
         else if (label.compare("Tracking ID") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "TI " + FormatInt(unit_ptr->TelemetryID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "TI " + FormatInt(unit_ptr->TelemetryID);
+                });
         else if (label.compare("Train Wwise Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "TW " + FormatUnsigned(unit_ptr->WwiseTrainSoundID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "TW " + FormatUnsigned(unit_ptr->WwiseTrainSoundID);
+                });
         else if (label.compare("Damage Wwise Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "VW " + FormatUnsigned(unit_ptr->WwiseDamageSoundID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "VW " + FormatUnsigned(unit_ptr->WwiseDamageSoundID);
+                });
         else if (label.compare("Selection Wwise Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "SW " + FormatUnsigned(unit_ptr->WwiseSelectionSoundID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "SW " + FormatUnsigned(unit_ptr->WwiseSelectionSoundID);
+                });
         else if (label.compare("Dying Wwise Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return "DW " + FormatUnsigned(unit_ptr->WwiseDyingSoundID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return "DW " + FormatUnsigned(unit_ptr->WwiseDyingSoundID);
+                });
 
         else if (label.compare("Walking Graphics") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "WG " + FormatInt(unit_ptr->DeadFish.WalkingGraphic) + " "
-                    + FormatInt(unit_ptr->DeadFish.RunningGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "WG " + FormatInt(unit_ptr->DeadFish.WalkingGraphic) + " "
+                        + FormatInt(unit_ptr->DeadFish.RunningGraphic);
+                });
         else if (label.compare("Rotation Speed") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "RS " + FormatFloat(unit_ptr->DeadFish.RotationSpeed);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "RS " + FormatFloat(unit_ptr->DeadFish.RotationSpeed);
+                });
         else if (label.compare("Size Class") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "U11 " + FormatInt(unit_ptr->DeadFish.OldSizeClass);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "U11 " + FormatInt(unit_ptr->DeadFish.OldSizeClass);
+                });
         else if (label.compare("Trailing Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "TU " + FormatInt(unit_ptr->DeadFish.TrackingUnit);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "TU " + FormatInt(unit_ptr->DeadFish.TrackingUnit);
+                });
         else if (label.compare("Trailing Unit Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "UU " + FormatInt(unit_ptr->DeadFish.TrackingUnitMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "UU " + FormatInt(unit_ptr->DeadFish.TrackingUnitMode);
+                });
         else if (label.compare("Trailing Unit Density") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "UD " + FormatFloat(unit_ptr->DeadFish.TrackingUnitDensity);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "UD " + FormatFloat(unit_ptr->DeadFish.TrackingUnitDensity);
+                });
         else if (label.compare("Move Algorithm") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "U16 " + FormatInt(unit_ptr->DeadFish.OldMoveAlgorithm);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "U16 " + FormatInt(unit_ptr->DeadFish.OldMoveAlgorithm);
+                });
         else if (label.compare("Rotation Angles") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "r" + FormatFloat(unit_ptr->DeadFish.TurnRadius)
-                    + " s" + FormatFloat(unit_ptr->DeadFish.TurnRadiusSpeed)
-                    + " m" + FormatFloat(unit_ptr->DeadFish.MaxYawPerSecondMoving)
-                    + " t" + FormatFloat(unit_ptr->DeadFish.StationaryYawRevolutionTime)
-                    + " y" + FormatFloat(unit_ptr->DeadFish.MaxYawPerSecondStationary);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "r" + FormatFloat(unit_ptr->DeadFish.TurnRadius)
+                        + " s" + FormatFloat(unit_ptr->DeadFish.TurnRadiusSpeed)
+                        + " m" + FormatFloat(unit_ptr->DeadFish.MaxYawPerSecondMoving)
+                        + " t" + FormatFloat(unit_ptr->DeadFish.StationaryYawRevolutionTime)
+                        + " y" + FormatFloat(unit_ptr->DeadFish.MaxYawPerSecondStationary);
+                });
         else if (label.compare("Min Collision Size Multiplier") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF30 "MK " + FormatFloat(unit_ptr->DeadFish.MinCollisionSizeMultiplier);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF30 "MK " + FormatFloat(unit_ptr->DeadFish.MinCollisionSizeMultiplier);
+                });
 
         else if (label.compare("Default Task") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "SC " + FormatInt(unit_ptr->Bird.DefaultTaskID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "SC " + FormatInt(unit_ptr->Bird.DefaultTaskID);
+                });
         else if (label.compare("Search Radius") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "SR " + FormatFloat(unit_ptr->Bird.SearchRadius);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "SR " + FormatFloat(unit_ptr->Bird.SearchRadius);
+                });
         else if (label.compare("Work Rate") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "WR " + FormatFloat(unit_ptr->Bird.WorkRate);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "WR " + FormatFloat(unit_ptr->Bird.WorkRate);
+                });
         else if (label.compare("Drop Site Count") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "DSC " + FormatInt(unit_ptr->Bird.DropSites.size());
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "DSC " + FormatInt(unit_ptr->Bird.DropSites.size());
+                });
         else if (label.compare("Drop Sites") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for(size_t i = 0; i < unit_ptr->Bird.DropSites.size(); ++i)
-            name += "DS" + FormatInt(unit_ptr->Bird.DropSites[i]) + " ";
-            return UF40 name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Bird.DropSites.size(); ++i)
+                        name += "DS" + FormatInt(unit_ptr->Bird.DropSites[i]) + " ";
+                    return UF40 name;
+                });
         else if (label.compare("Task Swap Group") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "VM " + FormatInt(unit_ptr->Bird.TaskSwapGroup);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "VM " + FormatInt(unit_ptr->Bird.TaskSwapGroup);
+                });
         else if (label.compare("Attack Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "AS " + FormatInt(unit_ptr->Bird.AttackSound);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "AS " + FormatInt(unit_ptr->Bird.AttackSound);
+                });
         else if (label.compare("Move Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "MS " + FormatInt(unit_ptr->Bird.MoveSound);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "MS " + FormatInt(unit_ptr->Bird.MoveSound);
+                });
         else if (label.compare("Run Pattern") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "AM " + FormatInt(unit_ptr->Bird.RunPattern);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "AM " + FormatInt(unit_ptr->Bird.RunPattern);
+                });
         else if (label.compare("Task Count") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "CC " + FormatInt(unit_ptr->Bird.TaskList.size());
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "CC " + FormatInt(unit_ptr->Bird.TaskList.size());
+                });
         else if (label.compare("Tasks") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for (size_t i = 0; i < unit_ptr->Bird.TaskList.size(); ++i)
-            {
-                name += "TD " + FormatInt(unit_ptr->Bird.TaskList[i].ActionType) + " ";
-            }
-            return UF40 name.empty() ? "No TD" : name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Bird.TaskList.size(); ++i)
+                    {
+                        name += "TD " + FormatInt(unit_ptr->Bird.TaskList[i].ActionType) + " ";
+                    }
+                    return UF40 name.empty() ? "No TD" : name;
+                });
         else if (label.compare("Attack Wave Works Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "AW " + FormatUnsigned(unit_ptr->Bird.WwiseAttackSoundID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "AW " + FormatUnsigned(unit_ptr->Bird.WwiseAttackSoundID);
+                });
         else if (label.compare("Move Wave Works Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF40 "MW " + FormatUnsigned(unit_ptr->Bird.WwiseMoveSoundID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF40 "MW " + FormatUnsigned(unit_ptr->Bird.WwiseMoveSoundID);
+                });
 
         if (label.compare("Base Armor") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "DA " + FormatInt(unit_ptr->Type50.BaseArmor);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "DA " + FormatInt(unit_ptr->Type50.BaseArmor);
+                });
         else if (label.compare("Attack Count") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "AtC " + FormatInt(unit_ptr->Type50.Attacks.size());
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "AtC " + FormatInt(unit_ptr->Type50.Attacks.size());
+                });
         else if (label.compare("Attacks") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for(size_t i = 0; i < unit_ptr->Type50.Attacks.size(); ++i)
-            name += "C" + FormatInt(unit_ptr->Type50.Attacks[i].Class) + " ";
-            return UF50 name.empty() ? "No AtC" : name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Type50.Attacks.size(); ++i)
+                        name += "C" + FormatInt(unit_ptr->Type50.Attacks[i].Class) + " ";
+                    return UF50 name.empty() ? "No AtC" : name;
+                });
         else if (label.compare("Armor Count") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "ArC " + FormatInt(unit_ptr->Type50.Armours.size());
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "ArC " + FormatInt(unit_ptr->Type50.Armours.size());
+                });
         else if (label.compare("Armors") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for(size_t i = 0; i < unit_ptr->Type50.Armours.size(); ++i)
-            name += "C" + FormatInt(unit_ptr->Type50.Armours[i].Class) + " ";
-            return UF50 name.empty() ? "No ArC" : name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Type50.Armours.size(); ++i)
+                        name += "C" + FormatInt(unit_ptr->Type50.Armours[i].Class) + " ";
+                    return UF50 name.empty() ? "No ArC" : name;
+                });
         else if (label.compare("Terrain Defense Bonus") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "TR " + FormatInt(unit_ptr->Type50.DefenseTerrainBonus);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "TR " + FormatInt(unit_ptr->Type50.DefenseTerrainBonus);
+                });
         else if (label.compare("Max Range") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "MaxR " + FormatFloat(unit_ptr->Type50.MaxRange);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "MaxR " + FormatFloat(unit_ptr->Type50.MaxRange);
+                });
         else if (label.compare("Blast Width") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "BW " + FormatFloat(unit_ptr->Type50.BlastWidth);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "BW " + FormatFloat(unit_ptr->Type50.BlastWidth);
+                });
         else if (label.compare("Reload Time") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "RT " + FormatFloat(unit_ptr->Type50.ReloadTime);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "RT " + FormatFloat(unit_ptr->Type50.ReloadTime);
+                });
         else if (label.compare("Projectile Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "PU " + FormatInt(unit_ptr->Type50.ProjectileUnitID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "PU " + FormatInt(unit_ptr->Type50.ProjectileUnitID);
+                });
         else if (label.compare("Accuracy Percent") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "AP " + FormatInt(unit_ptr->Type50.AccuracyPercent);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "AP " + FormatInt(unit_ptr->Type50.AccuracyPercent);
+                });
         else if (label.compare("Break off Combat") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "TM " + FormatInt(unit_ptr->Type50.BreakOffCombat);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "TM " + FormatInt(unit_ptr->Type50.BreakOffCombat);
+                });
         else if (label.compare("Frame Delay") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "D " + FormatInt(unit_ptr->Type50.FrameDelay);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "D " + FormatInt(unit_ptr->Type50.FrameDelay);
+                });
         else if (label.compare("Graphic Displacement") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "x" + FormatFloat(unit_ptr->Type50.GraphicDisplacement[0])
-                    + " y" + FormatFloat(unit_ptr->Type50.GraphicDisplacement[1])
-                    + " z" + FormatFloat(unit_ptr->Type50.GraphicDisplacement[2]);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "x" + FormatFloat(unit_ptr->Type50.GraphicDisplacement[0])
+                        + " y" + FormatFloat(unit_ptr->Type50.GraphicDisplacement[1])
+                        + " z" + FormatFloat(unit_ptr->Type50.GraphicDisplacement[2]);
+                });
         else if (label.compare("Blast Attack Level") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "BL " + FormatInt(unit_ptr->Type50.BlastAttackLevel);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "BL " + FormatInt(unit_ptr->Type50.BlastAttackLevel);
+                });
         else if (label.compare("Blast Damage") == 0)
         {
             UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-            {
-                return UF50 "BLD " + FormatFloat(unit_ptr->Type50.BlastDamage);
-            });
+                {
+                    return UF50 "BLD " + FormatFloat(unit_ptr->Type50.BlastDamage);
+                });
         }
         else if (label.compare("Friendly Fire") == 0)
         {
             UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-            {
-                return UF50 "FF " + FormatFloat(unit_ptr->Type50.FriendlyFireDamage);
-            });
+                {
+                    return UF50 "FF " + FormatFloat(unit_ptr->Type50.FriendlyFireDamage);
+                });
         }
-        else if (label.compare("Instant Karma") == 0)
+        else if (label.compare("Dmg Reflection") == 0)
         {
             UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-            {
-                return UF50 "DR " + FormatFloat(unit_ptr->Type50.DamageReflection);
-            });
+                {
+                    return UF50 "DR " + FormatFloat(unit_ptr->Type50.DamageReflection);
+                });
         }
         else if (label.compare("Interrupt Frame") == 0)
         {
             UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-            {
-                return UF50 "IFr " + FormatInt(unit_ptr->Type50.InterruptFrame);
-            });
+                {
+                    return UF50 "IFr " + FormatInt(unit_ptr->Type50.InterruptFrame);
+                });
         }
         else if (label.compare("Min Range") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "MinR " + FormatFloat(unit_ptr->Type50.MinRange);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "MinR " + FormatFloat(unit_ptr->Type50.MinRange);
+                });
         else if (label.compare("Attack Dispersion") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "AE " + FormatFloat(unit_ptr->Type50.AccuracyDispersion);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "AE " + FormatFloat(unit_ptr->Type50.AccuracyDispersion);
+                });
         else if (label.compare("Attack Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "AG " + FormatInt(unit_ptr->Type50.AttackGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "AG " + FormatInt(unit_ptr->Type50.AttackGraphic);
+                });
         else if (label.compare("Attack Graphic 2") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-        {
-           return UF50 "AG " + FormatInt(unit_ptr->Type50.AttackGraphic2);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "AG " + FormatInt(unit_ptr->Type50.AttackGraphic2);
+                });
         else if (label.compare("Displayed Melee Armor") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "DM " + FormatInt(unit_ptr->Type50.DisplayedMeleeArmour);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "DM " + FormatInt(unit_ptr->Type50.DisplayedMeleeArmour);
+                });
         else if (label.compare("Displayed Attack") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "DP " + FormatInt(unit_ptr->Type50.DisplayedAttack);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "DP " + FormatInt(unit_ptr->Type50.DisplayedAttack);
+                });
         else if (label.compare("Displayed Range") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "DR " + FormatFloat(unit_ptr->Type50.DisplayedRange);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "DR " + FormatFloat(unit_ptr->Type50.DisplayedRange);
+                });
         else if (label.compare("Displayed Reload Time") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "DT " + FormatFloat(unit_ptr->Type50.DisplayedReloadTime);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "DT " + FormatFloat(unit_ptr->Type50.DisplayedReloadTime);
+                });
         else if (label.compare("Bonus Damage Resistance") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF50 "BR " + FormatFloat(unit_ptr->Type50.BonusDamageResistance);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF50 "BR " + FormatFloat(unit_ptr->Type50.BonusDamageResistance);
+                });
 
         else if (label.compare("Projectile Type") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF60 "SM " + FormatInt(unit_ptr->Projectile.ProjectileType);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF60 "SM " + FormatInt(unit_ptr->Projectile.ProjectileType);
+                });
         else if (label.compare("Smart Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF60 "CM " + FormatInt(unit_ptr->Projectile.SmartMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF60 "CM " + FormatInt(unit_ptr->Projectile.SmartMode);
+                });
         else if (label.compare("Hit Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF60 "DA " + FormatInt(unit_ptr->Projectile.HitMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF60 "DA " + FormatInt(unit_ptr->Projectile.HitMode);
+                });
         else if (label.compare("Vanish Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF60 "PM " + FormatInt(unit_ptr->Projectile.VanishMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF60 "PM " + FormatInt(unit_ptr->Projectile.VanishMode);
+                });
         else if (label.compare("Area Effect Specials") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF60 "U24 " + FormatInt(unit_ptr->Projectile.AreaEffectSpecials);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF60 "U24 " + FormatInt(unit_ptr->Projectile.AreaEffectSpecials);
+                });
         else if (label.compare("Projectile Arc") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF60 "PA " + FormatFloat(unit_ptr->Projectile.ProjectileArc);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF60 "PA " + FormatFloat(unit_ptr->Projectile.ProjectileArc);
+                });
 
         else if (label.compare("Resource Costs") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for (size_t i = 0; i < unit_ptr->Creatable.ResourceCosts.size(); ++i)
-            {
-                name += "RCD " + FormatInt(unit_ptr->Creatable.ResourceCosts[i].Type) + " " +
-                    FormatInt(unit_ptr->Creatable.ResourceCosts[i].Amount) + " " +
-                    FormatInt(unit_ptr->Creatable.ResourceCosts[i].Flag) + " ";
-            }
-            return UF70 name;
-        });
-        else if (label.compare("Train Time") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "TT " + FormatInt(unit_ptr->Creatable.TrainTime);
-        });
-        else if (label.compare("Train Location") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "TL " + FormatInt(unit_ptr->Creatable.TrainLocationID);
-        });
-        else if (label.compare("Train Button") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "B " + FormatInt(unit_ptr->Creatable.ButtonID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Creatable.ResourceCosts.size(); ++i)
+                    {
+                        name += "RCD " + FormatInt(unit_ptr->Creatable.ResourceCosts[i].Type) + " " +
+                            FormatInt(unit_ptr->Creatable.ResourceCosts[i].Amount) + " " +
+                            FormatInt(unit_ptr->Creatable.ResourceCosts[i].Flag) + " ";
+                    }
+                    return UF70 name;
+                });
         else if (label.compare("Rear Attack Modifier") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "RAM " + FormatFloat(unit_ptr->Creatable.RearAttackModifier);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "RAM " + FormatFloat(unit_ptr->Creatable.RearAttackModifier);
+                });
         else if (label.compare("Flank Attack Modifier") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "FAM " + FormatFloat(unit_ptr->Creatable.FlankAttackModifier);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "FAM " + FormatFloat(unit_ptr->Creatable.FlankAttackModifier);
+                });
         else if (label.compare("Creatable Type") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "U28 " + FormatInt(unit_ptr->Creatable.CreatableType);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "U28 " + FormatInt(unit_ptr->Creatable.CreatableType);
+                });
         else if (label.compare("Hero Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "HM " + FormatInt(unit_ptr->Creatable.HeroMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "HM " + FormatInt(unit_ptr->Creatable.HeroMode);
+                });
         else if (label.compare("Garrison Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "GG " + FormatInt(unit_ptr->Creatable.GarrisonGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "GG " + FormatInt(unit_ptr->Creatable.GarrisonGraphic);
+                });
         else if (label.compare("Total Projectiles") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "TP " + FormatFloat(unit_ptr->Creatable.TotalProjectiles);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "TP " + FormatFloat(unit_ptr->Creatable.TotalProjectiles);
+                });
         else if (label.compare("Max Total Projectiles") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "MTP " + FormatInt(unit_ptr->Creatable.MaxTotalProjectiles);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "MTP " + FormatInt(unit_ptr->Creatable.MaxTotalProjectiles);
+                });
         else if (label.compare("Projectile Spawning Area") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "x" + FormatFloat(unit_ptr->Creatable.ProjectileSpawningArea[0])
-                    + " y" + FormatFloat(unit_ptr->Creatable.ProjectileSpawningArea[1])
-                    + " z" + FormatFloat(unit_ptr->Creatable.ProjectileSpawningArea[2]);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "x" + FormatFloat(unit_ptr->Creatable.ProjectileSpawningArea[0])
+                        + " y" + FormatFloat(unit_ptr->Creatable.ProjectileSpawningArea[1])
+                        + " z" + FormatFloat(unit_ptr->Creatable.ProjectileSpawningArea[2]);
+                });
         else if (label.compare("Secondary Projectile Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "AP " + FormatInt(unit_ptr->Creatable.SecondaryProjectileUnit);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "AP " + FormatInt(unit_ptr->Creatable.SecondaryProjectileUnit);
+                });
         else if (label.compare("Charge Projectile Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "CPU " + FormatInt(unit_ptr->Creatable.ChargeProjectileUnit);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "CPU " + FormatInt(unit_ptr->Creatable.ChargeProjectileUnit);
+                });
         else if (label.compare("Attack Priority") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "AtP " + FormatInt(unit_ptr->Creatable.AttackPriority);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "AtP " + FormatInt(unit_ptr->Creatable.AttackPriority);
+                });
         else if (label.compare("Invulnerability Level") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "IL " + FormatInt(unit_ptr->Creatable.InvulnerabilityLevel);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "IL " + FormatInt(unit_ptr->Creatable.InvulnerabilityLevel);
+                });
         else if (label.compare("Special Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "CG " + FormatInt(unit_ptr->Creatable.SpecialGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "CG " + FormatInt(unit_ptr->Creatable.SpecialGraphic);
+                });
         else if (label.compare("Special Ability") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "CM " + FormatInt(unit_ptr->Creatable.SpecialAbility);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "CM " + FormatInt(unit_ptr->Creatable.SpecialAbility);
+                });
         else if (label.compare("Button Icon") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-        {
-            return UF70 "BTIID " + FormatInt(unit_ptr->Creatable.ButtonIconID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "BTIID " + FormatInt(unit_ptr->Creatable.ButtonIconID);
+                });
         else if (label.compare("Short Tooltip") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-        {
-            return UF70 "BTSTID " + FormatInt(unit_ptr->Creatable.ButtonShortTooltipID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "BTSTID " + FormatInt(unit_ptr->Creatable.ButtonShortTooltipID);
+                });
         else if (label.compare("Long Tooltip") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-        {
-            return UF70 "BTETID " + FormatInt(unit_ptr->Creatable.ButtonExtendedTooltipID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "BTETID " + FormatInt(unit_ptr->Creatable.ButtonExtendedTooltipID);
+                });
         else if (label.compare("Hotkey Action") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-        {
-            return UF70 "BTHKA " + FormatInt(unit_ptr->Creatable.ButtonHotkeyAction);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "BTHKA " + FormatInt(unit_ptr->Creatable.ButtonHotkeyAction);
+                });
         else if (label.compare("Displayed Pierce Armor") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "DP " + FormatInt(unit_ptr->Creatable.DisplayedPierceArmour);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "DP " + FormatInt(unit_ptr->Creatable.DisplayedPierceArmour);
+                });
         else if (label.compare("Spawning Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "SpG " + FormatInt(unit_ptr->Creatable.SpawningGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "SpG " + FormatInt(unit_ptr->Creatable.SpawningGraphic);
+                });
         else if (label.compare("Upgrade Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "UpG " + FormatInt(unit_ptr->Creatable.UpgradeGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "UpG " + FormatInt(unit_ptr->Creatable.UpgradeGraphic);
+                });
         else if (label.compare("Max Charge") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "TC " + FormatInt(unit_ptr->Creatable.MaxCharge);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "TC " + FormatInt(unit_ptr->Creatable.MaxCharge);
+                });
         else if (label.compare("Recharge Rate") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "RR " + FormatInt(unit_ptr->Creatable.RechargeRate);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "RR " + FormatInt(unit_ptr->Creatable.RechargeRate);
+                });
         else if (label.compare("Charge Event") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "CE " + FormatInt(unit_ptr->Creatable.ChargeEvent);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "CE " + FormatInt(unit_ptr->Creatable.ChargeEvent);
+                });
         else if (label.compare("Charge Type") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "CT " + FormatInt(unit_ptr->Creatable.ChargeType);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "CT " + FormatInt(unit_ptr->Creatable.ChargeType);
+                });
         else if (label.compare("Charge Target") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-        {
-            return UF70 "CTRG " + FormatInt(unit_ptr->Creatable.ChargeTarget);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "CTRG " + FormatInt(unit_ptr->Creatable.ChargeTarget);
+                });
         else if (label.compare("Hero Glow Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "HGG " + FormatInt(unit_ptr->Creatable.HeroGlowGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "HGG " + FormatInt(unit_ptr->Creatable.HeroGlowGraphic);
+                });
         else if (label.compare("Idle Attack Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-        {
-            return UF70 "IAG " + FormatInt(unit_ptr->Creatable.IdleAttackGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "IAG " + FormatInt(unit_ptr->Creatable.IdleAttackGraphic);
+                });
         else if (label.compare("Min Conversion Time Mod") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "MinCT " + FormatInt(unit_ptr->Creatable.MinConversionTimeMod);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "MinCT " + FormatInt(unit_ptr->Creatable.MinConversionTimeMod);
+                });
         else if (label.compare("Max Conversion Time Mod") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "MaxCT " + FormatInt(unit_ptr->Creatable.MaxConversionTimeMod);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "MaxCT " + FormatInt(unit_ptr->Creatable.MaxConversionTimeMod);
+                });
         else if (label.compare("Garrison Firepower") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
-        {
-            return UF70 "GF " + FormatInt(unit_ptr->Type50.GarrisonFirepower);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "GF " + FormatInt(unit_ptr->Type50.GarrisonFirepower);
+                });
         else if (label.compare("Conversion Chance Mod") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF70 "CCM " + FormatInt(unit_ptr->Creatable.ConversionChanceMod);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF70 "CCM " + FormatInt(unit_ptr->Creatable.ConversionChanceMod);
+                });
 
         else if (label.compare("Construction Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "CG " + FormatInt(unit_ptr->Building.ConstructionGraphicID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "CG " + FormatInt(unit_ptr->Building.ConstructionGraphicID);
+                });
         else if (label.compare("Snow Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "SG " + FormatInt(unit_ptr->Building.SnowGraphicID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "SG " + FormatInt(unit_ptr->Building.SnowGraphicID);
+                });
         else if (label.compare("Adjacent Mode") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "AM " + FormatInt(unit_ptr->Building.AdjacentMode);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "AM " + FormatInt(unit_ptr->Building.AdjacentMode);
+                });
         else if (label.compare("Graphics Angle") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "GA " + FormatInt(unit_ptr->Building.GraphicsAngle);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "GA " + FormatInt(unit_ptr->Building.GraphicsAngle);
+                });
         else if (label.compare("Disappears After Built") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "DB " + FormatInt(unit_ptr->Building.DisappearsWhenBuilt);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "DB " + FormatInt(unit_ptr->Building.DisappearsWhenBuilt);
+                });
         else if (label.compare("Stack Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "SU " + FormatInt(unit_ptr->Building.StackUnitID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "SU " + FormatInt(unit_ptr->Building.StackUnitID);
+                });
         else if (label.compare("Foundation Terrain") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "FT " + FormatInt(unit_ptr->Building.FoundationTerrainID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "FT " + FormatInt(unit_ptr->Building.FoundationTerrainID);
+                });
         else if (label.compare("Old Overlay") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "OT " + FormatInt(unit_ptr->Building.OldOverlayID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "OT " + FormatInt(unit_ptr->Building.OldOverlayID);
+                });
         else if (label.compare("Tech") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "R " + FormatInt(unit_ptr->Building.TechID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "R " + FormatInt(unit_ptr->Building.TechID);
+                });
         else if (label.compare("Can Burn") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "U33 " + FormatInt(unit_ptr->Building.CanBurn);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "U33 " + FormatInt(unit_ptr->Building.CanBurn);
+                });
         else if (label.compare("Annexes") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for (size_t i = 0; i < unit_ptr->Building.Annexes.size(); ++i)
-            {
-                name += "AU " + FormatInt(unit_ptr->Building.Annexes[i].UnitID) + " ";
-            }
-            return UF80 name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Building.Annexes.size(); ++i)
+                    {
+                        name += "AU " + FormatInt(unit_ptr->Building.Annexes[i].UnitID) + " ";
+                    }
+                    return UF80 name;
+                });
         else if (label.compare("Head Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "HU " + FormatInt(unit_ptr->Building.HeadUnit);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "HU " + FormatInt(unit_ptr->Building.HeadUnit);
+                });
         else if (label.compare("Transform Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "TU " + FormatInt(unit_ptr->Building.TransformUnit);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "TU " + FormatInt(unit_ptr->Building.TransformUnit);
+                });
         else if (label.compare("Transform Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "US " + FormatInt(unit_ptr->Building.TransformSound);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "US " + FormatInt(unit_ptr->Building.TransformSound);
+                });
         else if (label.compare("Construction Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "CS " + FormatInt(unit_ptr->Building.ConstructionSound);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "CS " + FormatInt(unit_ptr->Building.ConstructionSound);
+                });
         else if (label.compare("Garrison Type") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "GT " + FormatInt(unit_ptr->Building.GarrisonType);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "GT " + FormatInt(unit_ptr->Building.GarrisonType);
+                });
         else if (label.compare("Garrison Heal Rate") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "GH " + FormatFloat(unit_ptr->Building.GarrisonHealRate);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "GH " + FormatFloat(unit_ptr->Building.GarrisonHealRate);
+                });
         else if (label.compare("Garrison Repair Rate") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "U35 " + FormatFloat(unit_ptr->Building.GarrisonRepairRate);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "U35 " + FormatFloat(unit_ptr->Building.GarrisonRepairRate);
+                });
         else if (label.compare("Pile Unit") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "PU " + FormatInt(unit_ptr->Building.PileUnit);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "PU " + FormatInt(unit_ptr->Building.PileUnit);
+                });
         else if (label.compare("Looting Table") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            wxString name = "";
-            for (size_t i = 0; i < unit_ptr->Building.LootingTable.size(); ++i)
-                name += "LTD " + FormatInt(unit_ptr->Building.LootingTable[i]) + " ";
-            return UF80 name;
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Building.LootingTable.size(); ++i)
+                        name += "LTD " + FormatInt(unit_ptr->Building.LootingTable[i]) + " ";
+                    return UF80 name;
+                });
         else if (label.compare("Transform Wave Works Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "UW " + FormatUnsigned(unit_ptr->Building.WwiseTransformSoundID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "UW " + FormatUnsigned(unit_ptr->Building.WwiseTransformSoundID);
+                });
         else if (label.compare("Construction Wave Works Sound") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "CW " + FormatUnsigned(unit_ptr->Building.WwiseConstructionSoundID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "CW " + FormatUnsigned(unit_ptr->Building.WwiseConstructionSoundID);
+                });
         else if (label.compare("Foundation Destruction Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "FG " + FormatInt(unit_ptr->Building.DestructionGraphicID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "FG " + FormatInt(unit_ptr->Building.DestructionGraphicID);
+                });
         else if (label.compare("Foundation Rubble Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "RG " + FormatInt(unit_ptr->Building.DestructionRubbleGraphicID);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "RG " + FormatInt(unit_ptr->Building.DestructionRubbleGraphicID);
+                });
         else if (label.compare("Researching Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
-        {
-            return UF80 "RPG " + FormatInt(unit_ptr->Building.ResearchingGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "RPG " + FormatInt(unit_ptr->Building.ResearchingGraphic);
+                });
         else if (label.compare("Research Completed Graphic") == 0)
-        UnitFilterFunctions.push_back([this](genie::Unit *unit_ptr)
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    return UF80 "RCG " + FormatInt(unit_ptr->Building.ResearchCompletedGraphic);
+                });
+        else if (label.compare("Train Location") == 0)
         {
-            return UF80 "RCG " + FormatInt(unit_ptr->Building.ResearchCompletedGraphic);
-        });
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+            {
+                wxString name = "";
+                for (size_t i = 0; i < unit_ptr->Creatable.TrainLocations.size(); i++)
+                {
+                    name += "TL" + FormatInt(unit_ptr->Creatable.TrainLocations[i].UnitID) + " ";
+                }
+                return UF70 name;
+            });
+        }
+        else if (label.compare("Train Time") == 0)
+        {
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Creatable.TrainLocations.size(); i++)
+                    {
+                        name += "TT" + FormatInt(unit_ptr->Creatable.TrainLocations[i].TrainTime) + " ";
+                    }
+                    return UF70 name;
+                });
+        }
+        else if (label.compare("Train Button") == 0)
+        {
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+                {
+                    wxString name = "";
+                    for (size_t i = 0; i < unit_ptr->Creatable.TrainLocations.size(); i++)
+                    {
+                        name += "TB" + FormatInt(unit_ptr->Creatable.TrainLocations[i].ButtonID) + " ";
+                    }
+                    return UF70 name;
+                });
+        }
+        else if (label.compare("Hotkey") == 0)
+        {
+            UnitFilterFunctions.push_back([this](genie::Unit* unit_ptr)
+            {
+                wxString name = "";
+                for (size_t i = 0; i < unit_ptr->Creatable.TrainLocations.size(); i++)
+                {
+                    name += "H" + FormatInt(unit_ptr->Creatable.TrainLocations[i].HotKeyID) + " ";
+                }
+                return UF70 name;
+            });
+        }
     }
 }
 
 void AGE_Frame::OnUnitsSearch(wxCommandEvent&)
 {
     short Selection = Units_Civs_List->GetSelection();
-    if(Selection == wxNOT_FOUND) return;
+    if (Selection == wxNOT_FOUND) return;
 
     How2List = ListMode::SEARCH;
     ListUnits(Selection, false);
@@ -1125,7 +1153,7 @@ void AGE_Frame::InitUnits(short civ, bool all)
     Units_Civs_List->SetSelection(civ);
 
     Units_ListV->Sweep();
-    if(all)
+    if (all)
     {
         unit_names.Clear();
         unit_names.Alloc(1 + dataset->Civs.front().Units.size());
@@ -1133,37 +1161,37 @@ void AGE_Frame::InitUnits(short civ, bool all)
     }
 
     short matcher = genie::UT_Trees;
-    switch(Units_FilterSelector->GetSelection())
+    switch (Units_FilterSelector->GetSelection())
     {
-        case 0: matcher = genie::UT_25; break;
-        case 1: matcher = genie::UT_Dead_Fish; break;
-        case 2: matcher = genie::UT_Bird; break;
-        case 3: matcher = genie::UT_Combatant; break;
-        case 4: matcher = genie::UT_Projectile; break;
-        case 5: matcher = genie::UT_Creatable; break;
-        case 6: matcher = genie::UT_Building; break;
+    case 0: matcher = genie::UT_25; break;
+    case 1: matcher = genie::UT_Dead_Fish; break;
+    case 2: matcher = genie::UT_Bird; break;
+    case 3: matcher = genie::UT_Combatant; break;
+    case 4: matcher = genie::UT_Projectile; break;
+    case 5: matcher = genie::UT_Creatable; break;
+    case 6: matcher = genie::UT_Building; break;
     }
-    for(size_t loop = 0; loop < dataset->Civs[civ].Units.size(); ++loop)
+    for (size_t loop = 0; loop < dataset->Civs[civ].Units.size(); ++loop)
     {
-        if(all)
+        if (all)
         {
             short cult = 0;
             wxString name = GetUnitName(loop, 0);
-            while("Nonexistent" == name && ++cult < dataset->Civs.size() && loop < dataset->Civs[cult].Units.size())
+            while ("Nonexistent" == name && ++cult < dataset->Civs.size() && loop < dataset->Civs[cult].Units.size())
             {
                 name = GetUnitName(loop, cult);
             }
-            unit_names.Add(FormatInt(loop)+" - "+name);
+            unit_names.Add(FormatInt(loop) + " - " + name);
         }
-        if(matcher > genie::UT_25)
+        if (matcher > genie::UT_25)
         {
-            if(matcher == genie::UT_Projectile)
-            if(dataset->Civs[civ].Units[loop].Type != genie::UT_Projectile) continue;
-            if(dataset->Civs[civ].Units[loop].Type < matcher) continue;
-            if(dataset->Civs[civ].Units[loop].Type == genie::UT_AoeTrees) continue;
+            if (matcher == genie::UT_Projectile)
+                if (dataset->Civs[civ].Units[loop].Type != genie::UT_Projectile) continue;
+            if (dataset->Civs[civ].Units[loop].Type < matcher) continue;
+            if (dataset->Civs[civ].Units[loop].Type == genie::UT_AoeTrees) continue;
         }
-        wxString name = FormatInt(loop)+" - "+GetUnitName(loop, civ, true);
-        if(SearchMatches(" " + name.Lower() + " "))
+        wxString name = FormatInt(loop) + " - " + GetUnitName(loop, civ, true);
+        if (SearchMatches(" " + name.Lower() + " "))
         {
             Units_ListV->names.Add(name);
             Units_ListV->indexes.push_back(loop);
@@ -1171,13 +1199,13 @@ void AGE_Frame::InitUnits(short civ, bool all)
     }
 
     RefreshList(Units_ListV, &UnitIDs);
-    if(all)
+    if (all)
     {
-        for (AGEComboBox *list : UnitComboBoxList)
+        for (AGEComboBox* list : UnitComboBoxList)
         {
             list->Flash();
         }
-        if(GenieVersion >= genie::GV_AoKA)
+        if (GenieVersion >= genie::GV_AoKA)
         {
             TechTrees_Ages_Items.ItemCombo->Flash();
             TechTrees_Buildings_Items.ItemCombo->Flash();
@@ -1191,15 +1219,15 @@ void AGE_Frame::InitUnits(short civ, bool all)
 
 void AGE_Frame::OnChooseGraphic(wxCommandEvent&)
 {
-    if(UnitIDs.size() && dataset && UnitCivID < dataset->Civs.size() && UnitIDs.front() < dataset->Civs[UnitCivID].Units.size())
+    if (UnitIDs.size() && dataset && UnitCivID < dataset->Civs.size() && UnitIDs.front() < dataset->Civs[UnitCivID].Units.size())
     {
         museum.datID = loadChosenGraphic(UnitIDs.front());
         museum.reload();
-        if(slp_window) slp_view->Refresh();
+        if (slp_window) slp_view->Refresh();
     }
 }
 
-void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
+void AGE_Frame::OnUnitSelect(wxCommandEvent& event)
 {
     size_t selections = Units_ListV->GetSelectedCount();
 
@@ -1210,28 +1238,28 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
     // Auto-copy stuff
     SelectedCivs.resize(1);
     SelectedCivs.front() = UnitCivID;
-    if(AutoCopy)
+    if (AutoCopy)
     {
-        for(short civ = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0; civ < dataset->Civs.size(); ++civ)
         {
             // Counts all selected civs and always the one being edited.
-            if(Units_CivBoxes[civ]->IsChecked() && civ != UnitCivID)
+            if (Units_CivBoxes[civ]->IsChecked() && civ != UnitCivID)
                 SelectedCivs.push_back(civ);
         }
     }
 
-    for (AGETextCtrl *box : uiGroupUnit) box->clear();
+    for (AGETextCtrl* box : uiGroupUnit) box->clear();
     Units_ID1->clear();
     Units_CopyID->clear();
     Units_BaseID->clear();
 
     short unitType = -1;
-    genie::Unit * UnitPointer = 0;
-    for(size_t sel = selections; sel--> 0;)
+    genie::Unit* UnitPointer = 0;
+    for (size_t sel = selections; sel-- > 0;)
     {
         unitType = -1;
         // This makes auto-copy automatic.
-        for(short vecCiv = SelectedCivs.size(); vecCiv--> 0;)
+        for (short vecCiv = SelectedCivs.size(); vecCiv-- > 0;)
         {
             if (dataset->Civs[SelectedCivs[vecCiv]].Units.size() <= UnitIDs[sel] ||
                 dataset->Civs[SelectedCivs[vecCiv]].UnitPointers[UnitIDs[sel]] == 0)
@@ -1242,340 +1270,336 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
             UnitPointer = &dataset->Civs[UnitCivID].Units[UnitIDs[sel]];
             unitType = (short)UnitPointer->Type;
             // Assing data to editing boxes
-            switch(unitType)
+            switch (unitType)
             {
-                case 80:
+            case 80:
+            {
+                if (CopyGraphics || vecCiv == 0)
                 {
-                    if(CopyGraphics || vecCiv == 0)
-                    {
-                        Units_ConstructionGraphicID->prepend(&UnitPointer->Building.ConstructionGraphicID);
-                    }
-                    Units_AdjacentMode->prepend(&UnitPointer->Building.AdjacentMode);
-                    Units_IconAngle->prepend(&UnitPointer->Building.GraphicsAngle);
-                    Units_DisappearsWhenBuilt->prepend(&UnitPointer->Building.DisappearsWhenBuilt);
-                    Units_StackUnitID->prepend(&UnitPointer->Building.StackUnitID);
-                    Units_TerrainID->prepend(&UnitPointer->Building.FoundationTerrainID);
-                    Units_OldOverlayID->prepend(&UnitPointer->Building.OldOverlayID);
-                    Units_ResearchID->prepend(&UnitPointer->Building.TechID);
-                    Units_ConstructionSound->prepend(&UnitPointer->Building.ConstructionSound);
-                    if(GenieVersion >= genie::GV_AoKE3)
-                    {
-                        Units_CanBurn->prepend(&UnitPointer->Building.CanBurn);
-                        for(size_t loop = 0; loop < 4; ++loop)
-                        {
-                            Units_AnnexUnit[loop]->prepend(&UnitPointer->Building.Annexes[loop].UnitID);
-                            Units_AnnexUnitMisplacement[loop][0]->prepend(&UnitPointer->Building.Annexes[loop].Misplacement.first);
-                            Units_AnnexUnitMisplacement[loop][1]->prepend(&UnitPointer->Building.Annexes[loop].Misplacement.second);
-                        }
-                        Units_TransformUnit->prepend(&UnitPointer->Building.TransformUnit);
-                        Units_TransformSound->prepend(&UnitPointer->Building.TransformSound);
-                        Units_GarrisonType->prepend(&UnitPointer->Building.GarrisonType);
-                        Units_GarrisonHealRate->prepend(&UnitPointer->Building.GarrisonHealRate);
-                        Units_GarrisonRepairRate->prepend(&UnitPointer->Building.GarrisonRepairRate);
-                        Units_PileUnit->prepend(&UnitPointer->Building.PileUnit);
-                        for(size_t loop = 0; loop < Units_LootSwitch.size(); ++loop)
-                        Units_LootSwitch[loop]->prepend(&UnitPointer->Building.LootingTable[loop]);
-                        if(GenieVersion >= genie::GV_AoKA)
-                        {
-                            Units_HeadUnit->prepend(&UnitPointer->Building.HeadUnit);
-                            if(GenieVersion >= genie::GV_TC)
-                            {
-                                if(CopyGraphics || vecCiv == 0)
-                                {
-                                    Units_SnowGraphicID->prepend(&UnitPointer->Building.SnowGraphicID);
-                                }
-                                if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
-                                {
-                                    if(CopyGraphics || vecCiv == 0)
-                                    {
-                                        Units_DestructionGraphicID->prepend(&UnitPointer->Building.DestructionGraphicID);
-                                        Units_DestructionRubbleGraphicID->prepend(&UnitPointer->Building.DestructionRubbleGraphicID);
-                                        Units_ResearchingGraphic->prepend(&UnitPointer->Building.ResearchingGraphic);
-                                        Units_ResearchCompletedGraphic->prepend(&UnitPointer->Building.ResearchCompletedGraphic);
-                                    }
-                                    Units_WwiseTransformSound->prepend(&UnitPointer->Building.WwiseTransformSoundID);
-                                    Units_WwiseConstructionSound->prepend(&UnitPointer->Building.WwiseConstructionSoundID);
-                                }
-                            }
-                        }
-                    }
+                    Units_ConstructionGraphicID->prepend(&UnitPointer->Building.ConstructionGraphicID);
                 }
-                case 70:
+                Units_AdjacentMode->prepend(&UnitPointer->Building.AdjacentMode);
+                Units_IconAngle->prepend(&UnitPointer->Building.GraphicsAngle);
+                Units_DisappearsWhenBuilt->prepend(&UnitPointer->Building.DisappearsWhenBuilt);
+                Units_StackUnitID->prepend(&UnitPointer->Building.StackUnitID);
+                Units_TerrainID->prepend(&UnitPointer->Building.FoundationTerrainID);
+                Units_OldOverlayID->prepend(&UnitPointer->Building.OldOverlayID);
+                Units_ResearchID->prepend(&UnitPointer->Building.TechID);
+                Units_ConstructionSound->prepend(&UnitPointer->Building.ConstructionSound);
+                if (GenieVersion >= genie::GV_AoKE3)
                 {
-                    for(size_t loop = 0; loop < 3; ++loop)
+                    Units_CanBurn->prepend(&UnitPointer->Building.CanBurn);
+                    for (size_t loop = 0; loop < 4; ++loop)
                     {
-                        Units_CostType[loop]->prepend(&UnitPointer->Creatable.ResourceCosts[loop].Type);
-                        Units_CostAmount[loop]->prepend(&UnitPointer->Creatable.ResourceCosts[loop].Amount);
-                        Units_CostUsed[loop]->prepend(&UnitPointer->Creatable.ResourceCosts[loop].Flag);
+                        Units_AnnexUnit[loop]->prepend(&UnitPointer->Building.Annexes[loop].UnitID);
+                        Units_AnnexUnitMisplacement[loop][0]->prepend(&UnitPointer->Building.Annexes[loop].Misplacement.first);
+                        Units_AnnexUnitMisplacement[loop][1]->prepend(&UnitPointer->Building.Annexes[loop].Misplacement.second);
                     }
-                    Units_TrainTime->prepend(&UnitPointer->Creatable.TrainTime);
-                    Units_TrainLocationID->prepend(&UnitPointer->Creatable.TrainLocationID);
-                    Units_ButtonID->prepend(&UnitPointer->Creatable.ButtonID);
-                    Units_DisplayedPierceArmour->prepend(&UnitPointer->Creatable.DisplayedPierceArmour);
-                    if(GenieVersion >= genie::GV_AoKE3)
+                    Units_TransformUnit->prepend(&UnitPointer->Building.TransformUnit);
+                    Units_TransformSound->prepend(&UnitPointer->Building.TransformSound);
+                    Units_GarrisonType->prepend(&UnitPointer->Building.GarrisonType);
+                    Units_GarrisonHealRate->prepend(&UnitPointer->Building.GarrisonHealRate);
+                    Units_GarrisonRepairRate->prepend(&UnitPointer->Building.GarrisonRepairRate);
+                    Units_PileUnit->prepend(&UnitPointer->Building.PileUnit);
+                    for (size_t loop = 0; loop < Units_LootSwitch.size(); ++loop)
+                        Units_LootSwitch[loop]->prepend(&UnitPointer->Building.LootingTable[loop]);
+                    if (GenieVersion >= genie::GV_AoKA)
                     {
-                        Units_RearAttackModifier->prepend(&UnitPointer->Creatable.RearAttackModifier);
-                        Units_FlankAttackModifier->prepend(&UnitPointer->Creatable.FlankAttackModifier);
-                        Units_CreatableType->prepend(&UnitPointer->Creatable.CreatableType);
-                        Units_MissileCount->prepend(&UnitPointer->Creatable.TotalProjectiles);
-                        Units_MissileDuplicationCount->prepend(&UnitPointer->Creatable.MaxTotalProjectiles);
-                        for(size_t loop = 0; loop < 3; ++loop)
+                        Units_HeadUnit->prepend(&UnitPointer->Building.HeadUnit);
+                        if (GenieVersion >= genie::GV_TC)
                         {
-                            Units_AttackMissileDuplicationSpawning[loop]->prepend(&UnitPointer->Creatable.ProjectileSpawningArea[loop]);
-                        }
-                        Units_AttackMissileDuplicationUnit->prepend(&UnitPointer->Creatable.SecondaryProjectileUnit);
-                        if(CopyGraphics || vecCiv == 0)
-                        {
-                            Units_ChargingGraphic->prepend(&UnitPointer->Creatable.SpecialGraphic);
-                        }
-                        Units_ChargingMode->prepend(&UnitPointer->Creatable.SpecialAbility);
-                        if(GenieVersion >= genie::GV_AoKB)
-                        {
-                            Units_HeroMode->prepend(&UnitPointer->Creatable.HeroMode);
-                            if(CopyGraphics || vecCiv == 0)
+                            if (CopyGraphics || vecCiv == 0)
                             {
-                                Units_GarrisonGraphic->prepend(&UnitPointer->Creatable.GarrisonGraphic);
-                                if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
-                                {
-                                    Units_SpawningGraphic->prepend(&UnitPointer->Creatable.SpawningGraphic);
-                                    Units_UpgradeGraphic->prepend(&UnitPointer->Creatable.UpgradeGraphic);
-                                    Units_HeroGlowGraphic->prepend(&UnitPointer->Creatable.HeroGlowGraphic);
-                                    Units_IdleAttackGraphic->prepend(&UnitPointer->Creatable.IdleAttackGraphic);
-                                }
+                                Units_SnowGraphicID->prepend(&UnitPointer->Building.SnowGraphicID);
                             }
                             if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
                             {
-                                Units_MaxCharge->prepend(&UnitPointer->Creatable.MaxCharge);
-                                Units_RechargeRate->prepend(&UnitPointer->Creatable.RechargeRate);
-                                Units_ChargeEvent->prepend(&UnitPointer->Creatable.ChargeEvent);
-                                Units_ChargeType->prepend(&UnitPointer->Creatable.ChargeType);
-                                Units_ChargeTarget->prepend(&UnitPointer->Creatable.ChargeTarget);
-                                Units_ChargeProjectileUnit->prepend(&UnitPointer->Creatable.ChargeProjectileUnit);
-                                Units_AttackPriority->prepend(&UnitPointer->Creatable.AttackPriority);
-                                Units_InvulnerabilityLevel->prepend(&UnitPointer->Creatable.InvulnerabilityLevel);
-                                Units_ButtonIconID->prepend(&UnitPointer->Creatable.ButtonIconID);
-                                Units_ButtonShortTooltipID->prepend(&UnitPointer->Creatable.ButtonShortTooltipID);
-                                Units_ButtonExtendedTooltipID->prepend(&UnitPointer->Creatable.ButtonExtendedTooltipID);
-                                Units_ButtonHotkeyAction->prepend(&UnitPointer->Creatable.ButtonHotkeyAction);
-                                Units_MinConversionTimeMod->prepend(&UnitPointer->Creatable.MinConversionTimeMod);
-                                Units_MaxConversionTimeMod->prepend(&UnitPointer->Creatable.MaxConversionTimeMod);
-                                Units_ConversionChanceMod->prepend(&UnitPointer->Creatable.ConversionChanceMod);
+                                if (CopyGraphics || vecCiv == 0)
+                                {
+                                    Units_DestructionGraphicID->prepend(&UnitPointer->Building.DestructionGraphicID);
+                                    Units_DestructionRubbleGraphicID->prepend(&UnitPointer->Building.DestructionRubbleGraphicID);
+                                    Units_ResearchingGraphic->prepend(&UnitPointer->Building.ResearchingGraphic);
+                                    Units_ResearchCompletedGraphic->prepend(&UnitPointer->Building.ResearchCompletedGraphic);
+                                }
+                                Units_WwiseTransformSound->prepend(&UnitPointer->Building.WwiseTransformSoundID);
+                                Units_WwiseConstructionSound->prepend(&UnitPointer->Building.WwiseConstructionSoundID);
                             }
                         }
-                    }
-                }
-                case 60:
-                case 50:
-                {
-                    Units_BaseArmor->prepend(&UnitPointer->Type50.BaseArmor);
-                    Units_DefenseTerrainBonus->prepend(&UnitPointer->Type50.DefenseTerrainBonus);
-                    Units_MaxRange->prepend(&UnitPointer->Type50.MaxRange);
-                    Units_BlastWidth->prepend(&UnitPointer->Type50.BlastWidth);
-                    Units_ReloadTime->prepend(&UnitPointer->Type50.ReloadTime);
-                    Units_ProjectileUnitID->prepend(&UnitPointer->Type50.ProjectileUnitID);
-                    Units_AccuracyPercent->prepend(&UnitPointer->Type50.AccuracyPercent);
-                    Units_TowerMode->prepend(&UnitPointer->Type50.BreakOffCombat);
-                    Units_Delay->prepend(&UnitPointer->Type50.FrameDelay);
-                    for(size_t loop = 0; loop < 3; ++loop)
-                    {
-                        Units_GraphicDisplacement[loop]->prepend(&UnitPointer->Type50.GraphicDisplacement[loop]);
-                    }
-                    Units_BlastAttackLevel->prepend(&UnitPointer->Type50.BlastAttackLevel);
-                    Units_MinRange->prepend(&UnitPointer->Type50.MinRange);
-                    if(CopyGraphics || vecCiv == 0)
-                    {
-                        Units_AttackGraphic->prepend(&UnitPointer->Type50.AttackGraphic);
-                    }
-                    Units_DisplayedMeleeArmour->prepend(&UnitPointer->Type50.DisplayedMeleeArmour);
-                    Units_DisplayedAttack->prepend(&UnitPointer->Type50.DisplayedAttack);
-                    Units_DisplayedRange->prepend(&UnitPointer->Type50.DisplayedRange);
-                    Units_DisplayedReloadTime->prepend(&UnitPointer->Type50.DisplayedReloadTime);
-                    if(GenieVersion >= genie::GV_AoKB)
-                    {
-                        Units_AccuracyDispersion->prepend(&UnitPointer->Type50.AccuracyDispersion);
-                        if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
-                        {
-                            Units_BonusDamageResistance->prepend(&UnitPointer->Type50.BonusDamageResistance);
-                            Units_BlastDamage->prepend(&UnitPointer->Type50.BlastDamage);
-                            Units_FriendlyFireDamage->prepend(&UnitPointer->Type50.FriendlyFireDamage);
-                            Units_DamageReflection->prepend(&UnitPointer->Type50.DamageReflection);
-                            Units_InterruptFrame->prepend(&UnitPointer->Type50.InterruptFrame);
-                            Units_GarrisonFirepower->prepend(&UnitPointer->Type50.GarrisonFirepower);
-                            Units_AttackGraphic2->prepend(&UnitPointer->Type50.AttackGraphic2);
-                        }
-                    }
-                }
-                case 40:
-                {
-                    Units_DefaultTaskID->prepend(&UnitPointer->Bird.DefaultTaskID);
-                    Units_SearchRadius->prepend(&UnitPointer->Bird.SearchRadius);
-                    Units_WorkRate->prepend(&UnitPointer->Bird.WorkRate);
-                    Units_TaskSwapGroup->prepend(&UnitPointer->Bird.TaskSwapGroup);
-                    Units_AttackSound->prepend(&UnitPointer->Bird.AttackSound);
-                    Units_MoveSound->prepend(&UnitPointer->Bird.MoveSound);
-                    Units_RunPattern->prepend(&UnitPointer->Bird.RunPattern);
-                    if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
-                    {
-                        Units_WwiseAttackSound->prepend(&UnitPointer->Bird.WwiseAttackSoundID);
-                        Units_WwiseMoveSound->prepend(&UnitPointer->Bird.WwiseMoveSoundID);
-                    }
-                }
-                case 30:
-                {
-                    if(CopyGraphics || vecCiv == 0)
-                    {
-                        Units_WalkingGraphic[0]->prepend(&UnitPointer->DeadFish.WalkingGraphic);
-                        Units_WalkingGraphic[1]->prepend(&UnitPointer->DeadFish.RunningGraphic);
-                    }
-                    Units_RotationSpeed->prepend(&UnitPointer->DeadFish.RotationSpeed);
-                    Units_SizeClass->prepend(&UnitPointer->DeadFish.OldSizeClass);
-                    Units_TrackingUnit->prepend(&UnitPointer->DeadFish.TrackingUnit);
-                    Units_TrackingUnitMode->prepend(&UnitPointer->DeadFish.TrackingUnitMode);
-                    Units_TrackingUnitDensity->prepend(&UnitPointer->DeadFish.TrackingUnitDensity);
-                    Units_MoveAlgorithm->prepend(&UnitPointer->DeadFish.OldMoveAlgorithm);
-                    if(GenieVersion >= genie::GV_AoKB)
-                    {
-                        Units_RotationAngles[0]->prepend(&UnitPointer->DeadFish.TurnRadius);
-                        Units_RotationAngles[1]->prepend(&UnitPointer->DeadFish.TurnRadiusSpeed);
-                        Units_RotationAngles[2]->prepend(&UnitPointer->DeadFish.MaxYawPerSecondMoving);
-                        Units_RotationAngles[3]->prepend(&UnitPointer->DeadFish.StationaryYawRevolutionTime);
-                        Units_RotationAngles[4]->prepend(&UnitPointer->DeadFish.MaxYawPerSecondStationary);
-                        if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
-                        {
-                            Units_MinCollisionSizeMultiplier->prepend(&UnitPointer->DeadFish.MinCollisionSizeMultiplier);
-                        }
-                    }
-                }
-                case 25:
-                case 20:
-                {
-                    Units_Speed->prepend(&UnitPointer->Speed);
-                }
-                case 90:
-                case 15:
-                case 10:
-                {
-                    Units_Type->prepend(&UnitPointer->Type);
-                    Units_ID1->prepend(&UnitPointer->ID);
-                    Units_LanguageDLLName->prepend(&UnitPointer->LanguageDLLName);
-                    Units_LanguageDLLCreation->prepend(&UnitPointer->LanguageDLLCreation);
-                    Units_Class->prepend(&UnitPointer->Class);
-                    if(CopyGraphics || vecCiv == 0)
-                    {
-                        Units_StandingGraphic[0]->prepend(&UnitPointer->StandingGraphic.first);
-                        Units_DyingGraphic[0]->prepend(&UnitPointer->DyingGraphic);
-                        Units_DyingGraphic[1]->prepend(&UnitPointer->UndeadGraphic);
-                        Units_IconID->prepend(&UnitPointer->IconID);
-                        Units_Portrait->prepend(&UnitPointer->OldPortraitPict);
-                    }
-                    Units_UndeadMode->prepend(&UnitPointer->UndeadMode);
-                    Units_HitPoints->prepend(&UnitPointer->HitPoints);
-                    Units_LineOfSight->prepend(&UnitPointer->LineOfSight);
-                    Units_GarrisonCapacity->prepend(&UnitPointer->GarrisonCapacity);
-                    Units_SizeRadius[0]->prepend(&UnitPointer->CollisionSize.x);
-                    Units_SizeRadius[1]->prepend(&UnitPointer->CollisionSize.y);
-                    Units_SizeRadius[2]->prepend(&UnitPointer->CollisionSize.z);
-                    Units_TrainSound->prepend(&UnitPointer->TrainSound);
-                    Units_DeadUnitID->prepend(&UnitPointer->DeadUnitID);
-                    Units_SortNumber->prepend(&UnitPointer->SortNumber);
-                    Units_CanBeBuiltOn->prepend(&UnitPointer->CanBeBuiltOn);
-                    Units_HideInEditor->prepend(&UnitPointer->HideInEditor);
-                    Units_PlacementSideTerrain[0]->prepend(&UnitPointer->PlacementSideTerrain.first);
-                    Units_PlacementSideTerrain[1]->prepend(&UnitPointer->PlacementSideTerrain.second);
-                    Units_PlacementTerrain[0]->prepend(&UnitPointer->PlacementTerrain.first);
-                    Units_PlacementTerrain[1]->prepend(&UnitPointer->PlacementTerrain.second);
-                    Units_ClearanceSize[0]->prepend(&UnitPointer->ClearanceSize.first);
-                    Units_ClearanceSize[1]->prepend(&UnitPointer->ClearanceSize.second);
-                    Units_HillMode->prepend(&UnitPointer->HillMode);
-                    Units_FogVisibility->prepend(&UnitPointer->FogVisibility);
-                    Units_TerrainRestriction->prepend(&UnitPointer->TerrainRestriction);
-                    Units_FlyMode->prepend(&UnitPointer->FlyMode);
-                    Units_ResourceCapacity->prepend(&UnitPointer->ResourceCapacity);
-                    Units_ResourceDecay->prepend(&UnitPointer->ResourceDecay);
-                    Units_BlastDefenseLevel->prepend(&UnitPointer->BlastDefenseLevel);
-                    Units_CombatLevel->prepend(&UnitPointer->CombatLevel);
-                    Units_InteractionMode->prepend(&UnitPointer->InteractionMode);
-                    Units_MinimapMode->prepend(&UnitPointer->MinimapMode);
-                    Units_SelectionEffect->prepend(&UnitPointer->SelectionEffect);
-                    Units_EditorSelectionColour->prepend(&UnitPointer->EditorSelectionColour);
-                    Units_Enabled->prepend(&UnitPointer->Enabled);
-                    Units_InterfaceKind->prepend(&UnitPointer->InterfaceKind);
-                    Units_MultipleAttributeMode->prepend(&UnitPointer->MultipleAttributeMode);
-                    Units_MinimapColor->prepend(&UnitPointer->MinimapColor);
-                    Units_LanguageDLLHelp->prepend(&UnitPointer->LanguageDLLHelp);
-                    Units_LanguageDLLHotKeyText->prepend(&UnitPointer->LanguageDLLHotKeyText);
-                    Units_HotKey->prepend(&UnitPointer->HotKey);
-                    Units_Recyclable->prepend(&UnitPointer->Recyclable);
-                    Units_TrackAsResource->prepend(&UnitPointer->EnableAutoGather);
-                    Units_CreateDoppelgangerOnDeath->prepend(&UnitPointer->CreateDoppelgangerOnDeath);
-                    Units_ResourceGroup->prepend(&UnitPointer->ResourceGatherGroup);
-                    Units_SelectionRadius[0]->prepend(&UnitPointer->OutlineSize.x);
-                    Units_SelectionRadius[1]->prepend(&UnitPointer->OutlineSize.y);
-                    Units_SelectionRadius[2]->prepend(&UnitPointer->OutlineSize.z);
-                    Units_SelectionSound->prepend(&UnitPointer->SelectionSound);
-                    Units_DyingSound->prepend(&UnitPointer->DyingSound);
-                    Units_AttackReaction->prepend(&UnitPointer->OldAttackReaction);
-                    Units_ConvertTerrain->prepend(&UnitPointer->ConvertTerrain);
-                    Units_Name->prepend(&UnitPointer->Name);
-                    Units_CopyID->prepend(&UnitPointer->CopyID);
-                    for(size_t loop = 0; loop < 3; ++loop)
-                    {
-                        ResourceStorage_Type[loop]->prepend(&UnitPointer->ResourceStorages[loop].Type);
-                        ResourceStorage_Amount[loop]->prepend(&UnitPointer->ResourceStorages[loop].Amount);
-                        ResourceStorage_Mode[loop]->prepend(&UnitPointer->ResourceStorages[loop].Flag);
-                    }
-                    if(GenieVersion >= genie::GV_AoKE3)
-                    {
-                        Units_DamageSound->prepend(&UnitPointer->DamageSound);
-                        Units_OcclusionMode->prepend(&UnitPointer->OcclusionMode);
-                        if(GenieVersion >= genie::GV_AoKA)
-                        {
-                            Units_BaseID->prepend(&UnitPointer->BaseID);
-                            if(GenieVersion >= genie::GV_AoKB)
-                            {
-                                if(CopyGraphics || vecCiv == 0)
-                                {
-                                    Units_StandingGraphic[1]->prepend(&UnitPointer->StandingGraphic.second);
-                                }
-                                if(GenieVersion >= genie::GV_AoK)
-                                {
-                                    Units_Disabled->prepend(&UnitPointer->Disabled);
-                                    if(GenieVersion >= genie::GV_TC)
-                                    {
-                                        Units_Trait->prepend(&UnitPointer->Trait);
-                                        Units_Civ->prepend(&UnitPointer->Civilization);
-                                        Units_Nothing->prepend(&UnitPointer->Nothing);
-                                        if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
-                                        {
-                                            Units_WwiseTrainSound->prepend(&UnitPointer->WwiseTrainSoundID);
-                                            Units_WwiseDamageSound->prepend(&UnitPointer->WwiseDamageSoundID);
-                                            Units_WwiseSelectionSound->prepend(&UnitPointer->WwiseSelectionSoundID);
-                                            Units_WwiseDyingSound->prepend(&UnitPointer->WwiseDyingSoundID);
-                                            Units_BloodUnitID->prepend(&UnitPointer->BloodUnitID);
-                                        }
-                                        else if(GenieVersion >= genie::GV_SWGB)
-                                        {
-                                            Units_Name2->prepend(&UnitPointer->Name2);
-                                            Units_Unitline->prepend(&UnitPointer->Unitline);
-                                            Units_MinTechLevel->prepend(&UnitPointer->MinTechLevel);
-                                        }
-                                    }
-                                }
-                            }
-                            OBSTRUCTIONS:
-                            Units_ObstructionType->prepend(&UnitPointer->ObstructionType);
-                            Units_ObstructionClass->prepend(&UnitPointer->ObstructionClass);
-                        }
-                    }
-                    else if(GenieVersion >= genie::GV_Tapsa && GenieVersion <= genie::GV_LatestTap)
-                    {
-                        Units_BloodUnitID->prepend(&UnitPointer->BloodUnitID);
-                        Units_TelemetryID->prepend(&UnitPointer->TelemetryID);
-                        goto OBSTRUCTIONS;
                     }
                 }
             }
-            if(unitType == 60)
+            case 70:
+            {
+                for (size_t loop = 0; loop < 3; ++loop)
+                {
+                    Units_CostType[loop]->prepend(&UnitPointer->Creatable.ResourceCosts[loop].Type);
+                    Units_CostAmount[loop]->prepend(&UnitPointer->Creatable.ResourceCosts[loop].Amount);
+                    Units_CostUsed[loop]->prepend(&UnitPointer->Creatable.ResourceCosts[loop].Flag);
+                }
+                Units_DisplayedPierceArmour->prepend(&UnitPointer->Creatable.DisplayedPierceArmour);
+                if (GenieVersion >= genie::GV_AoKE3)
+                {
+                    Units_RearAttackModifier->prepend(&UnitPointer->Creatable.RearAttackModifier);
+                    Units_FlankAttackModifier->prepend(&UnitPointer->Creatable.FlankAttackModifier);
+                    Units_CreatableType->prepend(&UnitPointer->Creatable.CreatableType);
+                    Units_MissileCount->prepend(&UnitPointer->Creatable.TotalProjectiles);
+                    Units_MissileDuplicationCount->prepend(&UnitPointer->Creatable.MaxTotalProjectiles);
+                    for (size_t loop = 0; loop < 3; ++loop)
+                    {
+                        Units_AttackMissileDuplicationSpawning[loop]->prepend(&UnitPointer->Creatable.ProjectileSpawningArea[loop]);
+                    }
+                    Units_AttackMissileDuplicationUnit->prepend(&UnitPointer->Creatable.SecondaryProjectileUnit);
+                    if (CopyGraphics || vecCiv == 0)
+                    {
+                        Units_ChargingGraphic->prepend(&UnitPointer->Creatable.SpecialGraphic);
+                    }
+                    Units_ChargingMode->prepend(&UnitPointer->Creatable.SpecialAbility);
+                    if (GenieVersion >= genie::GV_AoKB)
+                    {
+                        Units_HeroMode->prepend(&UnitPointer->Creatable.HeroMode);
+                        if (CopyGraphics || vecCiv == 0)
+                        {
+                            Units_GarrisonGraphic->prepend(&UnitPointer->Creatable.GarrisonGraphic);
+                            if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+                            {
+                                Units_SpawningGraphic->prepend(&UnitPointer->Creatable.SpawningGraphic);
+                                Units_UpgradeGraphic->prepend(&UnitPointer->Creatable.UpgradeGraphic);
+                                Units_HeroGlowGraphic->prepend(&UnitPointer->Creatable.HeroGlowGraphic);
+                                Units_IdleAttackGraphic->prepend(&UnitPointer->Creatable.IdleAttackGraphic);
+                            }
+                        }
+                        if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+                        {
+                            Units_MaxCharge->prepend(&UnitPointer->Creatable.MaxCharge);
+                            Units_RechargeRate->prepend(&UnitPointer->Creatable.RechargeRate);
+                            Units_ChargeEvent->prepend(&UnitPointer->Creatable.ChargeEvent);
+                            Units_ChargeType->prepend(&UnitPointer->Creatable.ChargeType);
+                            Units_ChargeTarget->prepend(&UnitPointer->Creatable.ChargeTarget);
+                            Units_ChargeProjectileUnit->prepend(&UnitPointer->Creatable.ChargeProjectileUnit);
+                            Units_AttackPriority->prepend(&UnitPointer->Creatable.AttackPriority);
+                            Units_InvulnerabilityLevel->prepend(&UnitPointer->Creatable.InvulnerabilityLevel);
+                            Units_ButtonIconID->prepend(&UnitPointer->Creatable.ButtonIconID);
+                            Units_ButtonShortTooltipID->prepend(&UnitPointer->Creatable.ButtonShortTooltipID);
+                            Units_ButtonExtendedTooltipID->prepend(&UnitPointer->Creatable.ButtonExtendedTooltipID);
+                            Units_ButtonHotkeyAction->prepend(&UnitPointer->Creatable.ButtonHotkeyAction);
+                            Units_MinConversionTimeMod->prepend(&UnitPointer->Creatable.MinConversionTimeMod);
+                            Units_MaxConversionTimeMod->prepend(&UnitPointer->Creatable.MaxConversionTimeMod);
+                            Units_ConversionChanceMod->prepend(&UnitPointer->Creatable.ConversionChanceMod);
+                        }
+                    }
+                }
+            }
+            case 60:
+            case 50:
+            {
+                Units_BaseArmor->prepend(&UnitPointer->Type50.BaseArmor);
+                Units_DefenseTerrainBonus->prepend(&UnitPointer->Type50.DefenseTerrainBonus);
+                Units_MaxRange->prepend(&UnitPointer->Type50.MaxRange);
+                Units_BlastWidth->prepend(&UnitPointer->Type50.BlastWidth);
+                Units_ReloadTime->prepend(&UnitPointer->Type50.ReloadTime);
+                Units_ProjectileUnitID->prepend(&UnitPointer->Type50.ProjectileUnitID);
+                Units_AccuracyPercent->prepend(&UnitPointer->Type50.AccuracyPercent);
+                Units_TowerMode->prepend(&UnitPointer->Type50.BreakOffCombat);
+                Units_Delay->prepend(&UnitPointer->Type50.FrameDelay);
+                for (size_t loop = 0; loop < 3; ++loop)
+                {
+                    Units_GraphicDisplacement[loop]->prepend(&UnitPointer->Type50.GraphicDisplacement[loop]);
+                }
+                Units_BlastAttackLevel->prepend(&UnitPointer->Type50.BlastAttackLevel);
+                Units_MinRange->prepend(&UnitPointer->Type50.MinRange);
+                if (CopyGraphics || vecCiv == 0)
+                {
+                    Units_AttackGraphic->prepend(&UnitPointer->Type50.AttackGraphic);
+                }
+                Units_DisplayedMeleeArmour->prepend(&UnitPointer->Type50.DisplayedMeleeArmour);
+                Units_DisplayedAttack->prepend(&UnitPointer->Type50.DisplayedAttack);
+                Units_DisplayedRange->prepend(&UnitPointer->Type50.DisplayedRange);
+                Units_DisplayedReloadTime->prepend(&UnitPointer->Type50.DisplayedReloadTime);
+                if (GenieVersion >= genie::GV_AoKB)
+                {
+                    Units_AccuracyDispersion->prepend(&UnitPointer->Type50.AccuracyDispersion);
+                    if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+                    {
+                        Units_BonusDamageResistance->prepend(&UnitPointer->Type50.BonusDamageResistance);
+                        Units_BlastDamage->prepend(&UnitPointer->Type50.BlastDamage);
+                        Units_FriendlyFireDamage->prepend(&UnitPointer->Type50.FriendlyFireDamage);
+                        Units_DamageReflection->prepend(&UnitPointer->Type50.DamageReflection);
+                        Units_InterruptFrame->prepend(&UnitPointer->Type50.InterruptFrame);
+                        Units_GarrisonFirepower->prepend(&UnitPointer->Type50.GarrisonFirepower);
+                        Units_AttackGraphic2->prepend(&UnitPointer->Type50.AttackGraphic2);
+                    }
+                }
+            }
+            case 40:
+            {
+                Units_DefaultTaskID->prepend(&UnitPointer->Bird.DefaultTaskID);
+                Units_SearchRadius->prepend(&UnitPointer->Bird.SearchRadius);
+                Units_WorkRate->prepend(&UnitPointer->Bird.WorkRate);
+                Units_TaskSwapGroup->prepend(&UnitPointer->Bird.TaskSwapGroup);
+                Units_AttackSound->prepend(&UnitPointer->Bird.AttackSound);
+                Units_MoveSound->prepend(&UnitPointer->Bird.MoveSound);
+                Units_RunPattern->prepend(&UnitPointer->Bird.RunPattern);
+                if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+                {
+                    Units_WwiseAttackSound->prepend(&UnitPointer->Bird.WwiseAttackSoundID);
+                    Units_WwiseMoveSound->prepend(&UnitPointer->Bird.WwiseMoveSoundID);
+                }
+            }
+            case 30:
+            {
+                if (CopyGraphics || vecCiv == 0)
+                {
+                    Units_WalkingGraphic[0]->prepend(&UnitPointer->DeadFish.WalkingGraphic);
+                    Units_WalkingGraphic[1]->prepend(&UnitPointer->DeadFish.RunningGraphic);
+                }
+                Units_RotationSpeed->prepend(&UnitPointer->DeadFish.RotationSpeed);
+                Units_SizeClass->prepend(&UnitPointer->DeadFish.OldSizeClass);
+                Units_TrackingUnit->prepend(&UnitPointer->DeadFish.TrackingUnit);
+                Units_TrackingUnitMode->prepend(&UnitPointer->DeadFish.TrackingUnitMode);
+                Units_TrackingUnitDensity->prepend(&UnitPointer->DeadFish.TrackingUnitDensity);
+                Units_MoveAlgorithm->prepend(&UnitPointer->DeadFish.OldMoveAlgorithm);
+                if (GenieVersion >= genie::GV_AoKB)
+                {
+                    Units_RotationAngles[0]->prepend(&UnitPointer->DeadFish.TurnRadius);
+                    Units_RotationAngles[1]->prepend(&UnitPointer->DeadFish.TurnRadiusSpeed);
+                    Units_RotationAngles[2]->prepend(&UnitPointer->DeadFish.MaxYawPerSecondMoving);
+                    Units_RotationAngles[3]->prepend(&UnitPointer->DeadFish.StationaryYawRevolutionTime);
+                    Units_RotationAngles[4]->prepend(&UnitPointer->DeadFish.MaxYawPerSecondStationary);
+                    if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+                    {
+                        Units_MinCollisionSizeMultiplier->prepend(&UnitPointer->DeadFish.MinCollisionSizeMultiplier);
+                    }
+                }
+            }
+            case 25:
+            case 20:
+            {
+                Units_Speed->prepend(&UnitPointer->Speed);
+            }
+            case 90:
+            case 15:
+            case 10:
+            {
+                Units_Type->prepend(&UnitPointer->Type);
+                Units_ID1->prepend(&UnitPointer->ID);
+                Units_LanguageDLLName->prepend(&UnitPointer->LanguageDLLName);
+                Units_LanguageDLLCreation->prepend(&UnitPointer->LanguageDLLCreation);
+                Units_Class->prepend(&UnitPointer->Class);
+                if (CopyGraphics || vecCiv == 0)
+                {
+                    Units_StandingGraphic[0]->prepend(&UnitPointer->StandingGraphic.first);
+                    Units_DyingGraphic[0]->prepend(&UnitPointer->DyingGraphic);
+                    Units_DyingGraphic[1]->prepend(&UnitPointer->UndeadGraphic);
+                    Units_IconID->prepend(&UnitPointer->IconID);
+                    Units_Portrait->prepend(&UnitPointer->OldPortraitPict);
+                }
+                Units_UndeadMode->prepend(&UnitPointer->UndeadMode);
+                Units_HitPoints->prepend(&UnitPointer->HitPoints);
+                Units_LineOfSight->prepend(&UnitPointer->LineOfSight);
+                Units_GarrisonCapacity->prepend(&UnitPointer->GarrisonCapacity);
+                Units_SizeRadius[0]->prepend(&UnitPointer->CollisionSize.x);
+                Units_SizeRadius[1]->prepend(&UnitPointer->CollisionSize.y);
+                Units_SizeRadius[2]->prepend(&UnitPointer->CollisionSize.z);
+                Units_TrainSound->prepend(&UnitPointer->TrainSound);
+                Units_DeadUnitID->prepend(&UnitPointer->DeadUnitID);
+                Units_SortNumber->prepend(&UnitPointer->SortNumber);
+                Units_CanBeBuiltOn->prepend(&UnitPointer->CanBeBuiltOn);
+                Units_HideInEditor->prepend(&UnitPointer->HideInEditor);
+                Units_PlacementSideTerrain[0]->prepend(&UnitPointer->PlacementSideTerrain.first);
+                Units_PlacementSideTerrain[1]->prepend(&UnitPointer->PlacementSideTerrain.second);
+                Units_PlacementTerrain[0]->prepend(&UnitPointer->PlacementTerrain.first);
+                Units_PlacementTerrain[1]->prepend(&UnitPointer->PlacementTerrain.second);
+                Units_ClearanceSize[0]->prepend(&UnitPointer->ClearanceSize.first);
+                Units_ClearanceSize[1]->prepend(&UnitPointer->ClearanceSize.second);
+                Units_HillMode->prepend(&UnitPointer->HillMode);
+                Units_FogVisibility->prepend(&UnitPointer->FogVisibility);
+                Units_TerrainRestriction->prepend(&UnitPointer->TerrainRestriction);
+                Units_FlyMode->prepend(&UnitPointer->FlyMode);
+                Units_ResourceCapacity->prepend(&UnitPointer->ResourceCapacity);
+                Units_ResourceDecay->prepend(&UnitPointer->ResourceDecay);
+                Units_BlastDefenseLevel->prepend(&UnitPointer->BlastDefenseLevel);
+                Units_CombatLevel->prepend(&UnitPointer->CombatLevel);
+                Units_InteractionMode->prepend(&UnitPointer->InteractionMode);
+                Units_MinimapMode->prepend(&UnitPointer->MinimapMode);
+                Units_SelectionEffect->prepend(&UnitPointer->SelectionEffect);
+                Units_EditorSelectionColour->prepend(&UnitPointer->EditorSelectionColour);
+                Units_Enabled->prepend(&UnitPointer->Enabled);
+                Units_InterfaceKind->prepend(&UnitPointer->InterfaceKind);
+                Units_MultipleAttributeMode->prepend(&UnitPointer->MultipleAttributeMode);
+                Units_MinimapColor->prepend(&UnitPointer->MinimapColor);
+                Units_LanguageDLLHelp->prepend(&UnitPointer->LanguageDLLHelp);
+                Units_LanguageDLLHotKeyText->prepend(&UnitPointer->LanguageDLLHotKeyText);
+                Units_Recyclable->prepend(&UnitPointer->Recyclable);
+                Units_TrackAsResource->prepend(&UnitPointer->EnableAutoGather);
+                Units_CreateDoppelgangerOnDeath->prepend(&UnitPointer->CreateDoppelgangerOnDeath);
+                Units_ResourceGroup->prepend(&UnitPointer->ResourceGatherGroup);
+                Units_SelectionRadius[0]->prepend(&UnitPointer->OutlineSize.x);
+                Units_SelectionRadius[1]->prepend(&UnitPointer->OutlineSize.y);
+                Units_SelectionRadius[2]->prepend(&UnitPointer->OutlineSize.z);
+                Units_SelectionSound->prepend(&UnitPointer->SelectionSound);
+                Units_DyingSound->prepend(&UnitPointer->DyingSound);
+                Units_AttackReaction->prepend(&UnitPointer->OldAttackReaction);
+                Units_ConvertTerrain->prepend(&UnitPointer->ConvertTerrain);
+                Units_Name->prepend(&UnitPointer->Name);
+                Units_CopyID->prepend(&UnitPointer->CopyID);
+                for (size_t loop = 0; loop < 3; ++loop)
+                {
+                    ResourceStorage_Type[loop]->prepend(&UnitPointer->ResourceStorages[loop].Type);
+                    ResourceStorage_Amount[loop]->prepend(&UnitPointer->ResourceStorages[loop].Amount);
+                    ResourceStorage_Mode[loop]->prepend(&UnitPointer->ResourceStorages[loop].Flag);
+                }
+                if (GenieVersion >= genie::GV_AoKE3)
+                {
+                    Units_DamageSound->prepend(&UnitPointer->DamageSound);
+                    Units_OcclusionMode->prepend(&UnitPointer->OcclusionMode);
+                    if (GenieVersion >= genie::GV_AoKA)
+                    {
+                        Units_BaseID->prepend(&UnitPointer->BaseID);
+                        if (GenieVersion >= genie::GV_AoKB)
+                        {
+                            if (CopyGraphics || vecCiv == 0)
+                            {
+                                Units_StandingGraphic[1]->prepend(&UnitPointer->StandingGraphic.second);
+                            }
+                            if (GenieVersion >= genie::GV_AoK)
+                            {
+                                Units_Disabled->prepend(&UnitPointer->Disabled);
+                                if (GenieVersion >= genie::GV_TC)
+                                {
+                                    Units_Trait->prepend(&UnitPointer->Trait);
+                                    Units_Civ->prepend(&UnitPointer->Civilization);
+                                    Units_Nothing->prepend(&UnitPointer->Nothing);
+                                    if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+                                    {
+                                        Units_WwiseTrainSound->prepend(&UnitPointer->WwiseTrainSoundID);
+                                        Units_WwiseDamageSound->prepend(&UnitPointer->WwiseDamageSoundID);
+                                        Units_WwiseSelectionSound->prepend(&UnitPointer->WwiseSelectionSoundID);
+                                        Units_WwiseDyingSound->prepend(&UnitPointer->WwiseDyingSoundID);
+                                        Units_BloodUnitID->prepend(&UnitPointer->BloodUnitID);
+                                    }
+                                    else if (GenieVersion >= genie::GV_SWGB)
+                                    {
+                                        Units_Name2->prepend(&UnitPointer->Name2);
+                                        Units_Unitline->prepend(&UnitPointer->Unitline);
+                                        Units_MinTechLevel->prepend(&UnitPointer->MinTechLevel);
+                                    }
+                                }
+                            }
+                        }
+                    OBSTRUCTIONS:
+                        Units_ObstructionType->prepend(&UnitPointer->ObstructionType);
+                        Units_ObstructionClass->prepend(&UnitPointer->ObstructionClass);
+                    }
+                }
+                else if (GenieVersion >= genie::GV_Tapsa && GenieVersion <= genie::GV_LatestTap)
+                {
+                    Units_BloodUnitID->prepend(&UnitPointer->BloodUnitID);
+                    Units_TelemetryID->prepend(&UnitPointer->TelemetryID);
+                    goto OBSTRUCTIONS;
+                }
+            }
+            }
+            if (unitType == 60)
             {
                 Units_ProjectileType->prepend(&UnitPointer->Projectile.ProjectileType);
                 Units_SmartMode->prepend(&UnitPointer->Projectile.SmartMode);
@@ -1590,25 +1614,24 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
         UnitCivID, selections, selections > 0 ? UnitIDs.front() : -1), 0);
 
     bool showUnitData = -1 != unitType;
-    switch(unitType)
+    switch (unitType)
     {
-        case 10: Units_Type_ComboBox->SetSelection(1); break;
-        case 15: Units_Type_ComboBox->SetSelection(2); break;
-        case 20: Units_Type_ComboBox->SetSelection(3); break;
-        case 25: Units_Type_ComboBox->SetSelection(4); break;
-        case 30: Units_Type_ComboBox->SetSelection(5); break;
-        case 40: Units_Type_ComboBox->SetSelection(6); break;
-        case 50: Units_Type_ComboBox->SetSelection(7); break;
-        case 60: Units_Type_ComboBox->SetSelection(8); break;
-        case 70: Units_Type_ComboBox->SetSelection(9); break;
-        case 80: Units_Type_ComboBox->SetSelection(10); break;
-        case 90: Units_Type_ComboBox->SetSelection(11); break;
-        default: Units_Type_ComboBox->SetSelection(0);
+    case 10: Units_Type_ComboBox->SetSelection(1); break;
+    case 15: Units_Type_ComboBox->SetSelection(2); break;
+    case 20: Units_Type_ComboBox->SetSelection(3); break;
+    case 25: Units_Type_ComboBox->SetSelection(4); break;
+    case 30: Units_Type_ComboBox->SetSelection(5); break;
+    case 40: Units_Type_ComboBox->SetSelection(6); break;
+    case 50: Units_Type_ComboBox->SetSelection(7); break;
+    case 60: Units_Type_ComboBox->SetSelection(8); break;
+    case 70: Units_Type_ComboBox->SetSelection(9); break;
+    case 80: Units_Type_ComboBox->SetSelection(10); break;
+    case 90: Units_Type_ComboBox->SetSelection(11); break;
+    default: Units_Type_ComboBox->SetSelection(0);
     }
     Units_DLL_LanguageName->index = Units_DLL_LanguageHelp->index = 5000;
     Units_DLL_LanguageCreation->index = Units_DLL_LanguageHKText->index = 6000;
-    Units_DLL_HotKey4->index = 16000;
-    if(UnitPointer)
+    if (UnitPointer)
     {
         if (70 >= unitType)
         {
@@ -1641,11 +1664,11 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
         }
         Units_DLL_LanguageName->index = UnitPointer->LanguageDLLName;
         Units_DLL_LanguageCreation->index = UnitPointer->LanguageDLLCreation;
-        if(GenieVersion >= genie::GV_AoKA)
+        if (GenieVersion >= genie::GV_AoKA)
         {
             Units_DLL_LanguageHelp->index = UnitPointer->LanguageDLLHelp - 79000;
             Units_DLL_LanguageHKText->index = UnitPointer->LanguageDLLHotKeyText - 140000;
-            if(GenieVersion >= genie::GV_TC)
+            if (GenieVersion >= genie::GV_TC)
             {
                 Units_Trait_CheckBox[0]->SetValue(UnitPointer->Trait & 0x01);
                 Units_Trait_CheckBox[1]->SetValue(UnitPointer->Trait & 0x02);
@@ -1662,44 +1685,43 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
             Units_DLL_LanguageHelp->index = (uint16_t)UnitPointer->LanguageDLLHelp;
             Units_DLL_LanguageHKText->index = (uint16_t)UnitPointer->LanguageDLLHotKeyText;
         }
-        Units_DLL_HotKey4->index = UnitPointer->HotKey;
-        if(GenieVersion >= genie::GV_AoKB)
+        if (GenieVersion >= genie::GV_AoKB)
         {
-            std::string newLabel = " ( ", aste = "° ";
+            std::string newLabel = " ( ", aste = " ";
             const float closure = 57.2957802f;
 
-            #define UGLY_CODE if(angle == 0x80000000) newLabel += "max" + aste;\
+#define UGLY_CODE if(angle == 0x80000000) newLabel += "max" + aste;\
             else newLabel += lexical_cast<std::string>(angle) + aste;
 
             int angle = UnitPointer->DeadFish.TurnRadius * closure; UGLY_CODE
-            angle = UnitPointer->DeadFish.TurnRadiusSpeed * closure; UGLY_CODE
-            angle = UnitPointer->DeadFish.MaxYawPerSecondMoving * closure; UGLY_CODE
-            angle = UnitPointer->DeadFish.StationaryYawRevolutionTime * closure; UGLY_CODE
-            angle = UnitPointer->DeadFish.MaxYawPerSecondStationary * closure; UGLY_CODE
+                angle = UnitPointer->DeadFish.TurnRadiusSpeed * closure; UGLY_CODE
+                angle = UnitPointer->DeadFish.MaxYawPerSecondMoving * closure; UGLY_CODE
+                angle = UnitPointer->DeadFish.StationaryYawRevolutionTime * closure; UGLY_CODE
+                angle = UnitPointer->DeadFish.MaxYawPerSecondStationary * closure; UGLY_CODE
 
-            Units_RotationAngles_Text->SetLabel(Units_RotationAngles_Label + newLabel + ")");
+                Units_RotationAngles_Text->SetLabel(Units_RotationAngles_Label + newLabel + ")");
         }
         visibleUnitCiv->SetLabel(dataset->Civs[UnitCivID].Name);
-        if(!palettes.empty() && !palettes.front().empty())
+        if (!palettes.empty() && !palettes.front().empty())
         {
             genie::Color minimap = palettes.front()[(uint8_t)UnitPointer->MinimapColor];
             genie::Color editorSel = palettes.front()[(uint8_t)UnitPointer->EditorSelectionColour];
             setForeAndBackColors(Units_MinimapColor, wxColour(minimap.r, minimap.g, minimap.b));
             setForeAndBackColors(Units_EditorSelectionColour, wxColour(editorSel.r, editorSel.g, editorSel.b));
         }
-        if(UnitPointer->Type == 80 && (GenieVersion < genie::GV_SWGB
-        ? UnitPointer->Class != 51 && UnitPointer->Class != 54
-        : UnitPointer->Class != 34 && UnitPointer->Class != 36))
+        if (UnitPointer->Type == 80 && (GenieVersion < genie::GV_SWGB
+            ? UnitPointer->Class != 51 && UnitPointer->Class != 54
+            : UnitPointer->Class != 34 && UnitPointer->Class != 36))
         {
             int set0 = 50704;
-            if(GenieVersion >= genie::GV_CC) set0 = 53240;
+            if (GenieVersion >= genie::GV_CC) set0 = 53240;
             iconSLP.slpID = set0 + dataset->Civs[UnitCivID].IconSet;
         }
-        else if(GenieVersion >= genie::GV_CC)
+        else if (GenieVersion >= genie::GV_CC)
         {
             iconSLP.slpID = 53250 + dataset->Civs[UnitCivID].IconSet;
         }
-        else if(GenieVersion == genie::GV_SWGB)
+        else if (GenieVersion == genie::GV_SWGB)
         {
             iconSLP.slpID = 50733 + dataset->Civs[UnitCivID].IconSet;
         }
@@ -1722,14 +1744,12 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
     Units_LanguageDLLConverter[0]->SetLabel(lexical_cast<std::string>(Units_DLL_LanguageHelp->index));
     Units_DLL_LanguageHKText->SetLabel(TranslatedText(Units_DLL_LanguageHKText->index, 64));
     Units_LanguageDLLConverter[1]->SetLabel(lexical_cast<std::string>(Units_DLL_LanguageHKText->index));
-    Units_DLL_HotKey4->SetLabel(TranslatedText(Units_DLL_HotKey4->index, 16));
 
     Units_Type_ComboBox->Enable(showUnitData);
     Units_DLL_LanguageName->Enable(showUnitData);
     Units_DLL_LanguageCreation->Enable(showUnitData);
     Units_DLL_LanguageHelp->Enable(showUnitData);
     Units_DLL_LanguageHKText->Enable(showUnitData);
-    Units_DLL_HotKey4->Enable(showUnitData);
     Units_LanguageDLLConverter[0]->Enable(showUnitData);
     Units_LanguageDLLConverter[1]->Enable(showUnitData);
 
@@ -1753,18 +1773,19 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
     ListUnitDamageGraphics();
     ListUnitAttacks();
     ListUnitArmors();
+
     // AoK, TC, SWGB or CC
     if (selections > 0 && GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
     {
-        genie::UnitHeader * UnitHeadPointer;
-        for(size_t sel = selections; sel--> 0;)
+        genie::UnitHeader* UnitHeadPointer;
+        for (size_t sel = selections; sel-- > 0;)
         {
             UnitHeadPointer = &dataset->UnitHeaders[UnitIDs[sel]];
 
             Units_Exists->prepend(&UnitHeadPointer->Exists);
         }
 
-        Units_UnitHeads_Name->SetLabel(" "+lexical_cast<std::string>(UnitIDs.front())+" - "+GetUnitName(UnitIDs.front(), 0));
+        Units_UnitHeads_Name->SetLabel(" " + lexical_cast<std::string>(UnitIDs.front()) + " - " + GetUnitName(UnitIDs.front(), 0));
     }
     else    // AoE or RoR
     {
@@ -1772,128 +1793,129 @@ void AGE_Frame::OnUnitSelect(wxCommandEvent &event)
     }
     ListUnitCommands();
     ListUnitDropSites();
+    ListUnitTrainLocations();
 
     setbearing = 1u;
-    for (AGETextCtrl *box : uiGroupUnit) box->update();
+    for (AGETextCtrl* box : uiGroupUnit) box->update();
     Units_ID1->refill();
     Units_CopyID->refill();
     Units_BaseID->refill();
     //  Refresh(); // Too much lag.
     Units_IconID_SLP->Refresh();
-    if(slp_window) slp_view->Refresh();
+    if (slp_window) slp_view->Refresh();
 }
 
-void AGE_Frame::OnDrawIconSLP(wxPaintEvent &event)
+void AGE_Frame::OnDrawIconSLP(wxPaintEvent& event)
 {
     wxBufferedPaintDC dc(Units_IconID_SLP);
     dc.Clear();
-    if(iconSLP.slpID == -1)
+    if (iconSLP.slpID == -1)
     {
         dc.DrawLabel("No unit", wxNullBitmap, wxRect(0, 0, 100, 40));
         return;
     }
-    if(iconSLP.frameID == -1)
+    if (iconSLP.frameID == -1)
     {
         dc.DrawLabel("No icon", wxNullBitmap, wxRect(0, 0, 100, 40));
         return;
     }
-    if(UseDRS && LoadSLP(&iconSLP)) FrameToBitmap(&iconSLP);
-    if(iconSLP.bitmap.IsOk())
-    dc.DrawBitmap(iconSLP.bitmap, 0, 0, true);
+    if (UseDRS && LoadSLP(&iconSLP)) FrameToBitmap(&iconSLP);
+    if (iconSLP.bitmap.IsOk())
+        dc.DrawBitmap(iconSLP.bitmap, 0, 0, true);
     else dc.DrawLabel("!SLP/frame " + FormatInt(iconSLP.slpID), wxNullBitmap, wxRect(0, 0, 100, 40));
 }
 
 int AGE_Frame::loadChosenGraphic(unsigned int unitID)
 {
-    genie::Unit *unit = &dataset->Civs[UnitCivID].Units[unitID];
-    if(slp_unit_actions->GetSelection() && CommandIDs.size())
+    genie::Unit* unit = &dataset->Civs[UnitCivID].Units[unitID];
+    if (slp_unit_actions->GetSelection() && CommandIDs.size())
     {
-        genie::Task *action = 0;
-        if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+        genie::Task* action = 0;
+        if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
         {
-            if(CommandIDs.front() < dataset->UnitHeaders[unitID].TaskList.size())
-            action = &dataset->UnitHeaders[unitID].TaskList[CommandIDs.front()];
+            if (CommandIDs.front() < dataset->UnitHeaders[unitID].TaskList.size())
+                action = &dataset->UnitHeaders[unitID].TaskList[CommandIDs.front()];
         }
         else
         {
-            if(CommandIDs.front() < unit->Bird.TaskList.size())
-            action = &unit->Bird.TaskList[CommandIDs.front()];
+            if (CommandIDs.front() < unit->Bird.TaskList.size())
+                action = &unit->Bird.TaskList[CommandIDs.front()];
         }
-        if(!action) goto CHOOSE_NORMAL;
+        if (!action) goto CHOOSE_NORMAL;
         int graphicID;
-        switch(slp_unit_actions->GetSelection())
+        switch (slp_unit_actions->GetSelection())
         {
-            case 1: graphicID = action->MovingGraphicID; break;
-            case 2: graphicID = action->ProceedingGraphicID; break;
-            case 3: graphicID = action->WorkingGraphicID; break;
-            case 4: graphicID = action->CarryingGraphicID; break;
-            default: goto CHOOSE_NORMAL;
+        case 1: graphicID = action->MovingGraphicID; break;
+        case 2: graphicID = action->ProceedingGraphicID; break;
+        case 3: graphicID = action->WorkingGraphicID; break;
+        case 4: graphicID = action->CarryingGraphicID; break;
+        default: goto CHOOSE_NORMAL;
         }
-        if(graphicID != -1 && GenieVersion >= genie::GV_SWGB && unit->Class == 58)
+        if (graphicID != -1 && GenieVersion >= genie::GV_SWGB && unit->Class == 58)
             graphicID += dataset->Civs[UnitCivID].IconSet;
         return graphicID;
     }
 CHOOSE_NORMAL:
-    switch(slp_radio->GetSelection())
+    switch (slp_radio->GetSelection())
     {
-        case 0: return unit->StandingGraphic.first;
-        case 1: return unit->StandingGraphic.second;
-        case 2: return unit->DyingGraphic;
-        case 3: return unit->UndeadGraphic;
-        case 4: return unit->DeadFish.WalkingGraphic;
-        case 5: return unit->DeadFish.RunningGraphic;
-        case 6: return unit->Building.ConstructionGraphicID;
-        case 7: return unit->Type50.AttackGraphic;
-        default: return -1;
+    case 0: return unit->StandingGraphic.first;
+    case 1: return unit->StandingGraphic.second;
+    case 2: return unit->DyingGraphic;
+    case 3: return unit->UndeadGraphic;
+    case 4: return unit->DeadFish.WalkingGraphic;
+    case 5: return unit->DeadFish.RunningGraphic;
+    case 6: return unit->Building.ConstructionGraphicID;
+    case 7: return unit->Type50.AttackGraphic;
+    default: return -1;
     }
 }
 
 void AGE_Frame::AddAnnexAndStackGraphics(unsigned int unitID, int offsetX, int offsetY, int apply)
 {
-    if(unitID >= dataset->Civs[UnitCivID].Units.size()) return;
+    if (unitID >= dataset->Civs[UnitCivID].Units.size()) return;
     unsigned unitGraphic = static_cast<unsigned>(-1);
-    switch(apply)
+    switch (apply)
     {
-        case 0: unitGraphic = loadChosenGraphic(unitID); break;
-        case 1:
-            if(DamageGraphicIDs.size() && DamageGraphicIDs.front() < dataset->Civs[UnitCivID].Units[unitID].DamageGraphics.size())
-            {
-                unitGraphic = dataset->Civs[UnitCivID].Units[unitID].DamageGraphics[DamageGraphicIDs.front()].GraphicID;
-                if(dataset->Civs[UnitCivID].Units[unitID].DamageGraphics[DamageGraphicIDs.front()].ApplyMode == 2)
+    case 0: unitGraphic = loadChosenGraphic(unitID); break;
+    case 1:
+        if (DamageGraphicIDs.size() && DamageGraphicIDs.front() < dataset->Civs[UnitCivID].Units[unitID].DamageGraphics.size())
+        {
+            unitGraphic = dataset->Civs[UnitCivID].Units[unitID].DamageGraphics[DamageGraphicIDs.front()].GraphicID;
+            if (dataset->Civs[UnitCivID].Units[unitID].DamageGraphics[DamageGraphicIDs.front()].ApplyMode == 2)
                 museum.deltas.clear();
-                break;
-            }
-            else return;
-        case 2: unitGraphic = dataset->Civs[UnitCivID].Units[unitID].Building.SnowGraphicID; break;
-        case 3: unitGraphic = dataset->Civs[UnitCivID].Units[unitID].Creatable.GarrisonGraphic; break;
+            break;
+        }
+        else return;
+    case 2: unitGraphic = dataset->Civs[UnitCivID].Units[unitID].Building.SnowGraphicID; break;
+    case 3: unitGraphic = dataset->Civs[UnitCivID].Units[unitID].Creatable.GarrisonGraphic; break;
     }
-    if(unitGraphic >= dataset->Graphics.size()) return;
+    if (unitGraphic >= dataset->Graphics.size()) return;
     AGE_SLP baseSLP;
     bool has_base = initArt(baseSLP, unitGraphic);
-    if(has_base) museum.angles = std::max(museum.angles, baseSLP.angles);
-    if(dataset->Graphics[unitGraphic].Deltas.size())
-    for(genie::GraphicDelta const &delta: dataset->Graphics[unitGraphic].Deltas)
-    {
-        AGE_SLP art;
-        if(delta.GraphicID < dataset->Graphics.size())
+    if (has_base) museum.angles = std::max(museum.angles, baseSLP.angles);
+    if (dataset->Graphics[unitGraphic].Deltas.size())
+        for (genie::GraphicDelta const& delta : dataset->Graphics[unitGraphic].Deltas)
         {
-            if(initArt(art, delta.GraphicID))
+            AGE_SLP art;
+            if (delta.GraphicID < dataset->Graphics.size())
             {
-                museum.angles = std::max(museum.angles, art.angles);
+                if (initArt(art, delta.GraphicID))
+                {
+                    museum.angles = std::max(museum.angles, art.angles);
+                }
+                else continue;
+            }
+            else if (has_base)
+            {
+                initArt(art, unitGraphic);
             }
             else continue;
+            art.xdelta = delta.OffsetX + offsetX;
+            art.ydelta = delta.OffsetY + offsetY;
+            SetDisplayBearings(art, delta);
+            museum.deltas.emplace(std::move(std::make_pair(offsetY, std::move(art))));
         }
-        else if(has_base)
-        {
-            initArt(art, unitGraphic);
-        }
-        else continue;
-        art.xdelta = delta.OffsetX + offsetX;
-        art.ydelta = delta.OffsetY + offsetY;
-        SetDisplayBearings(art, delta);
-        museum.deltas.emplace(std::move(std::make_pair(offsetY, std::move(art))));
-    }
-    else if(has_base)
+    else if (has_base)
     {
         baseSLP.xdelta = offsetX;
         baseSLP.ydelta = offsetY;
@@ -1901,40 +1923,40 @@ void AGE_Frame::AddAnnexAndStackGraphics(unsigned int unitID, int offsetX, int o
     }
 }
 
-void AGE_Frame::CalcAnnexCoords(const genie::unit::BuildingAnnex *annex)
+void AGE_Frame::CalcAnnexCoords(const genie::unit::BuildingAnnex* annex)
 {
     float offsetX = dataset->TerrainBlock.TileHalfWidth * (annex->Misplacement.first + annex->Misplacement.second);
     float offsetY = dataset->TerrainBlock.TileHalfHeight * (-annex->Misplacement.first + annex->Misplacement.second);
     AddAnnexAndStackGraphics(annex->UnitID, offsetX, offsetY);
 }
 
-void AGE_Frame::OnAutoCopy(wxCommandEvent &event)
+void AGE_Frame::OnAutoCopy(wxCommandEvent& event)
 {
-    if(event.GetId() == Units_AutoCopy->GetId())
+    if (event.GetId() == Units_AutoCopy->GetId())
     {
         AutoCopy = event.IsChecked();
         Units_CopyTo->Enable(!AutoCopy);
     }
-    else if(event.GetId() == Units_CopyGraphics->GetId())
+    else if (event.GetId() == Units_CopyGraphics->GetId())
     {
         CopyGraphics = event.IsChecked();
     }
-    else if(event.GetId() == Units_SelectAll->GetId())
+    else if (event.GetId() == Units_SelectAll->GetId())
     {
-        for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
-        Units_CivBoxes[loop]->SetValue(true);
+        for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+            Units_CivBoxes[loop]->SetValue(true);
     }
-    else if(event.GetId() == Units_SelectClear->GetId())
+    else if (event.GetId() == Units_SelectClear->GetId())
     {
-        for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
-        Units_CivBoxes[loop]->SetValue(false);
+        for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+            Units_CivBoxes[loop]->SetValue(false);
     }
-    else if(event.GetId() == Units_GraphicSet->GetId())
+    else if (event.GetId() == Units_GraphicSet->GetId())
     {
         short Selection = Units_GraphicSet->GetSelection();
-        for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+        for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
         {
-            if((short)dataset->Civs[loop].IconSet == Selection)
+            if ((short)dataset->Civs[loop].IconSet == Selection)
             {
                 Units_CivBoxes[loop]->SetValue(true);
             }
@@ -1944,7 +1966,7 @@ void AGE_Frame::OnAutoCopy(wxCommandEvent &event)
             }
         }
     }
-    if(dataset)
+    if (dataset)
     {
         // This ensures that proper data pointers are assigned to editing boxes.
         wxCommandEvent e;
@@ -1952,35 +1974,35 @@ void AGE_Frame::OnAutoCopy(wxCommandEvent &event)
     }
 }
 
-void AGE_Frame::UnitsGraphicsCopy(GraphicCopies &store, short civ, short unit)
+void AGE_Frame::UnitsGraphicsCopy(GraphicCopies& store, short civ, short unit)
 {
     store.IconID = dataset->Civs[civ].Units[unit].IconID;// This probably shouldn't be here.
     store.StandingGraphic = dataset->Civs[civ].Units[unit].StandingGraphic;
     store.DyingGraphic = dataset->Civs[civ].Units[unit].DyingGraphic;
     store.UndeadGraphic = dataset->Civs[civ].Units[unit].UndeadGraphic;
     store.DamageGraphics = dataset->Civs[civ].Units[unit].DamageGraphics;
-    switch((short)dataset->Civs[civ].Units[unit].Type)
+    switch ((short)dataset->Civs[civ].Units[unit].Type)
     {
-        case 80:
+    case 80:
         store.ConstructionGraphicID = dataset->Civs[civ].Units[unit].Building.ConstructionGraphicID;
         store.SnowGraphicID = dataset->Civs[civ].Units[unit].Building.SnowGraphicID;
         store.DestructionGraphicID = dataset->Civs[civ].Units[unit].Building.DestructionGraphicID;
         store.DestructionRubbleGraphicID = dataset->Civs[civ].Units[unit].Building.DestructionRubbleGraphicID;
         store.ResearchingGraphic = dataset->Civs[civ].Units[unit].Building.ResearchingGraphic;
         store.ResearchCompletedGraphic = dataset->Civs[civ].Units[unit].Building.ResearchCompletedGraphic;
-        case 70:
+    case 70:
         store.GarrisonGraphic = dataset->Civs[civ].Units[unit].Creatable.GarrisonGraphic;
         store.SpecialGraphic = dataset->Civs[civ].Units[unit].Creatable.SpecialGraphic;
         store.SpawningGraphic = dataset->Civs[civ].Units[unit].Creatable.SpawningGraphic;
         store.UpgradeGraphic = dataset->Civs[civ].Units[unit].Creatable.UpgradeGraphic;
         store.HeroGlowGraphic = dataset->Civs[civ].Units[unit].Creatable.HeroGlowGraphic;
         store.IdleAttackGraphic = dataset->Civs[civ].Units[unit].Creatable.IdleAttackGraphic;
-        case 60:
-        case 50:
+    case 60:
+    case 50:
         store.AttackGraphic = dataset->Civs[civ].Units[unit].Type50.AttackGraphic;
         store.AttackGraphic2 = dataset->Civs[civ].Units[unit].Type50.AttackGraphic2;
-        case 40:
-        case 30:
+    case 40:
+    case 30:
         store.WalkingGraphic = dataset->Civs[civ].Units[unit].DeadFish.WalkingGraphic;
         store.RunningGraphic = dataset->Civs[civ].Units[unit].DeadFish.RunningGraphic;
     }
@@ -1998,12 +2020,12 @@ void AGE_Frame::PasteUnits(bool OneOnOne)
     short CivCount = dataset->Civs.size();
     short FillingCiv = (copies.Dat.UnitExists.size() > 1) ? 1 : 0;
     copies.Dat.UnitExists.resize(CivCount, copies.Dat.UnitExists[FillingCiv]);
-    if(copies.Dat.AllCivs & 0x01) // Paste from all civs to all civs.
+    if (copies.Dat.AllCivs & 0x01) // Paste from all civs to all civs.
     {
         copies.Dat.UnitCopies.resize(CivCount, copies.Dat.UnitCopies[FillingCiv]);
-        for(short civ = 0; civ < CivCount; ++civ)
+        for (short civ = 0; civ < CivCount; ++civ)
         {
-            for(size_t loop = 0; loop < copies.Dat.UnitCopies.front().size(); ++loop) // selections
+            for (size_t loop = 0; loop < copies.Dat.UnitCopies.front().size(); ++loop) // selections
             {
                 copies.Dat.UnitCopies[civ][loop].setGameVersion(GenieVersion);
                 dataset->Civs[civ].Units[CorrectID(OneOnOne, loop)] = copies.Dat.UnitCopies[civ][loop];
@@ -2012,18 +2034,18 @@ void AGE_Frame::PasteUnits(bool OneOnOne)
     }
     else
     {
-        if(AutoCopy) // Paste from one civ to selected civs.
+        if (AutoCopy) // Paste from one civ to selected civs.
         {
             copies.Dat.UnitGraphics.resize(CivCount, copies.Dat.UnitGraphics[FillingCiv]);
-            for(short civ = 0; civ < CivCount; ++civ)
+            for (short civ = 0; civ < CivCount; ++civ)
             {
-                if(Units_CivBoxes[civ]->IsChecked())
+                if (Units_CivBoxes[civ]->IsChecked())
                 {
-                    for(size_t loop = 0; loop < copies.Dat.UnitCopies.front().size(); ++loop)
+                    for (size_t loop = 0; loop < copies.Dat.UnitCopies.front().size(); ++loop)
                     {
                         copies.Dat.UnitCopies.front()[loop].setGameVersion(GenieVersion);
                         dataset->Civs[civ].Units[CorrectID(OneOnOne, loop)] = copies.Dat.UnitCopies.front()[loop];
-                        if(!CopyGraphics)
+                        if (!CopyGraphics)
                         {// Let's paste graphics separately.
                             UnitsGraphicsPaste(copies.Dat.UnitGraphics[civ][loop], civ, CorrectID(OneOnOne, loop));
                         }
@@ -2033,25 +2055,25 @@ void AGE_Frame::PasteUnits(bool OneOnOne)
         }
         else // Paste from one civ to another civ.
         {
-            for(size_t loop = 0; loop < copies.Dat.UnitCopies.front().size(); ++loop)
+            for (size_t loop = 0; loop < copies.Dat.UnitCopies.front().size(); ++loop)
             {
                 copies.Dat.UnitCopies.front()[loop].setGameVersion(GenieVersion);
                 dataset->Civs[UnitCivID].Units[CorrectID(OneOnOne, loop)] = copies.Dat.UnitCopies.front()[loop];
             }
         }
     }
-    if(copies.Dat.AllCivs & 0x08) // Paste from AoE to AoK+
+    if (copies.Dat.AllCivs & 0x08) // Paste from AoE to AoK+
     {
         // Paste commands properly
-        if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+        if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
         {
-            if(copies.Dat.AllCivs & 0x01)
+            if (copies.Dat.AllCivs & 0x01)
             {
-                for(size_t loop = 0; loop < copies.Dat.UnitCopies.front().size(); ++loop)
+                for (size_t loop = 0; loop < copies.Dat.UnitCopies.front().size(); ++loop)
                 {
-                    for(short civ = 0; civ < copies.Dat.UnitCopies.size(); ++civ)
+                    for (short civ = 0; civ < copies.Dat.UnitCopies.size(); ++civ)
                     {
-                        if(copies.Dat.UnitExists[civ][loop] != 0)
+                        if (copies.Dat.UnitExists[civ][loop] != 0)
                         {
                             dataset->UnitHeaders[CorrectID(OneOnOne, loop)].Exists = 1;
                             dataset->UnitHeaders[CorrectID(OneOnOne, loop)].TaskList = copies.Dat.UnitCopies[civ][loop].Bird.TaskList;
@@ -2061,51 +2083,51 @@ void AGE_Frame::PasteUnits(bool OneOnOne)
                 }
             }
             else
-            wxMessageBox("Please select All civs from the bottom!", "Ouch!");
+                wxMessageBox("Please select All civs from the bottom!", "Ouch!");
         }
     }
-    else if(GenieVersion < genie::GV_AoK || GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2) // Paste from AoK+ to AoE
+    else if (GenieVersion < genie::GV_AoK || GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2) // Paste from AoK+ to AoE
     {
-        for(size_t loop = 0; loop < copies.UnitHeader.size(); ++loop)
+        for (size_t loop = 0; loop < copies.UnitHeader.size(); ++loop)
         {
-            for(short civ = 0; civ < dataset->Civs.size(); ++civ)
+            for (short civ = 0; civ < dataset->Civs.size(); ++civ)
             {
-                if(dataset->Civs[civ].UnitPointers[CorrectID(OneOnOne, loop)] != 0)
-                dataset->Civs[civ].Units[CorrectID(OneOnOne, loop)].Bird.TaskList = copies.UnitHeader[loop].TaskList;
+                if (dataset->Civs[civ].UnitPointers[CorrectID(OneOnOne, loop)] != 0)
+                    dataset->Civs[civ].Units[CorrectID(OneOnOne, loop)].Bird.TaskList = copies.UnitHeader[loop].TaskList;
             }
         }
     }
 }
 
-void AGE_Frame::UnitsGraphicsPaste(GraphicCopies &store, short civ, short unit)
+void AGE_Frame::UnitsGraphicsPaste(GraphicCopies& store, short civ, short unit)
 {
     dataset->Civs[civ].Units[unit].IconID = store.IconID;
     dataset->Civs[civ].Units[unit].StandingGraphic = store.StandingGraphic;
     dataset->Civs[civ].Units[unit].DyingGraphic = store.DyingGraphic;
     dataset->Civs[civ].Units[unit].UndeadGraphic = store.UndeadGraphic;
     dataset->Civs[civ].Units[unit].DamageGraphics = store.DamageGraphics;
-    switch((short)dataset->Civs[civ].Units[unit].Type)
+    switch ((short)dataset->Civs[civ].Units[unit].Type)
     {
-        case 80:
+    case 80:
         dataset->Civs[civ].Units[unit].Building.ConstructionGraphicID = store.ConstructionGraphicID;
         dataset->Civs[civ].Units[unit].Building.SnowGraphicID = store.SnowGraphicID;
         dataset->Civs[civ].Units[unit].Building.DestructionGraphicID = store.DestructionGraphicID;
         dataset->Civs[civ].Units[unit].Building.DestructionRubbleGraphicID = store.DestructionRubbleGraphicID;
         dataset->Civs[civ].Units[unit].Building.ResearchingGraphic = store.ResearchingGraphic;
         dataset->Civs[civ].Units[unit].Building.ResearchCompletedGraphic = store.ResearchCompletedGraphic;
-        case 70:
+    case 70:
         dataset->Civs[civ].Units[unit].Creatable.GarrisonGraphic = store.GarrisonGraphic;
         dataset->Civs[civ].Units[unit].Creatable.SpecialGraphic = store.SpecialGraphic;
         dataset->Civs[civ].Units[unit].Creatable.SpawningGraphic = store.SpawningGraphic;
         dataset->Civs[civ].Units[unit].Creatable.UpgradeGraphic = store.UpgradeGraphic;
         dataset->Civs[civ].Units[unit].Creatable.HeroGlowGraphic = store.HeroGlowGraphic;
         dataset->Civs[civ].Units[unit].Creatable.IdleAttackGraphic = store.IdleAttackGraphic;
-        case 60:
-        case 50:
+    case 60:
+    case 50:
         dataset->Civs[civ].Units[unit].Type50.AttackGraphic = store.AttackGraphic;
         dataset->Civs[civ].Units[unit].Type50.AttackGraphic2 = store.AttackGraphic2;
-        case 40:
-        case 30:
+    case 40:
+    case 30:
         dataset->Civs[civ].Units[unit].DeadFish.WalkingGraphic = store.WalkingGraphic;
         dataset->Civs[civ].Units[unit].DeadFish.RunningGraphic = store.RunningGraphic;
     }
@@ -2116,10 +2138,10 @@ void AGE_Frame::UnitsGraphicsPaste(GraphicCopies &store, short civ, short unit)
 wxString AGE_Frame::GetUnitDamageGraphicName(int index)
 {
     return lexical_cast<std::string>((short)dataset->Civs[UnitCivID].Units[UnitIDs.front()].DamageGraphics[index].DamagePercent)
-    +" % - ID: "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].DamageGraphics[index].GraphicID);
+        + " % - ID: " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].DamageGraphics[index].GraphicID);
 }
 
-void AGE_Frame::OnUnitDamageGraphicsSearch(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicsSearch(wxCommandEvent& event)
 {
     How2List = ListMode::SEARCH;
     ListUnitDamageGraphics();
@@ -2131,14 +2153,14 @@ void AGE_Frame::ListUnitDamageGraphics()
 
     Units_DamageGraphics_ListV->Sweep();
 
-    if(Units_ListV->GetSelectedCount()
-    && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0)
+    if (Units_ListV->GetSelectedCount()
+        && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0)
     {
         Units_DamageGraphics_Add->Enable(true);
-        for(size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].DamageGraphics.size(); ++loop)
+        for (size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].DamageGraphics.size(); ++loop)
         {
-            wxString Name = FormatInt(loop)+" - "+GetUnitDamageGraphicName(loop);
-            if(SearchMatches(" " + Name.Lower() + " "))
+            wxString Name = FormatInt(loop) + " - " + GetUnitDamageGraphicName(loop);
+            if (SearchMatches(" " + Name.Lower() + " "))
             {
                 Units_DamageGraphics_ListV->names.Add(Name);
                 Units_DamageGraphics_ListV->indexes.push_back(loop);
@@ -2155,26 +2177,26 @@ void AGE_Frame::ListUnitDamageGraphics()
     OnUnitDamageGraphicSelect(e);
 }
 
-void AGE_Frame::OnUnitDamageGraphicSelect(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicSelect(wxCommandEvent& event)
 {
     size_t selections = Units_DamageGraphics_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
-    for (AGETextCtrl *box : uiGroupUnitDmgGraphic) box->clear();
-    if(selections > 0)
+    for (AGETextCtrl* box : uiGroupUnitDmgGraphic) box->clear();
+    if (selections > 0)
     {
         getSelectedItems(selections, Units_DamageGraphics_ListV, DamageGraphicIDs);
         // This and attacks/armors/commands need a lot of thinking.
 
         bool showWarning = false;
         wxString warning = "Damage graphic count of civs\n";
-        genie::unit::DamageGraphic * DamageGraphicPointer;
-        for(size_t sel = selections; sel--> 0;)
+        genie::unit::DamageGraphic* DamageGraphicPointer;
+        for (size_t sel = selections; sel-- > 0;)
         {
-            for(short vecCiv = (CopyGraphics) ? SelectedCivs.size() : 1; vecCiv--> 0;)
+            for (short vecCiv = (CopyGraphics) ? SelectedCivs.size() : 1; vecCiv-- > 0;)
             {
-                if(sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].DamageGraphics.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].DamageGraphics.size())
+                if (sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].DamageGraphics.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].DamageGraphics.size())
                 {
-                    warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv])+" ");
+                    warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv]) + " ");
                     showWarning = true;
                 }
                 DamageGraphicPointer = &dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].DamageGraphics[DamageGraphicIDs[sel]];
@@ -2184,70 +2206,70 @@ void AGE_Frame::OnUnitDamageGraphicSelect(wxCommandEvent &event)
                 DamageGraphics_ApplyMode->prepend(&DamageGraphicPointer->ApplyMode);
             }
         }
-        if(showWarning)
+        if (showWarning)
         {
-            warning.Append("\ndiffers from civ "+lexical_cast<std::string>(UnitCivID));
+            warning.Append("\ndiffers from civ " + lexical_cast<std::string>(UnitCivID));
             wxMessageBox(warning);
         }
     }
-    for (AGETextCtrl *box : uiGroupUnitDmgGraphic) box->update();
-    if(slp_dmg_unit->GetValue())
+    for (AGETextCtrl* box : uiGroupUnitDmgGraphic) box->update();
+    if (slp_dmg_unit->GetValue())
     {
         wxCommandEvent E;
         OnChooseGraphic(E);
     }
 }
 
-void AGE_Frame::OnUnitDamageGraphicsAdd(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicsAdd(wxCommandEvent& event)
 {
-    if(!Units_ListV->GetSelectedCount()) return;
+    if (!Units_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::unit::DamageGraphic Temp;
     Temp.setGameVersion(GenieVersion);
-    for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+    for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
     {
-        if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
-        dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.push_back(Temp);
+        if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.push_back(Temp);
     }
     How2List = ListMode::ADD;
     ListUnitDamageGraphics();
 }
 
-void AGE_Frame::OnUnitDamageGraphicsInsert(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicsInsert(wxCommandEvent& event)
 {
-    if(!Units_DamageGraphics_ListV->GetSelectedCount()) return;
+    if (!Units_DamageGraphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::unit::DamageGraphic Temp;
     Temp.setGameVersion(GenieVersion);
-    for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+    for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
     {
-        if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
-        dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.insert(dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.begin() + DamageGraphicIDs.front(), Temp);
+        if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.insert(dataset->Civs[loop].Units[UnitIDs.front()].DamageGraphics.begin() + DamageGraphicIDs.front(), Temp);
     }
     How2List = ListMode::INSNEW;
     ListUnitDamageGraphics();
 }
 
-void AGE_Frame::OnUnitDamageGraphicsDelete(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicsDelete(wxCommandEvent& event)
 {
     size_t selections = Units_DamageGraphics_ListV->GetSelectedCount();
     if (!selections) return;
 
     wxBusyCursor WaitCursor;
-    for(short civ = 0; civ < dataset->Civs.size(); ++civ)
+    for (short civ = 0; civ < dataset->Civs.size(); ++civ)
     {
-        if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
-        if(dataset->Civs[civ].Units[UnitIDs.front()].DamageGraphics.size())
-        DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].DamageGraphics, DamageGraphicIDs);
+        if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
+            if (dataset->Civs[civ].Units[UnitIDs.front()].DamageGraphics.size())
+                DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].DamageGraphics, DamageGraphicIDs);
     }
     ListUnitDamageGraphics();
 }
 
-void AGE_Frame::OnUnitDamageGraphicsCopy(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicsCopy(wxCommandEvent& event)
 {
-    if(!Units_DamageGraphics_ListV->GetSelectedCount()) return;
+    if (!Units_DamageGraphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     if (Units_SpecialCopy_Civs->GetValue())
@@ -2255,14 +2277,14 @@ void AGE_Frame::OnUnitDamageGraphicsCopy(wxCommandEvent &event)
         copies.Dat.AllCivs |= 0x10;
     }
     else copies.Dat.AllCivs &= ~0x10;
-    if(copies.Dat.AllCivs & 0x10)
+    if (copies.Dat.AllCivs & 0x10)
     {
         short CivCount = dataset->Civs.size();
         copies.Dat.UnitDamageGraphicExists.resize(CivCount);
         copies.Dat.UnitDamageGraphics.resize(CivCount);
-        for(short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Graphic set info not usefull.
                 copies.Dat.UnitDamageGraphicExists[civ] = 255;
@@ -2285,23 +2307,23 @@ void AGE_Frame::OnUnitDamageGraphicsCopy(wxCommandEvent &event)
     Units_DamageGraphics_ListV->SetFocus();
 }
 
-void AGE_Frame::OnUnitDamageGraphicsPaste(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicsPaste(wxCommandEvent& event)
 {
-    if(!Units_DamageGraphics_ListV->GetSelectedCount()) return;
+    if (!Units_DamageGraphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
-    if(copies.Dat.AllCivs & 0x10)
+    if (copies.Dat.AllCivs & 0x10)
     {
-        for(size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Consume copies.
-                if(copies.Dat.UnitDamageGraphicExists[civ] > 255) ++copy;
+                if (copies.Dat.UnitDamageGraphicExists[civ] > 255) ++copy;
                 continue;
             }
             // If the target unit exists then choose from following.
-            if(copies.Dat.UnitDamageGraphicExists[civ] > 255 && copy < copies.Dat.UnitDamageGraphics.size())
+            if (copies.Dat.UnitDamageGraphicExists[civ] > 255 && copy < copies.Dat.UnitDamageGraphics.size())
             {
                 PasteToList(dataset->Civs[civ].Units[UnitIDs.front()].DamageGraphics, DamageGraphicIDs, copies.Dat.UnitDamageGraphics[copy]); ++copy;
             }
@@ -2318,24 +2340,24 @@ void AGE_Frame::OnUnitDamageGraphicsPaste(wxCommandEvent &event)
     ListUnitDamageGraphics();
 }
 
-void AGE_Frame::OnUnitDamageGraphicsPasteInsert(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicsPasteInsert(wxCommandEvent& event)
 {
-    if(!Units_DamageGraphics_ListV->GetSelectedCount()) return;
+    if (!Units_DamageGraphics_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::unit::DamageGraphic Temp;
-    if(copies.Dat.AllCivs & 0x10)
+    if (copies.Dat.AllCivs & 0x10)
     {
-        for(short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Consume copies.
-                if(copies.Dat.UnitDamageGraphicExists[civ] > 255) ++copy;
+                if (copies.Dat.UnitDamageGraphicExists[civ] > 255) ++copy;
                 continue;
             }
             // If the target unit exists then choose from following.
-            if(copies.Dat.UnitDamageGraphicExists[civ] > 255 && copy < copies.Dat.UnitDamageGraphics.size())
+            if (copies.Dat.UnitDamageGraphicExists[civ] > 255 && copy < copies.Dat.UnitDamageGraphics.size())
             {
                 PasteInsertToList(dataset->Civs[civ].Units[UnitIDs.front()].DamageGraphics, DamageGraphicIDs.front(), copies.Dat.UnitDamageGraphics[copy]); copy++;
             }
@@ -2352,16 +2374,16 @@ void AGE_Frame::OnUnitDamageGraphicsPasteInsert(wxCommandEvent &event)
     ListUnitDamageGraphics();
 }
 
-void AGE_Frame::OnUnitDamageGraphicsCopyToUnits(wxCommandEvent &event)
+void AGE_Frame::OnUnitDamageGraphicsCopyToUnits(wxCommandEvent& event)
 {
-    for(short civ = 0; civ < dataset->Civs.size(); ++civ)
-    for(size_t loop=1; loop < UnitIDs.size(); ++loop)
-    {
-        dataset->Civs[civ].Units[UnitIDs[loop]].DamageGraphics = dataset->Civs[civ].Units[UnitIDs.front()].DamageGraphics;
-    }
+    for (short civ = 0; civ < dataset->Civs.size(); ++civ)
+        for (size_t loop = 1; loop < UnitIDs.size(); ++loop)
+        {
+            dataset->Civs[civ].Units[UnitIDs[loop]].DamageGraphics = dataset->Civs[civ].Units[UnitIDs.front()].DamageGraphics;
+        }
 }
 
-void AGE_Frame::OnUnitDropSitesSearch(wxCommandEvent &event)
+void AGE_Frame::OnUnitDropSitesSearch(wxCommandEvent& event)
 {
     How2List = ListMode::SEARCH;
     ListUnitDropSites();
@@ -2399,7 +2421,7 @@ void AGE_Frame::ListUnitDropSites()
     OnUnitDropSiteSelect(e);
 }
 
-void AGE_Frame::OnUnitDropSiteSelect(wxCommandEvent &event)
+void AGE_Frame::OnUnitDropSiteSelect(wxCommandEvent& event)
 {
     size_t selections = Units_DropSites_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
@@ -2410,7 +2432,7 @@ void AGE_Frame::OnUnitDropSiteSelect(wxCommandEvent &event)
 
         bool showWarning = false;
         wxString warning = "Drop site count of civs\n";
-        short * DropSitePointer;
+        short* DropSitePointer;
         for (size_t sel = selections; sel-- > 0;)
         {
             for (short vecCiv = SelectedCivs.size(); vecCiv-- > 0;)
@@ -2433,13 +2455,267 @@ void AGE_Frame::OnUnitDropSiteSelect(wxCommandEvent &event)
     DropSites_UnitID->update();
 }
 
-wxString AGE_Frame::GetUnitAttackName(int index)
+wxString AGE_Frame::GetUnitTrainLocationName(int index)
 {
-    return "Amount: "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Attacks[index].Amount)
-    +" - Class "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Attacks[index].Class);
+    return "TrainLocationID: " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations[index].UnitID)
+        + " - TrainTime: " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations[index].TrainTime)
+        + " - ButtonID: " + lexical_cast<std::string>(static_cast<short>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations[index].ButtonID))
+        + " - HotkeyID: " + lexical_cast<std::string>(static_cast<int>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations[index].HotKeyID));
 }
 
-void AGE_Frame::OnUnitAttacksSearch(wxCommandEvent &event)
+void AGE_Frame::OnUnitTrainLocationsSearch(wxCommandEvent& event)
+{
+    How2List = ListMode::SEARCH;
+    ListUnitTrainLocations();
+}
+
+void AGE_Frame::ListUnitTrainLocations()
+{
+    InitSearch(Units_TrainLocations_Search->GetValue().MakeLower(), Units_TrainLocations_Search_R->GetValue().MakeLower());
+
+    Units_TrainLocations_ListV->Sweep();
+
+    if (Units_ListV->GetSelectedCount()
+        && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0
+        && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type >= 50
+        && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type <= 80)
+    {
+        Units_TrainLocations_Add->Enable(true);
+        for (size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations.size(); ++loop)
+        {
+            wxString Name = FormatInt(loop) + " - " + GetUnitTrainLocationName(loop);
+            if (SearchMatches(" " + Name.Lower() + " "))
+            {
+                Units_TrainLocations_ListV->names.Add(Name);
+                Units_TrainLocations_ListV->indexes.push_back(loop);
+            }
+        }
+    }
+    else
+    {
+        Units_TrainLocations_Add->Enable(false);
+    }
+    RefreshList(Units_TrainLocations_ListV, &TrainLocationIDs);
+
+    wxCommandEvent e;
+    OnUnitTrainLocationselect(e);
+}
+
+void AGE_Frame::OnUnitTrainLocationselect(wxCommandEvent& event)
+{
+    size_t selections = Units_TrainLocations_ListV->GetSelectedCount();
+    wxBusyCursor WaitCursor;
+
+    TrainLocations_UnitID->clear();
+    TrainLocations_TrainTime->clear();
+    TrainLocations_ButtonID->clear();
+    TrainLocations_HotkeyID->clear();
+
+    if (selections > 0)
+    {
+        getSelectedItems(selections, Units_TrainLocations_ListV, TrainLocationIDs);
+
+        bool showWarning = false;
+        wxString warning = "TrainLocation count of civs\n";
+        genie::unit::TrainLocation* TrainLocationPointer;
+        for (size_t sel = selections; sel-- > 0;)
+        {
+            for (short vecCiv = SelectedCivs.size(); vecCiv-- > 0;)
+            {
+                if (sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Creatable.TrainLocations.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations.size())
+                {
+                    warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv]) + " ");
+                    showWarning = true;
+                }
+                TrainLocationPointer = &dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Creatable.TrainLocations[TrainLocationIDs[sel]];
+
+                TrainLocations_UnitID->prepend(&TrainLocationPointer->UnitID);
+                TrainLocations_TrainTime->prepend(&TrainLocationPointer->TrainTime);
+                TrainLocations_ButtonID->prepend(&TrainLocationPointer->ButtonID);
+                TrainLocations_HotkeyID->prepend(&TrainLocationPointer->HotKeyID);
+            }
+        }
+        if (showWarning)
+        {
+            warning.Append("\ndiffers from civ " + lexical_cast<std::string>(UnitCivID));
+            wxMessageBox(warning);
+        }
+    }
+    TrainLocations_UnitID->update();
+    TrainLocations_TrainTime->update();
+    TrainLocations_ButtonID->update();
+    TrainLocations_HotkeyID->update();
+}
+
+void AGE_Frame::OnUnitTrainLocationsAdd(wxCommandEvent& event)
+{
+    if (!Units_ListV->GetSelectedCount()) return;
+
+    wxBusyCursor WaitCursor;
+    genie::unit::TrainLocation Temp;
+    Temp.setGameVersion(GenieVersion);
+    for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+    {
+        if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            dataset->Civs[loop].Units[UnitIDs.front()].Creatable.TrainLocations.push_back(Temp);
+    }
+    How2List = ListMode::ADD;
+    ListUnitTrainLocations();
+}
+
+void AGE_Frame::OnUnitTrainLocationsInsert(wxCommandEvent& event)
+{
+    if (!Units_TrainLocations_ListV->GetSelectedCount()) return;
+
+    wxBusyCursor WaitCursor;
+    genie::unit::TrainLocation Temp;
+    Temp.setGameVersion(GenieVersion);
+    for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+    {
+        if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            dataset->Civs[loop].Units[UnitIDs.front()].Creatable.TrainLocations.insert(dataset->Civs[loop].Units[UnitIDs.front()].Creatable.TrainLocations.begin() + TrainLocationIDs.front(), Temp);
+    }
+    How2List = ListMode::INSNEW;
+    ListUnitTrainLocations();
+}
+
+void AGE_Frame::OnUnitTrainLocationsDelete(wxCommandEvent& event)
+{
+    size_t selections = Units_TrainLocations_ListV->GetSelectedCount();
+    if (!selections) return;
+
+    wxBusyCursor WaitCursor;
+    for (short civ = 0; civ < dataset->Civs.size(); ++civ)
+    {
+        if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
+            if (dataset->Civs[civ].Units[UnitIDs.front()].Creatable.TrainLocations.size())
+                DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs);
+    }
+    ListUnitTrainLocations();
+}
+
+void AGE_Frame::OnUnitTrainLocationsCopy(wxCommandEvent& event)
+{
+    if (!Units_TrainLocations_ListV->GetSelectedCount()) return;
+
+    wxBusyCursor WaitCursor;
+    if (Units_SpecialCopy_Civs->GetValue())
+    {
+        copies.Dat.AllCivs |= 0x40;
+    }
+    else copies.Dat.AllCivs &= ~0x40;
+    if (copies.Dat.AllCivs & 0x40)
+    {
+        short CivCount = dataset->Civs.size();
+        copies.Dat.UnitTrainLocationExists.resize(CivCount);
+        copies.Dat.UnitTrainLocations.resize(CivCount);
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        {
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            {
+                // Graphic set info not usefull.
+                copies.Dat.UnitTrainLocationExists[civ] = 255;
+                CivCount--;
+            }
+            else
+            {
+                // Save info of graphic set to intelligently fill possible gaps when pasting.
+                copies.Dat.UnitTrainLocationExists[civ] = 256 + dataset->Civs[civ].IconSet;
+                // Only copy TrainLocations from civs which have this unit enabled.
+                CopyFromList(dataset->Civs[civ].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs, copies.Dat.UnitTrainLocations[copy]); copy++;
+            }
+        }
+        copies.Dat.UnitTrainLocations.resize(CivCount);
+    }
+    else
+    {
+        CopyFromList(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs, copies.Dat.UnitTrainLocations.front());
+    }
+    Units_TrainLocations_ListV->SetFocus();
+}
+
+void AGE_Frame::OnUnitTrainLocationsPaste(wxCommandEvent& event)
+{
+    if (!Units_TrainLocations_ListV->GetSelectedCount()) return;
+
+    wxBusyCursor WaitCursor;
+    if (copies.Dat.AllCivs & 0x40)
+    {
+        for (size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        {
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            {
+                // Consume copies.
+                if (copies.Dat.UnitTrainLocationExists[civ] > 255) ++copy;
+                continue;
+            }
+            // If the target unit exists then choose from following.
+            if (copies.Dat.UnitTrainLocationExists[civ] > 255 && copy < copies.Dat.UnitTrainLocations.size())
+            {
+                PasteToList(dataset->Civs[civ].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs, copies.Dat.UnitTrainLocations[copy]); ++copy;
+            }
+            else
+            {
+                PasteToList(dataset->Civs[civ].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs, copies.Dat.UnitTrainLocations.front());
+            }
+        }
+    }
+    else
+    {
+        PasteToList(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs, copies.Dat.UnitTrainLocations.front());
+    }
+    ListUnitTrainLocations();
+}
+
+void AGE_Frame::OnUnitTrainLocationsPasteInsert(wxCommandEvent& event)
+{
+    if (!Units_TrainLocations_ListV->GetSelectedCount()) return;
+
+    wxBusyCursor WaitCursor;
+    if (copies.Dat.AllCivs & 0x40)
+    {
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        {
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            {
+                // Consume copies.
+                if (copies.Dat.UnitTrainLocationExists[civ] > 255) ++copy;
+                continue;
+            }
+            // If the target unit exists then choose from following.
+            if (copies.Dat.UnitTrainLocationExists[civ] > 255 && copy < copies.Dat.UnitTrainLocations.size())
+            {
+                PasteInsertToList(dataset->Civs[civ].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs.front(), copies.Dat.UnitTrainLocations[copy]); copy++;
+            }
+            else
+            {
+                PasteInsertToList(dataset->Civs[civ].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs.front(), copies.Dat.UnitTrainLocations.front());
+            }
+        }
+    }
+    else
+    {
+        PasteInsertToList(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Creatable.TrainLocations, TrainLocationIDs.front(), copies.Dat.UnitTrainLocations.front());
+    }
+    ListUnitTrainLocations();
+}
+
+void AGE_Frame::OnUnitTrainLocationsCopyToUnits(wxCommandEvent& event)
+{
+    for (short civ = 0; civ < dataset->Civs.size(); ++civ)
+        for (size_t loop = 1; loop < UnitIDs.size(); ++loop)
+        {
+            dataset->Civs[civ].Units[UnitIDs[loop]].Creatable.TrainLocations = dataset->Civs[civ].Units[UnitIDs.front()].Creatable.TrainLocations;
+        }
+}
+
+wxString AGE_Frame::GetUnitAttackName(int index)
+{
+    return "Amount: " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Attacks[index].Amount)
+        + " - Class " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Attacks[index].Class);
+}
+
+void AGE_Frame::OnUnitAttacksSearch(wxCommandEvent& event)
 {
     How2List = ListMode::SEARCH;
     ListUnitAttacks();
@@ -2451,16 +2727,16 @@ void AGE_Frame::ListUnitAttacks()
 
     Units_Attacks_ListV->Sweep();
 
-    if(Units_ListV->GetSelectedCount()
-    && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0
-    && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type >= 50
-    && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type <= 80)
+    if (Units_ListV->GetSelectedCount()
+        && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0
+        && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type >= 50
+        && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type <= 80)
     {
         Units_Attacks_Add->Enable(true);
-        for(size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Attacks.size(); ++loop)
+        for (size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Attacks.size(); ++loop)
         {
-            wxString Name = FormatInt(loop)+" - "+GetUnitAttackName(loop);
-            if(SearchMatches(" " + Name.Lower() + " "))
+            wxString Name = FormatInt(loop) + " - " + GetUnitAttackName(loop);
+            if (SearchMatches(" " + Name.Lower() + " "))
             {
                 Units_Attacks_ListV->names.Add(Name);
                 Units_Attacks_ListV->indexes.push_back(loop);
@@ -2477,26 +2753,26 @@ void AGE_Frame::ListUnitAttacks()
     OnUnitAttackSelect(e);
 }
 
-void AGE_Frame::OnUnitAttackSelect(wxCommandEvent &event)
+void AGE_Frame::OnUnitAttackSelect(wxCommandEvent& event)
 {
     size_t selections = Units_Attacks_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
     Attacks_Class->clear();
     Attacks_Amount->clear();
-    if(selections > 0)
+    if (selections > 0)
     {
         getSelectedItems(selections, Units_Attacks_ListV, AttackIDs);
 
         bool showWarning = false;
         wxString warning = "Attack count of civs\n";
-        genie::unit::AttackOrArmor * AttackPointer;
-        for(size_t sel = selections; sel--> 0;)
+        genie::unit::AttackOrArmor* AttackPointer;
+        for (size_t sel = selections; sel-- > 0;)
         {
-            for(short vecCiv = SelectedCivs.size(); vecCiv--> 0;)
+            for (short vecCiv = SelectedCivs.size(); vecCiv-- > 0;)
             {
-                if(sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Type50.Attacks.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Attacks.size())
+                if (sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Type50.Attacks.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Attacks.size())
                 {
-                    warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv])+" ");
+                    warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv]) + " ");
                     showWarning = true;
                 }
                 AttackPointer = &dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Type50.Attacks[AttackIDs[sel]];
@@ -2505,9 +2781,9 @@ void AGE_Frame::OnUnitAttackSelect(wxCommandEvent &event)
                 Attacks_Amount->prepend(&AttackPointer->Amount);
             }
         }
-        if(showWarning)
+        if (showWarning)
         {
-            warning.Append("\ndiffers from civ "+lexical_cast<std::string>(UnitCivID));
+            warning.Append("\ndiffers from civ " + lexical_cast<std::string>(UnitCivID));
             wxMessageBox(warning);
         }
     }
@@ -2515,56 +2791,56 @@ void AGE_Frame::OnUnitAttackSelect(wxCommandEvent &event)
     Attacks_Amount->update();
 }
 
-void AGE_Frame::OnUnitAttacksAdd(wxCommandEvent &event)
+void AGE_Frame::OnUnitAttacksAdd(wxCommandEvent& event)
 {
-    if(!Units_ListV->GetSelectedCount()) return;
+    if (!Units_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::unit::AttackOrArmor Temp;
     Temp.setGameVersion(GenieVersion);
-    for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+    for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
     {
-        if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
-        dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.push_back(Temp);
+        if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.push_back(Temp);
     }
     How2List = ListMode::ADD;
     ListUnitAttacks();
 }
 
-void AGE_Frame::OnUnitAttacksInsert(wxCommandEvent &event)
+void AGE_Frame::OnUnitAttacksInsert(wxCommandEvent& event)
 {
-    if(!Units_Attacks_ListV->GetSelectedCount()) return;
+    if (!Units_Attacks_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::unit::AttackOrArmor Temp;
     Temp.setGameVersion(GenieVersion);
-    for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+    for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
     {
-        if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
-        dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.insert(dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.begin() + AttackIDs.front(), Temp);
+        if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.insert(dataset->Civs[loop].Units[UnitIDs.front()].Type50.Attacks.begin() + AttackIDs.front(), Temp);
     }
     How2List = ListMode::INSNEW;
     ListUnitAttacks();
 }
 
-void AGE_Frame::OnUnitAttacksDelete(wxCommandEvent &event)
+void AGE_Frame::OnUnitAttacksDelete(wxCommandEvent& event)
 {
     size_t selections = Units_Attacks_ListV->GetSelectedCount();
     if (!selections) return;
 
     wxBusyCursor WaitCursor;
-    for(short civ = 0; civ < dataset->Civs.size(); ++civ)
+    for (short civ = 0; civ < dataset->Civs.size(); ++civ)
     {
-        if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
-        if(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Attacks.size())
-        DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Attacks, AttackIDs);
+        if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
+            if (dataset->Civs[civ].Units[UnitIDs.front()].Type50.Attacks.size())
+                DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Attacks, AttackIDs);
     }
     ListUnitAttacks();
 }
 
-void AGE_Frame::OnUnitAttacksCopy(wxCommandEvent &event)
+void AGE_Frame::OnUnitAttacksCopy(wxCommandEvent& event)
 {
-    if(!Units_Attacks_ListV->GetSelectedCount()) return;
+    if (!Units_Attacks_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     if (Units_SpecialCopy_Civs->GetValue())
@@ -2572,14 +2848,14 @@ void AGE_Frame::OnUnitAttacksCopy(wxCommandEvent &event)
         copies.Dat.AllCivs |= 0x20;
     }
     else copies.Dat.AllCivs &= ~0x20;
-    if(copies.Dat.AllCivs & 0x20)
+    if (copies.Dat.AllCivs & 0x20)
     {
         short CivCount = dataset->Civs.size();
         copies.Dat.UnitAttackExists.resize(CivCount);
         copies.Dat.UnitAttacks.resize(CivCount);
-        for(short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Graphic set info not usefull.
                 copies.Dat.UnitAttackExists[civ] = 255;
@@ -2602,23 +2878,23 @@ void AGE_Frame::OnUnitAttacksCopy(wxCommandEvent &event)
     Units_Attacks_ListV->SetFocus();
 }
 
-void AGE_Frame::OnUnitAttacksPaste(wxCommandEvent &event)
+void AGE_Frame::OnUnitAttacksPaste(wxCommandEvent& event)
 {
-    if(!Units_Attacks_ListV->GetSelectedCount()) return;
+    if (!Units_Attacks_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
-    if(copies.Dat.AllCivs & 0x20)
+    if (copies.Dat.AllCivs & 0x20)
     {
-        for(size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Consume copies.
-                if(copies.Dat.UnitAttackExists[civ] > 255) ++copy;
+                if (copies.Dat.UnitAttackExists[civ] > 255) ++copy;
                 continue;
             }
             // If the target unit exists then choose from following.
-            if(copies.Dat.UnitAttackExists[civ] > 255 && copy < copies.Dat.UnitAttacks.size())
+            if (copies.Dat.UnitAttackExists[civ] > 255 && copy < copies.Dat.UnitAttacks.size())
             {
                 PasteToList(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Attacks, AttackIDs, copies.Dat.UnitAttacks[copy]); ++copy;
             }
@@ -2635,23 +2911,23 @@ void AGE_Frame::OnUnitAttacksPaste(wxCommandEvent &event)
     ListUnitAttacks();
 }
 
-void AGE_Frame::OnUnitAttacksPasteInsert(wxCommandEvent &event)
+void AGE_Frame::OnUnitAttacksPasteInsert(wxCommandEvent& event)
 {
-    if(!Units_Attacks_ListV->GetSelectedCount()) return;
+    if (!Units_Attacks_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
-    if(copies.Dat.AllCivs & 0x20)
+    if (copies.Dat.AllCivs & 0x20)
     {
-        for(short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Consume copies.
-                if(copies.Dat.UnitAttackExists[civ] > 255) ++copy;
+                if (copies.Dat.UnitAttackExists[civ] > 255) ++copy;
                 continue;
             }
             // If the target unit exists then choose from following.
-            if(copies.Dat.UnitAttackExists[civ] > 255 && copy < copies.Dat.UnitAttacks.size())
+            if (copies.Dat.UnitAttackExists[civ] > 255 && copy < copies.Dat.UnitAttacks.size())
             {
                 PasteInsertToList(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Attacks, AttackIDs.front(), copies.Dat.UnitAttacks[copy]); copy++;
             }
@@ -2668,22 +2944,22 @@ void AGE_Frame::OnUnitAttacksPasteInsert(wxCommandEvent &event)
     ListUnitAttacks();
 }
 
-void AGE_Frame::OnUnitAttacksCopyToUnits(wxCommandEvent &event)
+void AGE_Frame::OnUnitAttacksCopyToUnits(wxCommandEvent& event)
 {
-    for(short civ = 0; civ < dataset->Civs.size(); ++civ)
-    for(size_t loop=1; loop < UnitIDs.size(); ++loop)
-    {
-        dataset->Civs[civ].Units[UnitIDs[loop]].Type50.Attacks = dataset->Civs[civ].Units[UnitIDs.front()].Type50.Attacks;
-    }
+    for (short civ = 0; civ < dataset->Civs.size(); ++civ)
+        for (size_t loop = 1; loop < UnitIDs.size(); ++loop)
+        {
+            dataset->Civs[civ].Units[UnitIDs[loop]].Type50.Attacks = dataset->Civs[civ].Units[UnitIDs.front()].Type50.Attacks;
+        }
 }
 
 wxString AGE_Frame::GetUnitArmorName(int index)
 {
-    return "Amount: "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Armours[index].Amount)
-    +" - Class "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Armours[index].Class);
+    return "Amount: " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Armours[index].Amount)
+        + " - Class " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Armours[index].Class);
 }
 
-void AGE_Frame::OnUnitArmorsSearch(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorsSearch(wxCommandEvent& event)
 {
     How2List = ListMode::SEARCH;
     ListUnitArmors();
@@ -2695,16 +2971,16 @@ void AGE_Frame::ListUnitArmors()
 
     Units_Armors_ListV->Sweep();
 
-    if(Units_ListV->GetSelectedCount()
-    && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0
-    && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type >= 50
-    && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type <= 80)
+    if (Units_ListV->GetSelectedCount()
+        && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0
+        && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type >= 50
+        && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type <= 80)
     {
         Units_Armors_Add->Enable(true);
-        for(size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Armours.size(); ++loop)
+        for (size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Armours.size(); ++loop)
         {
-            wxString Name = FormatInt(loop)+" - "+GetUnitArmorName(loop);
-            if(SearchMatches(" " + Name.Lower() + " "))
+            wxString Name = FormatInt(loop) + " - " + GetUnitArmorName(loop);
+            if (SearchMatches(" " + Name.Lower() + " "))
             {
                 Units_Armors_ListV->names.Add(Name);
                 Units_Armors_ListV->indexes.push_back(loop);
@@ -2721,26 +2997,26 @@ void AGE_Frame::ListUnitArmors()
     OnUnitArmorSelect(e);
 }
 
-void AGE_Frame::OnUnitArmorSelect(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorSelect(wxCommandEvent& event)
 {
     size_t selections = Units_Armors_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
     Armors_Class->clear();
     Armors_Amount->clear();
-    if(selections > 0)
+    if (selections > 0)
     {
         getSelectedItems(selections, Units_Armors_ListV, ArmorIDs);
 
         bool showWarning = false;
         wxString warning = "Armor count of civs\n";
-        genie::unit::AttackOrArmor * ArmorPointer;
-        for(size_t sel = selections; sel--> 0;)
+        genie::unit::AttackOrArmor* ArmorPointer;
+        for (size_t sel = selections; sel-- > 0;)
         {
-            for(short vecCiv = SelectedCivs.size(); vecCiv--> 0;)
+            for (short vecCiv = SelectedCivs.size(); vecCiv-- > 0;)
             {
-                if(sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Type50.Armours.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Armours.size())
+                if (sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Type50.Armours.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type50.Armours.size())
                 {
-                    warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv])+" ");
+                    warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv]) + " ");
                     showWarning = true;
                 }
                 ArmorPointer = &dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Type50.Armours[ArmorIDs[sel]];
@@ -2749,9 +3025,9 @@ void AGE_Frame::OnUnitArmorSelect(wxCommandEvent &event)
                 Armors_Amount->prepend(&ArmorPointer->Amount);
             }
         }
-        if(showWarning)
+        if (showWarning)
         {
-            warning.Append("\ndiffers from civ "+lexical_cast<std::string>(UnitCivID));
+            warning.Append("\ndiffers from civ " + lexical_cast<std::string>(UnitCivID));
             wxMessageBox(warning);
         }
     }
@@ -2759,56 +3035,56 @@ void AGE_Frame::OnUnitArmorSelect(wxCommandEvent &event)
     Armors_Amount->update();
 }
 
-void AGE_Frame::OnUnitArmorsAdd(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorsAdd(wxCommandEvent& event)
 {
-    if(!Units_ListV->GetSelectedCount()) return;
+    if (!Units_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::unit::AttackOrArmor Temp;
     Temp.setGameVersion(GenieVersion);
-    for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+    for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
     {
-        if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
-        dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.push_back(Temp);
+        if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.push_back(Temp);
     }
     How2List = ListMode::ADD;
     ListUnitArmors();
 }
 
-void AGE_Frame::OnUnitArmorsInsert(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorsInsert(wxCommandEvent& event)
 {
-    if(!Units_Armors_ListV->GetSelectedCount()) return;
+    if (!Units_Armors_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::unit::AttackOrArmor Temp;
     Temp.setGameVersion(GenieVersion);
-    for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+    for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
     {
-        if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
-        dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.insert(dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.begin() + ArmorIDs.front(), Temp);
+        if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.insert(dataset->Civs[loop].Units[UnitIDs.front()].Type50.Armours.begin() + ArmorIDs.front(), Temp);
     }
     How2List = ListMode::INSNEW;
     ListUnitArmors();
 }
 
-void AGE_Frame::OnUnitArmorsDelete(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorsDelete(wxCommandEvent& event)
 {
     size_t selections = Units_Armors_ListV->GetSelectedCount();
     if (!selections) return;
 
     wxBusyCursor WaitCursor;
-    for(short civ = 0; civ < dataset->Civs.size(); ++civ)
+    for (short civ = 0; civ < dataset->Civs.size(); ++civ)
     {
-        if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
-        if(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Armours.size())
-        DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Armours, ArmorIDs);
+        if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
+            if (dataset->Civs[civ].Units[UnitIDs.front()].Type50.Armours.size())
+                DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Armours, ArmorIDs);
     }
     ListUnitArmors();
 }
 
-void AGE_Frame::OnUnitArmorsCopy(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorsCopy(wxCommandEvent& event)
 {
-    if(!Units_Armors_ListV->GetSelectedCount()) return;
+    if (!Units_Armors_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     if (Units_SpecialCopy_Civs->GetValue())
@@ -2816,14 +3092,14 @@ void AGE_Frame::OnUnitArmorsCopy(wxCommandEvent &event)
         copies.Dat.AllCivs |= 0x40;
     }
     else copies.Dat.AllCivs &= ~0x40;
-    if(copies.Dat.AllCivs & 0x40)
+    if (copies.Dat.AllCivs & 0x40)
     {
         short CivCount = dataset->Civs.size();
         copies.Dat.UnitArmorExists.resize(CivCount);
         copies.Dat.UnitArmors.resize(CivCount);
-        for(short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Graphic set info not usefull.
                 copies.Dat.UnitArmorExists[civ] = 255;
@@ -2846,23 +3122,23 @@ void AGE_Frame::OnUnitArmorsCopy(wxCommandEvent &event)
     Units_Armors_ListV->SetFocus();
 }
 
-void AGE_Frame::OnUnitArmorsPaste(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorsPaste(wxCommandEvent& event)
 {
-    if(!Units_Armors_ListV->GetSelectedCount()) return;
+    if (!Units_Armors_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
-    if(copies.Dat.AllCivs & 0x40)
+    if (copies.Dat.AllCivs & 0x40)
     {
-        for(size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Consume copies.
-                if(copies.Dat.UnitArmorExists[civ] > 255) ++copy;
+                if (copies.Dat.UnitArmorExists[civ] > 255) ++copy;
                 continue;
             }
             // If the target unit exists then choose from following.
-            if(copies.Dat.UnitArmorExists[civ] > 255 && copy < copies.Dat.UnitArmors.size())
+            if (copies.Dat.UnitArmorExists[civ] > 255 && copy < copies.Dat.UnitArmors.size())
             {
                 PasteToList(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Armours, ArmorIDs, copies.Dat.UnitArmors[copy]); ++copy;
             }
@@ -2879,23 +3155,23 @@ void AGE_Frame::OnUnitArmorsPaste(wxCommandEvent &event)
     ListUnitArmors();
 }
 
-void AGE_Frame::OnUnitArmorsPasteInsert(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorsPasteInsert(wxCommandEvent& event)
 {
-    if(!Units_Armors_ListV->GetSelectedCount()) return;
+    if (!Units_Armors_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
-    if(copies.Dat.AllCivs & 0x40)
+    if (copies.Dat.AllCivs & 0x40)
     {
-        for(short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Consume copies.
-                if(copies.Dat.UnitArmorExists[civ] > 255) ++copy;
+                if (copies.Dat.UnitArmorExists[civ] > 255) ++copy;
                 continue;
             }
             // If the target unit exists then choose from following.
-            if(copies.Dat.UnitArmorExists[civ] > 255 && copy < copies.Dat.UnitArmors.size())
+            if (copies.Dat.UnitArmorExists[civ] > 255 && copy < copies.Dat.UnitArmors.size())
             {
                 PasteInsertToList(dataset->Civs[civ].Units[UnitIDs.front()].Type50.Armours, ArmorIDs.front(), copies.Dat.UnitArmors[copy]); copy++;
             }
@@ -2912,13 +3188,13 @@ void AGE_Frame::OnUnitArmorsPasteInsert(wxCommandEvent &event)
     ListUnitArmors();
 }
 
-void AGE_Frame::OnUnitArmorsCopyToUnits(wxCommandEvent &event)
+void AGE_Frame::OnUnitArmorsCopyToUnits(wxCommandEvent& event)
 {
-    for(short civ = 0; civ < dataset->Civs.size(); ++civ)
-    for(size_t loop=1; loop < UnitIDs.size(); ++loop)
-    {
-        dataset->Civs[civ].Units[UnitIDs[loop]].Type50.Armours = dataset->Civs[civ].Units[UnitIDs.front()].Type50.Armours;
-    }
+    for (short civ = 0; civ < dataset->Civs.size(); ++civ)
+        for (size_t loop = 1; loop < UnitIDs.size(); ++loop)
+        {
+            dataset->Civs[civ].Units[UnitIDs[loop]].Type50.Armours = dataset->Civs[civ].Units[UnitIDs.front()].Type50.Armours;
+        }
 }
 
 //  AoE/TC/SWGB/CC Unit TaskList
@@ -2929,57 +3205,57 @@ wxString AGE_Frame::GetUnitCommandName(int index)
         ? dataset->UnitHeaders[UnitIDs.front()].TaskList[index].ActionType
         : dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[index].ActionType;
     size_t taskNameId;
-    switch(CommandType)
+    switch (CommandType)
     {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-        case 11:
-        case 12:
-        case 13:
-        case 14: taskNameId = CommandType + 1; break;
-        case 20:
-        case 21: taskNameId = CommandType - 4; break;
-        case 101:
-        case 102:
-        case 103:
-        case 104:
-        case 105:
-        case 106:
-        case 107:
-        case 108:
-        case 109:
-        case 110:
-        case 111: taskNameId = CommandType - 83; break;
-        case 120:
-        case 121:
-        case 122:
-        case 123:
-        case 124:
-        case 125: taskNameId = CommandType - 91; break;
-        case 130:
-        case 131:
-        case 132:
-        case 133:
-        case 134:
-        case 135:
-        case 136: taskNameId = CommandType - 95; break;
-        case 149:
-        case 150:
-        case 151:
-        case 152:
-        case 153:
-        case 154:
-        case 155: taskNameId = CommandType - 107; break;
-        default: taskNameId = task_names.size();
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14: taskNameId = CommandType + 1; break;
+    case 20:
+    case 21: taskNameId = CommandType - 4; break;
+    case 101:
+    case 102:
+    case 103:
+    case 104:
+    case 105:
+    case 106:
+    case 107:
+    case 108:
+    case 109:
+    case 110:
+    case 111: taskNameId = CommandType - 83; break;
+    case 120:
+    case 121:
+    case 122:
+    case 123:
+    case 124:
+    case 125: taskNameId = CommandType - 91; break;
+    case 130:
+    case 131:
+    case 132:
+    case 133:
+    case 134:
+    case 135:
+    case 136: taskNameId = CommandType - 95; break;
+    case 149:
+    case 150:
+    case 151:
+    case 152:
+    case 153:
+    case 154:
+    case 155: taskNameId = CommandType - 107; break;
+    default: taskNameId = task_names.size();
     }
     if (taskNameId < task_names.size())
     {
@@ -2991,7 +3267,7 @@ wxString AGE_Frame::GetUnitCommandName(int index)
     }
 }
 
-void AGE_Frame::OnUnitCommandsSearch(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandsSearch(wxCommandEvent& event)
 {
     How2List = ListMode::SEARCH;
     ListUnitCommands();
@@ -3006,40 +3282,40 @@ void AGE_Frame::ListUnitCommands()
     action_names.Add("-1 - None");
 
     // AoK, TC, SWGB or CC
-    if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+    if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
     {
-        if(Units_ListV->GetSelectedCount())
-        for(size_t loop = 0; loop < dataset->UnitHeaders[UnitIDs.front()].TaskList.size(); ++loop)
-        {
-            wxString Name = FormatInt(loop)+" - "+GetUnitCommandName(loop);
-            if(dataset->UnitHeaders[UnitIDs.front()].TaskList[loop].ClassID != -1)
-            Name += " class "+lexical_cast<std::string>(dataset->UnitHeaders[UnitIDs.front()].TaskList[loop].ClassID);
-            else if(dataset->UnitHeaders[UnitIDs.front()].TaskList[loop].UnitID != -1)
-            Name += " unit "+lexical_cast<std::string>(dataset->UnitHeaders[UnitIDs.front()].TaskList[loop].UnitID);
-            if(SearchMatches(" " + Name.Lower() + " "))
+        if (Units_ListV->GetSelectedCount())
+            for (size_t loop = 0; loop < dataset->UnitHeaders[UnitIDs.front()].TaskList.size(); ++loop)
             {
-                Units_Tasks_ListV->names.Add(Name);
-                Units_Tasks_ListV->indexes.push_back(loop);
+                wxString Name = FormatInt(loop) + " - " + GetUnitCommandName(loop);
+                if (dataset->UnitHeaders[UnitIDs.front()].TaskList[loop].ClassID != -1)
+                    Name += " class " + lexical_cast<std::string>(dataset->UnitHeaders[UnitIDs.front()].TaskList[loop].ClassID);
+                else if (dataset->UnitHeaders[UnitIDs.front()].TaskList[loop].UnitID != -1)
+                    Name += " unit " + lexical_cast<std::string>(dataset->UnitHeaders[UnitIDs.front()].TaskList[loop].UnitID);
+                if (SearchMatches(" " + Name.Lower() + " "))
+                {
+                    Units_Tasks_ListV->names.Add(Name);
+                    Units_Tasks_ListV->indexes.push_back(loop);
+                }
+                action_names.Add(Name);
             }
-            action_names.Add(Name);
-        }
     }
     else    // AoE or RoR or AoK DE
     {
-        if(Units_ListV->GetSelectedCount()
-        && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0
-        && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type >= 40
-        && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type <= 80)
+        if (Units_ListV->GetSelectedCount()
+            && dataset->Civs[UnitCivID].UnitPointers[UnitIDs.front()] != 0
+            && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type >= 40
+            && dataset->Civs[UnitCivID].Units[UnitIDs.front()].Type <= 80)
         {
             Units_Tasks_Add->Enable(true);
-            for(size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList.size(); ++loop)
+            for (size_t loop = 0; loop < dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList.size(); ++loop)
             {
-                wxString Name = FormatInt(loop)+" - "+GetUnitCommandName(loop);
-                if(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[loop].ClassID != -1)
-                Name += " class "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[loop].ClassID);
-                else if(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[loop].UnitID != -1)
-                Name += " unit "+lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[loop].UnitID);
-                if(SearchMatches(" " + Name.Lower() + " "))
+                wxString Name = FormatInt(loop) + " - " + GetUnitCommandName(loop);
+                if (dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[loop].ClassID != -1)
+                    Name += " class " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[loop].ClassID);
+                else if (dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[loop].UnitID != -1)
+                    Name += " unit " + lexical_cast<std::string>(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList[loop].UnitID);
+                if (SearchMatches(" " + Name.Lower() + " "))
                 {
                     Units_Tasks_ListV->names.Add(Name);
                     Units_Tasks_ListV->indexes.push_back(loop);
@@ -3059,32 +3335,32 @@ void AGE_Frame::ListUnitCommands()
     OnUnitCommandSelect(e);
 }
 
-void AGE_Frame::OnUnitCommandSelect(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandSelect(wxCommandEvent& event)
 {
     size_t selections = Units_Tasks_ListV->GetSelectedCount();
     wxBusyCursor WaitCursor;
-    for (AGETextCtrl *box : uiGroupUnitTask)
+    for (AGETextCtrl* box : uiGroupUnitTask)
     {
         box->clear();
     }
     Tasks_ID->clear();
-    genie::Task *task_ptr = nullptr;
-    if(selections > 0)
+    genie::Task* task_ptr = nullptr;
+    if (selections > 0)
     {
         getSelectedItems(selections, Units_Tasks_ListV, CommandIDs);
 
         bool showWarning = false;
         bool uniqueTasks = (GenieVersion < genie::GV_AoK || GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2);
         wxString warning = "Command count of civs\n";
-        for(size_t sel = selections; sel--> 0;)
+        for (size_t sel = selections; sel-- > 0;)
         {
-            for(short vecCiv = uniqueTasks ? SelectedCivs.size() : 1; vecCiv--> 0;)
+            for (short vecCiv = uniqueTasks ? SelectedCivs.size() : 1; vecCiv-- > 0;)
             {
-                if(uniqueTasks)
+                if (uniqueTasks)
                 {
-                    if(sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Bird.TaskList.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList.size())
+                    if (sel == 0 && dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Bird.TaskList.size() != dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.TaskList.size())
                     {
-                        warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv])+" ");
+                        warning.Append(lexical_cast<std::string>(SelectedCivs[vecCiv]) + " ");
                         showWarning = true;
                     }
                     task_ptr = &dataset->Civs[SelectedCivs[vecCiv]].Units[UnitIDs.front()].Bird.TaskList[CommandIDs[sel]];
@@ -3117,26 +3393,27 @@ void AGE_Frame::OnUnitCommandSelect(wxCommandEvent &event)
                 Tasks_TargetDiplomacy->prepend(&task_ptr->TargetDiplomacy);
                 Tasks_CarryCheck->prepend(&task_ptr->CarryCheck);
                 Tasks_PickForConstruction->prepend(&task_ptr->PickForConstruction);
+                Tasks_Enabled->prepend(&task_ptr->Enabled);
                 Tasks_Graphics[0]->prepend(&task_ptr->MovingGraphicID);
                 Tasks_Graphics[1]->prepend(&task_ptr->ProceedingGraphicID);
                 Tasks_Graphics[2]->prepend(&task_ptr->WorkingGraphicID);
                 Tasks_Graphics[3]->prepend(&task_ptr->CarryingGraphicID);
                 Tasks_Graphics[4]->prepend(&task_ptr->ResourceGatheringSoundID);
                 Tasks_Graphics[5]->prepend(&task_ptr->ResourceDepositSoundID);
-                if(GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
+                if (GenieVersion >= genie::GV_C2 && GenieVersion <= genie::GV_LatestDE2)
                 {
                     Tasks_WwiseResourceGatheringSound->prepend(&task_ptr->WwiseResourceGatheringSoundID);
                     Tasks_WwiseResourceDepositSound->prepend(&task_ptr->WwiseResourceDepositSoundID);
                 }
             }
-            if(showWarning)
+            if (showWarning)
             {
-                warning.Append("\ndiffers from civ "+lexical_cast<std::string>(UnitCivID));
+                warning.Append("\ndiffers from civ " + lexical_cast<std::string>(UnitCivID));
                 wxMessageBox(warning);
             }
         }
     }
-    for (AGETextCtrl *box : uiGroupUnitTask)
+    for (AGETextCtrl* box : uiGroupUnitTask)
     {
         box->update();
     }
@@ -3176,26 +3453,26 @@ void AGE_Frame::OnUnitCommandSelect(wxCommandEvent &event)
     OnChooseGraphic(E);
 }
 
-void AGE_Frame::OnUnitCommandsAdd(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandsAdd(wxCommandEvent& event)
 {
-    if(!Units_ListV->GetSelectedCount()) return;
+    if (!Units_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::Task Temp;
     Temp.setGameVersion(GenieVersion);
-    if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+    if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
     {
         dataset->UnitHeaders[UnitIDs.front()].TaskList.push_back(Temp);
-        dataset->UnitHeaders[UnitIDs.front()].TaskList[dataset->UnitHeaders[UnitIDs.front()].TaskList.size()-1].ID = (int16_t)(dataset->UnitHeaders[UnitIDs.front()].TaskList.size()-1); // ID Fix
+        dataset->UnitHeaders[UnitIDs.front()].TaskList[dataset->UnitHeaders[UnitIDs.front()].TaskList.size() - 1].ID = (int16_t)(dataset->UnitHeaders[UnitIDs.front()].TaskList.size() - 1); // ID Fix
     }
     else
     {
-        for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+        for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
         {
-            if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
             {
                 dataset->Civs[loop].Units[UnitIDs.front()].Bird.TaskList.push_back(Temp);
-                dataset->Civs[loop].Units[UnitIDs.front()].Bird.TaskList[dataset->Civs.front().Units[UnitIDs.front()].Bird.TaskList.size()-1].ID = (int16_t)(dataset->Civs.front().Units[UnitIDs.front()].Bird.TaskList.size()-1); // ID Fix
+                dataset->Civs[loop].Units[UnitIDs.front()].Bird.TaskList[dataset->Civs.front().Units[UnitIDs.front()].Bird.TaskList.size() - 1].ID = (int16_t)(dataset->Civs.front().Units[UnitIDs.front()].Bird.TaskList.size() - 1); // ID Fix
             }
         }
     }
@@ -3203,28 +3480,28 @@ void AGE_Frame::OnUnitCommandsAdd(wxCommandEvent &event)
     ListUnitCommands();
 }
 
-void AGE_Frame::OnUnitCommandsInsert(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandsInsert(wxCommandEvent& event)
 {
-    if(!Units_Tasks_ListV->GetSelectedCount()) return;
+    if (!Units_Tasks_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
     genie::Task Temp;
     Temp.setGameVersion(GenieVersion);
-    if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+    if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
     {
         dataset->UnitHeaders[UnitIDs.front()].TaskList.insert(dataset->UnitHeaders[UnitIDs.front()].TaskList.begin() + CommandIDs.front(), Temp);
-        for(size_t loop2 = CommandIDs.front();loop2 < dataset->UnitHeaders[UnitIDs.front()].TaskList.size(); ++loop2) // ID Fix
-        dataset->UnitHeaders[UnitIDs.front()].TaskList[loop2].ID = loop2;
+        for (size_t loop2 = CommandIDs.front();loop2 < dataset->UnitHeaders[UnitIDs.front()].TaskList.size(); ++loop2) // ID Fix
+            dataset->UnitHeaders[UnitIDs.front()].TaskList[loop2].ID = loop2;
     }
     else
     {
-        for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+        for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
         {
-            if(dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+            if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
             {
                 dataset->Civs[loop].Units[UnitIDs.front()].Bird.TaskList.insert(dataset->Civs[loop].Units[UnitIDs.front()].Bird.TaskList.begin() + CommandIDs.front(), Temp);
-                for(size_t loop2 = CommandIDs.front();loop2 < dataset->Civs.front().Units[UnitIDs.front()].Bird.TaskList.size(); ++loop2) // ID Fix
-                dataset->Civs[loop].Units[UnitIDs.front()].Bird.TaskList[loop2].ID = loop2;
+                for (size_t loop2 = CommandIDs.front();loop2 < dataset->Civs.front().Units[UnitIDs.front()].Bird.TaskList.size(); ++loop2) // ID Fix
+                    dataset->Civs[loop].Units[UnitIDs.front()].Bird.TaskList[loop2].ID = loop2;
             }
         }
     }
@@ -3232,36 +3509,36 @@ void AGE_Frame::OnUnitCommandsInsert(wxCommandEvent &event)
     ListUnitCommands();
 }
 
-void AGE_Frame::OnUnitCommandsDelete(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandsDelete(wxCommandEvent& event)
 {
     size_t selections = Units_Tasks_ListV->GetSelectedCount();
     if (!selections) return;
 
     wxBusyCursor WaitCursor;
-    if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+    if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
     {
         DeleteFromListIDFix(dataset->UnitHeaders[UnitIDs.front()].TaskList, CommandIDs);
     }
     else
     {
-        for(short civ = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
-            if(dataset->Civs[civ].Units[UnitIDs.front()].Bird.TaskList.size())
-            {
-                DeleteFromListIDFix(dataset->Civs[civ].Units[UnitIDs.front()].Bird.TaskList, CommandIDs);
-            }
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
+                if (dataset->Civs[civ].Units[UnitIDs.front()].Bird.TaskList.size())
+                {
+                    DeleteFromListIDFix(dataset->Civs[civ].Units[UnitIDs.front()].Bird.TaskList, CommandIDs);
+                }
         }
     }
     ListUnitCommands();
 }
 
-void AGE_Frame::OnUnitCommandsCopy(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandsCopy(wxCommandEvent& event)
 {
-    if(!Units_Tasks_ListV->GetSelectedCount()) return;
+    if (!Units_Tasks_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
-    if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+    if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
     {
         copies.Dat.AllCivs |= 0x80;
         copies.Dat.UnitCommandExists.resize(0);
@@ -3274,14 +3551,14 @@ void AGE_Frame::OnUnitCommandsCopy(wxCommandEvent &event)
         copies.Dat.AllCivs |= 0x80;
     }
     else copies.Dat.AllCivs &= ~0x80;
-    if(copies.Dat.AllCivs & 0x80)
+    if (copies.Dat.AllCivs & 0x80)
     {
         short CivCount = dataset->Civs.size();
         copies.Dat.UnitCommandExists.resize(CivCount);
         copies.Dat.UnitCommands.resize(CivCount);
-        for(short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Graphic set info not usefull.
                 copies.Dat.UnitCommandExists[civ] = 255;
@@ -3304,27 +3581,27 @@ void AGE_Frame::OnUnitCommandsCopy(wxCommandEvent &event)
     Units_Tasks_ListV->SetFocus();
 }
 
-void AGE_Frame::OnUnitCommandsPaste(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandsPaste(wxCommandEvent& event)
 {
-    if(!Units_Tasks_ListV->GetSelectedCount()) return;
+    if (!Units_Tasks_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
-    if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+    if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
     {
         PasteToListIDFix(dataset->UnitHeaders[UnitIDs.front()].TaskList, CommandIDs, copies.Dat.UnitCommands.front());
     }
-    else if(copies.Dat.AllCivs & 0x80)
+    else if (copies.Dat.AllCivs & 0x80)
     {
-        for(size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Consume copies.
-                if(!copies.Dat.UnitCommandExists.empty() && copies.Dat.UnitCommandExists[civ] > 255) ++copy;
+                if (!copies.Dat.UnitCommandExists.empty() && copies.Dat.UnitCommandExists[civ] > 255) ++copy;
                 continue;
             }
             // If the target unit exists then choose from following.
-            if(!copies.Dat.UnitCommandExists.empty() && copies.Dat.UnitCommandExists[civ] > 255 && copy < copies.Dat.UnitCommands.size())
+            if (!copies.Dat.UnitCommandExists.empty() && copies.Dat.UnitCommandExists[civ] > 255 && copy < copies.Dat.UnitCommands.size())
             {
                 PasteToListIDFix(dataset->Civs[civ].Units[UnitIDs.front()].Bird.TaskList, CommandIDs, copies.Dat.UnitCommands[copy]); ++copy;
             }
@@ -3341,27 +3618,27 @@ void AGE_Frame::OnUnitCommandsPaste(wxCommandEvent &event)
     ListUnitCommands();
 }
 
-void AGE_Frame::OnUnitCommandsPasteInsert(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandsPasteInsert(wxCommandEvent& event)
 {
-    if(!Units_Tasks_ListV->GetSelectedCount()) return;
+    if (!Units_Tasks_ListV->GetSelectedCount()) return;
 
     wxBusyCursor WaitCursor;
-    if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+    if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
     {
         PasteInsertToListIDFix(dataset->UnitHeaders[UnitIDs.front()].TaskList, CommandIDs.front(), copies.Dat.UnitCommands.front());
     }
-    else if(copies.Dat.AllCivs & 0x80)
+    else if (copies.Dat.AllCivs & 0x80)
     {
-        for(short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+        for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
         {
-            if(dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
             {
                 // Consume copies.
-                if(!copies.Dat.UnitCommandExists.empty() && copies.Dat.UnitCommandExists[civ] > 255) ++copy;
+                if (!copies.Dat.UnitCommandExists.empty() && copies.Dat.UnitCommandExists[civ] > 255) ++copy;
                 continue;
             }
             // If the target unit exists then choose from following.
-            if(!copies.Dat.UnitCommandExists.empty() && copies.Dat.UnitCommandExists[civ] > 255 && copy < copies.Dat.UnitCommands.size())
+            if (!copies.Dat.UnitCommandExists.empty() && copies.Dat.UnitCommandExists[civ] > 255 && copy < copies.Dat.UnitCommands.size())
             {
                 PasteInsertToListIDFix(dataset->Civs[civ].Units[UnitIDs.front()].Bird.TaskList, CommandIDs.front(), copies.Dat.UnitCommands[copy]); copy++;
             }
@@ -3378,59 +3655,59 @@ void AGE_Frame::OnUnitCommandsPasteInsert(wxCommandEvent &event)
     ListUnitCommands();
 }
 
-void AGE_Frame::OnUnitCommandsCopyToUnits(wxCommandEvent &event)
+void AGE_Frame::OnUnitCommandsCopyToUnits(wxCommandEvent& event)
 {
-    if(GenieVersion < genie::GV_AoK || GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2)
+    if (GenieVersion < genie::GV_AoK || GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2)
     {
-        for(short civ = 0; civ < dataset->Civs.size(); ++civ)
-        for(size_t loop=1; loop < UnitIDs.size(); ++loop)
-        {
-            dataset->Civs[civ].Units[UnitIDs[loop]].Bird.TaskList = dataset->Civs[civ].Units[UnitIDs.front()].Bird.TaskList;
-        }
+        for (short civ = 0; civ < dataset->Civs.size(); ++civ)
+            for (size_t loop = 1; loop < UnitIDs.size(); ++loop)
+            {
+                dataset->Civs[civ].Units[UnitIDs[loop]].Bird.TaskList = dataset->Civs[civ].Units[UnitIDs.front()].Bird.TaskList;
+            }
     }
     else
     {
-        for(size_t loop=1; loop < UnitIDs.size(); ++loop)
+        for (size_t loop = 1; loop < UnitIDs.size(); ++loop)
         {
             dataset->UnitHeaders[UnitIDs[loop]].TaskList = dataset->UnitHeaders[UnitIDs.front()].TaskList;
         }
     }
 }
 
-void AGE_Frame::UnitLangDLLConverter(wxCommandEvent &event)
+void AGE_Frame::UnitLangDLLConverter(wxCommandEvent& event)
 {
     int32_t DLLValue;
     try
     {
         DLLValue = lexical_cast<int32_t>(static_cast<wxTextCtrl*>(event.GetEventObject())->GetValue());
     }
-    catch(const bad_lexical_cast&)
+    catch (const bad_lexical_cast&)
     {
         wxMessageBox("Incorrect input!");
         return;
     }
-    if(event.GetId() == Units_LanguageDLLConverter[0]->GetId())
+    if (event.GetId() == Units_LanguageDLLConverter[0]->GetId())
     {
-        if(GenieVersion < genie::GV_AoKA) DLLValue += 0x10000;
+        if (GenieVersion < genie::GV_AoKA) DLLValue += 0x10000;
         else DLLValue += 79000;
-        if(!AutoCopy)
+        if (!AutoCopy)
         {
             dataset->Civs[UnitCivID].Units[UnitIDs.front()].LanguageDLLHelp = DLLValue;
         }
-        else for(short civ = 0; civ < dataset->Civs.size(); ++civ)
+        else for (short civ = 0; civ < dataset->Civs.size(); ++civ)
         {
             dataset->Civs[civ].Units[UnitIDs.front()].LanguageDLLHelp = DLLValue;
         }
     }
     else
     {
-        if(GenieVersion < genie::GV_AoKA) DLLValue += 0x20000;
+        if (GenieVersion < genie::GV_AoKA) DLLValue += 0x20000;
         else DLLValue += 140000;
-        if(!AutoCopy)
+        if (!AutoCopy)
         {
             dataset->Civs[UnitCivID].Units[UnitIDs.front()].LanguageDLLHotKeyText = DLLValue;
         }
-        else for(short civ = 0; civ < dataset->Civs.size(); ++civ)
+        else for (short civ = 0; civ < dataset->Civs.size(); ++civ)
         {
             dataset->Civs[civ].Units[UnitIDs.front()].LanguageDLLHotKeyText = DLLValue;
         }
@@ -3441,7 +3718,7 @@ void AGE_Frame::UnitLangDLLConverter(wxCommandEvent &event)
 
 void AGE_Frame::CreateUnitControls()
 {
-//  UnitControls new things
+    //  UnitControls new things
 
     Tab_Units = new ATabPage(TabBar_Main);
 
@@ -3456,14 +3733,14 @@ void AGE_Frame::CreateUnitControls()
     Units_Search_R = new wxTextCtrl(Tab_Units, wxID_ANY);
     Units_UseAnd[1] = new wxCheckBox(Tab_Units, wxID_ANY, "And");
     Units_FilterSelector = new AGEComboBox(Tab_Units, &unit_filter_options);
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Units_Searches[loop] = new wxBoxSizer(wxHORIZONTAL);
         Units_SearchFilters[loop] = new AGEComboBox(Tab_Units, &unit_filters, AGETextCtrl::LARGE);
     }
     Units_ListV = new ProperList(Tab_Units, ASize(200, 100));
-    wxGridSizer *Units_Buttons = new wxGridSizer(3, 0, 0);
-    wxBoxSizer *Units_Buttons1 = new wxBoxSizer(wxHORIZONTAL);
+    wxGridSizer* Units_Buttons = new wxGridSizer(3, 0, 0);
+    wxBoxSizer* Units_Buttons1 = new wxBoxSizer(wxHORIZONTAL);
     Units_Add = new wxButton(Tab_Units, wxID_ANY, "Add", wxDefaultPosition, wxSize(10, -1));
     Units_Insert = new wxButton(Tab_Units, wxID_ANY, "Insert New", wxDefaultPosition, wxSize(10, -1));
     Units_Delete = new wxButton(Tab_Units, wxID_ANY, "Delete", wxDefaultPosition, wxSize(10, -1));
@@ -3558,8 +3835,8 @@ void AGE_Frame::CreateUnitControls()
     Units_Obsoletes_Area = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Obsolete Variables");
     TasksArea_Holder = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Tasks (Shared by all civilizations in legacy Age of Empires II and Star Wars Galactic Battlegrounds)");
 
-//  Invisible Holder Windows
-//  Type 10+
+    //  Invisible Holder Windows
+    //  Type 10+
 
     Units_ID1_Holder = new wxBoxSizer(wxVERTICAL);
     Units_LanguageDLLName_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3581,7 +3858,7 @@ void AGE_Frame::CreateUnitControls()
     Units_SortNumber_Holder = new wxBoxSizer(wxVERTICAL);
     Units_CanBeBuiltOn_Holder = new wxBoxSizer(wxHORIZONTAL);
     Units_IconID_Holder = new wxBoxSizer(wxVERTICAL);
-    wxSizer *Units_IconID_Grid = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer* Units_IconID_Grid = new wxBoxSizer(wxHORIZONTAL);
     Units_HideInEditor_Holder = new wxBoxSizer(wxHORIZONTAL);
     Units_Portrait_Holder = new wxBoxSizer(wxVERTICAL);
     Units_Enabled_Holder = new wxBoxSizer(wxHORIZONTAL);
@@ -3607,7 +3884,6 @@ void AGE_Frame::CreateUnitControls()
     Units_LanguageDLLConverter_Holder[0] = new wxBoxSizer(wxVERTICAL);
     Units_LanguageDLLConverter_Holder[1] = new wxBoxSizer(wxVERTICAL);
     Units_LanguageDLLHotKeyText_Holder = new wxBoxSizer(wxVERTICAL);
-    Units_HotKey_Holder = new wxBoxSizer(wxVERTICAL);
     Units_Recyclable_Holder = new wxBoxSizer(wxHORIZONTAL);
     Units_TrackAsResource_Holder = new wxBoxSizer(wxHORIZONTAL);
     Units_CreateDoppelgangerOnDeath_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3623,8 +3899,8 @@ void AGE_Frame::CreateUnitControls()
     Units_SelectionRadius_Holder = new wxBoxSizer(wxVERTICAL);
     Units_ResourceStorageHeader_Holder = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Resource Storages");
     Units_ResourceStorage_Texts = new wxBoxSizer(wxVERTICAL);
-    for (wxBoxSizer *&sizer : Units_ResourceStorage_Holder)
-    sizer = new wxBoxSizer(wxVERTICAL);
+    for (wxBoxSizer*& sizer : Units_ResourceStorage_Holder)
+        sizer = new wxBoxSizer(wxVERTICAL);
     Units_SelectionSound_Holder = new wxBoxSizer(wxVERTICAL);
     Units_DyingSound_Holder = new wxBoxSizer(wxVERTICAL);
     Units_AttackReaction_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3637,11 +3913,11 @@ void AGE_Frame::CreateUnitControls()
     Units_BaseID_Holder = new wxBoxSizer(wxVERTICAL);
     Units_TelemetryID_Holder = new wxBoxSizer(wxVERTICAL);
 
-//  Type 20+
+    //  Type 20+
 
     Units_Speed_Holder = new wxBoxSizer(wxVERTICAL);
 
-//  Type 30+
+    //  Type 30+
 
     Units_WalkingGraphic_Holder = new wxBoxSizer(wxVERTICAL);
     Units_WalkingGraphic_Grid = new wxGridSizer(2, 0, 5);
@@ -3654,7 +3930,7 @@ void AGE_Frame::CreateUnitControls()
     Units_RotationAngles_Holder = new wxBoxSizer(wxVERTICAL);
     Units_RotationAngles_Grid = new wxFlexGridSizer(5, 0, 5);
 
-//  Type 40+
+    //  Type 40+
 
     Units_DefaultTaskID_Holder = new wxBoxSizer(wxVERTICAL);
     Units_SearchRadius_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3664,7 +3940,7 @@ void AGE_Frame::CreateUnitControls()
     Units_RunPattern_Holder = new wxBoxSizer(wxVERTICAL);
     Units_Exists_Holder = new wxBoxSizer(wxVERTICAL);
 
-//  Type 50+
+    //  Type 50+
 
     Units_BaseArmor_Holder = new wxBoxSizer(wxVERTICAL);
     Units_DefenseTerrainBonus_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3692,7 +3968,7 @@ void AGE_Frame::CreateUnitControls()
     Units_DisplayedReloadTime_Holder = new wxBoxSizer(wxVERTICAL);
     Units_AttackGraphic2_Holder = new wxBoxSizer(wxVERTICAL);
 
-//  Type 60 only
+    //  Type 60 only
 
     Units_ProjectileType_Holder = new wxBoxSizer(wxVERTICAL);
     Units_SmartMode_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3701,15 +3977,12 @@ void AGE_Frame::CreateUnitControls()
     Units_AreaEffectSpecials_Holder = new wxBoxSizer(wxVERTICAL);
     Units_ProjectileArc_Holder = new wxBoxSizer(wxVERTICAL);
 
-//  Type 70+
+    //  Type 70+
 
     Units_CostHeader_Holder = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Costs");
     Unit_Cost_Texts = new wxBoxSizer(wxVERTICAL);
-    for (wxBoxSizer *&sizer : Unit_Cost_Sizers)
-    sizer = new wxBoxSizer(wxVERTICAL);
-    Units_TrainTime_Holder = new wxBoxSizer(wxVERTICAL);
-    Units_TrainLocationID_Holder = new wxBoxSizer(wxVERTICAL);
-    Units_ButtonID_Holder = new wxBoxSizer(wxVERTICAL);
+    for (wxBoxSizer*& sizer : Unit_Cost_Sizers)
+        sizer = new wxBoxSizer(wxVERTICAL);
     Units_RearAttackModifier_Holder = new wxBoxSizer(wxVERTICAL);
     Units_FlankAttackModifier_Holder = new wxBoxSizer(wxVERTICAL);
     Units_CreatableType_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3736,7 +4009,7 @@ void AGE_Frame::CreateUnitControls()
     Units_IdleAttackGraphic_Holder = new wxBoxSizer(wxVERTICAL);
     Units_ChargeTarget_Holder = new wxBoxSizer(wxVERTICAL);
 
-//  Type 80
+    //  Type 80
 
     Units_ConstructionGraphicID_Holder = new wxBoxSizer(wxVERTICAL);
     Units_SnowGraphicID_Holder = new wxBoxSizer(wxVERTICAL);
@@ -3765,8 +4038,8 @@ void AGE_Frame::CreateUnitControls()
     Units_LootSwitch_Holder = new wxBoxSizer(wxVERTICAL);
     Units_LootSwitch_Grid = new wxGridSizer(6, 0, 5);
 
-//  Data Container Names
-//  Type 10+
+    //  Data Container Names
+    //  Type 10+
 
     Units_ID1_Text = new SolidText(Tab_Units, " ID");
     Units_LanguageDLLName_Text = new SolidText(Units_Scroller, " Language File Name *");
@@ -3831,11 +4104,11 @@ void AGE_Frame::CreateUnitControls()
     Units_BaseID_Text = new SolidText(Tab_Units, " Base ID");
     Units_TelemetryID_Text = new SolidText(Tab_Units, " Tracking ID");
 
-//  Type 20+
+    //  Type 20+
 
     Units_Speed_Text = new SolidText(Units_Scroller, " Speed");
 
-//  Type 30+
+    //  Type 30+
 
     Units_WalkingGraphic_Text = new SolidText(Units_Scroller, " Walking and Running Graphics");
     Units_RotationSpeed_Text = new SolidText(Units_Scroller, " Rotation Speed *");
@@ -3852,7 +4125,7 @@ void AGE_Frame::CreateUnitControls()
     Units_TurnStats_Text[3] = new SolidText(Units_Scroller, " Yaw Round Time");
     Units_TurnStats_Text[4] = new SolidText(Units_Scroller, " Max YPS Stationary");
 
-//  Type 40+
+    //  Type 40+
 
     Units_SearchRadius_Text = new SolidText(Units_Scroller, " Search Radius");
     Units_WorkRate_Text = new SolidText(Units_Scroller, " Work Rate");
@@ -3861,7 +4134,7 @@ void AGE_Frame::CreateUnitControls()
     Units_MoveSound_Text = new SolidText(Units_Scroller, " Move Sound");
     Units_Exists_Text = new SolidText(Units_Scroller, " Exists");
 
-//  Type 50+
+    //  Type 50+
 
     Units_BaseArmor_Text = new SolidText(Units_Scroller, " Base Armor *");
     Units_DefenseTerrainBonus_Text = new SolidText(Units_Scroller, " Terrain Defense Bonus *");
@@ -3876,7 +4149,7 @@ void AGE_Frame::CreateUnitControls()
     Units_BlastAttackLevel_Text = new SolidText(Units_Scroller, " Blast Attack Level *");
     Units_BlastDamage_Text = new SolidText(Units_Scroller, " Blast Damage *");
     Units_FriendlyFire_Text = new SolidText(Units_Scroller, " Friendly Fire Damage *");
-    Units_DamageReflection_Text = new SolidText(Units_Scroller, " Instant Karma *"); // Sorry, need a short name for the layout.
+    Units_DamageReflection_Text = new SolidText(Units_Scroller, " Dmg Reflection *"); // Need a short name for the layout.
     Units_InterruptFrame_Text = new SolidText(Units_Scroller, " Interrupt Frame *");
     Units_MinRange_Text = new SolidText(Units_Scroller, " Min Range");
     Units_AccuracyDispersion_Text = new SolidText(Units_Scroller, " Attack Dispersion *");
@@ -3887,7 +4160,7 @@ void AGE_Frame::CreateUnitControls()
     Units_DisplayedRange_Text = new SolidText(Units_Scroller, " Displayed Range");
     Units_DisplayedReloadTime_Text = new SolidText(Units_Scroller, " Displayed Reload Time");
 
-//  Type 60 only
+    //  Type 60 only
 
     Units_ProjectileType_Text = new SolidText(Units_Scroller, " Projectile Type *");
     Units_SmartMode_Text = new SolidText(Units_Scroller, " Smart Mode *");
@@ -3896,14 +4169,11 @@ void AGE_Frame::CreateUnitControls()
     Units_AreaEffectSpecials_Text = new SolidText(Units_Scroller, " Area Effects *");
     Units_ProjectileArc_Text = new SolidText(Units_Scroller, " Projectile Arc");
 
-//  Type 70+
+    //  Type 70+
 
     Units_CostType_Text = new SolidText(Units_Scroller, "Type", wxALIGN_RIGHT | wxST_NO_AUTORESIZE, wxSize(90, -1));
     Units_CostAmount_Text = new SolidText(Units_Scroller, "Amount", wxALIGN_RIGHT | wxST_NO_AUTORESIZE, wxSize(90, -1));
     Units_CostUsed_Text = new SolidText(Units_Scroller, "Deduct", wxALIGN_RIGHT | wxST_NO_AUTORESIZE, wxSize(90, -1));
-    Units_TrainTime_Text = new SolidText(Units_Scroller, " Train Time");
-    Units_TrainLocationID_Text = new SolidText(Units_Scroller, " Train Location");
-    Units_ButtonID_Text = new SolidText(Units_Scroller, " Train Button *");
     Units_RearAttackModifier_Text = new SolidText(Units_Scroller, " Backstab Bonus");
     Units_FlankAttackModifier_Text = new SolidText(Units_Scroller, " Flank Bonus");
     Units_CreatableType_Text = new SolidText(Units_Scroller, " Creatable Type *");
@@ -3936,7 +4206,7 @@ void AGE_Frame::CreateUnitControls()
     Units_GarrisonFirepower_Text = new SolidText(Units_Scroller, " Garrison Firepower *");
     Units_ConversionChanceMod_Text = new SolidText(Units_Scroller, " Conv Chance *");
 
-//  Type 80
+    //  Type 80
 
     Units_ConstructionGraphicID_Text = new SolidText(Units_Scroller, " Construction Graphic");
     Units_SnowGraphicID_Text = new SolidText(Units_Scroller, " Snow Graphic");
@@ -3962,7 +4232,7 @@ void AGE_Frame::CreateUnitControls()
     Units_PileUnit_Text = new SolidText(Units_Scroller, " Pile Unit *");
     Units_LootSwitch_Text = new SolidText(Units_Scroller, " Looting Table *");
 
-//  Data Containers
+    //  Data Containers
 
     Units_ID1 = new NumberControl(CShort, Tab_Units, this, nullptr, true, AGETextCtrl::SMALL);
     Units_CopyID = new NumberControl(CShort, Tab_Units, this, nullptr, true, AGETextCtrl::SMALL);
@@ -3977,9 +4247,6 @@ void AGE_Frame::CreateUnitControls()
     Units_DLL_LanguageName = new TextIndexControl(Units_Scroller, ASize(200, 25));
     Units_LanguageDLLCreation = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
     Units_DLL_LanguageCreation = new TextIndexControl(Units_Scroller, ASize(200, 25));
-    Units_HotKey = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit, false);
-    Units_HotKey->SetToolTip("10000 + Language File Creation (usually)");
-    Units_DLL_HotKey4 = new TextIndexControl(Units_Scroller, ASize(200, 25));
     Units_LanguageDLLHelp = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit, false);
     Units_LanguageDLLHelp->SetToolTip("100000 + Language File Name\nThis is linked to the help text below");
     Units_LanguageDLLConverter[0] = new wxTextCtrl(Units_Scroller, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
@@ -4003,8 +4270,8 @@ void AGE_Frame::CreateUnitControls()
     slp_radio = new wxRadioBox(Units_Scroller, wxID_ANY, "Sprite view", wxDefaultPosition, wxDefaultSize, choices);
     slp_snow = new wxCheckBox(Units_Scroller, wxID_ANY, "Snow");
     slp_garrison = new wxCheckBox(Units_Scroller, wxID_ANY, "Housed");
-    wxSizer *sizer_slp = new wxBoxSizer(wxHORIZONTAL);
-    wxSizer *sizer_slp2 = new wxBoxSizer(wxVERTICAL);
+    wxSizer* sizer_slp = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer* sizer_slp2 = new wxBoxSizer(wxVERTICAL);
     Units_DamageGraphics = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Damage Graphics");
     Units_DamageGraphics_ListArea = new wxBoxSizer(wxVERTICAL);
     Units_DamageGraphics_Search = new wxTextCtrl(Units_Scroller, wxID_ANY);
@@ -4043,20 +4310,20 @@ void AGE_Frame::CreateUnitControls()
     Units_ChargingGraphic->SetToolTip("Activates depending on special ability");
     Units_ChargingGraphic_ComboBox = new LinkedComboBox(Units_Scroller, Units_ChargingGraphic, &graphic_names, false);
     GraphicComboBoxList.push_back(Units_ChargingGraphic_ComboBox);
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Units_StandingGraphic[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
         Units_StandingGraphic[loop]->SetToolTip("Half of units in group use 1st,\nthe rest use 2nd");
         Units_StandingGraphic_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Units_StandingGraphic[loop], &graphic_names, false);
         GraphicComboBoxList.push_back(Units_StandingGraphic_ComboBox[loop]);
     }
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Units_DyingGraphic[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
         Units_DyingGraphic_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Units_DyingGraphic[loop], &graphic_names, false);
         GraphicComboBoxList.push_back(Units_DyingGraphic_ComboBox[loop]);
     }
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Units_WalkingGraphic[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
         Units_WalkingGraphic_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Units_WalkingGraphic[loop], &graphic_names, false);
@@ -4071,18 +4338,18 @@ void AGE_Frame::CreateUnitControls()
     Units_AttackGraphic = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
     Units_AttackGraphic_ComboBox = new LinkedComboBox(Units_Scroller, Units_AttackGraphic, &graphic_names, false);
     GraphicComboBoxList.push_back(Units_AttackGraphic_ComboBox);
-    Units_GarrisonGraphic = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit, false);
-    Units_GarrisonGraphic_ComboBox = new LinkedComboBox(Units_Scroller, Units_GarrisonGraphic, &graphic_names, false);
-    GraphicComboBoxList.push_back(Units_GarrisonGraphic_ComboBox);
+    Units_AttackGraphic2 = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
+    Units_AttackGraphic2_ComboBox = new LinkedComboBox(Units_Scroller, Units_AttackGraphic2, &graphic_names, false);
+    GraphicComboBoxList.push_back(Units_AttackGraphic2_ComboBox);
     Units_DestructionGraphicID = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
     Units_DestructionGraphicID_ComboBox = new LinkedComboBox(Units_Scroller, Units_DestructionGraphicID, &graphic_names, false);
     GraphicComboBoxList.push_back(Units_DestructionGraphicID_ComboBox);
     Units_DestructionRubbleGraphicID = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
     Units_DestructionRubbleGraphicID_ComboBox = new LinkedComboBox(Units_Scroller, Units_DestructionRubbleGraphicID, &graphic_names, false);
     GraphicComboBoxList.push_back(Units_DestructionRubbleGraphicID_ComboBox);
-    Units_AttackGraphic2 = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
-    Units_AttackGraphic2_ComboBox = new LinkedComboBox(Units_Scroller, Units_AttackGraphic2, &graphic_names, false);
-    GraphicComboBoxList.push_back(Units_AttackGraphic2_ComboBox);
+    Units_GarrisonGraphic = new NumberControl(CLong, Units_Scroller, this, &uiGroupUnit, false);
+    Units_GarrisonGraphic_ComboBox = new LinkedComboBox(Units_Scroller, Units_GarrisonGraphic, &graphic_names, false);
+    GraphicComboBoxList.push_back(Units_GarrisonGraphic_ComboBox);
     Units_IdleAttackGraphic = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit, false);
     Units_IdleAttackGraphic_ComboBox = new LinkedComboBox(Units_Scroller, Units_IdleAttackGraphic, &graphic_names, false);
     GraphicComboBoxList.push_back(Units_IdleAttackGraphic_ComboBox);
@@ -4270,13 +4537,13 @@ void AGE_Frame::CreateUnitControls()
     Units_MissileCount->SetToolTip("Total missiles including both normal and duplicated projectiles");
     Units_MissileDuplicationCount = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_MissileDuplicationCount->SetToolTip("Total missiles when garrison capacity is full");
-    for(size_t loop = 0; loop < 3; ++loop)
-    Units_GraphicDisplacement[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
+    for (size_t loop = 0; loop < 3; ++loop)
+        Units_GraphicDisplacement[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_GraphicDisplacement[0]->SetToolTip("Left/Right distance");
     Units_GraphicDisplacement[1]->SetToolTip("Spawning distance from the unit");
     Units_GraphicDisplacement[2]->SetToolTip("Height");
-    for(size_t loop = 0; loop < 3; ++loop)
-    Units_AttackMissileDuplicationSpawning[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
+    for (size_t loop = 0; loop < 3; ++loop)
+        Units_AttackMissileDuplicationSpawning[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_AttackMissileDuplicationSpawning[0]->SetToolTip("Spawning area's width");
     Units_AttackMissileDuplicationSpawning[1]->SetToolTip("Spawning area's length");
     Units_AttackMissileDuplicationSpawning[2]->SetToolTip("Spawning point's randomness inside the spawning area\n"
@@ -4435,13 +4702,13 @@ void AGE_Frame::CreateUnitControls()
     Units_MinTechLevel = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
     Units_MinTechLevel_ComboBox = new LinkedComboBox(Units_Scroller, Units_MinTechLevel, &research_names);
     ResearchComboBoxList.push_back(Units_MinTechLevel_ComboBox);
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Units_PlacementTerrain[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
         Units_PlacementTerrain_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Units_PlacementTerrain[loop], &terrain_names);
         TerrainComboBoxList.push_back(Units_PlacementTerrain_ComboBox[loop]);
     }
-    for(size_t loop = 0; loop < 2; ++loop)
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Units_PlacementSideTerrain[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
         Units_PlacementSideTerrain[loop]->SetToolTip("Required terrain on some side");
@@ -4488,14 +4755,14 @@ void AGE_Frame::CreateUnitControls()
     UnitComboBoxList.push_back(DropSites_UnitID_ComboBox);
 
     for (size_t loop = 0; loop < 3; ++loop)
-    Units_SizeRadius[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit, loop == 2);
+        Units_SizeRadius[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit, loop == 2);
     Units_MinCollisionSizeMultiplier = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_MinCollisionSizeMultiplier->SetToolTip("Scales collision size under certain circumstances.");
     Units_SelectionRadiusBox = new wxBoxSizer(wxHORIZONTAL);
-    for(size_t loop = 0; loop < 3; ++loop)
-    Units_SelectionRadius[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit, loop == 2);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Units_ClearanceSize[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit, false);
+    for (size_t loop = 0; loop < 3; ++loop)
+        Units_SelectionRadius[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit, loop == 2);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Units_ClearanceSize[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit, false);
     Units_SizeRadius[2]->SetToolTip("Setting \"can be built on\" to 1 and this to 0 causes\nfarms to be walkable in AoE/RoR.");
     Units_SelectionRadius[2]->SetToolTip("Determines HP bar location\nVertical half tile (elevation height?) distance from the top corner?");
 
@@ -4522,8 +4789,8 @@ void AGE_Frame::CreateUnitControls()
         "2   Appears while moving, based on density");
     Units_TrackingUnitDensity = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     Units_TrackingUnitDensity->SetToolTip("Only with trail mode 2");
-    for(size_t loop = 0; loop < Units_RotationAngles.size(); ++loop)
-    Units_RotationAngles[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
+    for (size_t loop = 0; loop < Units_RotationAngles.size(); ++loop)
+        Units_RotationAngles[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
     wxString rot360 = "360 degrees when multiplying with 4th box radian value";
     Units_RotationAngles[2]->SetToolTip(rot360);
     Units_RotationAngles[3]->SetToolTip("Used to get 3rd and 5th box to 360 degrees");
@@ -4533,13 +4800,47 @@ void AGE_Frame::CreateUnitControls()
         "1   Resource\n2   Building (build page 1)\n3   Civilian\n4   Soldier\n5   Trade Unit\n6   Priest\n"
         "7   Transport Ship\n8   Relic / Priest with Relic\n9   Fishing Boat\n"
         "10   (A=2&8) Military Building (build page 2)\n11   Shield Building (build page 3)");
-    Units_TrainTime = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
-    Units_TrainLocationID = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
-    Units_TrainLocationID_ComboBox = new LinkedComboBox(Units_Scroller, Units_TrainLocationID, &unit_names);
-    UnitComboBoxList.push_back(Units_TrainLocationID_ComboBox);
-    Units_ButtonID = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
-    Units_ButtonID->SetToolTip("First page (also second in TC) 1-15\nSecond (dock) page 21-35\nThird page same as first (Star Wars)\nFirst page in AoE/RoR 1-10\nSecond page in AoE/RoR 11-20");
-    for(size_t loop = 0; loop < 3; ++loop)
+
+    // Train Locations
+    Units_TrainLocations = new wxStaticBoxSizer(wxHORIZONTAL, Units_Scroller, "Train Locations");
+    Units_TrainLocations_ListArea = new wxBoxSizer(wxVERTICAL);
+    Units_TrainLocations_DataArea = new wxBoxSizer(wxVERTICAL);
+    Units_TrainLocations_Search = new wxTextCtrl(Units_Scroller, wxID_ANY);
+    Units_TrainLocations_Search_R = new wxTextCtrl(Units_Scroller, wxID_ANY);
+    Units_TrainLocations_ListV = new ProperList(Units_Scroller, ASize(350, 100));
+    Units_TrainLocations_Buttons = new wxGridSizer(3, 0, 0);
+    Units_TrainLocations_Add = new wxButton(Units_Scroller, wxID_ANY, "Add", wxDefaultPosition, wxSize(10, -1));
+    Units_TrainLocations_Insert = new wxButton(Units_Scroller, wxID_ANY, "Ins New", wxDefaultPosition, wxSize(10, -1));
+    Units_TrainLocations_Delete = new wxButton(Units_Scroller, wxID_ANY, "Delete", wxDefaultPosition, wxSize(10, -1));
+    Units_TrainLocations_Copy = new wxButton(Units_Scroller, wxID_ANY, "Copy *", wxDefaultPosition, wxSize(10, -1));
+    Units_TrainLocations_Copy->SetToolTip("When \"All civs\" is not selected,\nthis and pasting works only for current civilization");
+    Units_TrainLocations_Paste = new wxButton(Units_Scroller, wxID_ANY, "Paste", wxDefaultPosition, wxSize(10, -1));
+    Units_TrainLocations_PasteInsert = new wxButton(Units_Scroller, wxID_ANY, "Ins Copies", wxDefaultPosition, wxSize(10, -1));
+    Units_TrainLocations_CopyToUnits = new wxButton(Units_Scroller, wxID_ANY, "Copy all to selected units", wxDefaultPosition, wxSize(10, -1));
+    Units_TrainLocations_Holder = new wxBoxSizer(wxHORIZONTAL);
+
+    TrainLocations_UnitID_Holder = new wxBoxSizer(wxVERTICAL);
+    TrainLocations_UnitID_Text = new SolidText(Units_Scroller, " Unit *");
+    TrainLocations_UnitID = new NumberControl(CShort, Units_Scroller, this, nullptr, false);
+    TrainLocations_UnitID->SetToolTip("Assign multiple train locations to a unit");
+    TrainLocations_UnitID_ComboBox = new LinkedComboBox(Units_Scroller, TrainLocations_UnitID, &unit_names, false);
+    UnitComboBoxList.push_back(TrainLocations_UnitID_ComboBox);
+
+    TrainLocations_TrainTime_Holder = new wxBoxSizer(wxVERTICAL);
+    TrainLocations_TrainTime_Text = new SolidText(Units_Scroller, " Train Time");
+    TrainLocations_TrainTime = new NumberControl(CShort, Units_Scroller, this, nullptr, false);
+
+    TrainLocations_ButtonID_Holder = new wxBoxSizer(wxVERTICAL);
+    TrainLocations_ButtonID_Text = new SolidText(Units_Scroller, " Button ID");
+    TrainLocations_ButtonID = new NumberControl(CUByte, Units_Scroller, this, nullptr, false);
+    TrainLocations_ButtonID->SetToolTip("First page (also second in TC) 1-15\nSecond (dock) page 21-35\nThird page same as first (Star Wars)\nFirst page in AoE/RoR 1-10\nSecond page in AoE/RoR 11-20");
+
+    TrainLocations_HotkeyID_Holder = new wxBoxSizer(wxVERTICAL);
+    TrainLocations_HotkeyID_Text = new SolidText(Units_Scroller, " Hotkey ID");
+    TrainLocations_HotkeyID = new NumberControl(CLong, Units_Scroller, this, nullptr, false);
+    TrainLocations_HotkeyID->SetToolTip("10000 + Language File Creation (usually)");
+
+    for (size_t loop = 0; loop < 3; ++loop)
     {
         ResourceStorage_Type[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
         ResourceStorage_Type_ComboBox[loop] = new LinkedComboBox(Units_Scroller, ResourceStorage_Type[loop], &resource_names);
@@ -4547,11 +4848,11 @@ void AGE_Frame::CreateUnitControls()
         ResourceStorage_Amount[loop] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit);
         ResourceStorage_Mode[loop] = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit);
         ResourceStorage_Mode[loop]->SetToolTip("Attribute Flag\n0   Keep. Decayable resource.\n"
-        "1   Give. Stored after death also.\n2   Give and take. Resets on dying, enables instantly.\n"
-        "4   Building. Resets on dying, enables on completion.\nUP: 8   Stored on completion and stays after death.\n"
-        "AoE2DE: 32   Stored throughout dying animation.");
+            "1   Give. Stored after death also.\n2   Give and take. Resets on dying, enables instantly.\n"
+            "4   Building. Resets on dying, enables on completion.\nUP: 8   Stored on completion and stays after death.\n"
+            "AoE2DE: 32   Stored throughout dying animation.");
     }
-    for(size_t loop = 0; loop < 3; ++loop)
+    for (size_t loop = 0; loop < 3; ++loop)
     {
         Units_CostType[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
         Units_CostType_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Units_CostType[loop], &resource_names);
@@ -4577,19 +4878,19 @@ void AGE_Frame::CreateUnitControls()
     Units_PileUnit->SetToolTip("Appears when the building dies\nDoes not appear with delete command");
     Units_PileUnit_ComboBox = new LinkedComboBox(Units_Scroller, Units_PileUnit, &unit_names);
     UnitComboBoxList.push_back(Units_PileUnit_ComboBox);
-    for(size_t loop = 0; loop < 4; ++loop)
+    for (size_t loop = 0; loop < 4; ++loop)
     {
         Units_AnnexUnit[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnit);
         Units_AnnexUnit_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Units_AnnexUnit[loop], &unit_names);
         UnitComboBoxList.push_back(Units_AnnexUnit_ComboBox[loop]);
     }
-    for(size_t loop = 0; loop < 4; ++loop)
+    for (size_t loop = 0; loop < 4; ++loop)
     {
-        for(size_t loop2 = 0; loop2 < 2; ++loop2)
-        Units_AnnexUnitMisplacement[loop][loop2] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit, false, AGETextCtrl::LARGE);
+        for (size_t loop2 = 0; loop2 < 2; ++loop2)
+            Units_AnnexUnitMisplacement[loop][loop2] = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnit, false, AGETextCtrl::LARGE);
     }
-    for(size_t loop = 0; loop < Units_LootSwitch.size(); ++loop)
-    Units_LootSwitch[loop] = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
+    for (size_t loop = 0; loop < Units_LootSwitch.size(); ++loop)
+        Units_LootSwitch[loop] = new NumberControl(CUByte, Units_Scroller, this, &uiGroupUnit, true, AGETextCtrl::SMALL);
     Units_LootSwitch[0]->SetToolTip("Stone Loot Switch");
     Units_LootSwitch[1]->SetToolTip("Wood Loot Switch");
     Units_LootSwitch[2]->SetToolTip("Ore Loot Switch");
@@ -4753,17 +5054,17 @@ void AGE_Frame::CreateUnitControls()
     Tasks_WorkRange_Holder = new wxBoxSizer(wxVERTICAL);
     Tasks_WorkRange_Text = new SolidText(Units_Scroller, " Work Range");
     Tasks_WorkRange = new NumberControl(CFloat, Units_Scroller, this, &uiGroupUnitTask);
-    for(size_t loop = 0; loop < Tasks_Graphics.size(); ++loop)
+    for (size_t loop = 0; loop < Tasks_Graphics.size(); ++loop)
     {
         Tasks_Graphics_Holder[loop] = new wxBoxSizer(wxVERTICAL);
         Tasks_Graphics[loop] = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnitTask, false, AGETextCtrl::SMALL);
     }
-    for(size_t loop = 0; loop < 4; ++loop)
+    for (size_t loop = 0; loop < 4; ++loop)
     {
         Tasks_Graphics_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Tasks_Graphics[loop], &graphic_names, false);
         GraphicComboBoxList.push_back(Tasks_Graphics_ComboBox[loop]);
     }
-    for(size_t loop = 4; loop < 6; ++loop)
+    for (size_t loop = 4; loop < 6; ++loop)
     {
         Tasks_Graphics_ComboBox[loop] = new LinkedComboBox(Units_Scroller, Tasks_Graphics[loop], &sound_names);
         SoundComboBoxList.push_back(Tasks_Graphics_ComboBox[loop]);
@@ -4819,8 +5120,15 @@ void AGE_Frame::CreateUnitControls()
     Tasks_WorkFlag2_Text = new SolidText(Units_Scroller, " Work Flag 2 *");
     Tasks_WorkFlag2 = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnitTask);
     Tasks_WorkFlag2->SetToolTip("Unused");
+    // Enabled
+    Tasks_Enabled_Holder = new wxBoxSizer(wxVERTICAL);
+    Tasks_Enabled = new NumberControl(CShort, Units_Scroller, this, &uiGroupUnitTask);
+    Tasks_Enabled_Text = new SolidText(Units_Scroller, "Enabled *");
+    Tasks_Enabled->SetToolTip("If the value of this dropdown is -1, the task is enabled. If the dropdown is set to a custom resource, the following applies: if the value of this resource is <=0, disable the task, if >0, enable it.");
+    Tasks_Enabled_ComboBox = new LinkedComboBox(Units_Scroller, Tasks_Enabled, &resource_names);
+    ResourceComboBoxList.push_back(Tasks_Enabled_ComboBox);
 
-//  UnitControls actual interface
+    //  UnitControls actual interface
 
     unit_type_names.Add("No Type/Invalid Type");
     unit_type_names.Add("10 - Eye Candy");// Static
@@ -4859,11 +5167,11 @@ void AGE_Frame::CreateUnitControls()
     Units_Searches[1]->Add(Units_UseAnd[1], 0, wxLEFT, 2);
 
     Units_Units->Add(Units_Civs_List, 0, wxEXPAND | wxBOTTOM, 2);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Units_Units->Add(Units_Searches[loop], 0, wxEXPAND);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Units_Units->Add(Units_Searches[loop], 0, wxEXPAND);
     Units_Units->Add(Units_FilterSelector, 0, wxEXPAND);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Units_Units->Add(Units_SearchFilters[loop], 0, wxEXPAND);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Units_Units->Add(Units_SearchFilters[loop], 0, wxEXPAND);
     Units_Units->Add(Units_ListV, 1, wxEXPAND | wxBOTTOM | wxTOP, 2);
     Units_Units->Add(Units_Buttons, 0, wxEXPAND);
     Units_Units->Add(Units_Buttons1, 0, wxEXPAND);
@@ -4877,7 +5185,7 @@ void AGE_Frame::CreateUnitControls()
     Units_Type_Holder->Add(Units_Class);
     Units_Type_Holder->Add(Units_Class_ComboBox[0]);
 
-//  Type 10+
+    //  Type 10+
 
     Units_ID1_Holder->Add(Units_ID1_Text);
     Units_HitPoints_Holder->Add(Units_HitPoints_Text);
@@ -4924,11 +5232,11 @@ void AGE_Frame::CreateUnitControls()
     Units_BaseID_Holder->Add(Units_BaseID_Text);
     Units_TelemetryID_Holder->Add(Units_TelemetryID_Text);
 
-//  Type 20+
+    //  Type 20+
 
     Units_Speed_Holder->Add(Units_Speed_Text);
 
-//  Type 30+
+    //  Type 30+
 
     Units_RotationSpeed_Holder->Add(Units_RotationSpeed_Text);
     Units_SizeClass_Holder->Add(Units_SizeClass_Text);
@@ -4938,7 +5246,7 @@ void AGE_Frame::CreateUnitControls()
     Units_MoveAlgorithm_Holder->Add(Units_MoveAlgorithm_Text);
     Units_RotationAngles_Holder->Add(Units_RotationAngles_Text);
 
-//  Type 40+
+    //  Type 40+
 
     Units_SearchRadius_Holder->Add(Units_SearchRadius_Text);
     Units_TaskSwapGroup_Holder->Add(Units_TaskSwapGroup_Text);
@@ -4946,7 +5254,7 @@ void AGE_Frame::CreateUnitControls()
     Units_MoveSound_Holder->Add(Units_MoveSound_Text);
     Units_Exists_Holder->Add(Units_Exists_Text);
 
-//  Type 50+
+    //  Type 50+
 
     Units_BaseArmor_Holder->Add(Units_BaseArmor_Text);
     Units_DefenseTerrainBonus_Holder->Add(Units_DefenseTerrainBonus_Text);
@@ -4971,7 +5279,7 @@ void AGE_Frame::CreateUnitControls()
     Units_DisplayedRange_Holder->Add(Units_DisplayedRange_Text);
     Units_DisplayedReloadTime_Holder->Add(Units_DisplayedReloadTime_Text);
 
-//  Type 60 only
+    //  Type 60 only
 
     Units_ProjectileType_Holder->Add(Units_ProjectileType_Text);
     Units_SmartMode_Holder->Add(Units_SmartMode_Text);
@@ -4980,16 +5288,13 @@ void AGE_Frame::CreateUnitControls()
     Units_AreaEffectSpecials_Holder->Add(Units_AreaEffectSpecials_Text);
     Units_ProjectileArc_Holder->Add(Units_ProjectileArc_Text);
 
-//  Type 70+
+    //  Type 70+
 
     Unit_Cost_Texts->Add(Units_CostType_Text);
     Unit_Cost_Texts->AddSpacer(35);
     Unit_Cost_Texts->Add(Units_CostAmount_Text);
     Unit_Cost_Texts->AddSpacer(15);
     Unit_Cost_Texts->Add(Units_CostUsed_Text);
-    Units_TrainTime_Holder->Add(Units_TrainTime_Text);
-    Units_TrainLocationID_Holder->Add(Units_TrainLocationID_Text);
-    Units_ButtonID_Holder->Add(Units_ButtonID_Text);
     Units_RearAttackModifier_Holder->Add(Units_RearAttackModifier_Text);
     Units_FlankAttackModifier_Holder->Add(Units_FlankAttackModifier_Text);
     Units_CreatableType_Holder->Add(Units_CreatableType_Text);
@@ -5009,7 +5314,7 @@ void AGE_Frame::CreateUnitControls()
     Units_HeroGlowGraphic_Holder->Add(Units_HeroGlowGraphic_Text);
     Units_IdleAttackGraphic_Holder->Add(Units_IdleAttackGraphic_Text);
 
-//  Type 80
+    //  Type 80
 
     Units_ConstructionGraphicID_Holder->Add(Units_ConstructionGraphicID_Text);
     Units_SnowGraphicID_Holder->Add(Units_SnowGraphicID_Text);
@@ -5033,15 +5338,15 @@ void AGE_Frame::CreateUnitControls()
     Units_PileUnit_Holder->Add(Units_PileUnit_Text);
     Units_LootSwitch_Holder->Add(Units_LootSwitch_Text);
 
-//  Type 10+
+    //  Type 10+
 
     Units_ID1_Holder->Add(Units_ID1);
     Units_UndeadMode_Holder->Add(Units_UndeadMode);
     Units_UndeadMode_Holder->Add(Units_UndeadMode_CheckBox, 0, wxLEFT, 2);
     Units_HitPoints_Holder->Add(Units_HitPoints);
     Units_LineOfSight_Holder->Add(Units_LineOfSight);
-    for(size_t loop = 0; loop < 3; ++loop)
-    Units_SizeRadius_Grid->Add(Units_SizeRadius[loop]);
+    for (size_t loop = 0; loop < 3; ++loop)
+        Units_SizeRadius_Grid->Add(Units_SizeRadius[loop]);
     Units_MinCollisionSizeMultiplier_Holder->Add(Units_MinCollisionSizeMultiplier);
     Units_SizeRadius_Holder->Add(Units_SizeRadius_Grid);
     Units_DeadUnitID_Holder->Add(Units_DeadUnitID, 0, wxEXPAND);
@@ -5059,18 +5364,18 @@ void AGE_Frame::CreateUnitControls()
     Units_Enabled_Holder->Add(Units_Enabled_CheckBox, 0, wxLEFT, 2);
     Units_Disabled_Holder->Add(Units_Disabled);
     Units_Disabled_Holder->Add(Units_Disabled_CheckBox, 0, wxLEFT, 2);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Units_PlacementSideTerrainGrid_Holder->Add(Units_PlacementSideTerrain[loop], 0, wxEXPAND);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Units_PlacementSideTerrainGrid_Holder->Add(Units_PlacementSideTerrain_ComboBox[loop]);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Units_PlacementSideTerrainGrid_Holder->Add(Units_PlacementSideTerrain[loop], 0, wxEXPAND);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Units_PlacementSideTerrainGrid_Holder->Add(Units_PlacementSideTerrain_ComboBox[loop]);
     Units_PlacementSideTerrain_Holder->Add(Units_PlacementSideTerrainGrid_Holder);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Units_PlacementTerrainGrid_Holder->Add(Units_PlacementTerrain[loop], 0, wxEXPAND);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Units_PlacementTerrainGrid_Holder->Add(Units_PlacementTerrain_ComboBox[loop]);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Units_PlacementTerrainGrid_Holder->Add(Units_PlacementTerrain[loop], 0, wxEXPAND);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Units_PlacementTerrainGrid_Holder->Add(Units_PlacementTerrain_ComboBox[loop]);
     Units_PlacementTerrain_Holder->Add(Units_PlacementTerrainGrid_Holder);
-    for(size_t loop = 0; loop < 2; ++loop)
-    Units_ClearanceSize_Grid->Add(Units_ClearanceSize[loop]);
+    for (size_t loop = 0; loop < 2; ++loop)
+        Units_ClearanceSize_Grid->Add(Units_ClearanceSize[loop]);
     Units_ClearanceSize_Holder->Add(Units_ClearanceSize_Grid);
     Units_HillMode_Holder->Add(Units_HillMode);
     Units_FogVisibility_Holder->Add(Units_FogVisibility_Text);
@@ -5106,8 +5411,8 @@ void AGE_Frame::CreateUnitControls()
     Units_Nothing_Holder->Add(Units_Nothing);
     Units_SelectionEffect_Holder->Add(Units_SelectionEffect);
     Units_EditorSelectionColour_Holder->Add(Units_EditorSelectionColour, 0, wxEXPAND);
-    for(size_t loop = 0; loop < 3; ++loop)
-    Units_SelectionRadiusBox->Add(Units_SelectionRadius[loop]);
+    for (size_t loop = 0; loop < 3; ++loop)
+        Units_SelectionRadiusBox->Add(Units_SelectionRadius[loop]);
     Units_SelectionRadius_Holder->Add(Units_SelectionRadiusBox);
     Units_SelectionSound_Holder->Add(Units_WwiseSelectionSound, 0, wxEXPAND);
     Units_SelectionSound_Holder->Add(Units_SelectionSound, 0, wxEXPAND);
@@ -5127,11 +5432,11 @@ void AGE_Frame::CreateUnitControls()
     Units_BaseID_Holder->Add(Units_BaseID);
     Units_TelemetryID_Holder->Add(Units_TelemetryID);
 
-//  Type 20+
+    //  Type 20+
 
     Units_Speed_Holder->Add(Units_Speed);
 
-//  Type 30+
+    //  Type 30+
 
     Units_RotationSpeed_Holder->Add(Units_RotationSpeed);
     Units_SizeClass_Holder->Add(Units_SizeClass);
@@ -5140,13 +5445,13 @@ void AGE_Frame::CreateUnitControls()
     Units_TrackingUnitMode_Holder->Add(Units_TrackingUnitMode, 0, wxEXPAND);
     Units_TrackingUnitDensity_Holder->Add(Units_TrackingUnitDensity, 0, wxEXPAND);
     Units_MoveAlgorithm_Holder->Add(Units_MoveAlgorithm);
-    for(size_t loop = 0; loop < Units_RotationAngles.size(); ++loop)
-    Units_RotationAngles_Grid->Add(Units_TurnStats_Text[loop]);
-    for(size_t loop = 0; loop < Units_RotationAngles.size(); ++loop)
-    Units_RotationAngles_Grid->Add(Units_RotationAngles[loop]);
+    for (size_t loop = 0; loop < Units_RotationAngles.size(); ++loop)
+        Units_RotationAngles_Grid->Add(Units_TurnStats_Text[loop]);
+    for (size_t loop = 0; loop < Units_RotationAngles.size(); ++loop)
+        Units_RotationAngles_Grid->Add(Units_RotationAngles[loop]);
     Units_RotationAngles_Holder->Add(Units_RotationAngles_Grid);
 
-//  Type 40+
+    //  Type 40+
 
     Units_DefaultTaskID_Holder->Add(Units_DefaultTaskID_Text);
     Units_DefaultTaskID_Holder->Add(Units_DefaultTaskID, 0, wxEXPAND);
@@ -5163,7 +5468,7 @@ void AGE_Frame::CreateUnitControls()
     Units_RunPattern_Holder->Add(Units_RunPattern);
     Units_Exists_Holder->Add(Units_Exists);
 
-//  Type 50+
+    //  Type 50+
 
     Units_BaseArmor_Holder->Add(Units_BaseArmor);
     Units_DefenseTerrainBonus_Holder->Add(Units_DefenseTerrainBonus, 0, wxEXPAND);
@@ -5176,8 +5481,8 @@ void AGE_Frame::CreateUnitControls()
     Units_TowerMode_Holder->Add(Units_TowerMode_Text);
     Units_TowerMode_Holder->Add(Units_TowerMode);
     Units_Delay_Holder->Add(Units_Delay);
-    for(size_t loop = 0; loop < 3; ++loop)
-    Units_GraphicDisplacement_Grid->Add(Units_GraphicDisplacement[loop]);
+    for (size_t loop = 0; loop < 3; ++loop)
+        Units_GraphicDisplacement_Grid->Add(Units_GraphicDisplacement[loop]);
     Units_GraphicDisplacement_Holder->Add(Units_GraphicDisplacement_Grid);
     Units_BlastAttackLevel_Holder->Add(Units_BlastAttackLevel);
     Units_BlastDamage_Holder->Add(Units_BlastDamage);
@@ -5196,7 +5501,7 @@ void AGE_Frame::CreateUnitControls()
     Units_AttackGraphic2_Holder->Add(Units_AttackGraphic2_ComboBox);
 
 
-//  Type 60 only
+    //  Type 60 only
 
     Units_ProjectileType_Holder->Add(Units_ProjectileType);
     Units_SmartMode_Holder->Add(Units_SmartMode);
@@ -5205,11 +5510,11 @@ void AGE_Frame::CreateUnitControls()
     Units_AreaEffectSpecials_Holder->Add(Units_AreaEffectSpecials);
     Units_ProjectileArc_Holder->Add(Units_ProjectileArc);
 
-//  Type 70+
+    //  Type 70+
 
-    for(size_t loop = 0; loop < 3; ++loop)
+    for (size_t loop = 0; loop < 3; ++loop)
     {
-        wxBoxSizer *sizer_cost = new wxBoxSizer(wxHORIZONTAL);
+        wxBoxSizer* sizer_cost = new wxBoxSizer(wxHORIZONTAL);
         sizer_cost->Add(Units_CostUsed[loop]);
         sizer_cost->Add(Units_CostUsed_CheckBox[loop], 0, wxLEFT, 5);
         Unit_Cost_Sizers[loop]->Add(Units_CostType[loop], 0, wxEXPAND);
@@ -5217,10 +5522,6 @@ void AGE_Frame::CreateUnitControls()
         Unit_Cost_Sizers[loop]->Add(Units_CostAmount[loop], 0, wxEXPAND | wxTOP, 5);
         Unit_Cost_Sizers[loop]->Add(sizer_cost, 0, wxEXPAND | wxTOP, 5);
     }
-    Units_TrainTime_Holder->Add(Units_TrainTime);
-    Units_TrainLocationID_Holder->Add(Units_TrainLocationID, 0, wxEXPAND);
-    Units_TrainLocationID_Holder->Add(Units_TrainLocationID_ComboBox);
-    Units_ButtonID_Holder->Add(Units_ButtonID);
     Units_RearAttackModifier_Holder->Add(Units_RearAttackModifier);
     Units_FlankAttackModifier_Holder->Add(Units_FlankAttackModifier);
     Units_CreatableType_Holder->Add(Units_CreatableType);
@@ -5228,8 +5529,8 @@ void AGE_Frame::CreateUnitControls()
     Units_HeroMode_Holder->Add(Units_HeroMode_CheckBox, 0, wxLEFT, 2);
     Units_MissileCount_Holder->Add(Units_MissileCount);
     Units_MissileDuplicationCount_Holder->Add(Units_MissileDuplicationCount, 0, wxEXPAND);
-    for(size_t loop = 0; loop < 3; ++loop)
-    Units_AttackMissileDuplicationSpawning_Grid->Add(Units_AttackMissileDuplicationSpawning[loop]);
+    for (size_t loop = 0; loop < 3; ++loop)
+        Units_AttackMissileDuplicationSpawning_Grid->Add(Units_AttackMissileDuplicationSpawning[loop]);
     Units_AttackMissileDuplicationSpawning_Holder->Add(Units_AttackMissileDuplicationSpawning_Grid);
     Units_ChargingMode_Holder->Add(Units_ChargingMode);
     Units_AttackPriority_Holder->Add(Units_AttackPriority);
@@ -5248,7 +5549,7 @@ void AGE_Frame::CreateUnitControls()
     Units_IdleAttackGraphic_Holder->Add(Units_IdleAttackGraphic, 0, wxEXPAND);
     Units_IdleAttackGraphic_Holder->Add(Units_IdleAttackGraphic_ComboBox);
 
-//  Type 80
+    //  Type 80
 
     Units_ConstructionGraphicID_Holder->Add(Units_ConstructionGraphicID, 0, wxEXPAND);
     Units_ConstructionGraphicID_Holder->Add(Units_ConstructionGraphicID_ComboBox);
@@ -5275,15 +5576,15 @@ void AGE_Frame::CreateUnitControls()
     Units_ResearchID_Holder->Add(Units_ResearchID, 0, wxEXPAND);
     Units_ResearchID_Holder->Add(Units_ResearchID_ComboBox);
     Units_CanBurn_Holder->Add(Units_CanBurn);
-    for(size_t loop = 0; loop < 4; ++loop)
-    Units_AnnexUnit_Grid->Add(Units_AnnexUnit[loop], 0, wxEXPAND);
-    for(size_t loop = 0; loop < 4; ++loop)
-    Units_AnnexUnit_Grid->Add(Units_AnnexUnit_ComboBox[loop]);
+    for (size_t loop = 0; loop < 4; ++loop)
+        Units_AnnexUnit_Grid->Add(Units_AnnexUnit[loop], 0, wxEXPAND);
+    for (size_t loop = 0; loop < 4; ++loop)
+        Units_AnnexUnit_Grid->Add(Units_AnnexUnit_ComboBox[loop]);
     Units_AnnexUnit1_Holder->Add(Units_AnnexUnit_Grid);
-    for(size_t loop = 0; loop < 4; ++loop)
-    Units_AnnexUnitMisplacement_Grid->Add(Units_AnnexUnitMisplacement[loop][0]);
-    for(size_t loop = 0; loop < 4; ++loop)
-    Units_AnnexUnitMisplacement_Grid->Add(Units_AnnexUnitMisplacement[loop][1]);
+    for (size_t loop = 0; loop < 4; ++loop)
+        Units_AnnexUnitMisplacement_Grid->Add(Units_AnnexUnitMisplacement[loop][0]);
+    for (size_t loop = 0; loop < 4; ++loop)
+        Units_AnnexUnitMisplacement_Grid->Add(Units_AnnexUnitMisplacement[loop][1]);
     Units_AnnexUnitMisplacement1_Holder->Add(Units_AnnexUnitMisplacement_Grid);
     Units_HeadUnit_Holder->Add(Units_HeadUnit, 0, wxEXPAND);
     Units_HeadUnit_Holder->Add(Units_HeadUnit_ComboBox);
@@ -5298,8 +5599,8 @@ void AGE_Frame::CreateUnitControls()
     Units_GarrisonRepairRate_Holder->Add(Units_GarrisonRepairRate);
     Units_PileUnit_Holder->Add(Units_PileUnit, 0, wxEXPAND);
     Units_PileUnit_Holder->Add(Units_PileUnit_ComboBox);
-    for(size_t loop = 0; loop < Units_LootSwitch.size(); ++loop)
-    Units_LootSwitch_Grid->Add(Units_LootSwitch[loop]);
+    for (size_t loop = 0; loop < Units_LootSwitch.size(); ++loop)
+        Units_LootSwitch_Grid->Add(Units_LootSwitch[loop]);
     Units_LootSwitch_Holder->Add(Units_LootSwitch_Grid);
 
     Units_ResourceStorage_Texts->Add(ResourceStorage_Type_Text);
@@ -5307,7 +5608,7 @@ void AGE_Frame::CreateUnitControls()
     Units_ResourceStorage_Texts->Add(ResourceStorage_Amount_Text);
     Units_ResourceStorage_Texts->AddSpacer(15);
     Units_ResourceStorage_Texts->Add(ResourceStorage_Mode_Text);
-    for(size_t loop = 0; loop < 3; ++loop)
+    for (size_t loop = 0; loop < 3; ++loop)
     {
         Units_ResourceStorage_Holder[loop]->Add(ResourceStorage_Type[loop], 0, wxEXPAND);
         Units_ResourceStorage_Holder[loop]->Add(ResourceStorage_Type_ComboBox[loop]);
@@ -5407,6 +5708,9 @@ void AGE_Frame::CreateUnitControls()
     Tasks_CarryCheck_Holder->Add(Tasks_CarryCheck);
     Tasks_PickForConstruction_Holder->Add(Tasks_PickForConstruction_Text);
     Tasks_PickForConstruction_Holder->Add(Tasks_PickForConstruction);
+    Tasks_Enabled_Holder->Add(Tasks_Enabled_Text);
+    Tasks_Enabled_Holder->Add(Tasks_Enabled, 0, wxEXPAND);
+    Tasks_Enabled_Holder->Add(Tasks_Enabled_ComboBox);
 
     Units_TypeArea_Holder->Add(Units_Name_Holder);
     Units_TypeArea_Holder->Add(Units_Name2_Holder, 0, wxLEFT, 5);
@@ -5429,13 +5733,9 @@ void AGE_Frame::CreateUnitControls()
     Units_LanguageDLLHotKeyText_Holder->Add(Units_LanguageDLLHotKeyText, 0, wxEXPAND);
     Units_LanguageDLLConverter_Holder[1]->Add(Units_LanguageDLLConverter_Text[1]);
     Units_LanguageDLLConverter_Holder[1]->Add(Units_LanguageDLLConverter[1], 0, wxEXPAND);
-    Units_HotKey_Holder->Add(Units_HotKey_Text);
-    Units_HotKey_Holder->Add(Units_HotKey, 0, wxEXPAND);
-    Units_HotKey_Holder->Add(Units_DLL_HotKey4);
 
     Units_LangRegular_Holder->Add(Units_LanguageDLLName_Holder);
     Units_LangRegular_Holder->Add(Units_LanguageDLLCreation_Holder, 0, wxLEFT, 5);
-    Units_LangRegular_Holder->Add(Units_HotKey_Holder, 0, wxLEFT, 5);
     Units_LangHotKey_Holder->Add(Units_LanguageDLLHelp_Holder);
     Units_LangHotKey_Holder->Add(Units_LanguageDLLConverter_Holder[0], 0, wxLEFT, 5);
     Units_LangHotKey_Holder->Add(Units_LanguageDLLHotKeyText_Holder, 0, wxLEFT, 5);
@@ -5720,8 +6020,8 @@ void AGE_Frame::CreateUnitControls()
     Units_AS1_Grid->Add(Units_SelectionEffect_Holder, 0, wxRIGHT, 5);
     Units_AS1_Grid->Add(Units_EditorSelectionColour_Holder);
     Units_ResourceStorageHeader_Holder->Add(Units_ResourceStorage_Texts);
-    for (wxBoxSizer *&sizer : Units_ResourceStorage_Holder)
-    Units_ResourceStorageHeader_Holder->Add(sizer, 0, wxLEFT, 5);
+    for (wxBoxSizer*& sizer : Units_ResourceStorage_Holder)
+        Units_ResourceStorageHeader_Holder->Add(sizer, 0, wxLEFT, 5);
     Units_A2_Grid->Add(Units_Civ_Holder, 0, wxLEFT, 5);
     Units_A2_Grid->Add(Units_Nothing_Holder, 0, wxLEFT, 5);
     Units_A1_Grid->Add(Units_DeadUnitID_Holder);
@@ -5735,11 +6035,52 @@ void AGE_Frame::CreateUnitControls()
     Units_Tracking_Grid->Add(Units_TrackingUnitMode_Holder, 0, wxLEFT, 5);
     Units_Tracking_Grid->Add(Units_TrackingUnitDensity_Holder, 0, wxLEFT, 5);
     Units_CostHeader_Holder->Add(Unit_Cost_Texts);
-    for (wxBoxSizer *&sizer : Unit_Cost_Sizers)
-    Units_CostHeader_Holder->Add(sizer, 0, wxLEFT, 5);
+    for (wxBoxSizer*& sizer : Unit_Cost_Sizers)
+        Units_CostHeader_Holder->Add(sizer, 0, wxLEFT, 5);
+
+    // Train Locations
+
+    // Unit ID
+    TrainLocations_UnitID_Holder->Add(TrainLocations_UnitID_Text);
+    TrainLocations_UnitID_Holder->Add(TrainLocations_UnitID, 0, wxEXPAND);
+    TrainLocations_UnitID_Holder->Add(TrainLocations_UnitID_ComboBox);
+    // Train Time
+    TrainLocations_TrainTime_Holder->Add(TrainLocations_TrainTime_Text);
+    TrainLocations_TrainTime_Holder->Add(TrainLocations_TrainTime);
+    // Button ID
+    TrainLocations_ButtonID_Holder->Add(TrainLocations_ButtonID_Text);
+    TrainLocations_ButtonID_Holder->Add(TrainLocations_ButtonID);
+    // Hotkey ID
+    TrainLocations_HotkeyID_Holder->Add(TrainLocations_HotkeyID_Text);
+    TrainLocations_HotkeyID_Holder->Add(TrainLocations_HotkeyID);
+
+    // Buttons
+    Units_TrainLocations_Buttons->Add(Units_TrainLocations_Add, 1, wxEXPAND);
+    Units_TrainLocations_Buttons->Add(Units_TrainLocations_Delete, 1, wxEXPAND);
+    Units_TrainLocations_Buttons->Add(Units_TrainLocations_Insert, 1, wxEXPAND);
+    Units_TrainLocations_Buttons->Add(Units_TrainLocations_Copy, 1, wxEXPAND);
+    Units_TrainLocations_Buttons->Add(Units_TrainLocations_Paste, 1, wxEXPAND);
+    Units_TrainLocations_Buttons->Add(Units_TrainLocations_PasteInsert, 1, wxEXPAND);
+
+    // List area
+    Units_TrainLocations_ListArea->Add(Units_TrainLocations_Search, 0, wxEXPAND);
+    Units_TrainLocations_ListArea->Add(Units_TrainLocations_Search_R, 0, wxEXPAND);
+    Units_TrainLocations_ListArea->Add(Units_TrainLocations_ListV, 1, wxEXPAND | wxBOTTOM | wxTOP, 2);
+    Units_TrainLocations_ListArea->Add(Units_TrainLocations_Buttons, 0, wxEXPAND);
+    Units_TrainLocations_ListArea->Add(Units_TrainLocations_CopyToUnits, 0, wxEXPAND | wxTOP, 2);
+
+    // Data area
+    Units_TrainLocations_DataArea->Add(TrainLocations_UnitID_Holder);
+    Units_TrainLocations_DataArea->Add(TrainLocations_TrainTime_Holder, 0, wxTOP, 5);
+    Units_TrainLocations_DataArea->Add(TrainLocations_ButtonID_Holder, 0, wxTOP, 5);
+    Units_TrainLocations_DataArea->Add(TrainLocations_HotkeyID_Holder, 0, wxTOP, 5);
+
+    Units_TrainLocations->Add(Units_TrainLocations_ListArea,1, wxEXPAND);
+    Units_TrainLocations->Add(Units_TrainLocations_DataArea, 1, wxLEFT, 5);
+   
     Units_Training_Grid->Add(Units_InterfaceKind_Holder);
-    Units_Training_Grid->Add(Units_TrainTime_Holder, 0, wxLEFT, 5);
-    Units_Training_Grid->Add(Units_TrainLocationID_Holder, 0, wxLEFT, 5);
+    Units_Training_Grid->Add(Units_TrainLocations, 1, wxEXPAND, 5);
+
     Units_A3_Grid->Add(Units_StackUnitID_Holder);
     Units_A5_Grid->Add(Units_TerrainID_Holder);
     Units_A5_Grid->Add(Units_ResearchID_Holder);
@@ -5747,7 +6088,6 @@ void AGE_Frame::CreateUnitControls()
     Units_A3_Grid->Add(Units_HeadUnit_Holder, 0, wxLEFT, 5);
     Units_A3_Grid->Add(Units_TransformUnit_Holder, 0, wxLEFT, 5);
     Units_A3_Grid->Add(Units_PileUnit_Holder, 0, wxLEFT, 5);
-    Units_Training_Grid->Add(Units_ButtonID_Holder, 0, wxLEFT, 5);
     Units_AS2_Holder->Add(Units_SelectionRadius_Holder);
     Units_AS2_Holder->Add(Units_ClearanceSize_Holder, 0, wxLEFT, 5);
 
@@ -5763,7 +6103,7 @@ void AGE_Frame::CreateUnitControls()
     Units_Attributes_Holder->Add(Units_AS1_Grid, 0, wxTOP, 5);
     Units_Attributes_Holder->Add(Units_Tracking_Grid, 0, wxTOP, 5);
     Units_Attributes_Holder->Add(Units_RotationAngles_Holder, 0, wxTOP, 5);
-    Units_Attributes_Holder->Add(Units_Training_Grid, 0, wxTOP, 5);
+    Units_Attributes_Holder->Add(Units_Training_Grid, 0, wxEXPAND, 5);
     Units_Attributes_Holder->Add(Units_ResourceStorageHeader_Holder, 0, wxTOP, 5);
     Units_Attributes_Holder->Add(Units_CostHeader_Holder, 0, wxTOP, 5);
     Units_Attributes_Holder->Add(Units_A3_Grid, 0, wxTOP, 5);
@@ -5844,19 +6184,19 @@ void AGE_Frame::CreateUnitControls()
     Tasks_Known3->Add(Tasks_WorkValue2_Holder, 0, wxLEFT, 5);
     Tasks_Known3->Add(Tasks_WorkRange_Holder, 0, wxLEFT, 5);
 
-    for(size_t loop = 0; loop < Tasks_Graphics.size(); ++loop)
+    for (size_t loop = 0; loop < Tasks_Graphics.size(); ++loop)
     {
         Tasks_Graphics_Holder[loop]->Add(Tasks_Graphics_Text[loop]);
-        if(loop == 4)
+        if (loop == 4)
         {
-            wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
+            wxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
             sizer->Add(Tasks_Graphics[loop], 1, wxEXPAND);
             sizer->Add(Tasks_WwiseResourceGatheringSound, 2, wxEXPAND);
             Tasks_Graphics_Holder[loop]->Add(sizer, 0, wxEXPAND);
         }
-        else if(loop == 5)
+        else if (loop == 5)
         {
-            wxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
+            wxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
             sizer->Add(Tasks_Graphics[loop], 1, wxEXPAND);
             sizer->Add(Tasks_WwiseResourceDepositSound, 2, wxEXPAND);
             Tasks_Graphics_Holder[loop]->Add(sizer, 0, wxEXPAND);
@@ -5878,6 +6218,7 @@ void AGE_Frame::CreateUnitControls()
     Tasks_Known5->Add(Tasks_SearchWaitTime_Holder);
     Tasks_Known5->Add(Tasks_CombatLevelFlag_Holder);
     Tasks_Known5->Add(Tasks_WorkFlag2_Holder);
+    Tasks_Known5->Add(Tasks_Enabled_Holder);
 
     TaskHolder_Data->Add(Tasks_Known1);
     TaskHolder_Data->Add(Tasks_Known2, 0, wxTOP | wxLEFT, 5);
@@ -5932,479 +6273,479 @@ void AGE_Frame::CreateUnitControls()
     Units_Search->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitsSearch, this);
     Units_Search_R->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitsSearch, this);
     Units_FilterSelector->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&)
-    {
-        if (dataset != nullptr)
         {
-            ListUnits(UnitCivID, false);
-            Units_Search->SetFocus();
-        }
-    });
-    for(size_t loop = 0; loop < 2; ++loop)
+            if (dataset != nullptr)
+            {
+                ListUnits(UnitCivID, false);
+                Units_Search->SetFocus();
+            }
+        });
+    for (size_t loop = 0; loop < 2; ++loop)
     {
         Units_UseAnd[loop]->Bind(wxEVT_CHECKBOX, &AGE_Frame::OnUnitsSearch, this);
         Units_SearchFilters[loop]->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&)
-        {
-            ListUnits(UnitCivID, false);
-            Units_Search->SetFocus();
-        });
+            {
+                ListUnits(UnitCivID, false);
+                Units_Search->SetFocus();
+            });
     }
     Units_Civs_List->Bind(wxEVT_COMBOBOX, &AGE_Frame::OnUnitsSearch, this);
     Units_ListV->Bind(wxEVT_LISTBOX, &AGE_Frame::OnUnitSelect, this);
 
     Units_Add->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        if(!dataset) return;
-
-        wxBusyCursor WaitCursor;
-        if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2)) // AoK, TC, SWGB or CC
         {
-            genie::UnitHeader Temp1;
-            Temp1.setGameVersion(GenieVersion);
-            dataset->UnitHeaders.push_back(Temp1);
-        }
+            if (!dataset) return;
 
-        genie::Unit Temp2;
-        Temp2.setGameVersion(GenieVersion);
-        for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
-        {
-            dataset->Civs[loop].Units.push_back(Temp2);
-            dataset->Civs[loop].UnitPointers.push_back(1);
-            dataset->Civs[loop].Units[dataset->Civs.front().Units.size()-1].ID = (int16_t)(dataset->Civs.front().Units.size()-1); // ID Fix
-            dataset->Civs[loop].Units[dataset->Civs.front().Units.size()-1].CopyID = (int16_t)(dataset->Civs.front().Units.size()-1);
-            if(GenieVersion >= genie::GV_AoK)
-            dataset->Civs[loop].Units[dataset->Civs.front().Units.size()-1].BaseID = (int16_t)(dataset->Civs.front().Units.size()-1);
-        }
-        How2List = ListMode::ADD;
-        ListUnits(UnitCivID);
+            wxBusyCursor WaitCursor;
+            if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2)) // AoK, TC, SWGB or CC
+            {
+                genie::UnitHeader Temp1;
+                Temp1.setGameVersion(GenieVersion);
+                dataset->UnitHeaders.push_back(Temp1);
+            }
 
-        if(GenieVersion < genie::GV_SWGB && dataset->Civs.front().Units.size() > 900) SetStatusText("Units between 900 and 1000 mess up the AI!", 0);
-    });
+            genie::Unit Temp2;
+            Temp2.setGameVersion(GenieVersion);
+            for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+            {
+                dataset->Civs[loop].Units.push_back(Temp2);
+                dataset->Civs[loop].UnitPointers.push_back(1);
+                dataset->Civs[loop].Units[dataset->Civs.front().Units.size() - 1].ID = (int16_t)(dataset->Civs.front().Units.size() - 1); // ID Fix
+                dataset->Civs[loop].Units[dataset->Civs.front().Units.size() - 1].CopyID = (int16_t)(dataset->Civs.front().Units.size() - 1);
+                if (GenieVersion >= genie::GV_AoK)
+                    dataset->Civs[loop].Units[dataset->Civs.front().Units.size() - 1].BaseID = (int16_t)(dataset->Civs.front().Units.size() - 1);
+            }
+            How2List = ListMode::ADD;
+            ListUnits(UnitCivID);
+
+            if (GenieVersion < genie::GV_SWGB && dataset->Civs.front().Units.size() > 900) SetStatusText("Units between 900 and 1000 mess up the AI!", 0);
+        });
 
     Units_Insert->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        size_t selections = Units_ListV->GetSelectedCount();
-        if (!selections) return;
-
-        wxBusyCursor WaitCursor;
-        if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))   // AoK, TC, SWGB or CC
         {
-            genie::UnitHeader Temp1;
-            Temp1.setGameVersion(GenieVersion);
-            dataset->UnitHeaders.insert(dataset->UnitHeaders.begin() + UnitIDs.front(), Temp1);
-        }
+            size_t selections = Units_ListV->GetSelectedCount();
+            if (!selections) return;
 
-        genie::Unit Temp2;
-        Temp2.setGameVersion(GenieVersion);
-        for(size_t loop = 0; loop < dataset->Civs.size(); ++loop)
-        {
-            dataset->Civs[loop].Units.insert(dataset->Civs[loop].Units.begin() + UnitIDs.front(), Temp2);
-            dataset->Civs[loop].UnitPointers.insert(dataset->Civs[loop].UnitPointers.begin() + UnitIDs.front(), 1);
-            for(size_t loop2 = UnitIDs.front();loop2 < dataset->Civs.front().Units.size(); ++loop2) // ID Fix
+            wxBusyCursor WaitCursor;
+            if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))   // AoK, TC, SWGB or CC
             {
-                dataset->Civs[loop].Units[loop2].ID = loop2;
-                dataset->Civs[loop].Units[loop2].CopyID = loop2;
-                if(GenieVersion >= genie::GV_AoK)
-                dataset->Civs[loop].Units[loop2].BaseID = loop2;
+                genie::UnitHeader Temp1;
+                Temp1.setGameVersion(GenieVersion);
+                dataset->UnitHeaders.insert(dataset->UnitHeaders.begin() + UnitIDs.front(), Temp1);
             }
-        }
-        How2List = ListMode::INSNEW;
-        ListUnits(UnitCivID);
-    });
+
+            genie::Unit Temp2;
+            Temp2.setGameVersion(GenieVersion);
+            for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+            {
+                dataset->Civs[loop].Units.insert(dataset->Civs[loop].Units.begin() + UnitIDs.front(), Temp2);
+                dataset->Civs[loop].UnitPointers.insert(dataset->Civs[loop].UnitPointers.begin() + UnitIDs.front(), 1);
+                for (size_t loop2 = UnitIDs.front();loop2 < dataset->Civs.front().Units.size(); ++loop2) // ID Fix
+                {
+                    dataset->Civs[loop].Units[loop2].ID = loop2;
+                    dataset->Civs[loop].Units[loop2].CopyID = loop2;
+                    if (GenieVersion >= genie::GV_AoK)
+                        dataset->Civs[loop].Units[loop2].BaseID = loop2;
+                }
+            }
+            How2List = ListMode::INSNEW;
+            ListUnits(UnitCivID);
+        });
 
     Units_Delete->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        size_t selections = Units_ListV->GetSelectedCount();
-        if (!selections) return;
-
-        wxBusyCursor WaitCursor;
-        if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
         {
-            DeleteFromList(dataset->UnitHeaders, UnitIDs);
-        }
+            size_t selections = Units_ListV->GetSelectedCount();
+            if (!selections) return;
 
-        for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
-        {
-            size_t baseId = 0;
-            for (size_t copyId = 0, rightId = 0, endId = dataset->Civs[civ].Units.size(), lastId = UnitIDs.size(); copyId < endId; ++copyId)
+            wxBusyCursor WaitCursor;
+            if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
             {
-                if (baseId != static_cast<size_t>(UnitIDs[rightId]))
-                {
-                    if (baseId != copyId)
-                    {
-                        dataset->Civs[civ].UnitPointers[baseId] = std::move(dataset->Civs[civ].UnitPointers[copyId]);
-                        dataset->Civs[civ].Units[baseId] = std::move(dataset->Civs[civ].Units[copyId]);
-                        dataset->Civs[civ].Units[baseId].ID = baseId;
-                        dataset->Civs[civ].Units[baseId].CopyID = baseId;
-                        dataset->Civs[civ].Units[baseId].BaseID = baseId;
-                    }
-                    ++baseId;
-                }
-                else
-                {
-                    if (rightId < lastId)
-                    {
-                        ++rightId;
-                    }
-                }
+                DeleteFromList(dataset->UnitHeaders, UnitIDs);
             }
-            dataset->Civs[civ].UnitPointers.resize(baseId);
-            dataset->Civs[civ].Units.resize(baseId);
+
+            for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
+            {
+                size_t baseId = 0;
+                for (size_t copyId = 0, rightId = 0, endId = dataset->Civs[civ].Units.size(), lastId = UnitIDs.size(); copyId < endId; ++copyId)
+                {
+                    if (baseId != static_cast<size_t>(UnitIDs[rightId]))
+                    {
+                        if (baseId != copyId)
+                        {
+                            dataset->Civs[civ].UnitPointers[baseId] = std::move(dataset->Civs[civ].UnitPointers[copyId]);
+                            dataset->Civs[civ].Units[baseId] = std::move(dataset->Civs[civ].Units[copyId]);
+                            dataset->Civs[civ].Units[baseId].ID = baseId;
+                            dataset->Civs[civ].Units[baseId].CopyID = baseId;
+                            dataset->Civs[civ].Units[baseId].BaseID = baseId;
+                        }
+                        ++baseId;
+                    }
+                    else
+                    {
+                        if (rightId < lastId)
+                        {
+                            ++rightId;
+                        }
+                    }
+                }
+                dataset->Civs[civ].UnitPointers.resize(baseId);
+                dataset->Civs[civ].Units.resize(baseId);
+                How2List = ListMode::DEL;
+            }
             How2List = ListMode::DEL;
-        }
-        How2List = ListMode::DEL;
-        ListUnits(UnitCivID);
-    });
+            ListUnits(UnitCivID);
+        });
 
     Units_Copy->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        size_t selections = Units_ListV->GetSelectedCount();
-        if (!selections) return;
+        {
+            size_t selections = Units_ListV->GetSelectedCount();
+            if (!selections) return;
 
-        wxBusyCursor WaitCursor;
-        if(GenieVersion < genie::GV_AoK || GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2)
-        {
-            copies.Dat.AllCivs |= 0x08;
-        }
-        else
-        {
-            copies.Dat.AllCivs &= ~0x08;
-            copies.UnitHeader.resize(selections);
-            for(size_t loop = 0; loop < selections; ++loop)
-            copies.UnitHeader[loop] = dataset->UnitHeaders[UnitIDs[loop]];
-        }
-
-        size_t CivCount = dataset->Civs.size();
-        copies.Dat.UnitExists.resize(CivCount);
-        if (Units_SpecialCopy_Civs->GetValue())
-        {
-            copies.Dat.AllCivs |= 0x01;
-        }
-        else copies.Dat.AllCivs &= ~0x01;
-        if(copies.Dat.AllCivs & 0x01)
-        {
-            copies.Dat.UnitCopies.resize(CivCount);
-            for(size_t civ = 0; civ < CivCount; ++civ)
+            wxBusyCursor WaitCursor;
+            if (GenieVersion < genie::GV_AoK || GenieVersion >= genie::GV_C15 && GenieVersion <= genie::GV_LatestDE2)
             {
-                copies.Dat.UnitExists[civ].resize(selections);
-                copies.Dat.UnitCopies[civ].resize(selections);
-                for(size_t loop = 0; loop < selections; ++loop)
-                {
-                    copies.Dat.UnitExists[civ][loop] = (bool)dataset->Civs[civ].UnitPointers[UnitIDs[loop]];
-                    copies.Dat.UnitCopies[civ][loop] = dataset->Civs[civ].Units[UnitIDs[loop]];
-                }
+                copies.Dat.AllCivs |= 0x08;
             }
-        }
-        else
-        {
-            copies.Dat.UnitGraphics.resize(CivCount);
-            for(size_t civ = 0; civ < CivCount; ++civ)
+            else
             {
-                copies.Dat.UnitExists[civ].resize(selections);
-                if(AutoCopy && !CopyGraphics)
-                copies.Dat.UnitGraphics[civ].resize(selections);
-                for(size_t loop = 0; loop < selections; ++loop)
+                copies.Dat.AllCivs &= ~0x08;
+                copies.UnitHeader.resize(selections);
+                for (size_t loop = 0; loop < selections; ++loop)
+                    copies.UnitHeader[loop] = dataset->UnitHeaders[UnitIDs[loop]];
+            }
+
+            size_t CivCount = dataset->Civs.size();
+            copies.Dat.UnitExists.resize(CivCount);
+            if (Units_SpecialCopy_Civs->GetValue())
+            {
+                copies.Dat.AllCivs |= 0x01;
+            }
+            else copies.Dat.AllCivs &= ~0x01;
+            if (copies.Dat.AllCivs & 0x01)
+            {
+                copies.Dat.UnitCopies.resize(CivCount);
+                for (size_t civ = 0; civ < CivCount; ++civ)
                 {
-                    copies.Dat.UnitExists[civ][loop] = (bool)dataset->Civs[civ].UnitPointers[UnitIDs[loop]];
-                    if(AutoCopy && !CopyGraphics)
-                    {// Let's copy graphics separately.
-                        // Collects only graphic data, not all data again.
-                        UnitsGraphicsCopy(copies.Dat.UnitGraphics[civ][loop], civ, UnitIDs[loop]);
+                    copies.Dat.UnitExists[civ].resize(selections);
+                    copies.Dat.UnitCopies[civ].resize(selections);
+                    for (size_t loop = 0; loop < selections; ++loop)
+                    {
+                        copies.Dat.UnitExists[civ][loop] = (bool)dataset->Civs[civ].UnitPointers[UnitIDs[loop]];
+                        copies.Dat.UnitCopies[civ][loop] = dataset->Civs[civ].Units[UnitIDs[loop]];
                     }
                 }
             }
-            copies.Dat.UnitCopies.front().resize(selections);
-            for(size_t loop = 0; loop < selections; ++loop)
-            copies.Dat.UnitCopies.front()[loop] = dataset->Civs[UnitCivID].Units[UnitIDs[loop]];
-        }
-        Units_ListV->SetFocus();
-    });
+            else
+            {
+                copies.Dat.UnitGraphics.resize(CivCount);
+                for (size_t civ = 0; civ < CivCount; ++civ)
+                {
+                    copies.Dat.UnitExists[civ].resize(selections);
+                    if (AutoCopy && !CopyGraphics)
+                        copies.Dat.UnitGraphics[civ].resize(selections);
+                    for (size_t loop = 0; loop < selections; ++loop)
+                    {
+                        copies.Dat.UnitExists[civ][loop] = (bool)dataset->Civs[civ].UnitPointers[UnitIDs[loop]];
+                        if (AutoCopy && !CopyGraphics)
+                        {// Let's copy graphics separately.
+                            // Collects only graphic data, not all data again.
+                            UnitsGraphicsCopy(copies.Dat.UnitGraphics[civ][loop], civ, UnitIDs[loop]);
+                        }
+                    }
+                }
+                copies.Dat.UnitCopies.front().resize(selections);
+                for (size_t loop = 0; loop < selections; ++loop)
+                    copies.Dat.UnitCopies.front()[loop] = dataset->Civs[UnitCivID].Units[UnitIDs[loop]];
+            }
+            Units_ListV->SetFocus();
+        });
 
     Units_SpecialCopy->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        size_t selections = Units_ListV->GetSelectedCount();
-        if (!selections) return;
+        {
+            size_t selections = Units_ListV->GetSelectedCount();
+            if (!selections) return;
 
-        wxBusyCursor WaitCursor;
-        if (Units_SpecialCopy_Civs->GetValue())
-        {
-            copies.Dat.AllCivs |= 0x02;
-        }
-        else copies.Dat.AllCivs &= ~0x02;
-        if(copies.Dat.AllCivs & 0x02)
-        {
-            size_t CivCount = dataset->Civs.size();
-            copies.Dat.UnitGraphics.resize(CivCount);
-            for(size_t civ = 0; civ < CivCount; ++civ)
+            wxBusyCursor WaitCursor;
+            if (Units_SpecialCopy_Civs->GetValue())
             {
-                copies.Dat.UnitGraphics[civ].resize(selections);
-                for(size_t loop = 0; loop < selections; ++loop)
-                UnitsGraphicsCopy(copies.Dat.UnitGraphics[civ][loop], civ, UnitIDs[loop]);
+                copies.Dat.AllCivs |= 0x02;
             }
-        }
-        else
-        {
-            copies.Dat.UnitGraphics.front().resize(selections);
-            for(size_t loop = 0; loop < selections; ++loop)
-            UnitsGraphicsCopy(copies.Dat.UnitGraphics.front()[loop], UnitCivID, UnitIDs[loop]);
-        }
-        Units_ListV->SetFocus();
-    });
+            else copies.Dat.AllCivs &= ~0x02;
+            if (copies.Dat.AllCivs & 0x02)
+            {
+                size_t CivCount = dataset->Civs.size();
+                copies.Dat.UnitGraphics.resize(CivCount);
+                for (size_t civ = 0; civ < CivCount; ++civ)
+                {
+                    copies.Dat.UnitGraphics[civ].resize(selections);
+                    for (size_t loop = 0; loop < selections; ++loop)
+                        UnitsGraphicsCopy(copies.Dat.UnitGraphics[civ][loop], civ, UnitIDs[loop]);
+                }
+            }
+            else
+            {
+                copies.Dat.UnitGraphics.front().resize(selections);
+                for (size_t loop = 0; loop < selections; ++loop)
+                    UnitsGraphicsCopy(copies.Dat.UnitGraphics.front()[loop], UnitCivID, UnitIDs[loop]);
+            }
+            Units_ListV->SetFocus();
+        });
 
     Units_SpecialPaste->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        size_t CopyCount = copies.Dat.UnitGraphics.front().size();
-        if(!Units_ListV->GetSelectedCount() || CopyCount == 0) return;
-
-        wxBusyCursor WaitCursor;
-        if(Paste11)
         {
-            if(Paste11Check(UnitIDs.size(), CopyCount))
+            size_t CopyCount = copies.Dat.UnitGraphics.front().size();
+            if (!Units_ListV->GetSelectedCount() || CopyCount == 0) return;
+
+            wxBusyCursor WaitCursor;
+            if (Paste11)
             {
-                if(copies.Dat.AllCivs & 0x02)
+                if (Paste11Check(UnitIDs.size(), CopyCount))
+                {
+                    if (copies.Dat.AllCivs & 0x02)
+                    {
+                        size_t CivCount = dataset->Civs.size();
+                        size_t FillingCiv = (copies.Dat.UnitGraphics.size() > 1) ? 1 : 0;
+                        copies.Dat.UnitGraphics.resize(CivCount, copies.Dat.UnitGraphics[FillingCiv]);
+                        for (size_t civ = 0; civ < CivCount; ++civ)
+                        {
+                            for (size_t loop = 0; loop < CopyCount; ++loop)
+                                UnitsGraphicsPaste(copies.Dat.UnitGraphics[civ][loop], civ, UnitIDs[loop]);
+                        }
+                    }
+                    else
+                    {
+                        for (size_t loop = 0; loop < CopyCount; ++loop)
+                            UnitsGraphicsPaste(copies.Dat.UnitGraphics.front()[loop], UnitCivID, UnitIDs[loop]);
+                    }
+                }
+            }
+            else
+            {
+                if (copies.Dat.UnitGraphics.front().size() + UnitIDs.front() > dataset->Civs.front().Units.size())
+                    CopyCount -= copies.Dat.UnitGraphics.front().size() + UnitIDs.front() - dataset->Civs.front().Units.size();
+                if (copies.Dat.AllCivs & 0x02)
                 {
                     size_t CivCount = dataset->Civs.size();
                     size_t FillingCiv = (copies.Dat.UnitGraphics.size() > 1) ? 1 : 0;
                     copies.Dat.UnitGraphics.resize(CivCount, copies.Dat.UnitGraphics[FillingCiv]);
-                    for(size_t civ = 0; civ < CivCount; ++civ)
+                    for (size_t civ = 0; civ < CivCount; ++civ)
                     {
-                        for(size_t loop = 0; loop < CopyCount; ++loop)
-                        UnitsGraphicsPaste(copies.Dat.UnitGraphics[civ][loop], civ, UnitIDs[loop]);
+                        for (size_t loop = 0; loop < CopyCount; ++loop)
+                            UnitsGraphicsPaste(copies.Dat.UnitGraphics[civ][loop], civ, UnitIDs.front() + loop);
                     }
                 }
                 else
                 {
-                    for(size_t loop = 0; loop < CopyCount; ++loop)
-                    UnitsGraphicsPaste(copies.Dat.UnitGraphics.front()[loop], UnitCivID, UnitIDs[loop]);
+                    for (size_t loop = 0; loop < CopyCount; ++loop)
+                        UnitsGraphicsPaste(copies.Dat.UnitGraphics.front()[loop], UnitCivID, UnitIDs.front() + loop);
                 }
             }
-        }
-        else
+            wxCommandEvent e;
+            OnUnitSelect(e);
+            Units_ListV->SetFocus();
+        });
+
+    Units_Paste->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
         {
-            if(copies.Dat.UnitGraphics.front().size()+UnitIDs.front() > dataset->Civs.front().Units.size())
-            CopyCount -= copies.Dat.UnitGraphics.front().size()+UnitIDs.front() - dataset->Civs.front().Units.size();
-            if(copies.Dat.AllCivs & 0x02)
+            if (!Units_ListV->GetSelectedCount() || copies.Dat.UnitExists.size() == 0) return;
+
+            wxBusyCursor WaitCursor;
+            size_t numUnitCopies = copies.Dat.UnitCopies.front().size();
+            if (Paste11)
             {
-                size_t CivCount = dataset->Civs.size();
-                size_t FillingCiv = (copies.Dat.UnitGraphics.size() > 1) ? 1 : 0;
-                copies.Dat.UnitGraphics.resize(CivCount, copies.Dat.UnitGraphics[FillingCiv]);
-                for(size_t civ = 0; civ < CivCount; ++civ)
+                if (Paste11Check(UnitIDs.size(), copies.Dat.UnitExists.front().size()))
                 {
-                    for(size_t loop = 0; loop < CopyCount; ++loop)
-                    UnitsGraphicsPaste(copies.Dat.UnitGraphics[civ][loop], civ, UnitIDs.front()+loop);
+                    if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+                    {
+                        for (size_t loop = 0; loop < copies.UnitHeader.size(); ++loop)
+                        {
+                            copies.UnitHeader[loop].setGameVersion(GenieVersion);
+                            dataset->UnitHeaders[UnitIDs[loop]] = copies.UnitHeader[loop];
+                        }
+                    }
+
+                    PasteUnits(true);
+                    for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
+                    {
+                        for (size_t loop = 0; loop < numUnitCopies; ++loop)
+                        {
+                            size_t paste_pos = UnitIDs[loop];
+                            dataset->Civs[civ].UnitPointers[paste_pos] = copies.Dat.UnitExists[civ][loop];
+                            dataset->Civs[civ].Units[paste_pos].ID = paste_pos;
+                            dataset->Civs[civ].Units[paste_pos].CopyID = paste_pos;
+                            if (GenieVersion >= genie::GV_AoK)
+                                dataset->Civs[civ].Units[paste_pos].BaseID = paste_pos;
+                        }
+                    }
                 }
+                else return;
             }
             else
             {
-                for(size_t loop = 0; loop < CopyCount; ++loop)
-                UnitsGraphicsPaste(copies.Dat.UnitGraphics.front()[loop], UnitCivID, UnitIDs.front()+loop);
-            }
-        }
-        wxCommandEvent e;
-        OnUnitSelect(e);
-        Units_ListV->SetFocus();
-    });
-
-    Units_Paste->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        if(!Units_ListV->GetSelectedCount() || copies.Dat.UnitExists.size() == 0) return;
-
-        wxBusyCursor WaitCursor;
-        size_t numUnitCopies = copies.Dat.UnitCopies.front().size();
-        if(Paste11)
-        {
-            if(Paste11Check(UnitIDs.size(), copies.Dat.UnitExists.front().size()))
-            {
-                if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
+                if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
                 {
-                    for(size_t loop = 0; loop < copies.UnitHeader.size(); ++loop)
+                    if (copies.UnitHeader.size() + UnitIDs.front() > dataset->UnitHeaders.size())
+                        dataset->UnitHeaders.resize(copies.UnitHeader.size() + UnitIDs.front());
+                    for (size_t loop = 0; loop < copies.UnitHeader.size(); ++loop)
                     {
                         copies.UnitHeader[loop].setGameVersion(GenieVersion);
-                        dataset->UnitHeaders[UnitIDs[loop]] = copies.UnitHeader[loop];
+                        dataset->UnitHeaders[UnitIDs.front() + loop] = copies.UnitHeader[loop];
                     }
                 }
 
-                PasteUnits(true);
-                for(size_t civ = 0; civ < dataset->Civs.size(); ++civ)
-                {
-                    for(size_t loop = 0; loop < numUnitCopies; ++loop)
+                if (numUnitCopies + UnitIDs.front() > dataset->Civs.front().Units.size())
+                    for (size_t civ = 0; civ < dataset->Civs.size(); ++civ) // Resize if not enough room.
                     {
-                        size_t paste_pos = UnitIDs[loop];
+                        dataset->Civs[civ].Units.resize(numUnitCopies + UnitIDs.front());
+                        dataset->Civs[civ].UnitPointers.resize(numUnitCopies + UnitIDs.front());
+                    }
+                PasteUnits();
+                for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
+                {
+                    for (size_t loop = 0; loop < numUnitCopies; ++loop)
+                    {
+                        size_t paste_pos = UnitIDs.front() + loop;
                         dataset->Civs[civ].UnitPointers[paste_pos] = copies.Dat.UnitExists[civ][loop];
                         dataset->Civs[civ].Units[paste_pos].ID = paste_pos;
                         dataset->Civs[civ].Units[paste_pos].CopyID = paste_pos;
-                        if(GenieVersion >= genie::GV_AoK)
-                        dataset->Civs[civ].Units[paste_pos].BaseID = paste_pos;
+                        if (GenieVersion >= genie::GV_AoK)
+                            dataset->Civs[civ].Units[paste_pos].BaseID = paste_pos;
                     }
                 }
             }
-            else return;
-        }
-        else
-        {
-            if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
-            {
-                if(copies.UnitHeader.size()+UnitIDs.front() > dataset->UnitHeaders.size())
-                dataset->UnitHeaders.resize(copies.UnitHeader.size()+UnitIDs.front());
-                for(size_t loop = 0; loop < copies.UnitHeader.size(); ++loop)
-                {
-                    copies.UnitHeader[loop].setGameVersion(GenieVersion);
-                    dataset->UnitHeaders[UnitIDs.front()+loop] = copies.UnitHeader[loop];
-                }
-            }
+            How2List = ListMode::PASTE;
+            ListUnits(UnitCivID);
 
-            if(numUnitCopies+UnitIDs.front() > dataset->Civs.front().Units.size())
-            for(size_t civ = 0; civ < dataset->Civs.size(); ++civ) // Resize if not enough room.
-            {
-                dataset->Civs[civ].Units.resize(numUnitCopies+UnitIDs.front());
-                dataset->Civs[civ].UnitPointers.resize(numUnitCopies+UnitIDs.front());
-            }
-            PasteUnits();
-            for(size_t civ = 0; civ < dataset->Civs.size(); ++civ)
-            {
-                for(size_t loop = 0; loop < numUnitCopies; ++loop)
-                {
-                    size_t paste_pos = UnitIDs.front() + loop;
-                    dataset->Civs[civ].UnitPointers[paste_pos] = copies.Dat.UnitExists[civ][loop];
-                    dataset->Civs[civ].Units[paste_pos].ID = paste_pos;
-                    dataset->Civs[civ].Units[paste_pos].CopyID = paste_pos;
-                    if(GenieVersion >= genie::GV_AoK)
-                    dataset->Civs[civ].Units[paste_pos].BaseID = paste_pos;
-                }
-            }
-        }
-        How2List = ListMode::PASTE;
-        ListUnits(UnitCivID);
-
-        SetStatusText("Unit special paste", 2);
-        SetStatusText(wxString::Format("Edits: %zu + %zu", popUp.unSaved, numUnitCopies), 3);
-        popUp.unSaved += numUnitCopies;
-    });
+            SetStatusText("Unit special paste", 2);
+            SetStatusText(wxString::Format("Edits: %zu + %zu", popUp.unSaved, numUnitCopies), 3);
+            popUp.unSaved += numUnitCopies;
+        });
 
     Units_PasteInsert->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        if(!Units_ListV->GetSelectedCount() || copies.Dat.UnitExists.size() == 0) return;
+        {
+            if (!Units_ListV->GetSelectedCount() || copies.Dat.UnitExists.size() == 0) return;
 
-        wxBusyCursor WaitCursor;
-        if(GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
-        {
-            genie::UnitHeader Temp1;
-            dataset->UnitHeaders.insert(dataset->UnitHeaders.begin() + UnitIDs.front(), copies.UnitHeader.size(), Temp1);
-            for(size_t loop = 0; loop < copies.UnitHeader.size(); ++loop)
+            wxBusyCursor WaitCursor;
+            if (GenieVersion >= genie::GV_AoK && (GenieVersion < genie::GV_C15 || GenieVersion > genie::GV_LatestDE2))
             {
-                copies.UnitHeader[loop].setGameVersion(GenieVersion);
-                dataset->UnitHeaders[UnitIDs.front()+loop] = copies.UnitHeader[loop];
+                genie::UnitHeader Temp1;
+                dataset->UnitHeaders.insert(dataset->UnitHeaders.begin() + UnitIDs.front(), copies.UnitHeader.size(), Temp1);
+                for (size_t loop = 0; loop < copies.UnitHeader.size(); ++loop)
+                {
+                    copies.UnitHeader[loop].setGameVersion(GenieVersion);
+                    dataset->UnitHeaders[UnitIDs.front() + loop] = copies.UnitHeader[loop];
+                }
             }
-        }
 
-        genie::Unit Temp2;
-        size_t numUnitCopies = copies.Dat.UnitCopies.front().size();
-        for(size_t civ = 0; civ < dataset->Civs.size(); ++civ)
-        {
-            dataset->Civs[civ].Units.insert(dataset->Civs[civ].Units.begin() + UnitIDs.front(), numUnitCopies, Temp2);
-            dataset->Civs[civ].UnitPointers.insert(dataset->Civs[civ].UnitPointers.begin() + UnitIDs.front(), numUnitCopies, 0);
-        }
-        PasteUnits();
-        for(size_t civ = 0; civ < dataset->Civs.size(); ++civ)
-        {
-            for(size_t loop = 0; loop < numUnitCopies; ++loop)
+            genie::Unit Temp2;
+            size_t numUnitCopies = copies.Dat.UnitCopies.front().size();
+            for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
             {
-                dataset->Civs[civ].UnitPointers[UnitIDs.front()+loop] = (int32_t)copies.Dat.UnitExists[civ][loop];
+                dataset->Civs[civ].Units.insert(dataset->Civs[civ].Units.begin() + UnitIDs.front(), numUnitCopies, Temp2);
+                dataset->Civs[civ].UnitPointers.insert(dataset->Civs[civ].UnitPointers.begin() + UnitIDs.front(), numUnitCopies, 0);
             }
-            for(size_t loop = UnitIDs.front();loop < dataset->Civs.front().Units.size(); ++loop)
+            PasteUnits();
+            for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
             {
-                dataset->Civs[civ].Units[loop].ID = loop;
-                dataset->Civs[civ].Units[loop].CopyID = loop;
-                if(GenieVersion >= genie::GV_AoK)
-                dataset->Civs[civ].Units[loop].BaseID = loop;
+                for (size_t loop = 0; loop < numUnitCopies; ++loop)
+                {
+                    dataset->Civs[civ].UnitPointers[UnitIDs.front() + loop] = (int32_t)copies.Dat.UnitExists[civ][loop];
+                }
+                for (size_t loop = UnitIDs.front();loop < dataset->Civs.front().Units.size(); ++loop)
+                {
+                    dataset->Civs[civ].Units[loop].ID = loop;
+                    dataset->Civs[civ].Units[loop].CopyID = loop;
+                    if (GenieVersion >= genie::GV_AoK)
+                        dataset->Civs[civ].Units[loop].BaseID = loop;
+                }
             }
-        }
-        How2List = ListMode::INSPASTE;
-        ListUnits(UnitCivID);
-    });
+            How2List = ListMode::INSPASTE;
+            ListUnits(UnitCivID);
+        });
 
     Units_Enable->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        size_t selections = Units_ListV->GetSelectedCount();
-        if (!selections) return;
-
-        wxBusyCursor WaitCursor;
-        int UnitCivID = Units_Civs_List->GetSelection();
-        for(size_t sel = 0; sel < selections; ++sel)
         {
-            // Find the correct sizes for subvectors.
-            short UnitType = 10, DamageGraphics = 0, DropSites = 0, Attacks = 0, Armors = 0, Commands = 0;
-            for(size_t civ = 0; civ < dataset->Civs.size(); ++civ)
+            size_t selections = Units_ListV->GetSelectedCount();
+            if (!selections) return;
+
+            wxBusyCursor WaitCursor;
+            int UnitCivID = Units_Civs_List->GetSelection();
+            for (size_t sel = 0; sel < selections; ++sel)
             {
-                if(dataset->Civs[civ].UnitPointers[UnitIDs[sel]] != 0)
+                // Find the correct sizes for subvectors.
+                short UnitType = 10, DamageGraphics = 0, DropSites = 0, Attacks = 0, Armors = 0, Commands = 0;
+                for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
                 {
-                    UnitType = dataset->Civs[civ].Units[UnitIDs[sel]].Type;
-                    DamageGraphics = dataset->Civs[civ].Units[UnitIDs[sel]].DamageGraphics.size();
-                    Attacks = dataset->Civs[civ].Units[UnitIDs[sel]].Type50.Attacks.size();
-                    Armors = dataset->Civs[civ].Units[UnitIDs[sel]].Type50.Armours.size();
-                    Commands = dataset->Civs[civ].Units[UnitIDs[sel]].Bird.TaskList.size();
-                    DropSites = dataset->Civs[civ].Units[UnitIDs[sel]].Bird.DropSites.size();
-                    break;
+                    if (dataset->Civs[civ].UnitPointers[UnitIDs[sel]] != 0)
+                    {
+                        UnitType = dataset->Civs[civ].Units[UnitIDs[sel]].Type;
+                        DamageGraphics = dataset->Civs[civ].Units[UnitIDs[sel]].DamageGraphics.size();
+                        Attacks = dataset->Civs[civ].Units[UnitIDs[sel]].Type50.Attacks.size();
+                        Armors = dataset->Civs[civ].Units[UnitIDs[sel]].Type50.Armours.size();
+                        Commands = dataset->Civs[civ].Units[UnitIDs[sel]].Bird.TaskList.size();
+                        DropSites = dataset->Civs[civ].Units[UnitIDs[sel]].Bird.DropSites.size();
+                        break;
+                    }
+                }
+                // All subvectors need to be resized!
+                if (Units_SpecialCopy_Civs->GetValue())
+                    for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
+                    {
+                        if (dataset->Civs[civ].UnitPointers[UnitIDs[sel]] == 0)
+                        {
+                            dataset->Civs[civ].UnitPointers[UnitIDs[sel]] = 1;
+                            dataset->Civs[civ].Units[UnitIDs[sel]].Type = UnitType;
+                            dataset->Civs[civ].Units[UnitIDs[sel]].DamageGraphics.resize(DamageGraphics);
+                            dataset->Civs[civ].Units[UnitIDs[sel]].Type50.Attacks.resize(Attacks);
+                            dataset->Civs[civ].Units[UnitIDs[sel]].Type50.Armours.resize(Armors);
+                            dataset->Civs[civ].Units[UnitIDs[sel]].Bird.TaskList.resize(Commands);
+                            dataset->Civs[civ].Units[UnitIDs[sel]].Bird.DropSites.resize(DropSites);
+                            dataset->Civs[civ].Units[UnitIDs[sel]].ID = UnitIDs[sel]; // ID Fix
+                            dataset->Civs[civ].Units[UnitIDs[sel]].CopyID = UnitIDs[sel];
+                            if (GenieVersion >= genie::GV_AoKA)
+                                dataset->Civs[civ].Units[UnitIDs[sel]].BaseID = UnitIDs[sel];
+                        }
+                    }
+                else
+                {
+                    if (dataset->Civs[UnitCivID].UnitPointers[UnitIDs[sel]] == 0)
+                    {
+                        dataset->Civs[UnitCivID].UnitPointers[UnitIDs[sel]] = 1;
+                        dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Type = UnitType;
+                        dataset->Civs[UnitCivID].Units[UnitIDs[sel]].DamageGraphics.resize(DamageGraphics);
+                        dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Type50.Attacks.resize(Attacks);
+                        dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Type50.Armours.resize(Armors);
+                        dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Bird.TaskList.resize(Commands);
+                        dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Bird.DropSites.resize(DropSites);
+                        dataset->Civs[UnitCivID].Units[UnitIDs[sel]].ID = UnitIDs[sel]; // ID Fix
+                        dataset->Civs[UnitCivID].Units[UnitIDs[sel]].CopyID = UnitIDs[sel];
+                        if (GenieVersion >= genie::GV_AoKA)
+                            dataset->Civs[UnitCivID].Units[UnitIDs[sel]].BaseID = UnitIDs[sel];
+                    }
                 }
             }
-            // All subvectors need to be resized!
-            if(Units_SpecialCopy_Civs->GetValue())
-            for(size_t civ = 0; civ < dataset->Civs.size(); ++civ)
-            {
-                if(dataset->Civs[civ].UnitPointers[UnitIDs[sel]] == 0)
-                {
-                    dataset->Civs[civ].UnitPointers[UnitIDs[sel]] = 1;
-                    dataset->Civs[civ].Units[UnitIDs[sel]].Type = UnitType;
-                    dataset->Civs[civ].Units[UnitIDs[sel]].DamageGraphics.resize(DamageGraphics);
-                    dataset->Civs[civ].Units[UnitIDs[sel]].Type50.Attacks.resize(Attacks);
-                    dataset->Civs[civ].Units[UnitIDs[sel]].Type50.Armours.resize(Armors);
-                    dataset->Civs[civ].Units[UnitIDs[sel]].Bird.TaskList.resize(Commands);
-                    dataset->Civs[civ].Units[UnitIDs[sel]].Bird.DropSites.resize(DropSites);
-                    dataset->Civs[civ].Units[UnitIDs[sel]].ID = UnitIDs[sel]; // ID Fix
-                    dataset->Civs[civ].Units[UnitIDs[sel]].CopyID = UnitIDs[sel];
-                    if(GenieVersion >= genie::GV_AoKA)
-                    dataset->Civs[civ].Units[UnitIDs[sel]].BaseID = UnitIDs[sel];
-                }
-            }
-            else
-            {
-                if(dataset->Civs[UnitCivID].UnitPointers[UnitIDs[sel]] == 0)
-                {
-                    dataset->Civs[UnitCivID].UnitPointers[UnitIDs[sel]] = 1;
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Type = UnitType;
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].DamageGraphics.resize(DamageGraphics);
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Type50.Attacks.resize(Attacks);
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Type50.Armours.resize(Armors);
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Bird.TaskList.resize(Commands);
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].Bird.DropSites.resize(DropSites);
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].ID = UnitIDs[sel]; // ID Fix
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].CopyID = UnitIDs[sel];
-                    if(GenieVersion >= genie::GV_AoKA)
-                    dataset->Civs[UnitCivID].Units[UnitIDs[sel]].BaseID = UnitIDs[sel];
-                }
-            }
-        }
-        How2List = ListMode::ENABLE;
-        ListUnits(UnitCivID);
-    });
+            How2List = ListMode::ENABLE;
+            ListUnits(UnitCivID);
+        });
 
     Units_Disable->Bind(wxEVT_BUTTON, [this](wxCommandEvent&)
-    {
-        size_t selections = Units_ListV->GetSelectedCount();
-        if (!selections) return;
-
-        wxBusyCursor WaitCursor;
-        int UnitCivID = Units_Civs_List->GetSelection();
-        for(size_t sel = 0; sel < selections; ++sel)
         {
-            if(Units_SpecialCopy_Civs->GetValue())
-            for(size_t civ = 0; civ < dataset->Civs.size(); ++civ)
-            dataset->Civs[civ].UnitPointers[UnitIDs[sel]] = 0;
-            else
-            dataset->Civs[UnitCivID].UnitPointers[UnitIDs[sel]] = 0;
-        }
-        How2List = ListMode::ENABLE;
-        ListUnits(UnitCivID);
-    });
+            size_t selections = Units_ListV->GetSelectedCount();
+            if (!selections) return;
+
+            wxBusyCursor WaitCursor;
+            int UnitCivID = Units_Civs_List->GetSelection();
+            for (size_t sel = 0; sel < selections; ++sel)
+            {
+                if (Units_SpecialCopy_Civs->GetValue())
+                    for (size_t civ = 0; civ < dataset->Civs.size(); ++civ)
+                        dataset->Civs[civ].UnitPointers[UnitIDs[sel]] = 0;
+                else
+                    dataset->Civs[UnitCivID].UnitPointers[UnitIDs[sel]] = 0;
+            }
+            How2List = ListMode::ENABLE;
+            ListUnits(UnitCivID);
+        });
 
     Units_Tasks_ListV->Bind(wxEVT_LISTBOX, &AGE_Frame::OnUnitCommandSelect, this);
     Units_Tasks_Search->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitCommandsSearch, this);
@@ -6429,157 +6770,170 @@ void AGE_Frame::CreateUnitControls()
     Units_DropSites_Search->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitDropSitesSearch, this);
     Units_DropSites_Search_R->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitDropSitesSearch, this);
     Units_DropSites_ListV->Bind(wxEVT_LISTBOX, &AGE_Frame::OnUnitDropSiteSelect, this);
-    Units_DropSites_Add->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        if (!Units_ListV->GetSelectedCount()) return;
+    Units_DropSites_Add->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
+        {
+            if (!Units_ListV->GetSelectedCount()) return;
 
-        wxBusyCursor WaitCursor;
-        for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
-        {
-            if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
-            dataset->Civs[loop].Units[UnitIDs.front()].Bird.DropSites.push_back(-1);
-        }
-        How2List = ListMode::ADD;
-        ListUnitDropSites();
-    });
-    Units_DropSites_Insert->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        if (!Units_DropSites_ListV->GetSelectedCount()) return;
-
-        wxBusyCursor WaitCursor;
-        for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
-        {
-            if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
-            dataset->Civs[loop].Units[UnitIDs.front()].Bird.DropSites.insert(dataset->Civs[loop].Units[UnitIDs.front()].Bird.DropSites.begin() + DropSiteIDs.front(), -1);
-        }
-        How2List = ListMode::INSNEW;
-        ListUnitDropSites();
-    });
-    Units_DropSites_Delete->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        size_t selections = Units_DropSites_ListV->GetSelectedCount();
-        if (!selections) return;
-
-        wxBusyCursor WaitCursor;
-        for (short civ = 0; civ < dataset->Civs.size(); ++civ)
-        {
-            if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
-            if (dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites.size())
-            DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs);
-        }
-        ListUnitDropSites();
-    });
-    Units_DropSites_Copy->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        if (!Units_DropSites_ListV->GetSelectedCount()) return;
-
-        wxBusyCursor WaitCursor;
-        if (Units_SpecialCopy_Civs->GetValue())
-        {
-            copies.Dat.AllCivs |= 0x100;
-        }
-        else copies.Dat.AllCivs &= ~0x100;
-        if (copies.Dat.AllCivs & 0x100)
-        {
-            short CivCount = dataset->Civs.size();
-            copies.Dat.UnitDropSiteExists.resize(CivCount);
-            copies.Dat.UnitDropSites.resize(CivCount);
-            for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+            wxBusyCursor WaitCursor;
+            for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
             {
-                if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+                if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+                    dataset->Civs[loop].Units[UnitIDs.front()].Bird.DropSites.push_back(-1);
+            }
+            How2List = ListMode::ADD;
+            ListUnitDropSites();
+        });
+    Units_DropSites_Insert->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
+        {
+            if (!Units_DropSites_ListV->GetSelectedCount()) return;
+
+            wxBusyCursor WaitCursor;
+            for (size_t loop = 0; loop < dataset->Civs.size(); ++loop)
+            {
+                if (dataset->Civs[loop].UnitPointers[UnitIDs.front()] != 0)
+                    dataset->Civs[loop].Units[UnitIDs.front()].Bird.DropSites.insert(dataset->Civs[loop].Units[UnitIDs.front()].Bird.DropSites.begin() + DropSiteIDs.front(), -1);
+            }
+            How2List = ListMode::INSNEW;
+            ListUnitDropSites();
+        });
+    Units_DropSites_Delete->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
+        {
+            size_t selections = Units_DropSites_ListV->GetSelectedCount();
+            if (!selections) return;
+
+            wxBusyCursor WaitCursor;
+            for (short civ = 0; civ < dataset->Civs.size(); ++civ)
+            {
+                if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] != 0)
+                    if (dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites.size())
+                        DeleteFromList(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs);
+            }
+            ListUnitDropSites();
+        });
+    Units_DropSites_Copy->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
+        {
+            if (!Units_DropSites_ListV->GetSelectedCount()) return;
+
+            wxBusyCursor WaitCursor;
+            if (Units_SpecialCopy_Civs->GetValue())
+            {
+                copies.Dat.AllCivs |= 0x100;
+            }
+            else copies.Dat.AllCivs &= ~0x100;
+            if (copies.Dat.AllCivs & 0x100)
+            {
+                short CivCount = dataset->Civs.size();
+                copies.Dat.UnitDropSiteExists.resize(CivCount);
+                copies.Dat.UnitDropSites.resize(CivCount);
+                for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
                 {
-                    // Graphic set info not usefull.
-                    copies.Dat.UnitDropSiteExists[civ] = 255;
-                    CivCount--;
+                    if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+                    {
+                        // Graphic set info not usefull.
+                        copies.Dat.UnitDropSiteExists[civ] = 255;
+                        CivCount--;
+                    }
+                    else
+                    {
+                        // Save info of graphic set to intelligently fill possible gaps when pasting.
+                        copies.Dat.UnitDropSiteExists[civ] = 256 + dataset->Civs[civ].IconSet;
+                        // Only copy drop sites from civs which have this unit enabled.
+                        CopyFromList(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites[copy]); copy++;
+                    }
                 }
-                else
+                copies.Dat.UnitDropSites.resize(CivCount);
+            }
+            else
+            {
+                CopyFromList(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites.front());
+            }
+            Units_DropSites_ListV->SetFocus();
+        });
+    Units_DropSites_Paste->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
+        {
+            if (!Units_DropSites_ListV->GetSelectedCount()) return;
+
+            wxBusyCursor WaitCursor;
+            if (copies.Dat.AllCivs & 0x100)
+            {
+                for (size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
                 {
-                    // Save info of graphic set to intelligently fill possible gaps when pasting.
-                    copies.Dat.UnitDropSiteExists[civ] = 256 + dataset->Civs[civ].IconSet;
-                    // Only copy drop sites from civs which have this unit enabled.
-                    CopyFromList(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites[copy]); copy++;
+                    if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+                    {
+                        // Consume copies.
+                        if (copies.Dat.UnitDropSiteExists[civ] > 255) ++copy;
+                        continue;
+                    }
+                    // If the target unit exists then choose from following.
+                    if (copies.Dat.UnitDropSiteExists[civ] > 255 && copy < copies.Dat.UnitDropSites.size())
+                    {
+                        PasteToListNoGV(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites[copy]); ++copy;
+                    }
+                    else
+                    {
+                        PasteToListNoGV(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites.front());
+                    }
                 }
             }
-            copies.Dat.UnitDropSites.resize(CivCount);
-        }
-        else
-        {
-            CopyFromList(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites.front());
-        }
-        Units_DropSites_ListV->SetFocus();
-    });
-    Units_DropSites_Paste->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        if (!Units_DropSites_ListV->GetSelectedCount()) return;
-
-        wxBusyCursor WaitCursor;
-        if (copies.Dat.AllCivs & 0x100)
-        {
-            for (size_t civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+            else
             {
-                if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+                PasteToListNoGV(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites.front());
+            }
+            ListUnitDropSites();
+        });
+    Units_DropSites_PasteInsert->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
+        {
+            if (!Units_DropSites_ListV->GetSelectedCount()) return;
+
+            wxBusyCursor WaitCursor;
+            if (copies.Dat.AllCivs & 0x100)
+            {
+                for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
                 {
-                    // Consume copies.
-                    if (copies.Dat.UnitDropSiteExists[civ] > 255) ++copy;
-                    continue;
-                }
-                // If the target unit exists then choose from following.
-                if (copies.Dat.UnitDropSiteExists[civ] > 255 && copy < copies.Dat.UnitDropSites.size())
-                {
-                    PasteToListNoGV(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites[copy]); ++copy;
-                }
-                else
-                {
-                    PasteToListNoGV(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites.front());
+                    if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
+                    {
+                        // Consume copies.
+                        if (copies.Dat.UnitDropSiteExists[civ] > 255) ++copy;
+                        continue;
+                    }
+                    // If the target unit exists then choose from following.
+                    if (copies.Dat.UnitDropSiteExists[civ] > 255 && copy < copies.Dat.UnitDropSites.size())
+                    {
+                        PasteInsertToListNoGV(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs.front(), copies.Dat.UnitDropSites[copy]); copy++;
+                    }
+                    else
+                    {
+                        PasteInsertToListNoGV(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs.front(), copies.Dat.UnitDropSites.front());
+                    }
                 }
             }
-        }
-        else
-        {
-            PasteToListNoGV(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs, copies.Dat.UnitDropSites.front());
-        }
-        ListUnitDropSites();
-    });
-    Units_DropSites_PasteInsert->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        if (!Units_DropSites_ListV->GetSelectedCount()) return;
-
-        wxBusyCursor WaitCursor;
-        if (copies.Dat.AllCivs & 0x100)
-        {
-            for (short civ = 0, copy = 0; civ < dataset->Civs.size(); ++civ)
+            else
             {
-                if (dataset->Civs[civ].UnitPointers[UnitIDs.front()] == 0)
-                {
-                    // Consume copies.
-                    if (copies.Dat.UnitDropSiteExists[civ] > 255) ++copy;
-                    continue;
-                }
-                // If the target unit exists then choose from following.
-                if (copies.Dat.UnitDropSiteExists[civ] > 255 && copy < copies.Dat.UnitDropSites.size())
-                {
-                    PasteInsertToListNoGV(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs.front(), copies.Dat.UnitDropSites[copy]); copy++;
-                }
-                else
-                {
-                    PasteInsertToListNoGV(dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs.front(), copies.Dat.UnitDropSites.front());
-                }
+                PasteInsertToListNoGV(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs.front(), copies.Dat.UnitDropSites.front());
             }
-        }
-        else
+            ListUnitDropSites();
+        });
+    Units_DropSites_CopyToUnits->Bind(wxEVT_BUTTON, [this](wxCommandEvent& event)
         {
-            PasteInsertToListNoGV(dataset->Civs[UnitCivID].Units[UnitIDs.front()].Bird.DropSites, DropSiteIDs.front(), copies.Dat.UnitDropSites.front());
-        }
-        ListUnitDropSites();
-    });
-    Units_DropSites_CopyToUnits->Bind(wxEVT_BUTTON, [this](wxCommandEvent &event)
-    {
-        for (short civ = 0; civ < dataset->Civs.size(); ++civ)
-        for (size_t loop = 1; loop < UnitIDs.size(); ++loop)
-        {
-            dataset->Civs[civ].Units[UnitIDs[loop]].Bird.DropSites = dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites;
-        }
-    });
+            for (short civ = 0; civ < dataset->Civs.size(); ++civ)
+                for (size_t loop = 1; loop < UnitIDs.size(); ++loop)
+                {
+                    dataset->Civs[civ].Units[UnitIDs[loop]].Bird.DropSites = dataset->Civs[civ].Units[UnitIDs.front()].Bird.DropSites;
+                }
+        });
+
+    // Train Locations
+    Units_TrainLocations_Search->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitTrainLocationsSearch, this);
+    Units_TrainLocations_Search_R->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitTrainLocationsSearch, this);
+    Units_TrainLocations_ListV->Bind(wxEVT_LISTBOX, &AGE_Frame::OnUnitTrainLocationselect, this);
+    Units_TrainLocations_Add->Bind(wxEVT_BUTTON, &AGE_Frame::OnUnitTrainLocationsAdd, this);
+    Units_TrainLocations_Insert->Bind(wxEVT_BUTTON, &AGE_Frame::OnUnitTrainLocationsInsert, this);
+    Units_TrainLocations_Delete->Bind(wxEVT_BUTTON, &AGE_Frame::OnUnitTrainLocationsDelete, this);
+    Units_TrainLocations_Copy->Bind(wxEVT_BUTTON, &AGE_Frame::OnUnitTrainLocationsCopy, this);
+    Units_TrainLocations_Paste->Bind(wxEVT_BUTTON, &AGE_Frame::OnUnitTrainLocationsPaste, this);
+    Units_TrainLocations_PasteInsert->Bind(wxEVT_BUTTON, &AGE_Frame::OnUnitTrainLocationsPasteInsert, this);
+    Units_TrainLocations_CopyToUnits->Bind(wxEVT_BUTTON, &AGE_Frame::OnUnitTrainLocationsCopyToUnits, this);
+
     Units_Attacks_Search->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitAttacksSearch, this);
     Units_Attacks_Search_R->Bind(wxEVT_TEXT, &AGE_Frame::OnUnitAttacksSearch, this);
     Units_Attacks_ListV->Bind(wxEVT_LISTBOX, &AGE_Frame::OnUnitAttackSelect, this);
@@ -6610,33 +6964,32 @@ void AGE_Frame::CreateUnitControls()
 
     Units_DLL_LanguageName->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_LangDLL, this);
     Units_DLL_LanguageCreation->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_LangDLL, this);
-    Units_DLL_HotKey4->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_LangDLL, this);
     Units_DLL_LanguageHelp->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_LangDLL, this);
     Units_DLL_LanguageHKText->Bind(wxEVT_KILL_FOCUS, &AGE_Frame::OnKillFocus_LangDLL, this);
 
-//  Listing and Auto-Copy
+    //  Listing and Auto-Copy
 
     auto SaveThenSelectUnit = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        wxCommandEvent e;
-        OnUnitSelect(e);
-    };
-    auto TrySaveThenSelectUnit = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
             wxCommandEvent e;
             OnUnitSelect(e);
-        }
-    };
+        };
+    auto TrySaveThenSelectUnit = [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                wxCommandEvent e;
+                OnUnitSelect(e);
+            }
+        };
     Units_Type->Bind(wxEVT_KILL_FOCUS, TrySaveThenSelectUnit);
     Units_Type->Bind(wxEVT_TEXT_ENTER, SaveThenSelectUnit);
     Units_Type_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
-    {
-        switch (event.GetSelection())
         {
+            switch (event.GetSelection())
+            {
             case 1: Units_Type->ChangeValue("10"); break;
             case 2: Units_Type->ChangeValue("15"); break;
             case 3: Units_Type->ChangeValue("20"); break;
@@ -6648,25 +7001,25 @@ void AGE_Frame::CreateUnitControls()
             case 9: Units_Type->ChangeValue("70"); break;
             case 10: Units_Type->ChangeValue("80"); break;
             case 11: Units_Type->ChangeValue("90"); break;
-        }
-        Units_Type->SaveEdits();
-        wxCommandEvent e;
-        OnUnitSelect(e);
-    });
+            }
+            Units_Type->SaveEdits();
+            wxCommandEvent e;
+            OnUnitSelect(e);
+        });
 
     auto SaveThenListUnits = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ListUnits(UnitCivID);
-    };
-    auto TrySaveThenListUnits = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
             ListUnits(UnitCivID);
-        }
-    };
+        };
+    auto TrySaveThenListUnits = [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnits(UnitCivID);
+            }
+        };
     Units_Name->Bind(wxEVT_KILL_FOCUS, TrySaveThenListUnits);
     Units_Name->Bind(wxEVT_TEXT_ENTER, SaveThenListUnits);
     Units_Name2->Bind(wxEVT_KILL_FOCUS, TrySaveThenSelectUnit);
@@ -6675,8 +7028,6 @@ void AGE_Frame::CreateUnitControls()
     Units_LanguageDLLName->Bind(wxEVT_TEXT_ENTER, SaveThenListUnits);
     Units_LanguageDLLCreation->Bind(wxEVT_KILL_FOCUS, TrySaveThenSelectUnit);
     Units_LanguageDLLCreation->Bind(wxEVT_TEXT_ENTER, SaveThenSelectUnit);
-    Units_HotKey->Bind(wxEVT_KILL_FOCUS, TrySaveThenSelectUnit);
-    Units_HotKey->Bind(wxEVT_TEXT_ENTER, SaveThenSelectUnit);
     Units_LanguageDLLHelp->Bind(wxEVT_KILL_FOCUS, TrySaveThenSelectUnit);
     Units_LanguageDLLHelp->Bind(wxEVT_TEXT_ENTER, SaveThenSelectUnit);
     Units_LanguageDLLHotKeyText->Bind(wxEVT_KILL_FOCUS, TrySaveThenSelectUnit);
@@ -6687,245 +7038,304 @@ void AGE_Frame::CreateUnitControls()
     Units_GarrisonType->Bind(wxEVT_TEXT_ENTER, SaveThenSelectUnit);
 
     auto SaveThenListDamageGraphics = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ListUnitDamageGraphics();
-    };
-    auto TrySaveThenListDamageGraphics = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
             ListUnitDamageGraphics();
-        }
-    };
+        };
+    auto TrySaveThenListDamageGraphics = [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitDamageGraphics();
+            }
+        };
     DamageGraphics_GraphicID->Bind(wxEVT_KILL_FOCUS, TrySaveThenListDamageGraphics);
     DamageGraphics_GraphicID->Bind(wxEVT_TEXT_ENTER, SaveThenListDamageGraphics);
     DamageGraphics_GraphicID_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
-    {
-        static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
-        ListUnitDamageGraphics();
-    });
+        {
+            static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
+            ListUnitDamageGraphics();
+        });
     DamageGraphics_DamagePercent->Bind(wxEVT_KILL_FOCUS, TrySaveThenListDamageGraphics);
     DamageGraphics_DamagePercent->Bind(wxEVT_TEXT_ENTER, SaveThenListDamageGraphics);
     auto SaveThenRenderUnit = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        wxCommandEvent E;
-        OnChooseGraphic(E);
-    };
-    auto TrySaveThenRenderUnit = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
             wxCommandEvent E;
             OnChooseGraphic(E);
-        }
-    };
+        };
+    auto TrySaveThenRenderUnit = [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                wxCommandEvent E;
+                OnChooseGraphic(E);
+            }
+        };
     DropSites_UnitID->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
-            ListUnitDropSites();
-        }
-    });
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitDropSites();
+            }
+        });
     DropSites_UnitID->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ListUnitDropSites();
-    });
-    DropSites_UnitID_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
-    {
-        static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
-        ListUnitDropSites();
-    });
-    auto SaveThenListAttacks = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ListUnitAttacks();
-    };
-    auto TrySaveThenListAttacks = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            ListUnitDropSites();
+        });
+    DropSites_UnitID_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
+        {
+            static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
+            ListUnitDropSites();
+        });
+
+    // Train Locations
+    TrainLocations_UnitID->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitTrainLocations();
+            }
+        });
+    TrainLocations_UnitID->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            ListUnitTrainLocations();
+        });
+    TrainLocations_UnitID_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
+        {
+            static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
+            ListUnitTrainLocations();
+        });
+    TrainLocations_TrainTime->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitTrainLocations();
+            }
+        });
+    TrainLocations_TrainTime->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            ListUnitTrainLocations();
+        });
+    TrainLocations_ButtonID->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitTrainLocations();
+            }
+        });
+    TrainLocations_ButtonID->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            ListUnitTrainLocations();
+        });
+    TrainLocations_HotkeyID->Bind(wxEVT_KILL_FOCUS, [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitTrainLocations();
+            }
+        });
+    TrainLocations_HotkeyID->Bind(wxEVT_TEXT_ENTER, [this](wxCommandEvent& event)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
+            ListUnitTrainLocations();
+        });
+
+    auto SaveThenListAttacks = [this](wxCommandEvent& event)
+        {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
             ListUnitAttacks();
-        }
-    };
+        };
+    auto TrySaveThenListAttacks = [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitAttacks();
+            }
+        };
     Attacks_Class->Bind(wxEVT_KILL_FOCUS, TrySaveThenListAttacks);
     Attacks_Class->Bind(wxEVT_TEXT_ENTER, SaveThenListAttacks);
     Attacks_Amount->Bind(wxEVT_KILL_FOCUS, TrySaveThenListAttacks);
     Attacks_Amount->Bind(wxEVT_TEXT_ENTER, SaveThenListAttacks);
     auto SaveThenListArmors = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ListUnitArmors();
-    };
-    auto TrySaveThenListArmors = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
             ListUnitArmors();
-        }
-    };
+        };
+    auto TrySaveThenListArmors = [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitArmors();
+            }
+        };
     Armors_Class->Bind(wxEVT_KILL_FOCUS, TrySaveThenListArmors);
     Armors_Class->Bind(wxEVT_TEXT_ENTER, SaveThenListArmors);
     Armors_Amount->Bind(wxEVT_KILL_FOCUS, TrySaveThenListArmors);
     Armors_Amount->Bind(wxEVT_TEXT_ENTER, SaveThenListArmors);
     Attacks_Class_ComboBox[0]->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
-    {
-        static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
-        ListUnitAttacks();
-    });
+        {
+            static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
+            ListUnitAttacks();
+        });
     Attacks_Class_ComboBox[1]->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
-    {
-        static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
-        ListUnitArmors();
-    });
+        {
+            static_cast<LinkedComboBox*>(event.GetEventObject())->OnChoose(event);
+            ListUnitArmors();
+        });
 
     auto SaveThenListTasks = [this](wxCommandEvent& event)
-    {
-        static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
-        ListUnitCommands();
-    };
-    auto TrySaveThenListTasks = [this](wxFocusEvent& event)
-    {
-        event.Skip();
-        if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
         {
+            static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits(true);
             ListUnitCommands();
-        }
-    };
+        };
+    auto TrySaveThenListTasks = [this](wxFocusEvent& event)
+        {
+            event.Skip();
+            if (static_cast<AGETextCtrl*>(event.GetEventObject())->SaveEdits() == 0)
+            {
+                ListUnitCommands();
+            }
+        };
     Tasks_ActionType->Bind(wxEVT_KILL_FOCUS, TrySaveThenListTasks);
     Tasks_ActionType->Bind(wxEVT_TEXT_ENTER, SaveThenListTasks);
     Tasks_ProdResource->Bind(wxEVT_KILL_FOCUS, TrySaveThenListTasks);
     Tasks_ProdResource->Bind(wxEVT_TEXT_ENTER, SaveThenListTasks);
     Tasks_ActionType_ComboBox->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent& event)
-    {
-        unsigned selection = static_cast<unsigned>(event.GetSelection() - 1);
-        if (selection < 15)
         {
-            Tasks_ActionType->SetAsText(selection);
-        }
-        else if (selection < 17)
-        {
-            Tasks_ActionType->SetAsText(selection + 5);
-        }
-        else if (selection < 28)
-        {
-            Tasks_ActionType->SetAsText(selection + 84);
-        }
-        else if (selection < 34)
-        {
-            Tasks_ActionType->SetAsText(selection + 92);
-        }
-        else if (selection < 41)
-        {
-            Tasks_ActionType->SetAsText(selection + 96);
-        }
-        else if (selection < 48)
-        {
-            Tasks_ActionType->SetAsText(selection + 108);
-        }
-        else
-        {
-            Tasks_ActionType->ChangeValue("-1");
-        }
-        Tasks_ActionType->SaveEdits();
-        ListUnitCommands();
-    });
+            unsigned selection = static_cast<unsigned>(event.GetSelection() - 1);
+            if (selection < 15)
+            {
+                Tasks_ActionType->SetAsText(selection);
+            }
+            else if (selection < 17)
+            {
+                Tasks_ActionType->SetAsText(selection + 5);
+            }
+            else if (selection < 28)
+            {
+                Tasks_ActionType->SetAsText(selection + 84);
+            }
+            else if (selection < 34)
+            {
+                Tasks_ActionType->SetAsText(selection + 92);
+            }
+            else if (selection < 41)
+            {
+                Tasks_ActionType->SetAsText(selection + 96);
+            }
+            else if (selection < 48)
+            {
+                Tasks_ActionType->SetAsText(selection + 108);
+            }
+            else
+            {
+                Tasks_ActionType->ChangeValue("-1");
+            }
+            Tasks_ActionType->SaveEdits();
+            ListUnitCommands();
+        });
 
     for (wxCheckBox* CheckBox : Units_Trait_CheckBox)
     {
         CheckBox->Bind(wxEVT_CHECKBOX, [this](wxCommandEvent& event)
-        {
-            if (Units_Trait->GetValue().empty()) return;
-            try
             {
-                uint8_t attribute = lexical_cast<short>(Units_Trait->GetValue());
-                Units_Trait_CheckBox[0]->GetValue() ? attribute |= 0x01 : attribute &= ~0x01;
-                Units_Trait_CheckBox[1]->GetValue() ? attribute |= 0x02 : attribute &= ~0x02;
-                Units_Trait_CheckBox[2]->GetValue() ? attribute |= 0x04 : attribute &= ~0x04;
-                Units_Trait_CheckBox[3]->GetValue() ? attribute |= 0x08 : attribute &= ~0x08;
-                Units_Trait_CheckBox[4]->GetValue() ? attribute |= 0x10 : attribute &= ~0x10;
-                Units_Trait_CheckBox[5]->GetValue() ? attribute |= 0x20 : attribute &= ~0x20;
-                Units_Trait_CheckBox[6]->GetValue() ? attribute |= 0x40 : attribute &= ~0x40;
-                Units_Trait_CheckBox[7]->GetValue() ? attribute |= 0x80 : attribute &= ~0x80;
-                Units_Trait->ChangeValue(FormatInt(attribute));
-                Units_Trait->SaveEdits();
-            }
-            catch (const bad_lexical_cast&)
-            {
-                Units_Trait->clear();
-                Units_Trait->ChangeValue("Error");
-            }
-        });
+                if (Units_Trait->GetValue().empty()) return;
+                try
+                {
+                    uint8_t attribute = lexical_cast<short>(Units_Trait->GetValue());
+                    Units_Trait_CheckBox[0]->GetValue() ? attribute |= 0x01 : attribute &= ~0x01;
+                    Units_Trait_CheckBox[1]->GetValue() ? attribute |= 0x02 : attribute &= ~0x02;
+                    Units_Trait_CheckBox[2]->GetValue() ? attribute |= 0x04 : attribute &= ~0x04;
+                    Units_Trait_CheckBox[3]->GetValue() ? attribute |= 0x08 : attribute &= ~0x08;
+                    Units_Trait_CheckBox[4]->GetValue() ? attribute |= 0x10 : attribute &= ~0x10;
+                    Units_Trait_CheckBox[5]->GetValue() ? attribute |= 0x20 : attribute &= ~0x20;
+                    Units_Trait_CheckBox[6]->GetValue() ? attribute |= 0x40 : attribute &= ~0x40;
+                    Units_Trait_CheckBox[7]->GetValue() ? attribute |= 0x80 : attribute &= ~0x80;
+                    Units_Trait->ChangeValue(FormatInt(attribute));
+                    Units_Trait->SaveEdits();
+                }
+                catch (const bad_lexical_cast&)
+                {
+                    Units_Trait->clear();
+                    Units_Trait->ChangeValue("Error");
+                }
+            });
     }
 
     for (wxCheckBox* CheckBox : Units_GarrisonType_CheckBox)
     {
         CheckBox->Bind(wxEVT_CHECKBOX, [this](wxCommandEvent& event)
-        {
-            if (Units_GarrisonType->GetValue().empty()) return;
-            try
             {
-                uint8_t type = lexical_cast<short>(Units_GarrisonType->GetValue());
-                Units_GarrisonType_CheckBox[0]->GetValue() ? type |= 0x01 : type &= ~0x01;
-                Units_GarrisonType_CheckBox[1]->GetValue() ? type |= 0x02 : type &= ~0x02;
-                Units_GarrisonType_CheckBox[2]->GetValue() ? type |= 0x04 : type &= ~0x04;
-                Units_GarrisonType_CheckBox[3]->GetValue() ? type |= 0x08 : type &= ~0x08;
-                Units_GarrisonType_CheckBox[4]->GetValue() ? type |= 0x10 : type &= ~0x10;
-                Units_GarrisonType_CheckBox[5]->GetValue() ? type |= 0x20 : type &= ~0x20;
-                Units_GarrisonType_CheckBox[6]->GetValue() ? type |= 0x40 : type &= ~0x40;
-                Units_GarrisonType_CheckBox[7]->GetValue() ? type |= 0x80 : type &= ~0x80;
-                Units_GarrisonType->ChangeValue(FormatInt(type));
-                Units_GarrisonType->SaveEdits();
-            }
-            catch (const bad_lexical_cast&)
-            {
-                Units_GarrisonType->clear();
-                Units_GarrisonType->ChangeValue("Error");
-            }
-        });
+                if (Units_GarrisonType->GetValue().empty()) return;
+                try
+                {
+                    uint8_t type = lexical_cast<short>(Units_GarrisonType->GetValue());
+                    Units_GarrisonType_CheckBox[0]->GetValue() ? type |= 0x01 : type &= ~0x01;
+                    Units_GarrisonType_CheckBox[1]->GetValue() ? type |= 0x02 : type &= ~0x02;
+                    Units_GarrisonType_CheckBox[2]->GetValue() ? type |= 0x04 : type &= ~0x04;
+                    Units_GarrisonType_CheckBox[3]->GetValue() ? type |= 0x08 : type &= ~0x08;
+                    Units_GarrisonType_CheckBox[4]->GetValue() ? type |= 0x10 : type &= ~0x10;
+                    Units_GarrisonType_CheckBox[5]->GetValue() ? type |= 0x20 : type &= ~0x20;
+                    Units_GarrisonType_CheckBox[6]->GetValue() ? type |= 0x40 : type &= ~0x40;
+                    Units_GarrisonType_CheckBox[7]->GetValue() ? type |= 0x80 : type &= ~0x80;
+                    Units_GarrisonType->ChangeValue(FormatInt(type));
+                    Units_GarrisonType->SaveEdits();
+                }
+                catch (const bad_lexical_cast&)
+                {
+                    Units_GarrisonType->clear();
+                    Units_GarrisonType->ChangeValue("Error");
+                }
+            });
     }
 
     for (wxCheckBox* CheckBox : Units_ChargeTarget_CheckBox)
     {
         CheckBox->Bind(wxEVT_CHECKBOX, [this](wxCommandEvent& event)
-        {
-            if (Units_ChargeTarget->GetValue().empty()) return;
-            try
             {
-                uint16_t type = lexical_cast<short>(Units_ChargeTarget->GetValue());
-                Units_ChargeTarget_CheckBox[0]->GetValue() ? type |= 0x01 : type &= ~0x01;
-                Units_ChargeTarget_CheckBox[1]->GetValue() ? type |= 0x02 : type &= ~0x02;
-                Units_ChargeTarget_CheckBox[2]->GetValue() ? type |= 0x04 : type &= ~0x04;
-                Units_ChargeTarget_CheckBox[3]->GetValue() ? type |= 0x08 : type &= ~0x08;
-                Units_ChargeTarget_CheckBox[4]->GetValue() ? type |= 0x10 : type &= ~0x10;
-                Units_ChargeTarget_CheckBox[5]->GetValue() ? type |= 0x20 : type &= ~0x20;
-                Units_ChargeTarget_CheckBox[6]->GetValue() ? type |= 0x40 : type &= ~0x40;
-                Units_ChargeTarget_CheckBox[7]->GetValue() ? type |= 0x80 : type &= ~0x80;
-                Units_ChargeTarget_CheckBox[8]->GetValue() ? type |= 0x100 : type &= ~0x100;
-                Units_ChargeTarget->ChangeValue(FormatInt(type));
-                Units_ChargeTarget->SaveEdits();
-            }
-            catch (const bad_lexical_cast&)
-            {
-                Units_ChargeTarget->clear();
-                Units_ChargeTarget->ChangeValue("Error");
-            }
-        });
+                if (Units_ChargeTarget->GetValue().empty()) return;
+                try
+                {
+                    uint16_t type = lexical_cast<short>(Units_ChargeTarget->GetValue());
+                    Units_ChargeTarget_CheckBox[0]->GetValue() ? type |= 0x01 : type &= ~0x01;
+                    Units_ChargeTarget_CheckBox[1]->GetValue() ? type |= 0x02 : type &= ~0x02;
+                    Units_ChargeTarget_CheckBox[2]->GetValue() ? type |= 0x04 : type &= ~0x04;
+                    Units_ChargeTarget_CheckBox[3]->GetValue() ? type |= 0x08 : type &= ~0x08;
+                    Units_ChargeTarget_CheckBox[4]->GetValue() ? type |= 0x10 : type &= ~0x10;
+                    Units_ChargeTarget_CheckBox[5]->GetValue() ? type |= 0x20 : type &= ~0x20;
+                    Units_ChargeTarget_CheckBox[6]->GetValue() ? type |= 0x40 : type &= ~0x40;
+                    Units_ChargeTarget_CheckBox[7]->GetValue() ? type |= 0x80 : type &= ~0x80;
+                    Units_ChargeTarget_CheckBox[8]->GetValue() ? type |= 0x100 : type &= ~0x100;
+                    Units_ChargeTarget->ChangeValue(FormatInt(type));
+                    Units_ChargeTarget->SaveEdits();
+                }
+                catch (const bad_lexical_cast&)
+                {
+                    Units_ChargeTarget->clear();
+                    Units_ChargeTarget->ChangeValue("Error");
+                }
+            });
     }
-
     Units_IconID->Bind(wxEVT_KILL_FOCUS, TrySaveThenSelectUnit);
     Units_IconID->Bind(wxEVT_TEXT_ENTER, SaveThenSelectUnit);
     Units_IconAngle->Bind(wxEVT_KILL_FOCUS, TrySaveThenSelectUnit);
     Units_IconAngle->Bind(wxEVT_TEXT_ENTER, SaveThenSelectUnit);
     Units_IconID_SLP->Bind(wxEVT_PAINT, &AGE_Frame::OnDrawIconSLP, this);
-    Units_IconID_SLP->Bind(wxEVT_ERASE_BACKGROUND, [](wxEraseEvent&){});
+    Units_IconID_SLP->Bind(wxEVT_ERASE_BACKGROUND, [](wxEraseEvent&) {});
 
     // To make SLP view refresh.
     Units_ConstructionGraphicID->Bind(wxEVT_KILL_FOCUS, TrySaveThenRenderUnit);
@@ -7012,7 +7422,7 @@ void AGE_Frame::CreateUnitControls()
     Units_SelectionRadius[0]->Bind(wxEVT_TEXT_ENTER, SaveThenRenderUnit);
     Units_SelectionRadius[1]->Bind(wxEVT_KILL_FOCUS, TrySaveThenRenderUnit);
     Units_SelectionRadius[1]->Bind(wxEVT_TEXT_ENTER, SaveThenRenderUnit);
-    for(size_t loop = 0; loop < 4; ++loop)
+    for (size_t loop = 0; loop < 4; ++loop)
     {
         Units_AnnexUnitMisplacement[loop][0]->Bind(wxEVT_KILL_FOCUS, TrySaveThenRenderUnit);
         Units_AnnexUnitMisplacement[loop][0]->Bind(wxEVT_TEXT_ENTER, SaveThenRenderUnit);
